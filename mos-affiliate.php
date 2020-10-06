@@ -9,3 +9,9 @@ if ( !defined( 'ABSPATH' ) ) {
   die();
 }
 
+require_once( 'includes/classes/MosAffiliatePlugin.php' );
+
+if ( class_exists( 'MosAffiliatePlugin' ) ) {
+  $mos_affiliate_plugin = new MosAffiliatePlugin( __FILE__ );
+  $mos_affiliate_plugin->init();
+}

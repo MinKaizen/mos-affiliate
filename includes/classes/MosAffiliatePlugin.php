@@ -14,11 +14,18 @@ class MosAffiliatePlugin {
 
   public function init() {
     $this->load_dependencies();
+    $this->register_shortcodes();
   }
 
 
   private function load_dependencies() {
 
   }
+
+
+  private function register_shortcodes() {
+
+  }
+
 
 }

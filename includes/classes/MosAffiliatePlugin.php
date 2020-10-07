@@ -19,7 +19,7 @@ class MosAffiliatePlugin {
 
 
   private function load_dependencies() {
-
+    require_once( "{$this->path}includes/classes/MosAffiliateController.php" );
   }
 
 
@@ -45,6 +45,14 @@ class MosAffiliatePlugin {
       return '';
     }
     
+    // Load controller
+    $controller = MosAffiliateController::get_controller( $view_name );
+
+    // If controller exists, extract its data
+    if ( $controller !== false ) {
+      extract( $controller->data() );
+    }
+
     // Get view html as a string
     ob_start();
     include( $view_file_name );

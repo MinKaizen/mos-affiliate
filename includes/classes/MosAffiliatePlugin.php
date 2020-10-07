@@ -28,6 +28,11 @@ class MosAffiliatePlugin {
     add_shortcode( 'mos_uap_campaign_form', function(){
       return $this->get_view('campaign_form');
     });
+
+    // Campaign list
+    add_shortcode( 'mos_uap_campaign_list', function(){
+      return $this->get_view('campaign_list');
+    });
   }
 
 

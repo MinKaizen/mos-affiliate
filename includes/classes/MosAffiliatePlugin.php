@@ -24,8 +24,26 @@ class MosAffiliatePlugin {
 
 
   private function register_shortcodes() {
-
+    // Campaign form
+    add_shortcode( 'mos_uap_campaign_form', function(){
+      return $this->get_view('campaign_form');
+    });
   }
 
+  private function get_view( string $view_name ) {
+    $view_file_name = "{$this->path}/includes/views/$view_name.php";
+    
+    // Check if view exits
+    if ( !file_exists( $view_file_name ) ) {
+      return '';
+    }
+    
+    // Get view html as a string
+    ob_start();
+    include( $view_file_name );
+    $view = ob_get_clean();
+    
+    return $view;
+  }
 
 }

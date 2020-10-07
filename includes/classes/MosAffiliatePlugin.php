@@ -30,6 +30,7 @@ class MosAffiliatePlugin {
     });
   }
 
+  
   private function get_view( string $view_name ) {
     $view_file_name = "{$this->path}/includes/views/$view_name.php";
     

@@ -53,6 +53,7 @@ class MosAffiliatePlugin {
     return $view;
   }
 
+  
   /**
    * Convert snake case to camel case
    *

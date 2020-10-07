@@ -53,18 +53,4 @@ class MosAffiliatePlugin {
     return $view;
   }
 
-  
-  /**
-   * Convert snake case to camel case
-   *
-   * @param string $name            Name in snake case: abc_defg_hij
-   * @param boolean $capitalize     Whether or not to capitalize the first word
-   * @return $camel_case            Name in camel case: AbcDefgHij
-   */
-  private function snake_to_camel_case( string $name, bool $capitalize=false ) {
-    $camel_case = str_replace( ' ', '', ucwords( implode( " ", explode( "_", $name ) ) ) );
-    $camel_case = $capitalize ? $camel_case : lcfirst($camel_case);
-    return $camel_case;
-  }
-
 }

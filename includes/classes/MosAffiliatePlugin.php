@@ -31,6 +31,12 @@ class MosAffiliatePlugin {
   }
 
 
+  /**
+   * Get view html as string
+   *
+   * @param string  $view_name   Name of the view
+   * @return string $view        The view's html as a string
+   */
   private function get_view( string $view_name ) {
     $view_file_name = "{$this->path}/includes/views/$view_name.php";
     

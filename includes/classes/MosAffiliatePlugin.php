@@ -2,8 +2,8 @@
 
 class MosAffiliatePlugin {
 
-  private $path = '';
-  private $url = '';
+  public $path = '';
+  public $url = '';
 
 
   public function __construct( string $plugin_file ) {

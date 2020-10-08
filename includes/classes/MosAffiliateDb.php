@@ -119,6 +119,7 @@ class MosAffiliateDb {
       ],
     ];
 
+    // Generate query sting parts
     foreach ( $columns as $column_name => $column ) {
       // Skip if column was not requested by caller
       if ( !in_array( $column_name, $requested_columns ) && !$column['mandatory'] ) {
@@ -137,10 +138,13 @@ class MosAffiliateDb {
 
     }
 
+    // Prepare SQL query
     $selects = implode( ', ', $selects );
     $joins = implode( ' LEFT JOIN ', $joins );
     $conditions = "{$columns['sponsor']['table_alias']}.{$columns['sponsor']['col']} = $affid";
     $query = "SELECT $selects FROM $base_table LEFT JOIN $joins WHERE $conditions";
+
+    // Execute SQL query
     $referrals = $wpdb->get_results( $query );
 
     return $referrals;

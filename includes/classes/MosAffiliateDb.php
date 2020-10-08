@@ -26,7 +26,7 @@ class MosAffiliateDb {
     // Perform SQL lookup
     $table = $wpdb->prefix.'uap_campaigns';
     $query = "SELECT `name`, `visit_count` as clicks, `unique_visits_count` as unique_clicks, `referrals` FROM $table WHERE affiliate_id = $affid";
-    $campaign_data = $wpdb->get_results( $query, );
+    $campaign_data = $wpdb->get_results( $query, ARRAY_A );
 
     // Check if campaign data is valid
     if ( empty( $campaign_data ) ) {

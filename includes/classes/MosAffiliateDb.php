@@ -33,6 +33,11 @@ class MosAffiliateDb {
       return false;
     }
 
+    foreach( $campaign_data as $index => $campaign ) {
+      $campaign_data[$campaign['name']] = $campaign;
+      unset( $campaign_data[$index] );
+    }
+
     return $campaign_data;
   }
 

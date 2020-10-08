@@ -147,6 +147,11 @@ class MosAffiliateDb {
     // Execute SQL query
     $referrals = $wpdb->get_results( $query );
 
+    // Check that SQL returned valid result
+    if ( empty( $referrals ) ) {
+      return false;
+    }
+
     return $referrals;
   }
   

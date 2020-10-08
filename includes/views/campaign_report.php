@@ -16,23 +16,3 @@
     <?php endforeach; ?>
   </tbody>
 </table>
-
-<p>
-  <?php
-    $db = new MosAffiliateDb();
-    $referrals = $db->get_referrals([
-      'id',
-      'username',
-      'email',
-      'first_name',
-      'last_name',
-      'affid',
-      'level',
-      'date',
-    ]);
-
-    echo $referrals;
-    echo "<br>";
-    var_dump( $referrals );
-  ?>
-</p>

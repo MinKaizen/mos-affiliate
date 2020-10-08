@@ -66,103 +66,80 @@ class MosAffiliateDb {
         'col' => 'user_registered',
       ],
       'first_name' => [
-        'table' => $wpdb->prefix.'usermeta',
+        'table' => "(SELECT user_id, meta_value FROM {$wpdb->prefix}usermeta WHERE meta_key='first_name')",
         'table_alias' => '_first_name',
         'col' => 'meta_value',
         'col_alias' => 'first_name',
-        'join_from' => $base_table.'.id',
-        'join_to' => '_first_name.user_id',
-        'condition_key' => 'meta_key',
-        'condition_value' => "'first_name'",
+        'join' => [
+          'table' => '',
+          'key1' => $base_table.'.id',
+          'key2' => '_first_name.user_id',
+        ],
       ],
       'last_name' => [
-        'table' => $wpdb->prefix.'usermeta',
+        'table' => "(SELECT user_id, meta_value FROM {$wpdb->prefix}usermeta WHERE meta_key='last_name')",
         'table_alias' => '_last_name',
         'col' => 'meta_value',
         'col_alias' => 'last_name',
-        'join_from' => $base_table.'.id',
-        'join_to' => '_last_name.user_id',
-        'condition_key' => 'meta_key',
-        'condition_value' => "'last_name'",
+        'join' => [
+          'key1' => $base_table.'.id',
+          'key2' => '_last_name.user_id',
+        ],
       ],
       'level' => [
-        'table' => $wpdb->prefix.'usermeta',
+        'table' => "(SELECT user_id, meta_value FROM {$wpdb->prefix}usermeta WHERE meta_key='{$wpdb->prefix}capabilities')",
         'table_alias' => '_level',
         'col' => 'meta_value',
         'col_alias' => 'level',
-        'join_from' => $base_table.'.id',
-        'join_to' => '_level.user_id',
-        'condition_key' => 'meta_key',
-        'condition_value' => "'{$wpdb->prefix}capabilities'",
+        'join' => [
+          'key1' => $base_table.'.id',
+          'key2' => '_level.user_id',
+        ],
       ],
       'affid' => [
         'table' => $wpdb->prefix.'uap_affiliates',
         'table_alias' => '_affiliates',
         'col' => 'id',
         'col_alias' => 'affid',
-        'join_from' => $base_table.'.id',
-        'join_to' => '_affiliates.uid',
+        'join' => [
+          'key1' => $base_table.'.id',
+          'key2' => '_affiliates.uid',
+        ],
       ],
       'sponsor' => [
         'table' => $wpdb->prefix.'uap_affiliate_referral_users_relations',
         'table_alias' => '_sponsor',
         'col' => 'affiliate_id',
         'col_alias' => 'sponsor',
-        'join_from' => $base_table.'.id',
-        'join_to' => '_sponsor.referral_wp_uid',
-        'condition_key' => 'affiliate_id',
-        'condition_value' => $affid,
+        'join' => [
+          'key1' => $base_table.'.id',
+          'key2' => '_sponsor.referral_wp_uid',
+        ],
         'mandatory' => true,
       ],
     ];
 
-    // Generate SELECT statement parts
     foreach ( $columns as $column_name => $column ) {
       // Skip if column was not requested by caller
       if ( !in_array( $column_name, $requested_columns ) && !$column['mandatory'] ) {
         continue;
       }
 
-      // Generate alias for column name
-      $set_alias = $column['col_alias'] ? "as $column[col_alias]" : '';
-
+      // Generate SELECT statement parts
+      $add_col_alias = $column['col_alias'] ? "as $column[col_alias]" : '';
       $table = $column['table_alias'] ? $column['table_alias'] : $column['table'];
-      $selects[$column_name] = "$table.$column[col] $set_alias";
-    }
+      $selects[$column_name] = "$table.$column[col] $add_col_alias";
 
-    // Generate JOIN statement parts
-    foreach ( $columns as $column_name => $column ) {
-      // Skip if column was not requested by caller
-      if ( !in_array( $column_name, $requested_columns ) && !$column['mandatory'] ) {
-        continue;
+      // Generate JOIN statement parts
+      if ( $column['table'] !== $base_table ) {
+        $joins[$column_name] = "$column[table] as $column[table_alias] ON {$column['join']['key1']} = {$column['join']['key2']}";
       }
 
-      // Skip if column is from base table
-      if ( $column['table'] == $base_table ) {
-        continue;
-      }
-
-      $joins[$column_name] = "$column[table] as $column[table_alias] ON $column[join_from] = $column[join_to]";
-    }
-
-    // Generate WHERE statement parts
-    foreach ( $columns as $column_name => $column ) {
-      // Skip if column was not requested by caller
-      if ( !in_array( $column_name, $requested_columns ) && !$column['mandatory'] ) {
-        continue;
-      }
-
-      // Skip if column does not need a WHERE statement
-      if ( empty( $column['condition_key'] ) ) {
-        continue;
-      }
-
-      $conditions[$column_name] = "$column[table_alias].$column[condition_key] = $column[condition_value]";
     }
 
     $selects = implode( ', ', $selects );
     $joins = implode( ' LEFT JOIN ', $joins );
-    $conditions = implode ( ' AND ', $conditions );
+    $conditions = "{$columns['sponsor']['table_alias']}.{$columns['sponsor']['col']} = $affid";
     $query = "SELECT $selects FROM $base_table LEFT JOIN $joins WHERE $conditions";
     $referrals = $wpdb->get_results( $query );
 

@@ -167,7 +167,9 @@ class MosAffiliateDb {
       unset( $referral->sponsor );
 
       // Convert wp_capability to readable level name
-      $referral->level = $this->wpcap_to_level( $referral->level );
+      if ( $referral->level ) {
+        $referral->level = $this->wpcap_to_level( $referral->level );
+      }
     }
 
     return $referrals;

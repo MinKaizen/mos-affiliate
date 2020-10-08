@@ -96,6 +96,15 @@ class MosAffiliateDb {
           'key2' => '_level.user_id',
         ],
       ],
+      'campaign' => [
+        'table' => "(SELECT refferal_wp_uid, campaign FROM {$wpdb->prefix}uap_referrals WHERE affiliate_id=$affid)",
+        'table_alias' => '_campaign',
+        'col' => 'campaign',
+        'join' => [
+          'key1' => $base_table.'.id',
+          'key2' => '_campaign.refferal_wp_uid',
+        ],
+      ],
       'affid' => [
         'table' => $wpdb->prefix.'uap_affiliates',
         'table_alias' => '_affiliates',

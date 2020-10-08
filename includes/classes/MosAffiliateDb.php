@@ -152,6 +152,11 @@ class MosAffiliateDb {
       return false;
     }
 
+    // Remove the sponsor coloumn (only needed it to filter results)
+    foreach( $referrals as &$referral ) {
+      unset( $referral->sponsor );
+    }
+
     return $referrals;
   }
   

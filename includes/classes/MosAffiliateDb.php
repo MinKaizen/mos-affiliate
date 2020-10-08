@@ -10,6 +10,31 @@ class MosAffiliateDb {
     $new_instance = new self;
     return $new_instance;
   }
+
+
+  public function get_campaign_data() {
+    global $wpdb;
+
+    // Get affid of current user
+    $affid = $this->get_affid();
+
+    // Check if affid is valid
+    if ( $affid === false ) {
+      return false;
+    }
+
+    // Perform SQL lookup
+    $table = $wpdb->prefix.'uap_campaigns';
+    $query = "SELECT `name`, `visit_count` as clicks, `unique_visits_count` as unique_clicks, `referrals` FROM $table WHERE affiliate_id = $affid";
+    $campaign_data = $wpdb->get_results( $query, );
+
+    // Check if campaign data is valid
+    if ( empty( $campaign_data ) ) {
+      return false;
+    }
+
+    return $campaign_data;
+  }
   
 
   public function get_campaigns() {

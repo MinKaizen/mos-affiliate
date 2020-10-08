@@ -152,9 +152,13 @@ class MosAffiliateDb {
       return false;
     }
 
-    // Remove the sponsor coloumn (only needed it to filter results)
+    // Final clean up
     foreach( $referrals as &$referral ) {
+      // Remove sponsor column
       unset( $referral->sponsor );
+
+      // Convert wp_capability to readable level name
+      $referral->level = $this->wpcap_to_level( $referral->level );
     }
 
     return $referrals;
@@ -223,5 +227,28 @@ class MosAffiliateDb {
     return $wpid;
   }
 
+
+  /**
+   * Convert WP Capability (serialized php array) to slug or nice name (optional)
+   *
+   * @param string $wpcap               Wordpress capability in php serialized array form
+   * @param boolean $use_nice_name      (optional) whether to return a nice name instead of a slug
+   * @return string                     Slug or nicename of the level
+   */
+  private function wpcap_to_level( string $wpcap, bool $use_nice_name=false ) {
+    $unserialized = unserialize( $wpcap );
+
+    // Get the first array key
+    if ( array_keys( $unserialized )[0] ) {
+      $level = array_keys( $unserialized )[0];
+    }
+
+    // Optionally, return a nice name instead of a slug
+    if ( $use_nice_name ) {
+      $level = ucwords( str_replace( '_', ' ', $level ) );
+    }
+
+    return $level;
+  }
 
 }

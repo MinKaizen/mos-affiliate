@@ -16,7 +16,13 @@ class CampaignReportController extends MosAffiliateController {
 
 
   protected function headers() {
-    $headers = array_keys((array)$this->campaigns()[0]);
+    $headers = [
+      'name',
+      'clicks',
+      'unique clicks',
+      'referrals',
+      'partners',
+    ];
     return $headers;
   }
 

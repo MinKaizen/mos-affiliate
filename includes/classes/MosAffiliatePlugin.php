@@ -14,6 +14,7 @@ class MosAffiliatePlugin {
 
   public function init() {
     $this->load_dependencies();
+    $this->load_scripts();
     $this->register_shortcodes();
   }
 
@@ -22,6 +23,13 @@ class MosAffiliatePlugin {
     require_once( "{$this->path}includes/classes/MosAffiliateDb.php" );
     require_once( "{$this->path}includes/classes/MosAffiliateController.php" );
     require_once( "{$this->path}includes/classes/MosAffiliateConstants.php" );
+  }
+
+
+  private function load_scripts() {
+    add_action( 'wp_enqueue_scripts', function() {
+      wp_enqueue_script( 'mosAffiliate', $this->url.'dist/js/mosAffiliate.js', [], '1.0.0', true );
+    });
   }
 
 

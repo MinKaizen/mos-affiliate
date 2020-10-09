@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/voluum1412/mos-affiliate#readme",
   "dependencies": {
+    "datatables.net": "^1.10.22",
     "path": "^0.12.7",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"

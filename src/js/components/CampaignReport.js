@@ -11,7 +11,8 @@ export default class campaignReport {
       buttons: [
         {
             extend: 'csv',
-            text: 'Download CSV'
+            text: 'Download CSV',
+            className: 'exportButtonClassnameChangeThisLater'
         },
       ]
     }

@@ -1,6 +1,5 @@
 const $ = require('jquery');
-const dt = require('datatables.net');
-const dts = require('datatables.net-dt');
+require('datatables.net');
 
 export default class campaignReport {
 

@@ -10,6 +10,8 @@ const components = [
 // Initialise components
 components.forEach(component => {
   if (document.querySelector(component.selector)) {
-    new component.class();
+    document.querySelectorAll(component.selector).forEach(element => {
+      new component.class(element)
+    })
   }
 })

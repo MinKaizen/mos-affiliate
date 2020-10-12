@@ -28,7 +28,7 @@ class MosAffiliatePlugin {
 
   private function load_scripts() {
     add_action( 'wp_enqueue_scripts', function() {
-      wp_enqueue_script( 'mosAffiliate', $this->url.'dist/js/mosAffiliate.js', [], '1.0.0', true );
+      wp_enqueue_script( 'mosAffiliate', $this->url.'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
     });
   }
 

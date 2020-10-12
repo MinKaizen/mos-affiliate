@@ -1,4 +1,4 @@
-<table>
+<table class='js-campaign-report'>
   <thead>
     <tr>
       <?php foreach( $headers as $header ):?>

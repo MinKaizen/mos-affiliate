@@ -159,7 +159,7 @@ class MosAffiliateDb {
     $query = "SELECT $selects FROM $base_table LEFT JOIN $joins WHERE $conditions";
 
     // Execute SQL query
-    $referrals = $wpdb->get_results( $query );
+    $referrals = $wpdb->get_results( $query, ARRAY_A );
 
     // Check that SQL returned valid result
     if ( empty( $referrals ) ) {
@@ -169,11 +169,11 @@ class MosAffiliateDb {
     // Final clean up
     foreach( $referrals as &$referral ) {
       // Remove sponsor column
-      unset( $referral->sponsor );
+      unset( $referral['sponsor'] );
 
       // Convert wp_capability to readable level name
-      if ( $referral->level ) {
-        $referral->level = $this->wpcap_to_level( $referral->level );
+      if ( $referral['level'] ) {
+        $referral['level'] = $this->wpcap_to_level( $referral['level'] );
       }
     }
 

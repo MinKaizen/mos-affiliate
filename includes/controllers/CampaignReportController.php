@@ -22,13 +22,13 @@ class CampaignReportController extends MosAffiliateController {
 
     // Count partners
     foreach ( $referrals as $referral ) {
-      if ( strpos( 'partner', $referral->level) !== false ) {
-        $campaigns[$referral->campaign]['partners']++;
+      if ( strpos( 'partner', $referral['level']) !== false ) {
+        $campaigns[$referral['campaign']]['partners']++;
       }
     }
 
     return $campaigns;
   }
 
-  
+
 }

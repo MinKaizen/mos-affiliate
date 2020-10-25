@@ -9,6 +9,11 @@ if ( !defined( 'ABSPATH' ) ) {
   die();
 }
 
+// Composer autoloader
+if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+  require __DIR__ . '/vendor/autoload.php';
+}
+
 require_once( 'includes/classes/MosAffiliatePlugin.php' );
 
 if ( class_exists( 'MosAffiliatePlugin' ) ) {

@@ -4,8 +4,44 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd957877a1644d3944c0e46e7ceb2471",
+    "content-hash": "ce37fc81035c56b446eb99fab748f508",
     "packages": [
+        {
+            "name": "10up/async-transients",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/10up/Async-Transients.git",
+                "reference": "0dfb0e5fd98333d5e7d29c45ef1d01e66c129e4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/10up/Async-Transients/zipball/0dfb0e5fd98333d5e7d29c45ef1d01e66c129e4a",
+                "reference": "0dfb0e5fd98333d5e7d29c45ef1d01e66c129e4a",
+                "shasum": ""
+            },
+            "type": "wordpress-library",
+            "autoload": {
+                "psr-4": {
+                    "TenUp\\AsyncTransients\\": "includes/TenUp/AsyncTransients"
+                },
+                "files": [
+                    "includes/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "10up",
+                    "homepage": "http://10up.com"
+                }
+            ],
+            "description": "Transients, that regenerate asynchronously once content is expired, and serve stale content in the mean time",
+            "time": "2018-01-09T15:53:01+00:00"
+        },
         {
             "name": "composer/installers",
             "version": "v1.9.0",
@@ -147,7 +183,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "10up/async-transients": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

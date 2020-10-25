@@ -1,0 +1,15 @@
+{
+    "name": "mos/affiliate",
+    "description": "Affiliate plugin for My Online Startup",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Martin Cao",
+            "email": "martin.g.cao@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}

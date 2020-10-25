@@ -11,6 +11,7 @@
     "minimum-stability": "dev",
     "require": {
         "composer/installers": "~1.0",
-        "10up/async-transients": "dev-master"
+        "10up/async-transients": "dev-master",
+        "twig/twig": "^3.0"
     }
 }

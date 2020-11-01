@@ -1,5 +1,7 @@
 <?php
 
+namespace MOS\Affiliate;
+
 class MosAffiliatePlugin {
 
   public $path = '';
@@ -7,8 +9,8 @@ class MosAffiliatePlugin {
 
 
   public function __construct( string $plugin_file ) {
-    $this->path = plugin_dir_path( $plugin_file );
-    $this->url = plugin_dir_url( $plugin_file );
+    $this->path = \plugin_dir_path( $plugin_file );
+    $this->url = \plugin_dir_url( $plugin_file );
   }
 
 
@@ -27,25 +29,25 @@ class MosAffiliatePlugin {
 
 
   private function load_scripts() {
-    add_action( 'wp_enqueue_scripts', function() {
-      wp_enqueue_script( 'mosAffiliate', $this->url.'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
+    \add_action( 'wp_enqueue_scripts', function() {
+      \wp_enqueue_script( 'mosAffiliate', $this->url.'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
     });
   }
 
 
   private function register_shortcodes() {
     // Campaign form
-    add_shortcode( 'mos_uap_campaign_form', function(){
+    \add_shortcode( 'mos_uap_campaign_form', function(){
       return $this->get_view('campaign_form');
     });
 
     // Campaign list
-    add_shortcode( 'mos_uap_campaign_list', function(){
+    \add_shortcode( 'mos_uap_campaign_list', function(){
       return $this->get_view('campaign_list');
     });
 
     // Campaign report
-    add_shortcode( 'mos_uap_campaign_report', function(){
+    \add_shortcode( 'mos_uap_campaign_report', function(){
       return $this->get_view('campaign_report');
     });
   }
@@ -58,7 +60,7 @@ class MosAffiliatePlugin {
    * @return string $view        The view's html as a string
    */
   private function get_view( string $view_name ) {
-    $view_file_name = "{$this->path}/includes/views/$view_name.php";
+    $view_file_name = PLUGIN_DIR . "/includes/views/$view_name.php";
     
     // Check if view exits
     if ( !file_exists( $view_file_name ) ) {

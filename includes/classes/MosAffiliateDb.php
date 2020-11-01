@@ -4,6 +4,8 @@
  * Performs database setters and getters
  */
 
+namespace MOS\Affiliate;
+
 class MosAffiliateDb {
 
   public static function instance() {
@@ -26,7 +28,7 @@ class MosAffiliateDb {
     // Perform SQL lookup
     $table = $wpdb->prefix.'uap_campaigns';
     $query = "SELECT `name`, `visit_count` as clicks, `unique_visits_count` as unique_clicks, `referrals` FROM $table WHERE affiliate_id = $affid";
-    $campaign_data = $wpdb->get_results( $query, ARRAY_A );
+    $campaign_data = $wpdb->get_results( $query, \ARRAY_A );
 
     // Check if campaign data is valid
     if ( empty( $campaign_data ) ) {
@@ -159,7 +161,7 @@ class MosAffiliateDb {
     $query = "SELECT $selects FROM $base_table LEFT JOIN $joins WHERE $conditions";
 
     // Execute SQL query
-    $referrals = $wpdb->get_results( $query, ARRAY_A );
+    $referrals = $wpdb->get_results( $query, \ARRAY_A );
 
     // Check that SQL returned valid result
     if ( empty( $referrals ) ) {
@@ -234,7 +236,7 @@ class MosAffiliateDb {
 
 
   public function get_wpid() {
-    $wpid = get_current_user_id();
+    $wpid = \get_current_user_id();
 
     if ( empty( $wpid ) ) {
       return false;

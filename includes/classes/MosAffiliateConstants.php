@@ -1,5 +1,7 @@
 <?php
 
+namespace MOS\Affiliate;
+
 class MosAffiliateConstants {
 
   const AFFID = 0;

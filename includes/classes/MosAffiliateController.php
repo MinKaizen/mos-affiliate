@@ -9,6 +9,8 @@
  * Controller name: ThisIsAnExampleController
  */
 
+namespace MOS\Affiliate;
+
 class MosAffiliateController {
   
   protected $variables = [];
@@ -36,15 +38,14 @@ class MosAffiliateController {
    * @return MosAffiliateController    Controller with the matching CamelCase name, or FALSE
    */
   public static function get_controller( string $view_name ) {
-    global $mos_affiliate_plugin;
-
     $controller_name = self::snake_to_camel_case( $view_name, true ) . 'Controller';
-    $controller_file_name = "{$mos_affiliate_plugin->path}includes/controllers/$controller_name.php";
+    $controller_file_name = PLUGIN_DIR . "/includes/controllers/$controller_name.php";
+    $controller_class_name = NS . $controller_name;
 
     // Check if controller exists
     if ( file_exists( $controller_file_name ) ) {
       require_once( $controller_file_name );
-      $controller = new $controller_name();
+      $controller = new $controller_class_name();
     } else {
       $controller = false;
     }

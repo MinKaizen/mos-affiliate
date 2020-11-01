@@ -22,9 +22,9 @@ class MosAffiliatePlugin {
 
 
   private function load_dependencies() {
+    require_once( "{$this->path}includes/config.php" );
     require_once( "{$this->path}includes/classes/MosAffiliateDb.php" );
     require_once( "{$this->path}includes/classes/MosAffiliateController.php" );
-    require_once( "{$this->path}includes/classes/MosAffiliateConstants.php" );
   }
 
 

@@ -13,7 +13,7 @@ class MosAffiliatePlugin {
 
 
   private function load_dependencies() {
-    require_once( PLUGIN_DIR . "/includes/config.php" );
+    require_once( PLUGIN_DIR . "/includes/core/config.php" );
     require_once( PLUGIN_DIR . "/includes/classes/MosAffiliateDb.php" );
     require_once( PLUGIN_DIR . "/includes/classes/MosAffiliateController.php" );
   }

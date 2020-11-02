@@ -10,5 +10,8 @@ spl_autoload_register( function( $class_name ) {
   $remove_prefix = str_replace( __NAMESPACE__, '', $class_name );
   $convert_slashes = str_replace( '\\', '/', $remove_prefix );
   $file_name = __DIR__ . '/classes' . $convert_slashes . ".php";
-  require_once( $file_name );
+
+  if ( file_exists( $file_name ) ) {
+    require_once( $file_name );
+  }
 } );

@@ -41,6 +41,11 @@ class User extends \WP_User {
   }
 
 
+  public function wpid() {
+    return $this->ID;
+  }
+
+
   public function affid() {
     global $wpdb;
 

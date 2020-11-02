@@ -3,13 +3,16 @@
 namespace MOS\Affiliate\Shortcode;
 
 use MOS\Affiliate\Shortcode;
+use MOS\Affiliate\User;
 
 class MosWpid extends Shortcode {
 
   protected $slug = 'mos_wpid';
 
   public function shortcode_action( $args ): string {
-    return \get_current_user_id();
+    $user = User::current();
+    $wpid = $user->wpid();
+    return $wpid;
   }
 
 }

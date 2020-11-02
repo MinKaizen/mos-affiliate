@@ -41,7 +41,7 @@ class User extends \WP_User {
     global $wpdb;
 
     $table = $wpdb->prefix . 'uap_affiliates';
-    $query = "SELECT id FROM $table WHERE uid = {$this->id}";
+    $query = "SELECT id FROM $table WHERE uid = {$this->ID}";
     $affid = $wpdb->get_var( $query );
 
     $affid = $affid ? (int) $affid : 0;
@@ -54,7 +54,7 @@ class User extends \WP_User {
     global $wpdb;
 
     $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
-    $query = "SELECT affiliate_id FROM $table WHERE referral_wp_uid = $this->id";
+    $query = "SELECT affiliate_id FROM $table WHERE referral_wp_uid = $this->ID";
     $sponsor_affid = $wpdb->get_var( $query );
 
     if ( empty( $sponsor_affid ) ) {

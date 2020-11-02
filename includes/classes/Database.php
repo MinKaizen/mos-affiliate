@@ -132,13 +132,13 @@ class Database {
     // Generate query sting parts
     foreach ( $columns as $column_name => $column ) {
       // Skip if column was not requested by caller
-      if ( !in_array( $column_name, $requested_columns ) && !$column['mandatory'] ) {
+      if ( !in_array( $column_name, $requested_columns ) && empty( $column['mandatory'] ) ) {
         continue;
       }
 
       // Generate SELECT statement parts
-      $add_col_alias = $column['col_alias'] ? "as $column[col_alias]" : '';
-      $table = $column['table_alias'] ? $column['table_alias'] : $column['table'];
+      $add_col_alias = !empty( $column['col_alias'] ) ? "as $column[col_alias]" : '';
+      $table = !empty( $column['table_alias'] ) ? $column['table_alias'] : $column['table'];
       $selects[$column_name] = "$table.$column[col] $add_col_alias";
 
       // Generate JOIN statement parts

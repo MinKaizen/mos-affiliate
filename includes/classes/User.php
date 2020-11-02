@@ -7,7 +7,8 @@ class User extends \WP_User {
   
   public static function current() {
     $wpid = \get_current_user_id();
-    $user = $wpid ? new User( $wpid ) : false;
+    $user = empty( $wpid ) ? false : new User( $wpid );
+    $user = empty( $user->id ) ? false : $user;
     return $user;
   }
 

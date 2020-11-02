@@ -31,3 +31,30 @@ function get_view( string $view_name ) {
   
   return $view;
 }
+
+
+/**
+ * Convert snake_case to PascalCase
+ *
+ * @param string $name            Name in snake case: abc_defg_hij
+ * @return $camel_case            Name in camel case: AbcDefgHij
+ */
+function snake_to_pascal_case( string $name ): string {
+  $pascal = str_replace( ' ', '', ucwords( implode( " ", explode( "_", $name ) ) ) );
+  return $pascal;
+}
+
+/**
+ * Convert PascalCase to snake_case
+ *
+ * @param string $snake_case
+ * @return void
+ */
+function pascal_to_snake_case( string $snake_case ): string {
+  preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $snake_case, $matches);
+  $ret = $matches[0];
+  foreach ($ret as &$match) {
+    $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+  }
+  return implode('_', $ret);
+}

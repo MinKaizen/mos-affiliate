@@ -6,9 +6,9 @@ class MosAffiliatePlugin {
 
   private $views = [
     // shortcode name => view name
-    'mos_uap_campaign_form' => 'campaign_form',
-    'mos_uap_campaign_list' => 'campaign_list',
-    'mos_uap_campaign_report' => 'campaign_report',
+    'mos_campaign_form' => 'campaign_form',
+    'mos_campaign_list' => 'campaign_list',
+    'mos_campaign_report' => 'campaign_report',
   ];
 
 

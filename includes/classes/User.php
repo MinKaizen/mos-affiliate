@@ -4,6 +4,13 @@ namespace MOS\Affiliate;
 
 class User extends \WP_User {
 
+  
+  public static function current() {
+    $wpid = \get_current_user_id();
+    $user = $wpid ? new User( $wpid ) : false;
+    return $user;
+  }
+
   function affid() {
     global $wpdb;
 

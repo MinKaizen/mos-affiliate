@@ -10,7 +10,7 @@ class MosAffid extends Shortcode {
   protected $slug = 'mos_affid';
 
   public function shortcode_action( $args ): string {
-    $user = new User( \get_current_user_id() );
+    $user = User::current();
     return print_r( $user->affid(), true );
   }
 

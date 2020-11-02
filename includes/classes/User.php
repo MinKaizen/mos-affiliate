@@ -66,5 +66,10 @@ class User extends \WP_User {
     return $name;
   }
 
+
+  public function last_name() {
+    return $this->last_name;
+  }
+
   
 }

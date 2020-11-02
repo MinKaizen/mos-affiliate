@@ -11,7 +11,8 @@ class User extends \WP_User {
     return $user;
   }
 
-  function affid() {
+
+  public function affid() {
     global $wpdb;
 
     $table = $wpdb->prefix . 'uap_affiliates';

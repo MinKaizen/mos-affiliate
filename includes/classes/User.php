@@ -59,6 +59,11 @@ class User extends \WP_User {
   }
 
 
+  public function username() {
+    return $this->user_login;
+  }
+
+
   public function name() {
     if ($this->first_name && $this->last_name) {
       $name = implode( ' ', [$this->first_name, $this->last_name] );

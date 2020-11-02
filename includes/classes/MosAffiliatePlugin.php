@@ -4,7 +4,7 @@ namespace MOS\Affiliate;
 
 class MosAffiliatePlugin {
 
-  private $shortcodes = [
+  private $views = [
     // shortcode name => view name
     'mos_uap_campaign_form' => 'campaign_form',
     'mos_uap_campaign_list' => 'campaign_list',
@@ -21,7 +21,7 @@ class MosAffiliatePlugin {
   public function init() {
     $this->load_classes();
     $this->load_scripts();
-    $this->register_shortcodes();
+    $this->register_views();
   }
 
 
@@ -38,8 +38,8 @@ class MosAffiliatePlugin {
   }
 
 
-  private function register_shortcodes() {
-    foreach ( $this->shortcodes as $shortcode => $view ) {
+  private function register_views() {
+    foreach ( $this->views as $shortcode => $view ) {
       add_shortcode( $shortcode, function() use ($view) {
         return get_view( $view );
       });

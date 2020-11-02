@@ -13,11 +13,6 @@ class User extends \WP_User {
 
   public static function from_id( int $wpid ) {
     $new_user = new self( $wpid );
-
-    if ( empty( $new_user->ID ) ) {
-      return false;
-    }
-
     return $new_user;
   }
 

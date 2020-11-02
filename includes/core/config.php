@@ -6,3 +6,6 @@ namespace MOS\Affiliate;
 define( 'AFFID', 0);
 define( 'WPID', 1);
 define( 'USER_OBJECT', 2);
+
+// MIS
+define( 'MIS_SLUG_MAX_LEN', 20 );

@@ -34,49 +34,18 @@ class MosAffiliatePlugin {
   private function register_shortcodes() {
     // Campaign form
     \add_shortcode( 'mos_uap_campaign_form', function(){
-      return $this->get_view('campaign_form');
+      return get_view('campaign_form');
     });
 
     // Campaign list
     \add_shortcode( 'mos_uap_campaign_list', function(){
-      return $this->get_view('campaign_list');
+      return get_view('campaign_list');
     });
 
     // Campaign report
     \add_shortcode( 'mos_uap_campaign_report', function(){
-      return $this->get_view('campaign_report');
+      return get_view('campaign_report');
     });
-  }
-
-
-  /**
-   * Get view html as string
-   *
-   * @param string  $view_name   Name of the view
-   * @return string $view        The view's html as a string
-   */
-  private function get_view( string $view_name ) {
-    $view_file_name = PLUGIN_DIR . "/includes/views/$view_name.php";
-    
-    // Check if view exits
-    if ( !file_exists( $view_file_name ) ) {
-      return '';
-    }
-    
-    // Load controller
-    $controller = MosAffiliateController::get_controller( $view_name );
-
-    // If controller exists, extract its data
-    if ( $controller !== false ) {
-      extract( $controller->data() );
-    }
-
-    // Get view html as a string
-    ob_start();
-    include( $view_file_name );
-    $view = ob_get_clean();
-    
-    return $view;
   }
 
 }

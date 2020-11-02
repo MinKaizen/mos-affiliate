@@ -38,19 +38,45 @@ class MosAffiliateController {
    * @return MosAffiliateController    Controller with the matching CamelCase name, or FALSE
    */
   public static function get_controller( string $view_name ) {
-    $controller_name = self::snake_to_camel_case( $view_name, true ) . 'Controller';
-    $controller_file_name = PLUGIN_DIR . "/includes/controllers/$controller_name.php";
-    $controller_class_name = NS . $controller_name;
+    $class_name = self::controller_class_name( $view_name );
+    $file_path = self::controller_file_path( $view_name );
 
     // Check if controller exists
-    if ( file_exists( $controller_file_name ) ) {
-      require_once( $controller_file_name );
-      $controller = new $controller_class_name();
+    if ( file_exists( $file_path ) ) {
+      require_once( $file_path );
+      $controller = new $class_name();
     } else {
       $controller = false;
     }
 
     return $controller;
+  }
+
+
+  /**
+   * Get class name of a controller (namespaced) given a view name
+   *
+   * @param string $view_name         e.g. "my_view"
+   * @return string $class_name       e.g. "MOS\Affiliate\MyViewController"
+   */
+  private static function controller_class_name( string $view_name ): string {
+    $camel_case = self::snake_to_camel_case( $view_name, true );
+    $class_name = NS . $camel_case . 'Controller';
+    return $class_name;
+  }
+
+
+  /**
+   * Get path to controller given a view name
+   *
+   * @param string $view_name          e.g. "my_view"
+   * @return string $path              e.g. "path/to/MyViewController.php"
+   */
+  private static function controller_file_path( string $view_name ): string {
+    $camel_case = self::snake_to_camel_case( $view_name, true );
+    $file_name = $camel_case . 'Controller.php';
+    $path = PLUGIN_DIR . '/includes/controllers/' . $file_name;
+    return $path;
   }
 
 

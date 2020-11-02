@@ -11,12 +11,6 @@ class Plugin {
     'mos_campaign_report' => 'campaign_report',
   ];
 
-  private $shortcodes = [
-    // shortcode name => callable
-    'mos_wpid' => '\get_current_user_id',
-  ];
-
-
   public function __construct() {
     require( PLUGIN_DIR . "/includes/core/config.php" );
     require( PLUGIN_DIR . "/includes/core/functions.php" );
@@ -47,8 +41,15 @@ class Plugin {
 
 
   private function register_shortcodes() {
-    foreach ( $this->shortcodes as $shortcode => $function ) {
-      \add_shortcode( $shortcode, $function );
+    $dir = new \DirectoryIterator( PLUGIN_DIR . '/includes/classes/Shortcode' );
+
+    foreach ($dir as $fileinfo) {
+      if ( $fileinfo->isDot() ) {
+        continue;
+      }
+      $sc_class_name = Shortcode::shortcode_class_name( $fileinfo->getFilename() );
+      $sc_class = new $sc_class_name;
+      $sc_class->register();
     }
   }
 

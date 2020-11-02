@@ -11,6 +11,11 @@ class MosAffiliatePlugin {
     'mos_campaign_report' => 'campaign_report',
   ];
 
+  private $shortcodes = [
+    // shortcode name => callable
+    'mos_wpid' => '\get_current_user_id',
+  ];
+
 
   public function __construct() {
     require( PLUGIN_DIR . "/includes/core/config.php" );
@@ -22,6 +27,7 @@ class MosAffiliatePlugin {
     $this->load_classes();
     $this->load_scripts();
     $this->register_views();
+    $this->register_shortcodes();
   }
 
 
@@ -43,6 +49,13 @@ class MosAffiliatePlugin {
       add_shortcode( $shortcode, function() use ($view) {
         return get_view( $view );
       });
+    }
+  }
+
+
+  private function register_shortcodes() {
+    foreach ( $this->shortcodes as $shortcode => $function ) {
+      \add_shortcode( $shortcode, $function );
     }
   }
 

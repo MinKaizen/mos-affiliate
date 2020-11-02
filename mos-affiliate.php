@@ -27,7 +27,7 @@ if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 require_once( PLUGIN_DIR . '/includes/classes/MosAffiliatePlugin.php' );
 
 if ( class_exists( NS.'MosAffiliatePlugin' ) ) {
-  $mos_affiliate_plugin = new MosAffiliatePlugin( __FILE__ );
+  $mos_affiliate_plugin = new MosAffiliatePlugin();
   $mos_affiliate_plugin->init();
   add_action( 'admin_notices', function() {
     echo '<div class="notice notice-success"><p>';

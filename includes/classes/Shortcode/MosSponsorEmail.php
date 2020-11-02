@@ -12,8 +12,8 @@ class MosSponsorEmail extends Shortcode {
   public function shortcode_action( $args ): string {
     $user = User::current();
     $sponsor = $user->sponsor();
-    $sponsor_name = $sponsor->email();
-    return $sponsor_name;
+    $sponsor_email = $sponsor->email();
+    return $sponsor_email;
   }
 
 }

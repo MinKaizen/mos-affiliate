@@ -59,7 +59,7 @@ class Controller {
    */
   private static function controller_class_name( string $view_name ): string {
     $camel_case = self::snake_to_camel_case( $view_name, true );
-    $class_name = NS . 'Controller\\' . $camel_case . 'Controller';
+    $class_name = NS . 'Controller\\' . $camel_case;
     return $class_name;
   }
 

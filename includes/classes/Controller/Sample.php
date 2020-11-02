@@ -5,7 +5,7 @@ namespace MOS\Affiliate\Controller;
 use MOS\Affiliate\Controller;
 use MOS\Affiliate\Database;
 
-class SampleController extends Controller {
+class Sample extends Controller {
 
   protected $variables = [
     'name',

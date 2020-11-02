@@ -5,7 +5,7 @@ namespace MOS\Affiliate\Controller;
 use MOS\Affiliate\Controller;
 use MOS\Affiliate\Database;
 
-class CampaignReportController extends Controller {
+class CampaignReport extends Controller {
 
   protected $variables = [
     'campaigns',

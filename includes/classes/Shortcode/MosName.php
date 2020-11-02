@@ -11,15 +11,7 @@ class MosName extends Shortcode {
 
   public function shortcode_action( $args ): string {
     $user = User::current();
-
-    if ($user->first_name && $user->last_name) {
-      $name = implode( ' ', [$user->first_name, $user->last_name] );
-    } elseif ( $user->first_name ) {
-      $name = $user->first_name;
-    } else {
-      $name = $user->display_name;
-    }
-    
+    $name = $user->name;
     return $name;
   }
 

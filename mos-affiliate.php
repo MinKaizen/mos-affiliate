@@ -19,11 +19,6 @@ define( NS . 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( NS . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( NS . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-// Composer autoloader
-if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
-  require __DIR__ . '/vendor/autoload.php';
-}
-
 require_once( PLUGIN_DIR . '/includes/classes/Plugin.php' );
 
 if ( class_exists( NS.'Plugin' ) ) {

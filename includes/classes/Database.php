@@ -6,7 +6,7 @@
 
 namespace MOS\Affiliate;
 
-class MosAffiliateDb {
+class Database {
 
   public function get_campaign_data() {
     global $wpdb;

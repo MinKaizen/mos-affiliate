@@ -1,7 +1,7 @@
 <?php
 
 namespace MOS\Affiliate;
-class SampleController extends MosAffiliateController {
+class SampleController extends Controller {
 
   protected $variables = [
     'name',

@@ -24,10 +24,10 @@ if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
   require __DIR__ . '/vendor/autoload.php';
 }
 
-require_once( PLUGIN_DIR . '/includes/classes/MosAffiliatePlugin.php' );
+require_once( PLUGIN_DIR . '/includes/classes/Plugin.php' );
 
-if ( class_exists( NS.'MosAffiliatePlugin' ) ) {
-  $mos_affiliate_plugin = new MosAffiliatePlugin();
+if ( class_exists( NS.'Plugin' ) ) {
+  $mos_affiliate_plugin = new Plugin();
   $mos_affiliate_plugin->init();
   add_action( 'admin_notices', function() {
     echo '<div class="notice notice-success"><p>';

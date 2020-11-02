@@ -2,7 +2,7 @@
 
 namespace MOS\Affiliate;
 
-class CampaignListController extends MosAffiliateController {
+class CampaignListController extends Controller {
 
   protected $variables = [
       'campaigns',
@@ -10,7 +10,7 @@ class CampaignListController extends MosAffiliateController {
 
 
   protected function campaigns() {
-    $db = new MosAffiliateDb();
+    $db = new Database();
     $campaigns = $db->get_campaigns();
     return $campaigns;
   }

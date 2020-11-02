@@ -2,7 +2,7 @@
 
 namespace MOS\Affiliate;
 
-class MosAffiliatePlugin {
+class Plugin {
 
   private $views = [
     // shortcode name => view name
@@ -32,8 +32,8 @@ class MosAffiliatePlugin {
 
 
   private function load_classes() {
-    require( PLUGIN_DIR . "/includes/classes/MosAffiliateDb.php" );
-    require( PLUGIN_DIR . "/includes/classes/MosAffiliateController.php" );
+    require( PLUGIN_DIR . "/includes/classes/Database.php" );
+    require( PLUGIN_DIR . "/includes/classes/Controller.php" );
   }
 
 

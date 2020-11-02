@@ -1,7 +1,7 @@
 <?php
 
 namespace MOS\Affiliate;
-class CampaignReportController extends MosAffiliateController {
+class CampaignReportController extends Controller {
 
   protected $variables = [
     'campaigns',
@@ -10,7 +10,7 @@ class CampaignReportController extends MosAffiliateController {
 
 
   protected function campaigns() {
-    $db = new MosAffiliateDb();
+    $db = new Database();
     $campaigns = $db->get_campaign_data();
 
     // Add empty partners column to campaigns

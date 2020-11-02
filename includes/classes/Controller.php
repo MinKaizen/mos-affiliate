@@ -11,7 +11,7 @@
 
 namespace MOS\Affiliate;
 
-class MosAffiliateController {
+class Controller {
   
   protected $variables = [];
   private $data = [];
@@ -35,7 +35,7 @@ class MosAffiliateController {
    * Get controller based on view name
    *
    * @param string $view_name           Name of the view file (snake case)
-   * @return MosAffiliateController    Controller with the matching CamelCase name, or FALSE
+   * @return Controller    Controller with the matching CamelCase name, or FALSE
    */
   public static function get_controller( string $view_name ) {
     $class_name = self::controller_class_name( $view_name );

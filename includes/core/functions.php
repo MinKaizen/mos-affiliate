@@ -17,7 +17,7 @@ function get_view( string $view_name ) {
   }
   
   // Load controller
-  $controller = MosAffiliateController::get_controller( $view_name );
+  $controller = Controller::get_controller( $view_name );
 
   // If controller exists, extract its data
   if ( $controller !== false ) {

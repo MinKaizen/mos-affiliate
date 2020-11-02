@@ -10,7 +10,7 @@ class CampaignReportController extends MosAffiliateController {
 
 
   protected function campaigns() {
-    $db = MosAffiliateDb::instance();
+    $db = new MosAffiliateDb();
     $campaigns = $db->get_campaign_data();
 
     // Add empty partners column to campaigns

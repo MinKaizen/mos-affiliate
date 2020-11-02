@@ -8,12 +8,6 @@ namespace MOS\Affiliate;
 
 class MosAffiliateDb {
 
-  public static function instance() {
-    $new_instance = new self;
-    return $new_instance;
-  }
-
-
   public function get_campaign_data() {
     global $wpdb;
 

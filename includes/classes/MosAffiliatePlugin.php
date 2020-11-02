@@ -5,6 +5,12 @@ namespace MOS\Affiliate;
 class MosAffiliatePlugin {
 
 
+  public function __construct() {
+    require( PLUGIN_DIR . "/includes/core/config.php" );
+    require( PLUGIN_DIR . "/includes/core/functions.php" );
+  }
+
+
   public function init() {
     $this->load_dependencies();
     $this->load_scripts();
@@ -13,7 +19,6 @@ class MosAffiliatePlugin {
 
 
   private function load_dependencies() {
-    require_once( PLUGIN_DIR . "/includes/core/config.php" );
     require_once( PLUGIN_DIR . "/includes/classes/MosAffiliateDb.php" );
     require_once( PLUGIN_DIR . "/includes/classes/MosAffiliateController.php" );
   }

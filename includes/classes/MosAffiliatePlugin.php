@@ -46,7 +46,7 @@ class MosAffiliatePlugin {
 
   private function register_views() {
     foreach ( $this->views as $shortcode => $view ) {
-      add_shortcode( $shortcode, function() use ($view) {
+      \add_shortcode( $shortcode, function() use ($view) {
         return get_view( $view );
       });
     }

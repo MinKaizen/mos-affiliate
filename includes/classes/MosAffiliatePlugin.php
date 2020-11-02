@@ -19,13 +19,13 @@ class MosAffiliatePlugin {
 
 
   public function init() {
-    $this->load_dependencies();
+    $this->load_classes();
     $this->load_scripts();
     $this->register_shortcodes();
   }
 
 
-  private function load_dependencies() {
+  private function load_classes() {
     require( PLUGIN_DIR . "/includes/classes/MosAffiliateDb.php" );
     require( PLUGIN_DIR . "/includes/classes/MosAffiliateController.php" );
   }

@@ -1,6 +1,10 @@
 <?php
 
-namespace MOS\Affiliate;
+namespace MOS\Affiliate\Controller;
+
+use MOS\Affiliate\Controller;
+use MOS\Affiliate\Database;
+
 class CampaignReportController extends Controller {
 
   protected $variables = [

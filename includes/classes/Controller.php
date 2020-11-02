@@ -40,10 +40,9 @@ class Controller {
   public static function get_controller( string $view_name ) {
     $class_name = self::controller_class_name( $view_name );
     $file_path = self::controller_file_path( $view_name );
-
+    
     // Check if controller exists
     if ( file_exists( $file_path ) ) {
-      require_once( $file_path );
       $controller = new $class_name();
     } else {
       $controller = false;
@@ -61,7 +60,7 @@ class Controller {
    */
   private static function controller_class_name( string $view_name ): string {
     $camel_case = self::snake_to_camel_case( $view_name, true );
-    $class_name = NS . $camel_case . 'Controller';
+    $class_name = NS . 'Controller\\' . $camel_case . 'Controller';
     return $class_name;
   }
 
@@ -75,7 +74,7 @@ class Controller {
   private static function controller_file_path( string $view_name ): string {
     $camel_case = self::snake_to_camel_case( $view_name, true );
     $file_name = $camel_case . 'Controller.php';
-    $path = PLUGIN_DIR . '/includes/controllers/' . $file_name;
+    $path = PLUGIN_DIR . '/includes/classes/Controller/' . $file_name;
     return $path;
   }
 

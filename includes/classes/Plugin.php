@@ -24,22 +24,15 @@ class Plugin {
 
 
   public function init() {
-    $this->load_classes();
     $this->load_scripts();
     $this->register_views();
     $this->register_shortcodes();
   }
 
 
-  private function load_classes() {
-    require( PLUGIN_DIR . "/includes/classes/Database.php" );
-    require( PLUGIN_DIR . "/includes/classes/Controller.php" );
-  }
-
-
   private function load_scripts() {
     \add_action( 'wp_enqueue_scripts', function() {
-      \wp_enqueue_script( 'mosAffiliate', $this->url.'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
+      \wp_enqueue_script( 'mosAffiliate', PLUGIN_URL . 'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
     });
   }
 

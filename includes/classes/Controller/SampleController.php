@@ -1,6 +1,10 @@
 <?php
 
-namespace MOS\Affiliate;
+namespace MOS\Affiliate\Controller;
+
+use MOS\Affiliate\Controller;
+use MOS\Affiliate\Database;
+
 class SampleController extends Controller {
 
   protected $variables = [

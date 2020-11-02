@@ -19,15 +19,7 @@ define( NS . 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( NS . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( NS . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-require_once( PLUGIN_DIR . '/includes/classes/Plugin.php' );
+include( PLUGIN_DIR . '/includes/autoload.php' );
 
-if ( class_exists( NS.'Plugin' ) ) {
-  $mos_affiliate_plugin = new Plugin();
-  $mos_affiliate_plugin->init();
-  add_action( 'admin_notices', function() {
-    echo '<div class="notice notice-success"><p>';
-    echo '<strong>mos-affiliate plugin:</strong> ';
-    echo 'after plugin initiated';
-    echo '</p></div>';
-  });
-}
+$mos_affiliate_plugin = new Plugin();
+$mos_affiliate_plugin->init();

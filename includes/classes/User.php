@@ -87,4 +87,9 @@ class User extends \WP_User {
   }
 
 
+  public function email() {
+    return $this->user_email;
+  }
+
+
 }

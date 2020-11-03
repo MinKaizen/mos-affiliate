@@ -58,3 +58,19 @@ function pascal_to_snake_case( string $snake_case ): string {
   }
   return implode('_', $ret);
 }
+
+
+/**
+ * Returns the first non-empty element of an array
+ *
+ * @param array $array      The array to be looped
+ * @return mixed $element   The non-empty element       
+ */
+function first_non_empty_element( array $array ) {
+  foreach ( $array as $element ) {
+    if ( !empty( $element ) ) {
+      return $element;
+    }
+  }
+  return null;
+}

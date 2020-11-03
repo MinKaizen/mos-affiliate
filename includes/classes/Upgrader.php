@@ -9,7 +9,7 @@ class Upgrader {
 
     $sql = [];
     $charset_collate = $wpdb->get_charset_collate();
-    $plugin_table_prefix = $wpdb->prefix . 'mos_affiliate_';
+    $plugin_table_prefix = $wpdb->prefix . 'mos_';
     
     // mis table
     $table_name = $plugin_table_prefix . 'mis';

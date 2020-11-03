@@ -100,4 +100,12 @@ class User extends \WP_User {
   }
 
 
+  public function level() {
+    $roles = $this->roles;
+    $primary_role = first_non_empty_element( $roles );
+    $level = ucwords( str_replace( '_', ' ', $primary_role ) );
+    return $level;
+  }
+
+
 }

@@ -15,7 +15,7 @@ class Upgrader {
     $table_name = $plugin_table_prefix . 'mis';
     $sql[] = "CREATE TABLE $table_name (
       id int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      slug varchar(31) NOT NULL,
+      slug varchar(20) NOT NULL,
       name varchar(63) NOT NULL,
       default_value varchar(63) NOT NULL,
       url varchar(255) NOT NULL,

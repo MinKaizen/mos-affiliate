@@ -12,7 +12,7 @@ class Upgrader {
     $plugin_table_prefix = $wpdb->prefix . 'mos_affiliate_';
     
     // mis table
-    $table_name = $plugin_table_prefix . 'mos_mis';
+    $table_name = $plugin_table_prefix . 'mis';
     $sql[] = "CREATE TABLE $table_name (
       id int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
       slug varchar(31) NOT NULL,

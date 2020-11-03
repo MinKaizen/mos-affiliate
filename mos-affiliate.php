@@ -21,5 +21,7 @@ define( NS . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 include( PLUGIN_DIR . '/includes/autoload.php' );
 
+\register_activation_hook( __FILE__, NS.'Activator::activate' );
+
 $mos_affiliate_plugin = new Plugin();
 $mos_affiliate_plugin->init();

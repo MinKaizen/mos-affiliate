@@ -92,4 +92,12 @@ class User extends \WP_User {
   }
 
 
+  public function mis( $slug ) {
+    $prefix = 'mis_';
+    $meta_key = $prefix . $slug;
+    $mis = $this->get( $meta_key );
+    return $mis;
+  }
+
+
 }

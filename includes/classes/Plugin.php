@@ -7,6 +7,7 @@ class Plugin {
 
   public function __construct() {
     require( PLUGIN_DIR . "/includes/config/mis.php" );
+    require( PLUGIN_DIR . "/includes/config/mis_networks.php" );
     require( PLUGIN_DIR . "/includes/helpers/utils.php" );
   }
 

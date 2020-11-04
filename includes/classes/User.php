@@ -108,4 +108,21 @@ class User extends \WP_User {
   }
 
 
+  // NOTE TO SELF: uses alot of magic values. Needs refactoring
+  public function qualifies_for_mis( string $network ): bool {
+    if ( $network == 'cb_banners' ) {
+      $purchased_oto2 = $this->get('mos_purchased_oto2');
+      $qualified = !empty( $purchased_oto2 );
+    } else {
+      $level = $this->level();
+      $levels_qualified = [
+        'monthly_partner',
+        'yearly_partner',
+        'legacy_legendary_partner',
+      ];
+      $qualified = in_array( $level, $levels_qualified );
+    }
+    return $qualified;
+  }
+
 }

@@ -41,6 +41,12 @@ class User extends \WP_User {
   }
 
 
+  public function is_empty(): bool {
+    $is_empty = empty( $this->ID );
+    return $is_empty;
+  }
+
+
   public function wpid() {
     return $this->ID;
   }

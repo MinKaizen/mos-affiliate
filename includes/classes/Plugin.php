@@ -6,8 +6,8 @@ class Plugin {
 
 
   public function __construct() {
-    require( PLUGIN_DIR . "/includes/core/config.php" );
-    require( PLUGIN_DIR . "/includes/core/functions.php" );
+    require( PLUGIN_DIR . "/includes/config/config.php" );
+    require( PLUGIN_DIR . "/includes/config/functions.php" );
   }
 
 

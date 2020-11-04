@@ -4,12 +4,6 @@ namespace MOS\Affiliate;
 
 class Plugin {
 
-  private $views = [
-    // shortcode name => view name
-    'mos_campaign_form' => 'campaign_form',
-    'mos_campaign_list' => 'campaign_list',
-    'mos_campaign_report' => 'campaign_report',
-  ];
 
   public function __construct() {
     require( PLUGIN_DIR . "/includes/core/config.php" );
@@ -20,7 +14,6 @@ class Plugin {
   public function init() {
     $this->load_admin();
     $this->load_scripts();
-    $this->register_views();
     $this->register_shortcodes();
   }
 
@@ -35,15 +28,6 @@ class Plugin {
     \add_action( 'wp_enqueue_scripts', function() {
       \wp_enqueue_script( 'mosAffiliate', PLUGIN_URL . 'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
     });
-  }
-
-
-  private function register_views() {
-    foreach ( $this->views as $shortcode => $view ) {
-      \add_shortcode( $shortcode, function() use ($view) {
-        return get_view( $view );
-      });
-    }
   }
 
 

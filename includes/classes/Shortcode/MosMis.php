@@ -14,7 +14,7 @@ class MosMis extends Shortcode {
   ];
 
   public function shortcode_action( $args ): string {
-    if ( $args['network'] == '' ) {
+    if ( empty( $args['network'] ) ) {
       return '';
     }
 

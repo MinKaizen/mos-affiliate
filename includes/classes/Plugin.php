@@ -18,9 +18,16 @@ class Plugin {
 
 
   public function init() {
+    $this->load_admin();
     $this->load_scripts();
     $this->register_views();
     $this->register_shortcodes();
+  }
+
+
+  private function load_admin() {
+    $admin = new Admin();
+    $admin->init();
   }
 
 

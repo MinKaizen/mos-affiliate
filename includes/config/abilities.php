@@ -2,8 +2,6 @@
 
 namespace MOS\Affiliate;
 
-define( 'ABILITY_CAP_PREFIX', 'mos_access_' );
-
 define( 'ABILITIES', [
   'access_monthly_partner',
   'access_lifetime_partner',

@@ -117,7 +117,7 @@ class User extends \WP_User {
 
 
   public function has_ability( string $ability ): bool {
-    return $this->has_cap( ABILITY_CAP_PREFIX . $ability );
+    return $this->has_cap( $ability );
   }
 
 

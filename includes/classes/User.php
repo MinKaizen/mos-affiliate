@@ -110,7 +110,7 @@ class User extends \WP_User {
 
   public function get_level() {
     $roles = $this->roles;
-    $primary_role = first_non_empty_element( $roles );
+    $primary_role = empty( $roles ) ? '' : first_non_empty_element( $roles );
     $level = Level::slug_to_name( $primary_role );
     return $level;
   }

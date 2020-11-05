@@ -12,7 +12,7 @@ class MosSponsorAffid extends Shortcode {
   public function shortcode_action( $args ): string {
     $user = User::current();
     $sponsor = $user->sponsor();
-    $sponsor_affid = $sponsor->affid();
+    $sponsor_affid = $sponsor->get_affid();
     return $sponsor_affid;
   }
 

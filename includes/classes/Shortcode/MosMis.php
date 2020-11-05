@@ -18,7 +18,7 @@ class MosMis extends Shortcode {
       return '';
     }
 
-    $mis = User::current()->mis( $args['network'] );
+    $mis = User::current()->get_mis( $args['network'] );
 
     return $mis;
   }

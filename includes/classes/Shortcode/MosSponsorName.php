@@ -12,7 +12,7 @@ class MosSponsorName extends Shortcode {
   public function shortcode_action( $args ): string {
     $user = User::current();
     $sponsor = $user->sponsor();
-    $sponsor_name = $sponsor->name();
+    $sponsor_name = $sponsor->get_name();
     return $sponsor_name;
   }
 

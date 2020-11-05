@@ -11,7 +11,7 @@ class MosLastName extends Shortcode {
 
   public function shortcode_action( $args ): string {
     $user = User::current();
-    $last_name = $user->last_name();    
+    $last_name = $user->get_last_name();    
     return $last_name;
   }
 

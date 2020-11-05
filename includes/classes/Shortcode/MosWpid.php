@@ -11,7 +11,7 @@ class MosWpid extends Shortcode {
 
   public function shortcode_action( $args ): string {
     $user = User::current();
-    $wpid = $user->wpid();
+    $wpid = $user->get_wpid();
     return $wpid;
   }
 

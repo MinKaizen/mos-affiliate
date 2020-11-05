@@ -11,7 +11,7 @@ class MosFirstName extends Shortcode {
 
   public function shortcode_action( $args ): string {
     $user = User::current();
-    $first_name = $user->first_name();    
+    $first_name = $user->get_first_name();    
     return $first_name;
   }
 

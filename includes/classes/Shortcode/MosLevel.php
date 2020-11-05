@@ -10,7 +10,7 @@ class MosLevel extends Shortcode {
   protected $slug = 'mos_level';
 
   public function shortcode_action( $args ): string {
-    $level = User::current()->level();
+    $level = User::current()->get_level();
     return $level;
   }
 

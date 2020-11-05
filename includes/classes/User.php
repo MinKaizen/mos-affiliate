@@ -50,12 +50,12 @@ class User extends \WP_User {
   }
 
 
-  public function wpid() {
+  public function get_wpid() {
     return $this->ID;
   }
 
 
-  public function affid() {
+  public function get_affid() {
     global $wpdb;
 
     $table = $wpdb->prefix . 'uap_affiliates';
@@ -68,12 +68,12 @@ class User extends \WP_User {
   }
 
 
-  public function username() {
+  public function get_username() {
     return $this->user_login;
   }
 
 
-  public function name() {
+  public function get_name() {
     if ($this->first_name && $this->last_name) {
       $name = implode( ' ', [$this->first_name, $this->last_name] );
     } elseif ( $this->first_name ) {
@@ -86,29 +86,29 @@ class User extends \WP_User {
   }
 
 
-  public function last_name() {
+  public function get_last_name() {
     return $this->last_name;
   }
 
 
-  public function first_name() {
+  public function get_first_name() {
     return $this->first_name;
   }
 
 
-  public function email() {
+  public function get_email() {
     return $this->user_email;
   }
 
 
-  public function mis( $slug ): string {
+  public function get_mis( $slug ): string {
     $mis = Mis::get( $slug );
     $value = $mis->exists() ? $this->get( $mis->meta_key ) : '';
     return $value;
   }
 
 
-  public function level() {
+  public function get_level() {
     $roles = $this->roles;
     $primary_role = first_non_empty_element( $roles );
     $level = ucwords( str_replace( '_', ' ', $primary_role ) );

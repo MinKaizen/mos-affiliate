@@ -12,7 +12,7 @@ class MosSponsorWpid extends Shortcode {
   public function shortcode_action( $args ): string {
     $user = User::current();
     $sponsor = $user->sponsor();
-    $sponsor_wpid = $sponsor->wpid();
+    $sponsor_wpid = $sponsor->get_wpid();
     return $sponsor_wpid;
   }
 

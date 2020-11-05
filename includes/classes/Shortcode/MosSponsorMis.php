@@ -26,7 +26,7 @@ class MosSponsorMis extends Shortcode {
       return $this->get_default_value( $args['network'] );
     }
 
-    $mis = $sponsor->mis( $args['network'] );
+    $mis = $sponsor->get_mis( $args['network'] );
 
     return $mis;
   }

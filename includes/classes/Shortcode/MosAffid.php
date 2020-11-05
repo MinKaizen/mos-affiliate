@@ -11,7 +11,7 @@ class MosAffid extends Shortcode {
 
   public function shortcode_action( $args ): string {
     $user = User::current();
-    $affid = $user->affid();
+    $affid = $user->get_affid();
     return $affid;
   }
 

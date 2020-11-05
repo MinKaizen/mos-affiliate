@@ -14,12 +14,7 @@ class MosMis extends Shortcode {
   ];
 
   public function shortcode_action( $args ): string {
-    if ( empty( $args['network'] ) ) {
-      return '';
-    }
-
     $mis = User::current()->get_mis( $args['network'] );
-
     return $mis;
   }
 

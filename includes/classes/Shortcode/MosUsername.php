@@ -10,8 +10,7 @@ class MosUsername extends Shortcode {
   protected $slug = 'mos_username';
 
   public function shortcode_action( $args ): string {
-    $user = User::current();
-    $username = $user->get_username();    
+    $username = User::current()->get_username();    
     return $username;
   }
 

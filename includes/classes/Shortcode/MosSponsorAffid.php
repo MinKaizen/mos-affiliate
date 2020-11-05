@@ -10,9 +10,7 @@ class MosSponsorAffid extends Shortcode {
   protected $slug = 'mos_sponsor_affid';
 
   public function shortcode_action( $args ): string {
-    $user = User::current();
-    $sponsor = $user->sponsor();
-    $sponsor_affid = $sponsor->get_affid();
+    $sponsor_affid = User::current()->sponsor()->get_affid();
     return $sponsor_affid;
   }
 

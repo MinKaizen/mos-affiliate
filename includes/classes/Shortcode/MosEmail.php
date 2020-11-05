@@ -10,8 +10,7 @@ class MosEmail extends Shortcode {
   protected $slug = 'mos_email';
 
   public function shortcode_action( $args ): string {
-    $user = User::current();
-    $email = $user->get_email();    
+    $email = User::current()->get_email();    
     return $email;
   }
 

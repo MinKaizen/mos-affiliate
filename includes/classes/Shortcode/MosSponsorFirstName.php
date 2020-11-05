@@ -10,9 +10,7 @@ class MosSponsorFirstName extends Shortcode {
   protected $slug = 'mos_sponsor_first_name';
 
   public function shortcode_action( $args ): string {
-    $user = User::current();
-    $sponsor = $user->sponsor();
-    $sponsor_first_name = $sponsor->get_first_name();
+    $sponsor_first_name = User::current()->sponsor()->get_first_name();
     return $sponsor_first_name;
   }
 

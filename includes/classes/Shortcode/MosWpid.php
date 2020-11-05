@@ -10,8 +10,7 @@ class MosWpid extends Shortcode {
   protected $slug = 'mos_wpid';
 
   public function shortcode_action( $args ): string {
-    $user = User::current();
-    $wpid = $user->get_wpid();
+    $wpid = User::current()->get_wpid();
     return $wpid;
   }
 

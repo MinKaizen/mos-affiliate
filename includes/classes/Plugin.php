@@ -6,6 +6,8 @@ class Plugin {
 
 
   public function __construct() {
+    require( PLUGIN_DIR . "/includes/config/abilities.php" );
+    require( PLUGIN_DIR . "/includes/config/levels.php" );
     require( PLUGIN_DIR . "/includes/config/mis.php" );
     require( PLUGIN_DIR . "/includes/helpers/utils.php" );
   }

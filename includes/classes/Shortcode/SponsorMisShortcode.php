@@ -6,7 +6,7 @@ use MOS\Affiliate\Shortcode;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Mis;
 
-class MosSponsorMis extends Shortcode {
+class SponsorMisShortcode extends Shortcode {
 
   protected $slug = 'mos_sponsor_mis';
 

@@ -5,13 +5,13 @@ namespace MOS\Affiliate\Shortcode;
 use MOS\Affiliate\Shortcode;
 use MOS\Affiliate\User;
 
-class MosName extends Shortcode {
+class WpidShortcode extends Shortcode {
 
-  protected $slug = 'mos_name';
+  protected $slug = 'mos_wpid';
 
   public function shortcode_action( $args ): string {
-    $name = User::current()->get_name();
-    return $name;
+    $wpid = User::current()->get_wpid();
+    return $wpid;
   }
 
 }

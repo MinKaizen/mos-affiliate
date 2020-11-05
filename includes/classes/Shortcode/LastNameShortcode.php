@@ -5,13 +5,13 @@ namespace MOS\Affiliate\Shortcode;
 use MOS\Affiliate\Shortcode;
 use MOS\Affiliate\User;
 
-class MosLevel extends Shortcode {
+class LastNameShortcode extends Shortcode {
 
-  protected $slug = 'mos_level';
+  protected $slug = 'mos_last_name';
 
   public function shortcode_action( $args ): string {
-    $level = User::current()->get_level();
-    return $level;
+    $last_name = User::current()->get_last_name();    
+    return $last_name;
   }
 
 }

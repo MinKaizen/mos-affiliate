@@ -5,13 +5,13 @@ namespace MOS\Affiliate\Shortcode;
 use MOS\Affiliate\Shortcode;
 use MOS\Affiliate\User;
 
-class MosEmail extends Shortcode {
+class NameShortcode extends Shortcode {
 
-  protected $slug = 'mos_email';
+  protected $slug = 'mos_name';
 
   public function shortcode_action( $args ): string {
-    $email = User::current()->get_email();    
-    return $email;
+    $name = User::current()->get_name();
+    return $name;
   }
 
 }

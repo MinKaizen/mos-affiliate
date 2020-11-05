@@ -5,7 +5,7 @@ namespace MOS\Affiliate\Shortcode;
 use MOS\Affiliate\Shortcode;
 use function MOS\Affiliate\get_view;
 
-class MosCampaignList extends Shortcode {
+class CampaignListShortcode extends Shortcode {
 
   protected $slug = 'mos_campaign_list';
 

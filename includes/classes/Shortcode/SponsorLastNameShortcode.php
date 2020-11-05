@@ -5,7 +5,7 @@ namespace MOS\Affiliate\Shortcode;
 use MOS\Affiliate\Shortcode;
 use MOS\Affiliate\User;
 
-class MosSponsorLastName extends Shortcode {
+class SponsorLastNameShortcode extends Shortcode {
 
   protected $slug = 'mos_sponsor_last_name';
 

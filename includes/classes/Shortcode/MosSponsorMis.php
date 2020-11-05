@@ -4,6 +4,7 @@ namespace MOS\Affiliate\Shortcode;
 
 use MOS\Affiliate\Shortcode;
 use MOS\Affiliate\User;
+use MOS\Affiliate\Mis;
 
 class MosSponsorMis extends Shortcode {
 
@@ -13,14 +14,29 @@ class MosSponsorMis extends Shortcode {
     'network' => '',
   ];
 
+
   public function shortcode_action( $args ): string {
-    if ( $args['network'] == '' ) {
-      return '';
+    $sponsor = User::current()->sponsor();
+
+    if ( $sponsor->is_empty() ) {
+      return $this->get_default_value( $args['network'] );
+    }
+    
+    if ( ! $sponsor->qualifies_for_mis( $args['network'] ) ) {
+      return $this->get_default_value( $args['network'] );
     }
 
-    $mis = User::current()->sponsor()->mis( $args['network'] );
+    $mis = $sponsor->mis( $args['network'] );
 
     return $mis;
   }
+
+
+  private function get_default_value( string $slug ): string {
+    $mis = Mis::get( $slug );
+    $default_value = $mis->exists() ? $mis->default : '';
+    return $default_value;
+  }
+
 
 }

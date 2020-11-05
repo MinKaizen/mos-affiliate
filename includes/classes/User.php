@@ -2,6 +2,9 @@
 
 namespace MOS\Affiliate;
 
+use MOS\Affiliate\Mis;
+use MOS\Affiliate\Ability;
+
 class User extends \WP_User {
 
   
@@ -98,11 +101,10 @@ class User extends \WP_User {
   }
 
 
-  public function mis( $slug ) {
-    $prefix = 'mis_';
-    $meta_key = $prefix . $slug;
-    $mis = $this->get( $meta_key );
-    return $mis;
+  public function mis( $slug ): string {
+    $mis = Mis::get( $slug );
+    $value = $mis->exists() ? $this->get( $mis->meta_key ) : '';
+    return $value;
   }
 
 
@@ -114,21 +116,15 @@ class User extends \WP_User {
   }
 
 
-  // NOTE TO SELF: uses alot of magic values. Needs refactoring
+  public function has_ability( string $ability ): bool {
+    return $this->has_cap( Ability::cap_name( $ability ) );
+  }
+
+
   public function qualifies_for_mis( string $network ): bool {
-    if ( $network == 'cb_banners' ) {
-      $purchased_oto2 = $this->get('mos_purchased_oto2');
-      $qualified = !empty( $purchased_oto2 );
-    } else {
-      $level = $this->level();
-      $levels_qualified = [
-        'monthly_partner',
-        'yearly_partner',
-        'legacy_legendary_partner',
-      ];
-      $qualified = in_array( $level, $levels_qualified );
-    }
-    return $qualified;
+    $mis = Mis::get( $network );
+    $qualifies = $mis->exists() ? $this->has_ability( $mis->ability ) : false;
+    return $qualifies;
   }
 
 }

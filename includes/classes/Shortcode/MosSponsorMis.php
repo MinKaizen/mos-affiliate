@@ -19,27 +19,20 @@ class MosSponsorMis extends Shortcode {
     $sponsor = User::current()->sponsor();
 
     if ( $sponsor->is_empty() ) {
-      return $this->get_default_value( $args['network'] );
+      return Mis::get_default( $args['network'] );
     }
     
     if ( ! $sponsor->qualifies_for_mis( $args['network'] ) ) {
-      return $this->get_default_value( $args['network'] );
+      return Mis::get_default( $args['network'] );
     }
 
     $mis = $sponsor->get_mis( $args['network'] );
 
     if ( empty( $mis ) ) {
-      return $this->get_default_value( $args['network'] );
+      return Mis::get_default( $args['network'] );
     }
 
     return $mis;
-  }
-
-
-  private function get_default_value( string $slug ): string {
-    $mis = Mis::get( $slug );
-    $default_value = $mis->exists() ? $mis->default : '';
-    return $default_value;
   }
 
 

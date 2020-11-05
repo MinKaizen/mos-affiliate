@@ -28,6 +28,13 @@ class Mis {
   }
 
 
+  public static function get_default( string $mis_slug ): string {
+    $mis = self::get( $mis_slug );
+    $default_value = $mis->exists() ? $mis->default : '';
+    return $default_value;
+  }
+
+
   public function exists(): bool {
     $exists = ! empty( $this->meta_key );
     return $exists;

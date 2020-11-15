@@ -2,11 +2,11 @@
 
 namespace MOS\Affiliate;
 
-define( 'MIS_SLUG_MAX_LEN', 20 );
-define( 'MIS_LINK_PLACEHOLDER', '' . '%affid%' );
-define( 'MIS_META_KEY_PREFIX', 'mos_mis_' );
+define( NS . 'MIS_SLUG_MAX_LEN', 20 );
+define( NS . 'MIS_LINK_PLACEHOLDER', '' . '%affid%' );
+define( NS . 'MIS_META_KEY_PREFIX', 'mos_mis_' );
 
-define( 'MIS_NETWORKS', [
+define( NS . 'MIS_NETWORKS', [
   'gr' => [
     'meta_key' => 'gr',
     'name' => 'Get Response',

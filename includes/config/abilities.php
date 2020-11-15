@@ -2,7 +2,7 @@
 
 namespace MOS\Affiliate;
 
-define( 'ABILITIES', [
+define( NS . 'ABILITIES', [
   'access_monthly_partner',
   'access_lifetime_partner',
   'access_legacy_partner',

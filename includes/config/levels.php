@@ -2,7 +2,7 @@
 
 namespace MOS\Affiliate;
 
-define( 'LEVELS', [
+define( NS . 'LEVELS', [
   'free' => [
     'name' => 'Free Member',
     'slug' => 'free',

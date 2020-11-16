@@ -88,6 +88,17 @@ abstract class Test {
   }
 
 
+  protected function print_yaml( $original ): void {
+    $adjusted = [
+      [
+        'adjusted' => $original,
+      ],
+    ];
+
+    \WP_CLI\Utils\format_items( 'yaml', $adjusted, 'adjusted' );
+  }
+
+
   protected function format_trace( string $original ): string {
     $exploded = explode("\n", print_r(str_replace(PLUGIN_DIR, '', $original), true));
     $formatted = 'Stack trace:' . PHP_EOL;

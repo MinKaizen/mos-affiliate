@@ -16,7 +16,7 @@ class Plugin {
   public function init() {
     $this->load_admin();
     $this->load_scripts();
-    $this->register_shortcodes();
+    Shortcode::register_all();
     AccessRedirect::register_all();
   }
 
@@ -33,18 +33,5 @@ class Plugin {
     });
   }
 
-
-  private function register_shortcodes() {
-    $dir = new \DirectoryIterator( PLUGIN_DIR . '/includes/classes/Shortcode' );
-
-    foreach ($dir as $fileinfo) {
-      if ( $fileinfo->isDot() ) {
-        continue;
-      }
-      $sc_class_name = Shortcode::shortcode_class_name( $fileinfo->getFilename() );
-      $sc_class = new $sc_class_name;
-      $sc_class->register();
-    }
-  }
 
 }

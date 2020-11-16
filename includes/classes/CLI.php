@@ -25,7 +25,6 @@ class CLI {
       WP_CLI::error( "$test_name is not a registered test" );
     }
 
-    // $success_message = "✓✓✓ All tests passed. You are awesome!";
     $success_message = WP_CLI::colorize( "%2%w✓✓✓ All tests passed. You are awesome!" );
     WP_CLI::success( $success_message );
   }

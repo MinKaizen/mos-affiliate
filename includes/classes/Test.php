@@ -54,7 +54,7 @@ abstract class Test {
   }
 
 
-  protected function assert_has_key( $needle, array $haystack, $message ): void {
+  protected function assert_has_key( $needle, array $haystack, string $message ): void {
     $condition = array_key_exists( $needle, $haystack );
     $this->assert( $condition, $message );
   }

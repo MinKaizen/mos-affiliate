@@ -7,39 +7,31 @@ define( NS . 'LEVELS', [
     'name' => 'Free Member',
     'slug' => 'free',
     'order' => 1,
-    'abilities' => [
-      'access_free',
+    'caps' => [
+      CAP_FREE,
     ],
   ],
   'monthly_partner' => [
     'name' => 'Monthly Partner',
     'slug' => 'monthly_partner',
     'order' => 2,
-    'abilities' => [
-      'access_monthly_partner',
-      'mis',
+    'caps' => [
+      CAP_MONTHLY_PARTNER,
+      CAP_MIS,
     ],
   ],
-  'lifetime_partner' => [
-    'name' => 'Lifetime Partner',
-    'slug' => 'lifetime_partner',
+  'yearly_partner' => [
+    'name' => 'Yearly Partner',
+    'slug' => 'yearly_partner',
     'order' => 3,
-    'abilities' => [
-      'access_lifetime_partner',
-    ],
-  ],
-  'legacy_partner' => [
-    'name' => 'Legacy Partner',
-    'slug' => 'legacy_partner',
-    'order' => 4,
-    'abilities' => [
-      'access_legacy_partner',
+    'caps' => [
+      CAP_YEARLY_PARTNER,
     ],
   ],
   'administrator' => [
     'name' => 'Administrator',
     'slug' => 'administrator',
     'order' => 99,
-    'abilities' => [],
+    'caps' => [],
   ],
 ]);

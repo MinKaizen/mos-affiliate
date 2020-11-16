@@ -116,14 +116,9 @@ class User extends \WP_User {
   }
 
 
-  public function has_ability( string $ability ): bool {
-    return $this->has_cap( $ability );
-  }
-
-
   public function qualifies_for_mis( string $network ): bool {
     $mis = Mis::get( $network );
-    $qualifies = $mis->exists() ? $this->has_ability( $mis->ability ) : false;
+    $qualifies = $mis->exists() ? $this->has_cap( $mis->cap ) : false;
     return $qualifies;
   }
 

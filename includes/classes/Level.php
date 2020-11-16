@@ -7,7 +7,7 @@ class Level {
   private $name = '';
   private $slug = '';
   private $order = 0;
-  private $abilities = [];
+  private $caps = [];
 
 
   public static function get( string $slug ): self {
@@ -23,7 +23,7 @@ class Level {
 
     foreach ( LEVELS as $level ) {
       if ( $level['order'] <= $new_level->order ) {
-        $new_level->abilities = array_merge( $new_level->abilities, $level['abilities'] );
+        $new_level->caps = array_merge( $new_level->caps, $level['caps'] );
       }
     }
 
@@ -53,13 +53,13 @@ class Level {
       return;
     }
 
-    $capabilities = [];
+    $caps_to_insert = [];
 
-    foreach ( $this->abilities as $ability ) {
-      $capabilities[$ability] = true;
+    foreach ( $this->caps as $cap ) {
+      $caps_to_insert[$cap] = true;
     }
     
-    $new_role_success = \add_role( $this->slug, $this->name, $capabilities );
+    $new_role_success = \add_role( $this->slug, $this->name, $caps_to_insert );
 
     if ( ! empty( $new_role_success ) ) {
       return;
@@ -67,8 +67,8 @@ class Level {
 
     $role = \get_role( $this->slug );
 
-    foreach ( $capabilities as $capability => $grant ) {
-      $role->add_cap( $capability, $grant );
+    foreach ( $caps_to_insert as $cap_to_insert => $grant ) {
+      $role->add_cap( $cap_to_insert, $grant );
     }
   }
 

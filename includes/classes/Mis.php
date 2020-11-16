@@ -8,7 +8,7 @@ class Mis {
   public $name = '';
   public $default = '';
   public $link_template = '';
-  public $ability = '';
+  public $cap = '';
 
 
   public static function get( string $slug ): self {
@@ -22,7 +22,7 @@ class Mis {
     $new_mis->name = MIS_NETWORKS[$slug]['name'];
     $new_mis->default = MIS_NETWORKS[$slug]['default'];
     $new_mis->link_template = MIS_NETWORKS[$slug]['link_template'];
-    $new_mis->ability = MIS_NETWORKS[$slug]['ability'];
+    $new_mis->cap = MIS_NETWORKS[$slug]['cap'];
 
     return $new_mis;
   }

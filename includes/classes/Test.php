@@ -24,49 +24,94 @@ abstract class Test {
   }
 
 
-  protected function assert_equal( $value1, $value2, string $message ): void {
+  protected function assert_equal( $value1, $value2, ...$labels ): void {
+    $assertion = "assert_equal";
     $condition = $value1 == $value2;
-    $this->assert( $condition, $message );
+    $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
+    $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
+    $data = [
+      $keys[0] => $value1,
+      $keys[1] => $value2,
+    ];
+    $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_equal_strict( $value1, $value2, string $message ): void {
+  protected function assert_equal_strict( $value1, $value2, ...$labels ): void {
+    $assertion = "assert_equal_strict";
     $condition = $value1 === $value2;
-    $this->assert( $condition, $message );
+    $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
+    $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
+    $data = [
+      $keys[0] => $value1,
+      $keys[1] => $value2,
+    ];
+    $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_true( $expression, string $message ): void {
+  protected function assert_true( $expression, ...$labels ): void {
+    $assertion = "assert_true";
     $condition = $expression == true;
-    $this->assert( $condition, $message );
+    $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
+    $data = [
+      $keys[0] => $expression,
+    ];
+    $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_string_contains( string $haystack, string $needle, string $message ): void {
-    $condition = ( strpos( $haystack, $needle ) !== false );
-    $this->assert( $condition, $message );
-  }
-
-
-  protected function assert_false( $expression, string $message ): void {
+  protected function assert_false( $expression, ...$labels ): void {
+    $assertion = "assert_false";
     $condition = $expression == false;
-    $this->assert( $condition, $message );
+    $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
+    $data = [
+      $keys[0] => $expression,
+    ];
+    $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_has_key( $needle, array $haystack, string $message ): void {
-    $condition = array_key_exists( $needle, $haystack );
-    $this->assert( $condition, $message );
+  protected function assert_string_contains( string $haystack, string $needle, ...$labels ): void {
+    $assertion = "assert_string_contains";
+    $condition = ( strpos( $haystack, $needle ) !== false );
+    $keys[0] = empty( $labels[0] ) ? 'haystack' : $labels[0];
+    $keys[1] = empty( $labels[1] ) ? 'needle' : $labels[1];
+    $data = [
+      $keys[0] => $haystack,
+      $keys[1] => $needle,
+    ];
+    $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_instanceof( $instance, string $class, string $message ): void {
+  protected function assert_has_key( array $array, $key, ...$labels ): void {
+    $assertion = "assert_has_key";
+    $condition = array_key_exists( $key, $array );
+    $keys[0] = empty( $labels[0] ) ? 'array' : $labels[0];
+    $keys[1] = empty( $labels[1] ) ? 'key' : $labels[1];
+    $data = [
+      $keys[0] => $array,
+      $keys[1] => $key,
+    ];
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_instanceof( $instance, string $class, ...$labels ): void {
+    $assertion = "assert_instanceof";
     $condition = $instance instanceof $class;
-    $this->assert( $condition, $message );
+    $keys[0] = empty( $labels[0] ) ? 'instance' : $labels[0];
+    $keys[1] = empty( $labels[1] ) ? 'class' : $labels[1];
+    $data = [
+      $keys[0] => $instance,
+      $keys[1] => $class,
+    ];
+    $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert( $condition, string $message ): void {
+  protected function assert( $condition, $data, string $assertion ): void {
     if ( $condition ) {
       return;
     }
@@ -78,7 +123,8 @@ abstract class Test {
     
     WP_CLI::line( $trace_colorized );
 
-    $this->print_error( $message );
+    $this->print_yaml( $data );
+    $this->print_error( $assertion );
   }
 
   

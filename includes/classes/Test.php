@@ -29,6 +29,12 @@ abstract class Test {
   }
 
 
+  protected function assert_string_contains( string $haystack, string $needle, string $message ): void {
+    $condition = ( strpos( $haystack, $needle ) !== false );
+    $this->assert( $condition, $message );
+  }
+
+
   protected function assert_false( $expression, string $message ): void {
     $condition = $expression == false;
     $this->assert( $condition, $message );

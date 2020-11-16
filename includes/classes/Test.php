@@ -23,6 +23,19 @@ abstract class Test {
     }
   }
 
+
+  protected function assert_equal( $value1, $value2, string $message ): void {
+    $condition = $value1 == $value2;
+    $this->assert( $condition, $message );
+  }
+
+
+  protected function assert_equal_strict( $value1, $value2, string $message ): void {
+    $condition = $value1 === $value2;
+    $this->assert( $condition, $message );
+  }
+
+
   protected function assert_true( $expression, string $message ): void {
     $condition = $expression == true;
     $this->assert( $condition, $message );

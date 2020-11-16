@@ -13,7 +13,7 @@ if ( !defined( '\ABSPATH' ) ) {
 
 // Plugin constants
 define( __NAMESPACE__ . '\NS', __NAMESPACE__ . '\\' );
-define( NS . 'PLUGIN_NAME', 'mos-birdsend' );
+define( NS . 'PLUGIN_NAME', 'mos-affiliate' );
 define( NS . 'PLUGIN_VERSION', '1.0.0' );
 define( NS . 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( NS . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );

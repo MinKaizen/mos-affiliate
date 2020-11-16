@@ -119,9 +119,8 @@ abstract class Test {
     $e = new Exception();
     $trace_string = $e->getTraceAsString();
     $trace_formatted = $this->format_trace( $trace_string );
-    $trace_colorized = $this->colorize_trace( $trace_formatted );
     
-    WP_CLI::line( $trace_colorized );
+    WP_CLI::line( $trace_formatted );
 
     $this->print_yaml( $data );
     $this->print_error( $assertion );
@@ -146,7 +145,14 @@ abstract class Test {
 
 
   protected function format_trace( string $original ): string {
-    $exploded = explode("\n", print_r(str_replace(PLUGIN_DIR, '', $original), true));
+    $exploded = explode("\n", print_r( $original, true));
+
+    // Cut and colorize
+    foreach ( $exploded as &$line ) {
+      $line = preg_replace( '/(.*)(\/[a-zA-Z0-9]+\.php)(\(\d+\))(.*)/', '%5%W$2%6%W$3%n%N$4', $line );
+      $line = WP_CLI::colorize( $line );
+    }
+
     $formatted = 'Stack trace:' . PHP_EOL;
 
     foreach ( $exploded as $line ) {
@@ -160,17 +166,5 @@ abstract class Test {
     return $formatted;
   }
 
-
-  protected function colorize_trace( string $original ): string {
-    $exploded = explode( PHP_EOL, $original );
-
-    foreach ( $exploded as &$line ) {
-      $line = preg_replace( '/(.*)(\/[a-zA-Z0-9]+\.php)(\(\d+\))(.*)/', '$1%5%W$2%6%W$3%n%N$4', $line );
-    }
-
-    $colorized = WP_CLI::colorize( implode( PHP_EOL, $exploded ) );
-
-    return $colorized;
-  }
 
 }

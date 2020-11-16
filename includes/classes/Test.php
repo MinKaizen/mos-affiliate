@@ -53,24 +53,48 @@ abstract class Test {
     }
 
     $e = new Exception();
-    $trace = explode("\n", print_r(str_replace(PLUGIN_DIR, '', $e->getTraceAsString()), true));
-
-    foreach ( $trace as $line ) {
-      if ( strpos( $line, "CommandFactory.php" ) === false ) {
-        WP_CLI::line($line);
-      } else {
-        break;
-      }
-    }
+    $trace_string = $e->getTraceAsString();
+    $trace_formatted = $this->format_trace( $trace_string );
+    $trace_colorized = $this->colorize_trace( $trace_formatted );
+    
+    WP_CLI::line( $trace_colorized );
 
     $this->print_error( $message );
   }
 
   
   protected function print_error( string $message ): void {
-    $colorized_message = WP_CLI::colorize( '%5%W' . $message . '%n%N');
+    $colorized_message = WP_CLI::colorize( '%1%W' . $message . '%n%N');
     WP_CLI::error( $colorized_message );
   }
 
+
+  protected function format_trace( string $original ): string {
+    $exploded = explode("\n", print_r(str_replace(PLUGIN_DIR, '', $original), true));
+    $formatted = 'Stack trace:' . PHP_EOL;
+
+    foreach ( $exploded as $line ) {
+      if ( strpos( $line, "CommandFactory.php" ) === false ) {
+        $formatted .= $line . PHP_EOL;
+      } else {
+        break;
+      }
+    }
+
+    return $formatted;
+  }
+
+
+  protected function colorize_trace( string $original ): string {
+    $exploded = explode( PHP_EOL, $original );
+
+    foreach ( $exploded as &$line ) {
+      $line = preg_replace( '/(.*)(\/[a-zA-Z0-9]+\.php)(\(\d+\))(.*)/', '$1%5%W$2%6%W$3%n%N$4', $line );
+    }
+
+    $colorized = WP_CLI::colorize( implode( PHP_EOL, $exploded ) );
+
+    return $colorized;
+  }
 
 }

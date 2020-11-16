@@ -7,8 +7,7 @@ use \WP_CLI;
 class CLI {
 
   private $tests = [
-    'hello',
-    'rick_roll',
+    'access_redirect',
   ];
 
 

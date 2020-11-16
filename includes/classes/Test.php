@@ -15,8 +15,11 @@ abstract class Test {
 
   public function run(): void {
     try {
+      WP_CLI::line("Running pre-test setup...");
       $this->_before();
+      WP_CLI::line("Running test main...");
       $this->main();
+      WP_CLI::line("Running post-test cleanup...");
       $this->_after();
     } catch ( Exception $e ) {
       $this->print_error( $e );

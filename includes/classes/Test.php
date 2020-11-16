@@ -89,13 +89,13 @@ abstract class Test {
 
 
   protected function print_yaml( $original ): void {
-    $adjusted = [
+    $debug_dump = [
       [
-        'adjusted' => $original,
+        'debug_dump' => $original,
       ],
     ];
 
-    \WP_CLI\Utils\format_items( 'yaml', $adjusted, 'adjusted' );
+    \WP_CLI\Utils\format_items( 'yaml', $debug_dump, 'debug_dump' );
   }
 
 

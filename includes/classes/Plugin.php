@@ -18,6 +18,9 @@ class Plugin {
     $this->load_scripts();
     Shortcode::register_all();
     AccessRedirect::register_all();
+    if ( defined( 'WP_CLI' ) && WP_CLI ) {
+      \WP_CLI::add_command( 'mosa', NS . 'CLI' );
+    }
   }
 
 

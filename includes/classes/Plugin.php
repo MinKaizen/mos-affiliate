@@ -17,6 +17,7 @@ class Plugin {
     $this->load_admin();
     $this->load_scripts();
     $this->register_shortcodes();
+    AccessRedirect::register_all();
   }
 
 

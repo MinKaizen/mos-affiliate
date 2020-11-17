@@ -33,6 +33,23 @@ function get_view( string $view_name ) {
 }
 
 
+function class_name( string $stub, string $sub_dir='' ): string {
+  $pascalized = snake_to_pascal_case( $stub );
+  
+  // Convert forward slashes to backwards slashes
+  if ( ! empty( $sub_dir ) ) {
+    $sub_dir = str_replace( "/", "\\", $sub_dir );
+  }
+
+  // Append trailing backslash
+  if ( substr( $sub_dir, -1 ) !== '\\' ) {
+    $sub_dir .= '\\';
+  }
+
+  return NS . $sub_dir . $pascalized;
+}
+
+
 /**
  * Convert snake_case to PascalCase
  *

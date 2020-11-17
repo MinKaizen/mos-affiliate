@@ -2,7 +2,7 @@
 
 namespace MOS\Affiliate;
 
-abstract class Shortcode {
+abstract class AbstractShortcode {
 
   protected $slug;
 

@@ -2,10 +2,10 @@
 
 namespace MOS\Affiliate\Shortcode;
 
-use MOS\Affiliate\Shortcode;
+use MOS\Affiliate\AbstractShortcode;
 use MOS\Affiliate\User;
 
-class SponsorLevelShortcode extends Shortcode {
+class SponsorLevelShortcode extends AbstractShortcode {
 
   protected $slug = 'mos_sponsor_level';
 

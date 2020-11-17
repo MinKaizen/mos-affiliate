@@ -2,10 +2,10 @@
 
 namespace MOS\Affiliate\Shortcode;
 
-use MOS\Affiliate\Shortcode;
+use MOS\Affiliate\AbstractShortcode;
 use MOS\Affiliate\User;
 
-class EmailShortcode extends Shortcode {
+class EmailShortcode extends AbstractShortcode {
 
   protected $slug = 'mos_email';
 

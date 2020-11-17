@@ -2,10 +2,10 @@
 
 namespace MOS\Affiliate\Shortcode;
 
-use MOS\Affiliate\Shortcode;
+use MOS\Affiliate\AbstractShortcode;
 use MOS\Affiliate\User;
 
-class LastNameShortcode extends Shortcode {
+class LastNameShortcode extends AbstractShortcode {
 
   protected $slug = 'mos_last_name';
 

@@ -2,11 +2,11 @@
 
 namespace MOS\Affiliate\Shortcode;
 
-use MOS\Affiliate\Shortcode;
+use MOS\Affiliate\AbstractShortcode;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Mis;
 
-class SponsorMisShortcode extends Shortcode {
+class SponsorMisShortcode extends AbstractShortcode {
 
   protected $slug = 'mos_sponsor_mis';
 

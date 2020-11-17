@@ -2,10 +2,10 @@
 
 namespace MOS\Affiliate\Shortcode;
 
-use MOS\Affiliate\Shortcode;
+use MOS\Affiliate\AbstractShortcode;
 use MOS\Affiliate\User;
 
-class WpidShortcode extends Shortcode {
+class WpidShortcode extends AbstractShortcode {
 
   protected $slug = 'mos_wpid';
 

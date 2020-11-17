@@ -8,7 +8,7 @@ class User extends \WP_User {
 
   
   public static function current(): self {
-    $wpid = \apply_filters( 'mos_current_user_id', \get_current_user_id() );
+    $wpid = \get_current_user_id();
     return self::from_id( $wpid );
   }
 

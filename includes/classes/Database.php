@@ -200,15 +200,15 @@ class Database {
   }
 
 
-  public function get_affid() {
+  public function get_affid(): int {
     global $wpdb;
 
     // Get wpid of current user
     $wpid = $this->get_wpid();
 
-    // If wpid no found, return false
+    // If wpid no found, return 0
     if ( empty( $wpid ) ) {
-      return false;
+      return 0;
     }
 
     // Perform SQL lookup
@@ -216,14 +216,12 @@ class Database {
     $query = "SELECT id FROM $table WHERE uid = $wpid LIMIT 1";
     $affid = $wpdb->get_var($query);
 
-    // If lookup failed, return false
+    // If lookup failed, return 0
     if ( empty( $affid ) ) {
-      return false;
+      return 0;
     }
 
     return $affid;
-
-
   }
 
 

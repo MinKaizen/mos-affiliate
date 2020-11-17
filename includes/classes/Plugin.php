@@ -6,14 +6,9 @@ use function MOS\Affiliate\class_name;
 
 class Plugin {
 
-  private $access_redirects = [
-    'free_access_redirect',
-    'monthly_partner_access_redirect',
-    'yearly_partner_access_redirect',
-  ];
-
 
   public function __construct() {
+    require( PLUGIN_DIR . "/includes/config/access_redirects.php" );
     require( PLUGIN_DIR . "/includes/config/caps.php" );
     require( PLUGIN_DIR . "/includes/config/levels.php" );
     require( PLUGIN_DIR . "/includes/config/mis.php" );
@@ -67,7 +62,7 @@ class Plugin {
 
 
   private function register_access_redirects(): void {
-    foreach ( $this->access_redirects as $access_redirect ) {
+    foreach ( ACCESS_REDIRECTS as $access_redirect ) {
       $class_name = class_name( $access_redirect, 'AccessRedirect' );
       $access_redirect_instance = new $class_name();
       $access_redirect_instance->register();

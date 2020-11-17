@@ -4,6 +4,10 @@ namespace MOS\Affiliate;
 
 class Plugin {
 
+  private $routes = [
+    'hello_test_route',
+  ];
+
 
   public function __construct() {
     require( PLUGIN_DIR . "/includes/config/caps.php" );
@@ -21,9 +25,7 @@ class Plugin {
     if ( defined( 'WP_CLI' ) && WP_CLI ) {
       \WP_CLI::add_command( 'mosa', NS . 'CLI' );
     }
-    \flush_rewrite_rules();
-    $test_route = new Route\TestRoute();
-    $test_route->register();
+    $this->register_routes();
   }
 
 
@@ -37,6 +39,17 @@ class Plugin {
     \add_action( 'wp_enqueue_scripts', function() {
       \wp_enqueue_script( 'mosAffiliate', PLUGIN_URL . 'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
     });
+  }
+
+
+  private function register_routes(): void {
+    \add_action( 'rest_api_init', function() {
+      foreach ( $this->routes as $route ) {
+        $class_name = AbstractRoute::class_name( $route );
+        $route_instance = new $class_name();
+        $route_instance->register();
+      }
+    } );
   }
 
 

@@ -15,7 +15,7 @@ class Database {
     $affid = $this->get_affid();
 
     // Check if affid is valid
-    if ( $affid === false ) {
+    if ( empty( $affid ) ) {
       return false;
     }
 
@@ -45,7 +45,7 @@ class Database {
     $affid = $this->get_affid();
 
     // Check that $affid is valid
-    if ( $affid === false ) {
+    if ( empty( $affid ) ) {
       return false;
     }
 

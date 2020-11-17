@@ -8,7 +8,7 @@ namespace MOS\Affiliate;
 
 class Database {
 
-  public function get_campaign_data() {
+  public function get_campaign_data(): array {
     global $wpdb;
 
     // Get affid of current user
@@ -16,7 +16,7 @@ class Database {
 
     // Check if affid is valid
     if ( empty( $affid ) ) {
-      return false;
+      return [];
     }
 
     // Perform SQL lookup
@@ -26,7 +26,7 @@ class Database {
 
     // Check if campaign data is valid
     if ( empty( $campaign_data ) ) {
-      return false;
+      return [];
     }
 
     foreach( $campaign_data as $index => $campaign ) {

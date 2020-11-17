@@ -6,10 +6,6 @@ use function MOS\Affiliate\class_name;
 
 class Plugin {
 
-  private $routes = [
-    'hello_test_route',
-  ];
-
   private $access_redirects = [
     'free_access_redirect',
     'monthly_partner_access_redirect',
@@ -21,6 +17,7 @@ class Plugin {
     require( PLUGIN_DIR . "/includes/config/caps.php" );
     require( PLUGIN_DIR . "/includes/config/levels.php" );
     require( PLUGIN_DIR . "/includes/config/mis.php" );
+    require( PLUGIN_DIR . "/includes/config/routes.php" );
     require( PLUGIN_DIR . "/includes/config/shortcodes.php" );
     require( PLUGIN_DIR . "/includes/helpers/utils.php" );
   }
@@ -51,7 +48,7 @@ class Plugin {
 
   private function register_routes(): void {
     \add_action( 'rest_api_init', function() {
-      foreach ( $this->routes as $route ) {
+      foreach ( ROUTES as $route ) {
         $class_name = class_name( $route, 'Route' );
         $route_instance = new $class_name();
         $route_instance->register();

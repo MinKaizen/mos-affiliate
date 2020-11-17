@@ -3,6 +3,7 @@
 namespace MOS\Affiliate;
 
 use \WP_CLI;
+use function MOS\Affiliate\snake_to_pascal_case;
 
 class CLI {
 
@@ -45,16 +46,8 @@ class CLI {
 
 
   private function stub_to_class_name( string $stub ): string {
-    $pascalized = $this->snake_to_pascal( $stub );
+    $pascalized = snake_to_pascal_case( $stub );
     return NS . 'Test\\' . $pascalized . 'Test';
-  }
-
-
-  private function snake_to_pascal( string $snake ): string {
-    $split_words = str_replace( '_', ' ', $snake );
-    $capitalized = ucwords( $split_words );
-    $pascal = str_replace( ' ', '', $capitalized );
-    return $pascal;
   }
 
 

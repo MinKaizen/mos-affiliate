@@ -15,6 +15,7 @@ class User extends \WP_User {
 
   public static function from_id( int $wpid ): self {
     $new_user = new self( $wpid );
+    $new_user = \apply_filters( 'mos_current_user', $new_user, $wpid );
     return $new_user;
   }
 

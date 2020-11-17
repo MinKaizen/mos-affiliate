@@ -27,6 +27,16 @@ class UserTest extends Test {
     $user->id = 42;
     $this->assert_equal( $user->get_wpid(), 42, "get_wpid()", "expected" );
 
+    $this->set_user( User::from_id(1) );
+    \WP_CLI::line( \do_shortcode( 'Admin name is: [mos_name]' ) );
+
+  }
+
+
+  private function set_user( User $user ): void {
+    \add_filter( 'mos_current_user', function() use ($user) {
+      return $user;
+    } );
   }
 
 

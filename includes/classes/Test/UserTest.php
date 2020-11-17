@@ -30,4 +30,11 @@ class UserTest extends Test {
   }
 
 
+  private function set_user_id( int $id ) {
+    \add_filter( 'mos_current_user_id', function() use ($id) {
+      return $id;
+    } );
+  }
+
+
 }

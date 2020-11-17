@@ -3,7 +3,6 @@
 namespace MOS\Affiliate;
 
 use MOS\Affiliate\Mis;
-use MOS\Affiliate\Ability;
 
 class User extends \WP_User {
 

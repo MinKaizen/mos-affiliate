@@ -31,6 +31,18 @@ class User extends \WP_User {
   }
 
 
+  public static function from_username( string $username ): self {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'users';
+    $query = "SELECT id FROM $table WHERE user_login = '$username'";
+    $wpid = $wpdb->get_var( $query );
+    $wpid = $wpid ? $wpid : 0;
+
+    return self::from_id( $wpid );
+  }
+
+
   public function sponsor(): self {
     global $wpdb;
 

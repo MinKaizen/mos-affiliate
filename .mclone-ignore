@@ -1,0 +1,14 @@
+.**
+
+**.log
+
+node_modules/
+node_modules/**
+
+/src/
+/src/**
+
+package.json
+package-lock.json
+
+webpack.config.js

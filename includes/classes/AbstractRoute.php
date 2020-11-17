@@ -2,6 +2,8 @@
 
 namespace MOS\Affiliate;
 
+use function MOS\Affiliate\snake_to_pascal_case;
+
 abstract class AbstractRoute {
 
   protected $namespace='mos-affiliate';
@@ -24,16 +26,9 @@ abstract class AbstractRoute {
 
 
   public static function class_name( string $stub ): string {
-    $pascalized = self::snake_to_pascal( $stub );
+    $pascalized = snake_to_pascal_case( $stub );
     return NS . 'Route\\' . $pascalized;
   }
 
-
-  private static function snake_to_pascal( string $snake ): string {
-    $split_words = str_replace( '_', ' ', $snake );
-    $capitalized = ucwords( $split_words );
-    $pascal = str_replace( ' ', '', $capitalized );
-    return $pascal;
-  }
 
 }

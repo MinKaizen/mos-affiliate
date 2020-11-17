@@ -243,13 +243,14 @@ class Database {
    * @param boolean $use_nice_name      (optional) whether to return a nice name instead of a slug
    * @return string                     Slug or nicename of the level
    */
-  private function wpcap_to_level( string $wpcap, bool $use_nice_name=false ) {
+  private function wpcap_to_level( string $wpcap, bool $use_nice_name=false ): string {
     $unserialized = unserialize( $wpcap );
 
-    // Get the first array key
-    if ( array_keys( $unserialized )[0] ) {
-      $level = array_keys( $unserialized )[0];
+    if ( empty(array_keys( $unserialized )[0] ) ) {
+      return '';
     }
+
+    $level = array_keys( $unserialized )[0];
 
     // Optionally, return a nice name instead of a slug
     if ( $use_nice_name ) {

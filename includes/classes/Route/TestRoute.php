@@ -6,10 +6,11 @@ use MOS\Affiliate\AbstractRoute;
 
 class TestRoute extends AbstractRoute {
 
-  protected $route = 'test';
+  protected $base = 'test';
+  protected $route = 'hello';
 
   public function serve(): void {
-    echo "Hello world! abstract this time";
+    echo "Hello world!";
   }
 
 }

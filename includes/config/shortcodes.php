@@ -2,7 +2,7 @@
 
 namespace MOS\Affiliate;
 
-define( 'SHORTCODES', [
+define( NS . 'SHORTCODES', [
   'affid_shortcode',
   'campaign_form_shortcode',
   'campaign_list_shortcode',

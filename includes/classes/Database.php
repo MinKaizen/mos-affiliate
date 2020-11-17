@@ -177,15 +177,14 @@ class Database {
   }
   
 
-  public function get_campaigns() {
+  public function get_campaigns(): array {
     global $wpdb;
 
     // Get wpid of current user
     $affid = $this->get_affid();
 
-    // If affid not found, return false
     if ( empty( $affid ) ) {
-      return false;
+      return [];
     }
 
     // Perform SQL lookup
@@ -193,9 +192,8 @@ class Database {
     $query = "SELECT DISTINCT name FROM $table WHERE affiliate_id = $affid";
     $campaigns = $wpdb->get_col( $query );
 
-    // If SQL failed, return false
     if ( empty($campaigns) ) {
-      return false;
+      return [];
     }
 
     return $campaigns;

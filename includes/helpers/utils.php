@@ -33,6 +33,13 @@ function get_view( string $view_name ) {
 }
 
 
+/**
+ * Get classname from stub
+ *
+ * @param string $stub                The stub of the classname, in snake case
+ * @param string $sub_dir (optional)  Optionally, the subdirectory where the class is located
+ * @return string                     The fully qualified class name
+ */
 function class_name( string $stub, string $sub_dir='' ): string {
   $pascalized = snake_to_pascal_case( $stub );
   

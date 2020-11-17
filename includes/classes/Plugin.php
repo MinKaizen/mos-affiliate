@@ -21,6 +21,9 @@ class Plugin {
     if ( defined( 'WP_CLI' ) && WP_CLI ) {
       \WP_CLI::add_command( 'mosa', NS . 'CLI' );
     }
+    \flush_rewrite_rules();
+    $test_route = new Route\TestRoute();
+    $test_route->register();
   }
 
 

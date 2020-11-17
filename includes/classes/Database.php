@@ -225,11 +225,11 @@ class Database {
   }
 
 
-  public function get_wpid() {
+  public function get_wpid(): int {
     $wpid = \get_current_user_id();
 
     if ( empty( $wpid ) ) {
-      return false;
+      return 0;
     }
 
     return $wpid;

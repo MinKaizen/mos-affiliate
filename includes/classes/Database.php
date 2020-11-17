@@ -38,7 +38,7 @@ class Database {
   }
 
 
-  public function get_referrals( array $requested_columns ) {
+  public function get_referrals( array $requested_columns ): array {
     global $wpdb;
 
     $base_table = $wpdb->prefix.'users';
@@ -46,7 +46,7 @@ class Database {
 
     // Check that $affid is valid
     if ( empty( $affid ) ) {
-      return false;
+      return [];
     }
 
     $columns = [
@@ -159,7 +159,7 @@ class Database {
 
     // Check that SQL returned valid result
     if ( empty( $referrals ) ) {
-      return false;
+      return [];
     }
 
     // Final clean up

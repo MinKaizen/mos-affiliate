@@ -68,7 +68,7 @@ class User extends \WP_User {
   }
 
 
-  public function get_affid() {
+  public function get_affid():int {
     global $wpdb;
 
     $table = $wpdb->prefix . 'uap_affiliates';

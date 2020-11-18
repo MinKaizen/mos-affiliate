@@ -76,7 +76,8 @@ class UserTest extends Test {
 
 
   public function test_get_affid(): void {
-    // #TODO
+    $user = new User();
+    $this->assert_equal( $user->get_affid(), 0 );
   }
 
 
@@ -157,6 +158,7 @@ class UserTest extends Test {
 
     // Delete User
     \wp_delete_user( $id );
+    WP_CLI::warning( "#database deleted user: $id" );
     $this->assert_false_strict( \get_user_by( 'id', $id ) );
 
     // Remove affiliate ID
@@ -164,6 +166,7 @@ class UserTest extends Test {
     $columns = ['uid' => $id];
     $formats = ['uid' => '%d'];
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
+    WP_CLI::warning( "#database removed affiliate" );
     $this->assert_not_equal_strict( $rows_deleted, false );
     
     // Remove affiliate relationships
@@ -171,6 +174,7 @@ class UserTest extends Test {
     $columns = ['referral_wp_uid' => $id];
     $formats = ['referral_wp_uid' => '%d'];
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
+    WP_CLI::warning( "#database severed aff relationships: $rows_deleted" );
     $this->assert_not_equal_strict( $rows_deleted, false );
   }
 

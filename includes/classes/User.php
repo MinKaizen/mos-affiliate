@@ -62,8 +62,9 @@ class User extends \WP_User {
   }
 
 
-  public function get_wpid() {
-    return $this->ID;
+  public function get_wpid(): int {
+    $wpid = $this->ID ? $this->ID : 0;
+    return $wpid;
   }
 
 

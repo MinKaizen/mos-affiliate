@@ -102,8 +102,9 @@ class User extends \WP_User {
   }
 
 
-  public function get_last_name() {
-    return $this->last_name;
+  public function get_last_name(): string {
+    $last_name = $this->last_name ? $this->last_name : '';
+    return $last_name;
   }
 
 

@@ -22,7 +22,7 @@ class AccessRedirectTest extends Test {
   ];
 
 
-  public function main(): void {
+  public function test_main(): void {
     foreach ( $this->urls as $pair ) {
       $this->check_redirect( $pair['start'], $pair['end'] );
     }

@@ -9,20 +9,24 @@ abstract class Test {
 
   protected function _before(): void {}
 
-  abstract function main(): void;
-
   protected function _after(): void {}
 
   public function run(): void {
-    try {
-      WP_CLI::line("Running pre-test setup...");
+    $class_name = get_class( $this );
+
+    // Get class name stub
+    foreach ( explode( '\\', $class_name ) as $part ) {
+      $class_name_short = $part;
+    }
+    
+    foreach( get_class_methods( $class_name ) as $method ) {
+      if ( strpos( $method, 'test_' ) !== 0 ) {
+        continue;
+      }
       $this->_before();
-      WP_CLI::line("Running test main...");
-      $this->main();
-      WP_CLI::line("Running post-test cleanup...");
+      $this->{$method}();
       $this->_after();
-    } catch ( Exception $e ) {
-      $this->print_error( $e );
+      WP_CLI::line( WP_CLI::colorize( "%g✓%n $class_name_short::$method" ) );
     }
   }
 

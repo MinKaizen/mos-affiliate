@@ -21,19 +21,6 @@ class UserTest extends Test {
     ],
   ];
 
-  public function main(): void {
-    $this->test_construct();
-    $this->test_is_empty();
-    $this->test_get_wpid();
-    $this->test_get_affid();
-    $this->test_get_username();
-    $this->test_get_name();
-    $this->test_get_email();
-    $this->test_get_mis();
-    $this->test_get_level();
-    $this->test_qualifies_for_mis();
-  }
-
 
   public function test_construct(): void {
     $user = new User();

@@ -7,7 +7,7 @@ use \WP_CLI;
 
 class SuccessTest extends Test {
 
-  public function main(): void {
+  public function test_main(): void {
     WP_CLI::line('Never gonna give you up!');
   }
 

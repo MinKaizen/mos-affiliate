@@ -141,17 +141,4 @@ class User extends \WP_User {
     return $qualifies;
   }
 
-
-  public function db_register_affiliate(): bool {
-    if ( $this->is_empty() ) {
-      $success = false;
-      return $success;
-    }
-
-    $db = new Database();
-    $success = $db->register_affiliate( $this->get_wpid() );
-
-    return $success;
-  }
-
 }

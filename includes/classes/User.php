@@ -81,8 +81,9 @@ class User extends \WP_User {
   }
 
 
-  public function get_username() {
-    return $this->user_login;
+  public function get_username(): string {
+    $username = $this->user_login ? $this->user_login : '';
+    return $username;
   }
 
 

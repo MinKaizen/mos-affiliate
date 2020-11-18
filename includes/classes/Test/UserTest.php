@@ -137,6 +137,7 @@ class UserTest extends Test {
       'user_login' => $user_array['username'],
       'user_email' => $user_array['email'],
     ]);
+    $this->assert_not_equal_strict( \get_user_by( 'id', $id ), false );
     $this->user_ids_to_delete[] = $user_id;
   }
 

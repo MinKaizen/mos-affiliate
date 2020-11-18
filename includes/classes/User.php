@@ -114,8 +114,9 @@ class User extends \WP_User {
   }
 
 
-  public function get_email() {
-    return $this->user_email;
+  public function get_email(): string {
+    $email = $this->user_email ? $this->user_email : '';
+    return $email;
   }
 
 

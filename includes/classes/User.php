@@ -108,8 +108,9 @@ class User extends \WP_User {
   }
 
 
-  public function get_first_name() {
-    return $this->first_name;
+  public function get_first_name(): string {
+    $first_name = $this->first_name ? $this->first_name : '';
+    return $first_name;
   }
 
 

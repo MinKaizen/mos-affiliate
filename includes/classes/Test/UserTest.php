@@ -145,8 +145,8 @@ class UserTest extends Test {
 
     // Register user as affiliate
     $db = new Database();
-    $affid = $db->register_affiliate( $id );
-    $this->assert_not_equal_strict( $affid, 0 );
+    $success = $db->register_affiliate( $id );
+    $this->assert_true_strict( $success );
   }
 
 

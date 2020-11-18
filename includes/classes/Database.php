@@ -238,9 +238,9 @@ class Database {
 
   /**
    * Register a user as a UAP Affiliate
-   * If already an affiliate, return the affiliate ID
-   * Return the resulting affiliate ID
-   * Return 0 if user doesn't exist
+   * If user doesn't exist, return false
+   * If already an affiliate, return true
+   * On Success, return true
    *
    * @param int $id     User WPID
    * @return integer    Affiliate ID
@@ -248,28 +248,35 @@ class Database {
   public function register_affiliate( int $id ): int {
     global $wpdb;
 
+    // Check if user exists
     $user_exists = ( ! empty( \get_userdata( $id ) ) );
     if ( ! $user_exists ) {
-      return 0;
+      return false;
     }
 
+    // Check if affiliate ID already exists
     $uap_affiliates_table = $wpdb->prefix . 'uap_affiliates';
     $query = "SELECT id FROM $uap_affiliates_table WHERE uid = $id LIMIT 1";
     $affid = $wpdb->get_var( $query );
-
-    if ( empty( $affid ) ) {
-      $columns = [
-        'uid' => $id,
-        'status' => 1,
-      ];
-      $format = [
-        '%d',
-        '%d',
-      ];
-      $affid = $wpdb->insert( $uap_affiliates_table, $columns, $format );
+    if ( ! empty( $affid ) ) {
+      return true;
     }
 
-    return (int) $affid;
+    // Insert new affiliate
+    $columns = [
+      'uid' => $id,
+      'status' => 1,
+    ];
+    $format = [
+      '%d',
+      '%d',
+    ];
+    $rows_inserted = $wpdb->insert( $uap_affiliates_table, $columns, $format );
+    if ( $rows_inserted === 0 || $rows_inserted === false ) {
+      return false;
+    }
+
+    return true;
   }
 
 

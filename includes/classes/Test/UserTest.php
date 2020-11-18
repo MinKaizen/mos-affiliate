@@ -133,12 +133,20 @@ class UserTest extends Test {
 
 
   private function create_user( array $user_array ): void {
-    $user_id = \wp_insert_user([
+    // Create User
+    $id = \wp_insert_user([
       'user_login' => $user_array['username'],
       'user_email' => $user_array['email'],
     ]);
     $this->assert_not_equal_strict( \get_user_by( 'id', $id ), false );
-    $this->user_ids_to_delete[] = $user_id;
+
+    // Make sure to this user once you're done testing
+    $this->user_ids_to_delete[] = $id;
+
+    // Register user as affiliate
+    $db = new Database();
+    $affid = $db->register_affiliate( $id );
+    $this->assert_not_equal_strict( $affid, 0 );
   }
 
 

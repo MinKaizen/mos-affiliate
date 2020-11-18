@@ -5,6 +5,7 @@ namespace MOS\Affiliate\Test;
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
+use \WP_CLI;
 use MOS\Affiliate\Mis;
 
 class UserTest extends Test {
@@ -142,6 +143,7 @@ class UserTest extends Test {
 
     // Make sure to this user once you're done testing
     $this->user_ids_to_delete[] = $id;
+    WP_CLI::warning( "Make sure this user ID is deleted... $id" );
 
     // Register user as affiliate
     $db = new Database();

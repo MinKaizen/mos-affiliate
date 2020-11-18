@@ -139,11 +139,11 @@ class UserTest extends Test {
       'user_login' => $user_array['username'],
       'user_email' => $user_array['email'],
     ]);
+    WP_CLI::warning( "#database created user: $id" );
     $this->assert_not_equal_strict( \get_user_by( 'id', $id ), false );
 
     // Make sure to this user once you're done testing
     $this->user_ids_to_delete[] = $id;
-    WP_CLI::warning( "#database created user: $id" );
 
     // Register user as affiliate
     $db = new Database();

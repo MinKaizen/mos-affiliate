@@ -5,7 +5,7 @@ namespace MOS\Affiliate;
 use \Exception;
 use \WP_CLI;
 
-abstract class Test {
+class Test {
 
   protected function _before(): void {}
 

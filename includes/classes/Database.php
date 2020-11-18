@@ -245,7 +245,7 @@ class Database {
    * @param int $id     User WPID
    * @return integer    Affiliate ID
    */
-  public function register_affiliate( int $id ): int {
+  public function register_affiliate( int $id ): bool {
     global $wpdb;
 
     // Check if user exists

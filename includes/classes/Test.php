@@ -57,6 +57,33 @@ class Test {
   }
 
 
+
+  protected function assert_not_equal( $value1, $value2, ...$labels ): void {
+    $assertion = "assert_equal";
+    $condition = $value1 != $value2;
+    $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
+    $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
+    $data = [
+      $keys[0] => $value1,
+      $keys[1] => $value2,
+    ];
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_not_equal_strict( $value1, $value2, ...$labels ): void {
+    $assertion = "assert_equal_strict";
+    $condition = $value1 !== $value2;
+    $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
+    $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
+    $data = [
+      $keys[0] => $value1,
+      $keys[1] => $value2,
+    ];
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_true( $expression, ...$labels ): void {
     $assertion = "assert_true";
     $condition = $expression == true;

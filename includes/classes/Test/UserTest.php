@@ -49,7 +49,7 @@ class UserTest extends Test {
 
   public function __destruct() {
     foreach ( $this->user_ids_to_delete as $id ) {
-      \wp_delete_user( $id );
+      $this->delete_user( $id );
     }
   }
 

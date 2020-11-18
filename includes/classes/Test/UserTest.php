@@ -9,6 +9,8 @@ use MOS\Affiliate\Mis;
 
 class UserTest extends Test {
 
+  private $user_ids_to_delete = [];
+
   private $user = [
     'username' => 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv',
     'email' => 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv@gmail.com',
@@ -22,6 +24,34 @@ class UserTest extends Test {
       'cm' => 'cm42',
     ],
   ];
+
+
+  public function __construct() {
+    $user = User::from_username( $this->user['username'] );
+    $sponsor = User::from_username( $this->sponsor['username'] );
+    
+    // Create user if it doesn't exist
+    if ( $user->is_empty() ) {
+      $this->create_user( $this->user );
+      $user = User::from_username( $this->user['username'] );
+      $this->assert_false( $user->is_empty() );
+    }
+    
+    // Create sponsor if it doesn't exist
+    if ( $sponsor->is_empty() ) {
+      $this->create_user( $this->sponsor );
+      $sponsor = User::from_username( $this->sponsor['username'] );
+      $this->assert_false( $sponsor->is_empty() );
+    }
+
+  }
+
+
+  public function __destruct() {
+    foreach ( $this->user_ids_to_delete as $id ) {
+      \wp_delete_user( $id );
+    }
+  }
 
 
   public function test_construct(): void {
@@ -99,6 +129,15 @@ class UserTest extends Test {
     \add_filter( 'mos_current_user', function() use ($user) {
       return $user;
     } );
+  }
+
+
+  private function create_user( array $user_array ): void {
+    $user_id = \wp_insert_user([
+      'user_login' => $user_array['username'],
+      'user_email' => $user_array['email'],
+    ]);
+    $this->user_ids_to_delete[] = $user_id;
   }
 
 

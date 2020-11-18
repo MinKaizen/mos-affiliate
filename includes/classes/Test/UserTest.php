@@ -141,4 +141,27 @@ class UserTest extends Test {
   }
 
 
+  private function delete_user( int $id ): void {
+    global $wpdb;
+
+    // Delete User
+    \wp_delete_user( $id );
+    $this->assert_false_strict( \get_user_by( 'id', $id ) );
+
+    // Remove affiliate ID
+    $table = $wpdb->prefix . 'uap_affiliates';
+    $columns = ['uid' => $id];
+    $formats = ['uid' => '%d'];
+    $rows_deleted = $wpdb->delete( $table, $columns, $formats );
+    $this->assert_not_equal_strict( $rows_deleted, false );
+    
+    // Remove affiliate relationships
+    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+    $columns = ['referral_wp_uid' => $id];
+    $formats = ['referral_wp_uid' => '%d'];
+    $rows_deleted = $wpdb->delete( $table, $columns, $formats );
+    $this->assert_not_equal_strict( $rows_deleted, false );
+  }
+
+
 }

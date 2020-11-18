@@ -143,7 +143,7 @@ class UserTest extends Test {
 
     // Make sure to this user once you're done testing
     $this->user_ids_to_delete[] = $id;
-    WP_CLI::warning( "Make sure this user ID is deleted... $id" );
+    WP_CLI::warning( "#database created user: $id" );
 
     // Register user as affiliate
     $db = new Database();

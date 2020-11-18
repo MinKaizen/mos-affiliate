@@ -90,6 +90,17 @@ class Test {
   }
 
 
+  protected function assert_false_strict( $expression, ...$labels ): void {
+    $assertion = "assert_false";
+    $condition = $expression === false;
+    $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
+    $data = [
+      $keys[0] => $expression,
+    ];
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_string_contains( string $haystack, string $needle, ...$labels ): void {
     $assertion = "assert_string_contains";
     $condition = ( strpos( $haystack, $needle ) !== false );

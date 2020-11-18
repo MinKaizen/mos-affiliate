@@ -5,6 +5,7 @@ namespace MOS\Affiliate\Test;
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
+use MOS\Affiliate\Mis;
 
 class UserTest extends Test {
 

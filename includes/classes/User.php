@@ -87,13 +87,15 @@ class User extends \WP_User {
   }
 
 
-  public function get_name() {
+  public function get_name(): string {
     if ($this->first_name && $this->last_name) {
       $name = implode( ' ', [$this->first_name, $this->last_name] );
     } elseif ( $this->first_name ) {
       $name = $this->first_name;
-    } else {
+    } elseif ( $this->display_name ) {
       $name = $this->display_name;
+    } else {
+      $name = '';
     }
     
     return $name;

@@ -68,6 +68,17 @@ class Test {
   }
 
 
+  protected function assert_true_strict( $expression, ...$labels ): void {
+    $assertion = "assert_true";
+    $condition = $expression === true;
+    $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
+    $data = [
+      $keys[0] => $expression,
+    ];
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_false( $expression, ...$labels ): void {
     $assertion = "assert_false";
     $condition = $expression == false;

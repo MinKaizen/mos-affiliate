@@ -237,6 +237,43 @@ class Database {
 
 
   /**
+   * Register a user as a UAP Affiliate
+   * If already an affiliate, return the affiliate ID
+   * Return the resulting affiliate ID
+   * Return 0 if user doesn't exist
+   *
+   * @param int $id     User WPID
+   * @return integer    Affiliate ID
+   */
+  public function register_affiliate( int $id ): int {
+    global $wpdb;
+
+    $user_exists = ( ! empty( \get_userdata( $id ) ) );
+    if ( ! $user_exists ) {
+      return 0;
+    }
+
+    $uap_affiliates_table = $wpdb->prefix . 'uap_affiliates';
+    $query = "SELECT id FROM $uap_affiliates_table WHERE uid = $id LIMIT 1";
+    $affid = $wpdb->get_var( $query );
+
+    if ( empty( $affid ) ) {
+      $columns = [
+        'uid' => $id,
+        'status' => 1,
+      ];
+      $format = [
+        '%d',
+        '%d',
+      ];
+      $affid = $wpdb->insert( $uap_affiliates_table, $columns, $format );
+    }
+
+    return (int) $affid;
+  }
+
+
+  /**
    * Convert WP Capability (serialized php array) to slug or nice name (optional)
    *
    * @param string $wpcap               Wordpress capability in php serialized array form

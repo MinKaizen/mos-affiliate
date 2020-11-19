@@ -151,7 +151,7 @@ class UserTest extends Test {
 
 
   public function test_qualifies_for_mis(): void {
-    $user = User::from_username( $this->user['username'] );
+    $user = new User();
     
     $slug = 'gr';
     $mis = \MOS\Affiliate\MIS_NETWORKS['gr'];

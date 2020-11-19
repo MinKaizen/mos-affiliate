@@ -136,6 +136,24 @@ class UserShortcodeTest extends Test {
   }
 
 
+  public function test_name_shortcode() {
+    $first_name = 'Hayasaka';
+    $last_name = 'Ai';
+    $this->user->first_name = $first_name;
+    $this->user->last_name = $last_name;
+    $this->set_user( $this->user );
+
+    $expected = "$first_name $last_name";
+    $shortcode = '[mos_name]';
+    $output = \do_shortcode( $shortcode );
+    $this->assert_equal_strict( $expected, $output, [
+      'expected' => $expected,
+      'shortcode' => $shortcode,
+      'output' => $output,
+    ] );
+  }
+
+
   private function set_user( User $user ): void {
     \add_filter( 'mos_current_user', function() use ($user) {
       return $user;

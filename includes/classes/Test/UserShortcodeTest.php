@@ -143,7 +143,7 @@ class UserShortcodeTest extends Test {
   }
 
 
-  public function test_name_shortcode() {
+  public function test_name_shortcode(): void {
     $first_name = 'Hayasaka';
     $last_name = 'Ai';
     $this->user->first_name = $first_name;

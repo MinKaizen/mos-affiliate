@@ -187,6 +187,12 @@ class Test {
     $colorized_message = WP_CLI::colorize( '%1%W' . $message . '%n%N');
     WP_CLI::error( $colorized_message );
   }
+  
+  
+  protected function db_notice( string $message ): void {
+    $colorized_message = WP_CLI::colorize( '%b✦%n ' . $message);
+    WP_CLI::line( $colorized_message );
+  }
 
 
   protected function print_yaml( $original ): void {

@@ -174,7 +174,7 @@ class UserTest extends Test {
       'user_login' => $user_array['username'],
       'user_email' => $user_array['email'],
     ]);
-    $this->assert_not_equal_strict( \get_user_by( 'id', $id ), false );
+    $this->assert_is_int( $id, $id );
     $this->db_notice( "$id - user created" );
 
     // Make sure to delete this user once you're done testing

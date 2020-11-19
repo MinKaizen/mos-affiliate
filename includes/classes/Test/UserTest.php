@@ -5,8 +5,6 @@ namespace MOS\Affiliate\Test;
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
-use \WP_CLI;
-use MOS\Affiliate\Mis;
 
 class UserTest extends Test {
 

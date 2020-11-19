@@ -5,10 +5,12 @@ namespace MOS\Affiliate\Test;
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
+use \WP_CLI;
 
 use function \do_shortcode;
 use function \get_user_by;
 use function \add_filter;
+use function \remove_filter;
 use function \wp_insert_user;
 use function \wp_delete_user;
 use function \update_user_meta;
@@ -37,14 +39,16 @@ class SponsorShortcodeTest extends Test {
     $this->user = $this->create_user( $this->user_username );
     $this->sponsor = $this->create_user( $this->sponsor_username );
 
-    $this->set_user( $this->user );
-    $this->set_sponsor( $this->user->ID, $this->sponsor );
+    $this->set_user();
+    $this->set_sponsor();
   }
 
 
   public function __destruct() {
     $this->delete_user( $this->user->ID );
     $this->delete_user( $this->sponsor->ID );
+    $this->unset_user();
+    $this->unset_sponsor();
   }
 
 
@@ -143,21 +147,45 @@ class SponsorShortcodeTest extends Test {
   }
 
 
-  private function set_user( User $user ): void {
-    add_filter( 'mos_current_user', function() use ($user) {
-      return $user;
-    }, self::INJECTION_PRIORITY, 1 );
+  public function get_user(): User {
+    return $this->user;
   }
 
 
-  private function set_sponsor( int $id, User $injected_sponsor ): void {
-    add_filter( 'mos_sponsor', function( $sponsor, $user_id ) use ($id, $injected_sponsor) {
-      if ( $user_id == $id ) {
-        return $injected_sponsor;
-      } else {
-        return $sponsor;
-      }
-    }, self::INJECTION_PRIORITY, 2 );
+  public function get_sponsor( $original_sponsor, $user_id ): User {
+    if ( $user_id == $this->user->ID ) {
+      return $this->sponsor;
+    } else {
+      return $original_sponsor;
+    }
+  }
+
+
+  private function set_user(): void {
+    add_filter( 'mos_current_user', [$this, 'get_user'], self::INJECTION_PRIORITY );
+    WP_CLI::line('Filter added: set_user');
+  }
+
+
+  private function unset_user(): void {
+    $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'], self::INJECTION_PRIORITY );
+    if ($remove_success) {
+      WP_CLI::line('Filter removed: set_user');
+    }
+  }
+
+
+  private function set_sponsor(): void {
+    add_filter( 'mos_sponsor', [$this, 'get_sponsor'], self::INJECTION_PRIORITY, 2 );
+    WP_CLI::line('Filter added: set_sponsor');
+  }
+
+
+  private function unset_sponsor(): void {
+    $remove_success = remove_filter( 'mos_sponsor', [$this, 'get_sponsor'], self::INJECTION_PRIORITY, 2 );
+    if ($remove_success) {
+      WP_CLI::line('Filter removed: set_sponsor');
+    }
   }
 
   

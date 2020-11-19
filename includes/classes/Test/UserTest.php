@@ -38,11 +38,11 @@ class UserTest extends Test {
       $this->delete_user( $prev_sponsor->ID );
     }
     
-    $this->create_user( $this->user );
+    $this->user_ids_to_delete[] = $this->create_user( $this->user );
     $user = User::from_username( $this->user['username'] );
     $this->assert_false_strict( $user->is_empty() );
     
-    $this->create_user( $this->sponsor );
+    $this->user_ids_to_delete[] = $this->create_user( $this->sponsor );
     $sponsor = User::from_username( $this->sponsor['username'] );
     $this->assert_false_strict( $sponsor->is_empty() );
   }
@@ -177,9 +177,6 @@ class UserTest extends Test {
     $this->assert_is_int( $id, $id );
     $this->db_notice( "$id - user created" );
 
-    // Make sure to delete this user once you're done testing
-    $this->user_ids_to_delete[] = $id;
-
     // Register user as affiliate
     $db = new Database();
     $success = $db->register_affiliate( $id );
@@ -213,6 +210,12 @@ class UserTest extends Test {
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
     $this->db_notice( "$id - removed sponsor" );
     $this->assert_not_equal_strict( $rows_deleted, false );
+  }
+
+
+  private function user_exists( int $id ): bool {
+    $user = \get_user_by( 'id', $id );
+    return !empty( $user );
   }
 
 

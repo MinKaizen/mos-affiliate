@@ -17,7 +17,6 @@ class UserShortcodeTest extends Test {
 
   private $user;
   private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
-  private $email = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN@gmail.com';
   private $first_name = 'Hayasaka';
   private $last_name = 'Ai';
   private $level_slug = 'monthly_partner';
@@ -53,10 +52,11 @@ class UserShortcodeTest extends Test {
 
 
   public function test_email_shortcode(): void {
-    $this->user->user_email = $this->email;
+    $email = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN@gmail.com';
+    $this->user->user_email = $email;
     $this->set_user( $this->user );
     $shortcode = '[mos_email]';
-    $this->assert_shortcode_equal( $shortcode, $this->email );
+    $this->assert_shortcode_equal( $shortcode, $email );
   }
 
 

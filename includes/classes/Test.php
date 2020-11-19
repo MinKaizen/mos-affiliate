@@ -196,6 +196,10 @@ class Test {
 
 
   protected function print_yaml( $original ): void {
+    if ( empty( $original ) ) {
+      WP_CLI::warning( "No debug data passed" );
+      return;
+    }
     $debug_dump = [
       [
         'debug_dump' => $original,

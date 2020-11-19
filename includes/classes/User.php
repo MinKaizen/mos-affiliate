@@ -9,14 +9,14 @@ class User extends \WP_User {
   
   public static function current(): self {
     $wpid = \get_current_user_id();
-    $wpid = \apply_filters( 'mos_current_user_id', $wpid );
-    return self::from_id( $wpid );
+    $current_user = self::from_id( $wpid );
+    $current_user = apply_filters( 'mos_current_user', $current_user );
+    return $current_user;
   }
 
 
   public static function from_id( int $wpid ): self {
     $new_user = new self( $wpid );
-    $new_user = \apply_filters( 'mos_current_user', $new_user, $wpid );
     return $new_user;
   }
 

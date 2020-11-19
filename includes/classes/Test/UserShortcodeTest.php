@@ -93,6 +93,49 @@ class UserShortcodeTest extends Test {
   }
     
 
+  public function test_mis_shortcode(): void {
+    $mis = [
+      'gr' => 'my_gr_id',
+      'cm' => '',
+      'non_existent' => 'my_nonexistent_id',
+    ];
+
+    foreach( $mis as $slug => $value ) {
+      $meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $slug;
+      \update_user_meta( $this->user->ID, $meta_key, $value );
+    }
+
+    $this->set_user( $this->user );
+
+    $expected = $mis['gr'];
+    $shortcode = '[mos_mis network=gr]';
+    $shortcode_output = \do_shortcode( $shortcode );
+    $this->assert_equal_strict( $expected, $shortcode_output, [
+      'expected' => $expected,
+      'actual' => $shortcode_output,
+      'shortcode' => $shortcode,
+    ] );
+
+    $expected = $mis['cm'];
+    $shortcode = '[mos_mis network=non_existent]';
+    $shortcode_output = \do_shortcode( $shortcode );
+    $this->assert_equal_strict( $expected, $shortcode_output, [
+      'expected' => $expected,
+      'actual' => $shortcode_output,
+      'shortcode' => $shortcode,
+    ] );
+
+    $expected = '';
+    $shortcode = '[mos_mis network=cm]';
+    $shortcode_output = \do_shortcode( $shortcode );
+    $this->assert_equal_strict( $expected, $shortcode_output, [
+      'expected' => $expected,
+      'actual' => $shortcode_output,
+      'shortcode' => $shortcode,
+    ] );
+  }
+
+
   private function set_user( User $user ): void {
     \add_filter( 'mos_current_user', function() use ($user) {
       return $user;

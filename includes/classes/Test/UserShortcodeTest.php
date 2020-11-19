@@ -8,6 +8,25 @@ use MOS\Affiliate\Database;
 
 class UserShortcodeTest extends Test {
 
+  private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
+  private $user;
+
+
+  public function __construct() {
+    $prev_user = \get_user_by( 'login', $this->username );
+    if ( $prev_user ) {
+      $this->delete_user( $prev_user->ID );
+    }
+    
+    $this->user = $this->create_user( $this->username );
+  }
+
+
+  public function __destruct() {
+    $this->delete_user( $this->user->ID );
+  }
+
+
   public function test_main(): void {
     $this->assert_true( 1==1 );
   }

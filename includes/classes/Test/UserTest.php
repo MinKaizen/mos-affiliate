@@ -45,7 +45,8 @@ class UserTest extends Test {
     $this->user_ids_to_delete[] = $sponsor_id;
 
     $db = new Database();
-    $db->add_sponsor( $user_id, $sponsor_id);
+    $add_sponsor_success = $db->add_sponsor( $user_id, $sponsor_id);
+    $this->assert_true_strict( $add_sponsor_success );
     $this->assert_true_strict( $db->user_has_sponsor( $user_id ) );
     $this->db_notice( "$user_id - added sponsor ($sponsor_id)" );
   }

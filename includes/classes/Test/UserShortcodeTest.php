@@ -177,7 +177,7 @@ class UserShortcodeTest extends Test {
 
   private function assert_shortcode_equal( string $shortcode, $expected ): void {
     $output = do_shortcode( $shortcode );
-    assert_equal( $expected, $output, [
+    $this->assert_equal( $expected, $output, [
       'expected' => $expected,
       'shortcode' => $shortcode,
       'output' => $output,

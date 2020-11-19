@@ -17,7 +17,6 @@ class UserShortcodeTest extends Test {
 
   private $user;
   private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
-  private $first_name = 'Hayasaka';
   private $last_name = 'Ai';
   private $level_slug = 'monthly_partner';
   private $level_name = 'Monthly Partner';
@@ -61,10 +60,11 @@ class UserShortcodeTest extends Test {
 
 
   public function test_first_name(): void {
-    $this->user->first_name = $this->first_name;
+    $first_name = 'Hayasaka';
+    $this->user->first_name = $first_name;
     $this->set_user( $this->user );
     $shortcode = '[mos_first_name]';
-    $this->assert_shortcode_equal( $shortcode, $this->first_name );
+    $this->assert_shortcode_equal( $shortcode, $first_name );
   }
 
 

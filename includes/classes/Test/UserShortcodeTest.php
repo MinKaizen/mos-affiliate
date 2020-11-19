@@ -11,6 +11,7 @@ class UserShortcodeTest extends Test {
   private $user;
   private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
   private $email = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN@gmail.com';
+  private $first_name = 'Hayasaka';
 
 
   public function __construct() {
@@ -51,6 +52,17 @@ class UserShortcodeTest extends Test {
     $shortcode = \do_shortcode( '[mos_email]' );
     $this->assert_equal( $shortcode, $this->email, [
       'expected' => $this->email,
+      'actual' => $shortcode,
+    ] );
+  }
+
+
+  public function test_first_name(): void {
+    $this->user->first_name = $this->first_name;
+    $this->set_user( $this->user );
+    $shortcode = \do_shortcode( '[mos_first_name]' );
+    $this->assert_equal( $shortcode, $this->first_name, [
+      'expected' => $this->first_name,
       'actual' => $shortcode,
     ] );
   }

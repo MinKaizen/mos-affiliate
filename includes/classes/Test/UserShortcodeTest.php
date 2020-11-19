@@ -175,6 +175,16 @@ class UserShortcodeTest extends Test {
   }
 
 
+  private function assert_shortcode_equal( string $shortcode, $expected ): void {
+    $output = do_shortcode( $shortcode );
+    assert_equal( $expected, $output, [
+      'expected' => $expected,
+      'shortcode' => $shortcode,
+      'output' => $output,
+    ] );
+  }
+
+
   private function set_user( User $user ): void {
     add_filter( 'mos_current_user', function() use ($user) {
       return $user;

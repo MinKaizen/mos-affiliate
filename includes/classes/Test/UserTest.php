@@ -165,6 +165,14 @@ class UserTest extends Test {
   }
 
 
+  public function test_sponsor(): void {
+    $user = User::from_username( $this->user['username'] );
+    $sponsor = $user->sponsor();
+    $this->assert_equal_strict( $sponsor->user_login, $this->sponsor['username'] );
+    $this->assert_equal_strict( $sponsor->user_email, $this->sponsor['email'] );
+  }
+
+
   private function set_user( User $user ): void {
     \add_filter( 'mos_current_user', function() use ($user) {
       return $user;

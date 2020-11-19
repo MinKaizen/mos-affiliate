@@ -168,7 +168,7 @@ class UserTest extends Test {
   }
 
 
-  private function create_user( array $user_array ): void {
+  private function create_user( array $user_array ): int {
     // Create User
     $id = \wp_insert_user([
       'user_login' => $user_array['username'],
@@ -185,6 +185,8 @@ class UserTest extends Test {
     $success = $db->register_affiliate( $id );
     $this->assert_true_strict( $success );
     $this->db_notice( "$id - registered as affiliate" );
+
+    return $id;
   }
 
 

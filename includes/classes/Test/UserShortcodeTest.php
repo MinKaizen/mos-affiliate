@@ -89,8 +89,8 @@ class UserShortcodeTest extends Test {
     $this->assert_equal( $shortcode, $this->level_name, [
       'expected' => $this->level_name,
       'actual' => $shortcode,
-      ] );
-    }
+    ] );
+  }
     
 
   private function set_user( User $user ): void {

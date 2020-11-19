@@ -32,7 +32,7 @@ class UserShortcodeTest extends Test {
   }
 
 
-  public function test_affid(): void {
+  public function test_affid_shortcode(): void {
     $this->set_user( $this->user );
     $affid = $this->user->get_affid();
     $shortcode = \do_shortcode( '[mos_affid]' );

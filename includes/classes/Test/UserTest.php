@@ -45,6 +45,7 @@ class UserTest extends Test {
     $this->create_user( $this->sponsor );
     $sponsor = User::from_username( $this->sponsor['username'] );
     $this->assert_false_strict( $sponsor->is_empty() );
+
   }
 
 
@@ -141,7 +142,7 @@ class UserTest extends Test {
       'user_email' => $user_array['email'],
     ]);
     $this->assert_not_equal_strict( \get_user_by( 'id', $id ), false );
-    $this->db_notice( "created user: $id" );
+    $this->db_notice( "$id - user created" );
 
     // Make sure to delete this user once you're done testing
     $this->user_ids_to_delete[] = $id;
@@ -150,7 +151,7 @@ class UserTest extends Test {
     $db = new Database();
     $success = $db->register_affiliate( $id );
     $this->assert_true_strict( $success );
-    $this->db_notice( "registered as affiliate: $id" );
+    $this->db_notice( "$id - registered as affiliate" );
   }
 
 
@@ -159,7 +160,7 @@ class UserTest extends Test {
 
     // Delete User
     \wp_delete_user( $id );
-    $this->db_notice( "deleted user: $id" );
+    $this->db_notice( "$id - user deleted" );
     $this->assert_false_strict( \get_user_by( 'id', $id ) );
 
     // Remove affiliate ID
@@ -167,15 +168,15 @@ class UserTest extends Test {
     $columns = ['uid' => $id];
     $formats = ['uid' => '%d'];
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    $this->db_notice( "removed affiliate" );
+    $this->db_notice( "$id - removed affiliate" );
     $this->assert_not_equal_strict( $rows_deleted, false );
     
-    // Remove affiliate relationships
+    // Remove sponsor
     $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
     $columns = ['referral_wp_uid' => $id];
     $formats = ['referral_wp_uid' => '%d'];
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    $this->db_notice( "severed aff relationships: $rows_deleted" );
+    $this->db_notice( "$id - removed sponsor" );
     $this->assert_not_equal_strict( $rows_deleted, false );
   }
 

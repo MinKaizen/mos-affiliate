@@ -38,13 +38,16 @@ class UserTest extends Test {
       $this->delete_user( $prev_sponsor->ID );
     }
     
-    $this->user_ids_to_delete[] = $this->create_user( $this->user );
-    $user = User::from_username( $this->user['username'] );
-    $this->assert_false_strict( $user->is_empty() );
-    
-    $this->user_ids_to_delete[] = $this->create_user( $this->sponsor );
-    $sponsor = User::from_username( $this->sponsor['username'] );
-    $this->assert_false_strict( $sponsor->is_empty() );
+    $user_id = $this->create_user( $this->user );
+    $sponsor_id = $this->create_user( $this->sponsor );
+
+    $this->user_ids_to_delete[] = $user_id;
+    $this->user_ids_to_delete[] = $sponsor_id;
+
+    $db = new Database();
+    $db->add_sponsor( $user_id, $sponsor_id);
+    $this->assert_true_strict( $db->user_has_sponsor( $user_id ) );
+    $this->db_notice( "$user_id - added sponsor ($sponsor_id)" );
   }
 
 

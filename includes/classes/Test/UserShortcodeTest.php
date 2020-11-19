@@ -133,6 +133,13 @@ class UserShortcodeTest extends Test {
   }
 
 
+  public function test_wpid_shortcode(): void {
+    $expected = $this->user->ID;
+    $shortcode = '[mos_wpid]';
+    $this->assert_shortcode_equal( $shortcode, $expected );
+  }
+
+
   private function assert_shortcode_equal( string $shortcode, $expected ): void {
     $output = do_shortcode( $shortcode );
     $this->assert_equal( $expected, $output, [

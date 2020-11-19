@@ -59,7 +59,7 @@ class Test {
 
 
   protected function assert_not_equal( $value1, $value2, ...$labels ): void {
-    $assertion = "assert_equal";
+    $assertion = "assert_not_equal";
     $condition = $value1 != $value2;
     $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
@@ -72,7 +72,7 @@ class Test {
 
 
   protected function assert_not_equal_strict( $value1, $value2, ...$labels ): void {
-    $assertion = "assert_equal_strict";
+    $assertion = "assert_not_equal_strict";
     $condition = $value1 !== $value2;
     $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
@@ -96,7 +96,7 @@ class Test {
 
 
   protected function assert_true_strict( $expression, ...$labels ): void {
-    $assertion = "assert_true";
+    $assertion = "assert_true_strict";
     $condition = $expression === true;
     $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
     $data = [
@@ -118,7 +118,7 @@ class Test {
 
 
   protected function assert_false_strict( $expression, ...$labels ): void {
-    $assertion = "assert_false";
+    $assertion = "assert_false_strict";
     $condition = $expression === false;
     $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
     $data = [

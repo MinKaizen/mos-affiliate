@@ -219,10 +219,4 @@ class UserTest extends Test {
   }
 
 
-  private function username_exists( string $username ): bool {
-    $user = \get_user_by( 'login', $username );
-    return !empty( $user );
-  }
-
-
 }

@@ -10,6 +10,7 @@ class CLI {
   private $tests = [
     'access_redirect',
     'user',
+    'user_shortcode',
   ];
 
 

@@ -46,57 +46,41 @@ class UserShortcodeTest extends Test {
 
   public function test_affid_shortcode(): void {
     $this->set_user( $this->user );
-    $affid = $this->user->get_affid();
-    $shortcode = do_shortcode( '[mos_affid]' );
-    $this->assert_equal( $affid, $shortcode, [
-      'affid' => $affid,
-      'user' => $this->user,
-      'shortcode' => $shortcode,
-    ] );
+    $expected = $this->user->get_affid();
+    $shortcode = '[mos_affid]';
+    $this->assert_shortcode_equal( $shortcode, $expected );
   }
 
 
   public function test_email_shortcode(): void {
     $this->user->user_email = $this->email;
     $this->set_user( $this->user );
-    $shortcode = do_shortcode( '[mos_email]' );
-    $this->assert_equal( $shortcode, $this->email, [
-      'expected' => $this->email,
-      'actual' => $shortcode,
-    ] );
+    $shortcode = '[mos_email]';
+    $this->assert_shortcode_equal( $shortcode, $this->email );
   }
 
 
   public function test_first_name(): void {
     $this->user->first_name = $this->first_name;
     $this->set_user( $this->user );
-    $shortcode = do_shortcode( '[mos_first_name]' );
-    $this->assert_equal( $shortcode, $this->first_name, [
-      'expected' => $this->first_name,
-      'actual' => $shortcode,
-    ] );
+    $shortcode = '[mos_first_name]';
+    $this->assert_shortcode_equal( $shortcode, $this->first_name );
   }
 
 
   public function test_last_name(): void {
     $this->user->last_name = $this->last_name;
     $this->set_user( $this->user );
-    $shortcode = do_shortcode( '[mos_last_name]' );
-    $this->assert_equal( $shortcode, $this->last_name, [
-      'expected' => $this->last_name,
-      'actual' => $shortcode,
-      ] );
-    }
+    $shortcode = '[mos_last_name]';
+    $this->assert_shortcode_equal( $shortcode, $this->last_name );
+  }
     
 
   public function test_level_shortcode(): void {
     $this->user->roles = [$this->level_slug];
     $this->set_user( $this->user );
-    $shortcode = do_shortcode( '[mos_level]' );
-    $this->assert_equal( $shortcode, $this->level_name, [
-      'expected' => $this->level_name,
-      'actual' => $shortcode,
-    ] );
+    $shortcode = '[mos_level]';
+    $this->assert_shortcode_equal( $shortcode, $this->level_name );
   }
     
 
@@ -116,30 +100,15 @@ class UserShortcodeTest extends Test {
 
     $expected = $mis['gr'];
     $shortcode = '[mos_mis network=gr]';
-    $shortcode_output = do_shortcode( $shortcode );
-    $this->assert_equal_strict( $expected, $shortcode_output, [
-      'expected' => $expected,
-      'actual' => $shortcode_output,
-      'shortcode' => $shortcode,
-    ] );
+    $this->assert_shortcode_equal( $shortcode, $expected );
 
     $expected = $mis['cm'];
-    $shortcode = '[mos_mis network=non_existent]';
-    $shortcode_output = do_shortcode( $shortcode );
-    $this->assert_equal_strict( $expected, $shortcode_output, [
-      'expected' => $expected,
-      'actual' => $shortcode_output,
-      'shortcode' => $shortcode,
-    ] );
-
-    $expected = '';
     $shortcode = '[mos_mis network=cm]';
-    $shortcode_output = do_shortcode( $shortcode );
-    $this->assert_equal_strict( $expected, $shortcode_output, [
-      'expected' => $expected,
-      'actual' => $shortcode_output,
-      'shortcode' => $shortcode,
-    ] );
+    $this->assert_shortcode_equal( $shortcode, $expected );
+    
+    $expected = '';
+    $shortcode = '[mos_mis network=non_existent]';
+    $this->assert_shortcode_equal( $shortcode, $expected );
   }
 
 
@@ -152,12 +121,7 @@ class UserShortcodeTest extends Test {
 
     $expected = "$first_name $last_name";
     $shortcode = '[mos_name]';
-    $output = do_shortcode( $shortcode );
-    $this->assert_equal_strict( $expected, $output, [
-      'expected' => $expected,
-      'shortcode' => $shortcode,
-      'output' => $output,
-    ] );
+    $this->assert_shortcode_equal( $shortcode, $expected );
   }
 
 
@@ -165,13 +129,7 @@ class UserShortcodeTest extends Test {
     $this->set_user( $this->user );
     $expected = $this->username;
     $shortcode = '[mos_username]';
-    $output = do_shortcode( $shortcode );
-    $this->assert_equal_strict( $expected, $output, [
-      'expected' => $expected,
-      'shortcode' => $shortcode,
-      'output' => $output,
-    ] );
-
+    $this->assert_shortcode_equal( $shortcode, $expected );
   }
 
 

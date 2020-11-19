@@ -25,17 +25,16 @@ class UserShortcodeTest extends Test {
     $id = \wp_insert_user([
       'user_login' => $username,
     ]);
-    $this->assert_is_int( $id, $id );
-    $this->db_notice( "$id - user created" );
-
+    
     // Register user as affiliate
     $db = new Database();
     $success = $db->register_affiliate( $id );
+
+    $this->assert_is_int( $id, $id );
     $this->assert_true_strict( $success );
-    $this->db_notice( "$id - registered as affiliate" );
+    $this->db_notice( "$id - user created" );
 
     $user = User::from_id( $id );
-
     return $user;
   }
 

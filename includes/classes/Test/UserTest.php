@@ -150,6 +150,7 @@ class UserTest extends Test {
     $db = new Database();
     $success = $db->register_affiliate( $id );
     $this->assert_true_strict( $success );
+    $this->db_notice( "registered as affiliate: $id" );
   }
 
 

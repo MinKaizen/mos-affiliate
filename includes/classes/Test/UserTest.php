@@ -158,13 +158,6 @@ class UserTest extends Test {
   }
 
 
-  private function set_user( User $user ): void {
-    \add_filter( 'mos_current_user', function() use ($user) {
-      return $user;
-    } );
-  }
-
-
   private function create_user( string $username ): int {
     // Create User
     $id = \wp_insert_user([

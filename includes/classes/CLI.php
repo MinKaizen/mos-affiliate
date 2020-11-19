@@ -11,6 +11,7 @@ class CLI {
     'access_redirect',
     'user',
     'user_shortcode',
+    'sponsor_shortcode',
   ];
 
 

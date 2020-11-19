@@ -5,6 +5,7 @@ namespace MOS\Affiliate\Test;
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
+use \WP_CLI;
 
 use function \do_shortcode;
 use function \get_user_by;
@@ -147,11 +148,15 @@ class UserShortcodeTest extends Test {
 
   private function set_user(): void {
     add_filter( 'mos_current_user', [$this, 'get_user'] );
+    WP_CLI::line('Filter added: set_user');
   }
 
 
   private function unset_user(): void {
-    remove_filter( 'mos_current_user', [$this, 'get_user'] );
+    $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'] );
+    if ($remove_success) {
+      WP_CLI::line('Filter removed: set_user');
+    }
   }
 
 

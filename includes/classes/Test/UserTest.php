@@ -14,16 +14,10 @@ class UserTest extends Test {
 
   private $user = [
     'username' => 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv',
-    'email' => 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv@gmail.com',
   ];
 
   private $sponsor = [
     'username' => 'rEW2i41jztjYawCHbz8ImrcVSrkM95kr',
-    'email' => 'rEW2i41jztjYawCHbz8ImrcVSrkM95kr@gmail.com',
-    'mis' => [
-      'gr' => 'gr42',
-      'cm' => 'cm42',
-    ],
   ];
 
 
@@ -169,7 +163,6 @@ class UserTest extends Test {
     $user = User::from_username( $this->user['username'] );
     $sponsor = $user->sponsor();
     $this->assert_equal_strict( $sponsor->user_login, $this->sponsor['username'] );
-    $this->assert_equal_strict( $sponsor->user_email, $this->sponsor['email'] );
   }
 
 
@@ -184,7 +177,6 @@ class UserTest extends Test {
     // Create User
     $id = \wp_insert_user([
       'user_login' => $user_array['username'],
-      'user_email' => $user_array['email'],
     ]);
     $this->assert_is_int( $id, $id );
     $this->db_notice( "$id - user created" );

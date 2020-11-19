@@ -193,7 +193,7 @@ class UserTest extends Test {
     // Delete User
     \wp_delete_user( $id );
     $this->db_notice( "$id - user deleted" );
-    $this->assert_false_strict( \get_user_by( 'id', $id ) );
+    $this->assert_false_strict( $this->wpid_exists( $id ) );
 
     // Remove affiliate ID
     $table = $wpdb->prefix . 'uap_affiliates';

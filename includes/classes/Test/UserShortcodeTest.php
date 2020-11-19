@@ -13,6 +13,8 @@ class UserShortcodeTest extends Test {
   private $email = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN@gmail.com';
   private $first_name = 'Hayasaka';
   private $last_name = 'Ai';
+  private $level_slug = 'monthly_partner';
+  private $level_name = 'Monthly Partner';
 
 
   public function __construct() {
@@ -75,6 +77,17 @@ class UserShortcodeTest extends Test {
     $shortcode = \do_shortcode( '[mos_last_name]' );
     $this->assert_equal( $shortcode, $this->last_name, [
       'expected' => $this->last_name,
+      'actual' => $shortcode,
+      ] );
+    }
+    
+
+  public function test_level_shortcode(): void {
+    $this->user->roles = [$this->level_slug];
+    $this->set_user( $this->user );
+    $shortcode = \do_shortcode( '[mos_level]' );
+    $this->assert_equal( $shortcode, $this->level_name, [
+      'expected' => $this->level_name,
       'actual' => $shortcode,
       ] );
     }

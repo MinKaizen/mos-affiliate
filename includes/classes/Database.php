@@ -280,6 +280,82 @@ class Database {
   }
 
 
+  public function add_sponsor( int $user_id, int $sponsor_id ): bool {
+    if ( ! $this->user_exists( $user_id )) {
+      return false;
+    }
+
+    if ( ! $this->user_exists( $sponsor_id ) ) {
+      return false;
+    }
+
+    if ( ! $this->user_is_affiliate( $user_id ) ) {
+      return false;
+    }
+
+    if ( ! $this->user_is_affiliate( $sponsor_id ) ) {
+      return false;
+    }
+
+    if ( $this->user_has_sponsor( $user_id ) ) {
+      return false;
+    }
+
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+    $data = [
+      'affiliate_id' => $this->sponsor_affid( $user_id ),
+      'referral_wp_uid' => $user_id,
+    ];
+    $formats = [
+      'affiliate_id' => '%d',
+      'referral_wp_uid' => '%d',
+
+    ];
+    
+    $rows_inserted = $wpdb->insert( $table, $data, $formats );
+    $success = ($rows_inserted === 1);
+    return $success;
+  }
+
+
+  public function user_is_affiliate( int $id ): bool {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'uap_affiliates';
+    $query = "SELECT id FROM $table WHERE uid = $id LIMIT 1";
+    $affid = (int) $wpdb->get_var( $query );
+
+    if ( empty( $affid ) ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
+  public function user_exists( int $id ): bool {
+    $user = \get_user_by( 'id', $id );
+    return !empty($user);
+  }
+
+
+  public function user_has_sponsor( int $id ): bool {
+    $sponsor_affid = $this->sponsor_affid( $id );
+    return !empty( $sponsor_affid );
+  }
+
+
+  public function sponsor_affid( int $id ): int {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+    $query = "SELECT affiliate_id FROM $table WHERE referral_wp_uid = $id LIMIT 1";
+    $sponsor_affid = (int) $wpdb->get_var( $query );
+    return $sponsor_affid;
+  }
+
+
   /**
    * Convert WP Capability (serialized php array) to slug or nice name (optional)
    *

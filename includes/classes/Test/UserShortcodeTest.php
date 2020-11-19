@@ -34,11 +34,6 @@ class UserShortcodeTest extends Test {
   }
 
 
-  public function test_main(): void {
-    $this->assert_true( 1==1 );
-  }
-
-
   public function test_affid_shortcode(): void {
     $this->set_user( $this->user );
     $expected = $this->user->get_affid();

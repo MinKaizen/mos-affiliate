@@ -134,7 +134,15 @@ class UserTest extends Test {
 
 
   public function test_get_level(): void {
-    // #TODO
+    $user = new User();
+    $user->roles = ['hello_world'];
+    $this->assert_equal_strict( $user->get_level(), 'Hello World' );
+    $user->roles = ['free'];
+    $this->assert_equal_strict( $user->get_level(), 'Free Member' );
+    $user->roles = ['monthly_partner'];
+    $this->assert_equal_strict( $user->get_level(), 'Monthly Partner' );
+    $user->roles = ['yearly_partner'];
+    $this->assert_equal_strict( $user->get_level(), 'Yearly Partner' );
   }
 
 

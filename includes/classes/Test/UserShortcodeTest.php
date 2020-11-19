@@ -6,6 +6,13 @@ use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
 
+use function \do_shortcode;
+use function \get_user_by;
+use function \add_filter;
+use function \wp_insert_user;
+use function \wp_delete_user;
+use function \update_user_meta;
+
 class UserShortcodeTest extends Test {
 
   private $user;
@@ -18,7 +25,7 @@ class UserShortcodeTest extends Test {
 
 
   public function __construct() {
-    $prev_user = \get_user_by( 'login', $this->username );
+    $prev_user = get_user_by( 'login', $this->username );
     if ( $prev_user ) {
       $this->delete_user( $prev_user->ID );
     }
@@ -40,7 +47,7 @@ class UserShortcodeTest extends Test {
   public function test_affid_shortcode(): void {
     $this->set_user( $this->user );
     $affid = $this->user->get_affid();
-    $shortcode = \do_shortcode( '[mos_affid]' );
+    $shortcode = do_shortcode( '[mos_affid]' );
     $this->assert_equal( $affid, $shortcode, [
       'affid' => $affid,
       'user' => $this->user,
@@ -52,7 +59,7 @@ class UserShortcodeTest extends Test {
   public function test_email_shortcode(): void {
     $this->user->user_email = $this->email;
     $this->set_user( $this->user );
-    $shortcode = \do_shortcode( '[mos_email]' );
+    $shortcode = do_shortcode( '[mos_email]' );
     $this->assert_equal( $shortcode, $this->email, [
       'expected' => $this->email,
       'actual' => $shortcode,
@@ -63,7 +70,7 @@ class UserShortcodeTest extends Test {
   public function test_first_name(): void {
     $this->user->first_name = $this->first_name;
     $this->set_user( $this->user );
-    $shortcode = \do_shortcode( '[mos_first_name]' );
+    $shortcode = do_shortcode( '[mos_first_name]' );
     $this->assert_equal( $shortcode, $this->first_name, [
       'expected' => $this->first_name,
       'actual' => $shortcode,
@@ -74,7 +81,7 @@ class UserShortcodeTest extends Test {
   public function test_last_name(): void {
     $this->user->last_name = $this->last_name;
     $this->set_user( $this->user );
-    $shortcode = \do_shortcode( '[mos_last_name]' );
+    $shortcode = do_shortcode( '[mos_last_name]' );
     $this->assert_equal( $shortcode, $this->last_name, [
       'expected' => $this->last_name,
       'actual' => $shortcode,
@@ -85,7 +92,7 @@ class UserShortcodeTest extends Test {
   public function test_level_shortcode(): void {
     $this->user->roles = [$this->level_slug];
     $this->set_user( $this->user );
-    $shortcode = \do_shortcode( '[mos_level]' );
+    $shortcode = do_shortcode( '[mos_level]' );
     $this->assert_equal( $shortcode, $this->level_name, [
       'expected' => $this->level_name,
       'actual' => $shortcode,
@@ -102,14 +109,14 @@ class UserShortcodeTest extends Test {
 
     foreach( $mis as $slug => $value ) {
       $meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $slug;
-      \update_user_meta( $this->user->ID, $meta_key, $value );
+      update_user_meta( $this->user->ID, $meta_key, $value );
     }
 
     $this->set_user( $this->user );
 
     $expected = $mis['gr'];
     $shortcode = '[mos_mis network=gr]';
-    $shortcode_output = \do_shortcode( $shortcode );
+    $shortcode_output = do_shortcode( $shortcode );
     $this->assert_equal_strict( $expected, $shortcode_output, [
       'expected' => $expected,
       'actual' => $shortcode_output,
@@ -118,7 +125,7 @@ class UserShortcodeTest extends Test {
 
     $expected = $mis['cm'];
     $shortcode = '[mos_mis network=non_existent]';
-    $shortcode_output = \do_shortcode( $shortcode );
+    $shortcode_output = do_shortcode( $shortcode );
     $this->assert_equal_strict( $expected, $shortcode_output, [
       'expected' => $expected,
       'actual' => $shortcode_output,
@@ -127,7 +134,7 @@ class UserShortcodeTest extends Test {
 
     $expected = '';
     $shortcode = '[mos_mis network=cm]';
-    $shortcode_output = \do_shortcode( $shortcode );
+    $shortcode_output = do_shortcode( $shortcode );
     $this->assert_equal_strict( $expected, $shortcode_output, [
       'expected' => $expected,
       'actual' => $shortcode_output,
@@ -145,7 +152,7 @@ class UserShortcodeTest extends Test {
 
     $expected = "$first_name $last_name";
     $shortcode = '[mos_name]';
-    $output = \do_shortcode( $shortcode );
+    $output = do_shortcode( $shortcode );
     $this->assert_equal_strict( $expected, $output, [
       'expected' => $expected,
       'shortcode' => $shortcode,
@@ -155,7 +162,7 @@ class UserShortcodeTest extends Test {
 
 
   private function set_user( User $user ): void {
-    \add_filter( 'mos_current_user', function() use ($user) {
+    add_filter( 'mos_current_user', function() use ($user) {
       return $user;
     } );
   }
@@ -163,7 +170,7 @@ class UserShortcodeTest extends Test {
   
   private function create_user( string $username ): User {
     // Create User
-    $id = \wp_insert_user([
+    $id = wp_insert_user([
       'user_login' => $username,
     ]);
     
@@ -182,8 +189,8 @@ class UserShortcodeTest extends Test {
 
   private function delete_user( int $id ): void {
     // Delete User
-    \wp_delete_user( $id );
-    $user_exists = (\get_user_by( 'id', $id ) !== false);
+    wp_delete_user( $id );
+    $user_exists = (get_user_by( 'id', $id ) !== false);
     
     // Remove affiliate ID
     global $wpdb;

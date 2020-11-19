@@ -305,7 +305,7 @@ class Database {
 
     $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
     $data = [
-      'affiliate_id' => $this->sponsor_affid( $user_id ),
+      'affiliate_id' => $this->user_affid( $sponsor_id ),
       'referral_wp_uid' => $user_id,
     ];
     $formats = [

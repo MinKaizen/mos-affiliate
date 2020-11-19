@@ -44,6 +44,18 @@ class UserShortcodeTest extends Test {
   }
 
 
+  public function test_email_shortcode(): void {
+    $this->user->user_email = $this->email;
+    $this->set_user( $this->user );
+    $shortcode = \do_shortcode( '[mos_email]' );
+    $this->assert_equal( $shortcode, $this->email, [
+      'expected' => $this->email,
+      'actual' => $shortcode,
+      'user' => $this->user,
+    ] );
+  }
+
+
   private function set_user( User $user ): void {
     \add_filter( 'mos_current_user', function() use ($user) {
       return $user;

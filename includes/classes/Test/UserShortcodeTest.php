@@ -3,6 +3,7 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
+use MOS\Affiliate\User;
 
 class UserShortcodeTest extends Test {
 

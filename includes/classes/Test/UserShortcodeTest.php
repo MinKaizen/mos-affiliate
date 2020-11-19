@@ -8,8 +8,9 @@ use MOS\Affiliate\Database;
 
 class UserShortcodeTest extends Test {
 
-  private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
   private $user;
+  private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
+  private $email = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN@gmail.com';
 
 
   public function __construct() {
@@ -40,6 +41,17 @@ class UserShortcodeTest extends Test {
       'affid' => $affid,
       'user' => $this->user,
       'shortcode' => $shortcode,
+    ] );
+  }
+
+
+  public function test_email_shortcode(): void {
+    $this->user->user_email = $this->email;
+    $this->set_user( $this->user );
+    $shortcode = \do_shortcode( '[mos_email]' );
+    $this->assert_equal( $shortcode, $this->email, [
+      'expected' => $this->email,
+      'actual' => $shortcode,
     ] );
   }
 

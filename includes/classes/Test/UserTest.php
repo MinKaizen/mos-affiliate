@@ -143,7 +143,7 @@ class UserTest extends Test {
     $this->db_notice( "created user: $id" );
     $this->assert_not_equal_strict( \get_user_by( 'id', $id ), false );
 
-    // Make sure to this user once you're done testing
+    // Make sure to delete this user once you're done testing
     $this->user_ids_to_delete[] = $id;
 
     // Register user as affiliate

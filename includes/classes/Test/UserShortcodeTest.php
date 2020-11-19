@@ -17,8 +17,6 @@ class UserShortcodeTest extends Test {
 
   private $user;
   private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
-  private $level_slug = 'monthly_partner';
-  private $level_name = 'Monthly Partner';
 
 
   public function __construct() {
@@ -77,10 +75,12 @@ class UserShortcodeTest extends Test {
     
 
   public function test_level_shortcode(): void {
-    $this->user->roles = [$this->level_slug];
+    $level_slug = 'monthly_partner';
+    $level_name = 'Monthly Partner';
+    $this->user->roles = [$level_slug];
     $this->set_user( $this->user );
     $shortcode = '[mos_level]';
-    $this->assert_shortcode_equal( $shortcode, $this->level_name );
+    $this->assert_shortcode_equal( $shortcode, $level_name );
   }
     
 

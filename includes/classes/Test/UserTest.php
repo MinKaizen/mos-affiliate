@@ -213,7 +213,7 @@ class UserTest extends Test {
   }
 
 
-  private function user_id_exists( int $id ): bool {
+  private function wpid_exists( int $id ): bool {
     $user = \get_user_by( 'id', $id );
     return !empty( $user );
   }

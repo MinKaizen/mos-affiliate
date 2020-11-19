@@ -32,6 +32,18 @@ class UserShortcodeTest extends Test {
   }
 
 
+  public function test_affid(): void {
+    $this->set_user( $this->user );
+    $affid = $this->user->get_affid();
+    $shortcode = \do_shortcode( '[mos_affid]' );
+    $this->assert_equal( $affid, $shortcode, [
+      'affid' => $affid,
+      'user' => $this->user,
+      'shortcode' => $shortcode,
+    ] );
+  }
+
+
   private function set_user( User $user ): void {
     \add_filter( 'mos_current_user', function() use ($user) {
       return $user;

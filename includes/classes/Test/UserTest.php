@@ -28,23 +28,23 @@ class UserTest extends Test {
 
 
   public function __construct() {
+    $prev_user = \get_user_by( 'login', $this->user['username'] );
+    if ( $prev_user ) {
+      $this->delete_user( $prev_user->ID );
+    }
+    
+    $prev_sponsor = \get_user_by( 'login', $this->sponsor['username'] );
+    if ( $prev_sponsor ) {
+      $this->delete_user( $prev_sponsor->ID );
+    }
+    
+    $this->create_user( $this->user );
     $user = User::from_username( $this->user['username'] );
+    $this->assert_false_strict( $user->is_empty() );
+    
+    $this->create_user( $this->sponsor );
     $sponsor = User::from_username( $this->sponsor['username'] );
-    
-    // Create user if it doesn't exist
-    if ( $user->is_empty() ) {
-      $this->create_user( $this->user );
-      $user = User::from_username( $this->user['username'] );
-      $this->assert_false( $user->is_empty() );
-    }
-    
-    // Create sponsor if it doesn't exist
-    if ( $sponsor->is_empty() ) {
-      $this->create_user( $this->sponsor );
-      $sponsor = User::from_username( $this->sponsor['username'] );
-      $this->assert_false( $sponsor->is_empty() );
-    }
-
+    $this->assert_false_strict( $sponsor->is_empty() );
   }
 
 

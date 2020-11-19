@@ -53,7 +53,9 @@ class User extends \WP_User {
     $sponsor_affid = $wpdb->get_var( $query );
     $sponsor_affid = $sponsor_affid ? $sponsor_affid : 0;
 
-    return self::from_affid( $sponsor_affid );
+    $sponsor = self::from_affid( $sponsor_affid );
+    $sponsor = \apply_filters( 'mos_sponsor', $sponsor, $this->ID );
+    return $sponsor;
   }
 
 

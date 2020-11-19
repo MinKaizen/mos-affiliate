@@ -31,143 +31,85 @@ class Test {
   }
 
 
-  protected function assert_equal( $value1, $value2, ...$labels ): void {
+  protected function assert_equal( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 == $value2;
-    $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
-    $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
-    $data = [
-      $keys[0] => $value1,
-      $keys[1] => $value2,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_equal_strict( $value1, $value2, ...$labels ): void {
+  protected function assert_equal_strict( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 === $value2;
-    $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
-    $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
-    $data = [
-      $keys[0] => $value1,
-      $keys[1] => $value2,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
 
-  protected function assert_not_equal( $value1, $value2, ...$labels ): void {
+  protected function assert_not_equal( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 != $value2;
-    $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
-    $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
-    $data = [
-      $keys[0] => $value1,
-      $keys[1] => $value2,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_not_equal_strict( $value1, $value2, ...$labels ): void {
+  protected function assert_not_equal_strict( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 !== $value2;
-    $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
-    $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
-    $data = [
-      $keys[0] => $value1,
-      $keys[1] => $value2,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_true( $expression, ...$labels ): void {
+  protected function assert_true( $expression, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $expression == true;
-    $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
-    $data = [
-      $keys[0] => $expression,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_true_strict( $expression, ...$labels ): void {
+  protected function assert_true_strict( $expression, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $expression === true;
-    $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
-    $data = [
-      $keys[0] => $expression,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_false( $expression, ...$labels ): void {
+  protected function assert_false( $expression, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $expression == false;
-    $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
-    $data = [
-      $keys[0] => $expression,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_false_strict( $expression, ...$labels ): void {
+  protected function assert_false_strict( $expression, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $expression === false;
-    $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
-    $data = [
-      $keys[0] => $expression,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_string_contains( string $haystack, string $needle, ...$labels ): void {
+  protected function assert_string_contains( string $haystack, string $needle, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = ( strpos( $haystack, $needle ) !== false );
-    $keys[0] = empty( $labels[0] ) ? 'haystack' : $labels[0];
-    $keys[1] = empty( $labels[1] ) ? 'needle' : $labels[1];
-    $data = [
-      $keys[0] => $haystack,
-      $keys[1] => $needle,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_has_key( array $array, $key, ...$labels ): void {
+  protected function assert_has_key( array $array, $key, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = array_key_exists( $key, $array );
-    $keys[0] = empty( $labels[0] ) ? 'array' : $labels[0];
-    $keys[1] = empty( $labels[1] ) ? 'key' : $labels[1];
-    $data = [
-      $keys[0] => $array,
-      $keys[1] => $key,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert_instanceof( $instance, string $class, ...$labels ): void {
+  protected function assert_instanceof( $instance, string $class, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $instance instanceof $class;
-    $keys[0] = empty( $labels[0] ) ? 'instance' : $labels[0];
-    $keys[1] = empty( $labels[1] ) ? 'class' : $labels[1];
-    $data = [
-      $keys[0] => $instance,
-      $keys[1] => $class,
-    ];
     $this->assert( $condition, $data, $assertion );
   }
 
 
-  protected function assert( $condition, $data, string $assertion ): void {
+  protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;
     }

@@ -206,7 +206,7 @@ class Test {
       ],
     ];
 
-    \WP_CLI\Utils\format_items( 'yaml', $debug_dump, 'debug_dump' );
+    WP_CLI\Utils\format_items( 'yaml', $debug_dump, 'debug_dump' );
   }
 
 

@@ -26,7 +26,7 @@ class Test {
       $this->_before();
       $this->{$method}();
       $this->_after();
-      WP_CLI::line( WP_CLI::colorize( "%g✓%n $class_name_short::$method" ) );
+      WP_CLI::line( WP_CLI::colorize( "%g✔%n $class_name_short::$method" ) );
     }
   }
 

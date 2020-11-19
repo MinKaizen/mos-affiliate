@@ -42,7 +42,7 @@ class UserShortcodeTest extends Test {
   private function delete_user( int $id ): void {
     // Delete User
     \wp_delete_user( $id );
-    $user_exists = (\get_user_by( 'id', $id ) === false);
+    $user_exists = (\get_user_by( 'id', $id ) !== false);
     
     // Remove affiliate ID
     global $wpdb;

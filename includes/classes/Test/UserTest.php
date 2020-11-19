@@ -140,7 +140,7 @@ class UserTest extends Test {
       'user_login' => $user_array['username'],
       'user_email' => $user_array['email'],
     ]);
-    WP_CLI::warning( "#database created user: $id" );
+    $this->db_notice( "created user: $id" );
     $this->assert_not_equal_strict( \get_user_by( 'id', $id ), false );
 
     // Make sure to this user once you're done testing
@@ -158,7 +158,7 @@ class UserTest extends Test {
 
     // Delete User
     \wp_delete_user( $id );
-    WP_CLI::warning( "#database deleted user: $id" );
+    $this->db_notice( "deleted user: $id" );
     $this->assert_false_strict( \get_user_by( 'id', $id ) );
 
     // Remove affiliate ID
@@ -166,7 +166,7 @@ class UserTest extends Test {
     $columns = ['uid' => $id];
     $formats = ['uid' => '%d'];
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    WP_CLI::warning( "#database removed affiliate" );
+    $this->db_notice( "removed affiliate" );
     $this->assert_not_equal_strict( $rows_deleted, false );
     
     // Remove affiliate relationships
@@ -174,7 +174,7 @@ class UserTest extends Test {
     $columns = ['referral_wp_uid' => $id];
     $formats = ['referral_wp_uid' => '%d'];
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    WP_CLI::warning( "#database severed aff relationships: $rows_deleted" );
+    $this->db_notice( "severed aff relationships: $rows_deleted" );
     $this->assert_not_equal_strict( $rows_deleted, false );
   }
 

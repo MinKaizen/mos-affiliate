@@ -11,29 +11,23 @@ use MOS\Affiliate\Mis;
 class UserTest extends Test {
 
   private $user_ids_to_delete = [];
-
-  private $user = [
-    'username' => 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv',
-  ];
-
-  private $sponsor = [
-    'username' => 'rEW2i41jztjYawCHbz8ImrcVSrkM95kr',
-  ];
+  private $user_username = 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv';
+  private $sponsor_username = 'rEW2i41jztjYawCHbz8ImrcVSrkM95kr';
 
 
   public function __construct() {
-    $prev_user = \get_user_by( 'login', $this->user['username'] );
+    $prev_user = \get_user_by( 'login', $this->user_username );
     if ( $prev_user ) {
       $this->delete_user( $prev_user->ID );
     }
     
-    $prev_sponsor = \get_user_by( 'login', $this->sponsor['username'] );
+    $prev_sponsor = \get_user_by( 'login', $this->sponsor_username );
     if ( $prev_sponsor ) {
       $this->delete_user( $prev_sponsor->ID );
     }
     
-    $user_id = $this->create_user( $this->user );
-    $sponsor_id = $this->create_user( $this->sponsor );
+    $user_id = $this->create_user( $this->user_username );
+    $sponsor_id = $this->create_user( $this->sponsor_username );
 
     $this->user_ids_to_delete[] = $user_id;
     $this->user_ids_to_delete[] = $sponsor_id;
@@ -111,7 +105,7 @@ class UserTest extends Test {
 
 
   public function test_get_mis(): void {
-    $user = User::from_username( $this->user['username'] );
+    $user = User::from_username( $this->user_username );
 
     $id = $user->get_wpid();
 
@@ -160,9 +154,9 @@ class UserTest extends Test {
 
 
   public function test_sponsor(): void {
-    $user = User::from_username( $this->user['username'] );
+    $user = User::from_username( $this->user_username );
     $sponsor = $user->sponsor();
-    $this->assert_equal_strict( $sponsor->user_login, $this->sponsor['username'] );
+    $this->assert_equal_strict( $sponsor->user_login, $this->sponsor_username );
   }
 
 
@@ -173,10 +167,10 @@ class UserTest extends Test {
   }
 
 
-  private function create_user( array $user_array ): int {
+  private function create_user( string $username ): int {
     // Create User
     $id = \wp_insert_user([
-      'user_login' => $user_array['username'],
+      'user_login' => $username,
     ]);
     $this->assert_is_int( $id, $id );
     $this->db_notice( "$id - user created" );

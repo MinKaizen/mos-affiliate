@@ -335,6 +335,17 @@ class Database {
   }
 
 
+  public function user_affid( int $id ): int {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'uap_affiliates';
+    $query = "SELECT id FROM $table WHERE uid = $id LIMIT 1";
+    $affid = (int) $wpdb->get_var( $query );
+
+    return $affid;
+  }
+
+
   public function user_exists( int $id ): bool {
     $user = \get_user_by( 'id', $id );
     return !empty($user);

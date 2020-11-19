@@ -161,6 +161,20 @@ class UserShortcodeTest extends Test {
   }
 
 
+  public function test_username_shortcode(): void {
+    $this->set_user( $this->user );
+    $expected = $this->username;
+    $shortcode = '[mos_username]';
+    $output = do_shortcode( $shortcode );
+    $this->assert_equal_strict( $expected, $output, [
+      'expected' => $expected,
+      'shortcode' => $shortcode,
+      'output' => $output,
+    ] );
+
+  }
+
+
   private function set_user( User $user ): void {
     add_filter( 'mos_current_user', function() use ($user) {
       return $user;

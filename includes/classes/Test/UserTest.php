@@ -45,7 +45,6 @@ class UserTest extends Test {
     $this->create_user( $this->sponsor );
     $sponsor = User::from_username( $this->sponsor['username'] );
     $this->assert_false_strict( $sponsor->is_empty() );
-
   }
 
 

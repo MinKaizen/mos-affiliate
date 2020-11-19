@@ -32,7 +32,7 @@ class Test {
 
 
   protected function assert_equal( $value1, $value2, ...$labels ): void {
-    $assertion = "assert_equal";
+    $assertion = __FUNCTION__;
     $condition = $value1 == $value2;
     $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
@@ -45,7 +45,7 @@ class Test {
 
 
   protected function assert_equal_strict( $value1, $value2, ...$labels ): void {
-    $assertion = "assert_equal_strict";
+    $assertion = __FUNCTION__;
     $condition = $value1 === $value2;
     $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
@@ -59,7 +59,7 @@ class Test {
 
 
   protected function assert_not_equal( $value1, $value2, ...$labels ): void {
-    $assertion = "assert_not_equal";
+    $assertion = __FUNCTION__;
     $condition = $value1 != $value2;
     $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
@@ -72,7 +72,7 @@ class Test {
 
 
   protected function assert_not_equal_strict( $value1, $value2, ...$labels ): void {
-    $assertion = "assert_not_equal_strict";
+    $assertion = __FUNCTION__;
     $condition = $value1 !== $value2;
     $keys[0] = empty( $labels[0] ) ? 'value1' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'value2' : $labels[1];
@@ -85,7 +85,7 @@ class Test {
 
 
   protected function assert_true( $expression, ...$labels ): void {
-    $assertion = "assert_true";
+    $assertion = __FUNCTION__;
     $condition = $expression == true;
     $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
     $data = [
@@ -96,7 +96,7 @@ class Test {
 
 
   protected function assert_true_strict( $expression, ...$labels ): void {
-    $assertion = "assert_true_strict";
+    $assertion = __FUNCTION__;
     $condition = $expression === true;
     $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
     $data = [
@@ -107,7 +107,7 @@ class Test {
 
 
   protected function assert_false( $expression, ...$labels ): void {
-    $assertion = "assert_false";
+    $assertion = __FUNCTION__;
     $condition = $expression == false;
     $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
     $data = [
@@ -118,7 +118,7 @@ class Test {
 
 
   protected function assert_false_strict( $expression, ...$labels ): void {
-    $assertion = "assert_false_strict";
+    $assertion = __FUNCTION__;
     $condition = $expression === false;
     $keys[0] = empty( $labels[0] ) ? 'expression' : $labels[0];
     $data = [
@@ -129,7 +129,7 @@ class Test {
 
 
   protected function assert_string_contains( string $haystack, string $needle, ...$labels ): void {
-    $assertion = "assert_string_contains";
+    $assertion = __FUNCTION__;
     $condition = ( strpos( $haystack, $needle ) !== false );
     $keys[0] = empty( $labels[0] ) ? 'haystack' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'needle' : $labels[1];
@@ -142,7 +142,7 @@ class Test {
 
 
   protected function assert_has_key( array $array, $key, ...$labels ): void {
-    $assertion = "assert_has_key";
+    $assertion = __FUNCTION__;
     $condition = array_key_exists( $key, $array );
     $keys[0] = empty( $labels[0] ) ? 'array' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'key' : $labels[1];
@@ -155,7 +155,7 @@ class Test {
 
 
   protected function assert_instanceof( $instance, string $class, ...$labels ): void {
-    $assertion = "assert_instanceof";
+    $assertion = __FUNCTION__;
     $condition = $instance instanceof $class;
     $keys[0] = empty( $labels[0] ) ? 'instance' : $labels[0];
     $keys[1] = empty( $labels[1] ) ? 'class' : $labels[1];

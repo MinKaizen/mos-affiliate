@@ -147,7 +147,17 @@ class UserTest extends Test {
 
 
   public function test_qualifies_for_mis(): void {
-    // #TODO
+    $user = User::from_username( $this->user['username'] );
+    
+    $slug = 'gr';
+    $mis = \MOS\Affiliate\MIS_NETWORKS['gr'];
+    $this->assert_false_strict( empty( $mis ) );
+    $this->assert_has_key( $mis, 'cap' );
+    $cap = $mis['cap'];
+
+    $this->assert_false_strict( $user->qualifies_for_mis( $slug ) );
+    $user->add_cap( $cap );
+    $this->assert_true_strict( $user->qualifies_for_mis( $slug ) );
   }
 
 

@@ -4,10 +4,13 @@ namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
+use \WP_CLI;
 
 use function \wp_insert_user;
 use function \wp_delete_user;
 use function \get_user_by;
+use function \remove_filter;
+use function \add_filter;
 
 class AccessRedirectTest extends Test {
 
@@ -37,17 +40,38 @@ class AccessRedirectTest extends Test {
     }
 
     $this->user = $this->create_user( $this->username );
+    $this->set_user();
   }
 
 
   public function __destruct() {
     $this->delete_user( $this->user->ID );
+    $this->unset_user();
   }
 
 
   public function test_main(): void {
     foreach ( $this->urls as $pair ) {
       $this->check_redirect( $pair['start'], $pair['end'] );
+    }
+  }
+
+
+  public function get_user(): User {
+    return $this->user;
+  }
+
+
+  private function set_user(): void {
+    add_filter( 'mos_current_user', [$this, 'get_user'] );
+    WP_CLI::line('Filter added: set_user');
+  }
+
+
+  private function unset_user(): void {
+    $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'] );
+    if ($remove_success) {
+      WP_CLI::line('Filter removed: set_user');
     }
   }
 

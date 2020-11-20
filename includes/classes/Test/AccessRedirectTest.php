@@ -3,6 +3,11 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
+use MOS\Affiliate\User;
+
+use function \wp_insert_user;
+use function \wp_delete_user;
+use function \get_user_by;
 
 class AccessRedirectTest extends Test {
 

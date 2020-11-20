@@ -22,6 +22,7 @@ class AccessRedirectTest extends Test {
   private $user;
   private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';
   private $post;
+  private $permalink;
 
 
   public function __construct() {
@@ -34,6 +35,7 @@ class AccessRedirectTest extends Test {
     $this->user = $this->create_user( $this->username );
     $this->set_user();
     $this->post = $this->create_post();
+    $this->permalink = get_permalink( $this->post->ID );
   }
 
 

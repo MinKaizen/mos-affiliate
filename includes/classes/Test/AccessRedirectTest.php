@@ -63,7 +63,7 @@ class AccessRedirectTest extends Test {
   }
 
 
-  private function check_redirect( string $start, string $expected_redirect ) {
+  private function assert_redirect( string $start, string $expected_redirect ) {
     $actual_redirect = $this->get_redirect( $start );
     $this->assert_equal( $expected_redirect, $actual_redirect );
   }

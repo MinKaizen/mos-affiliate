@@ -148,13 +148,14 @@ class SponsorShortcodeTest extends Test {
   }
 
 
-  private function assert_shortcode_equal( string $shortcode, $expected ): void {
+  private function assert_shortcode_equal( string $shortcode, $expected, ...$data ): void {
     $output = do_shortcode( $shortcode );
-    $this->assert_equal( $expected, $output, [
+    $data[] = [
       'expected' => $expected,
       'shortcode' => $shortcode,
       'output' => $output,
-    ] );
+    ];
+    $this->assert_equal( $expected, $output, $data );
   }
 
 

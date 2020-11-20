@@ -23,6 +23,11 @@ class SponsorShortcodeTest extends Test {
   private $sponsor;
   private $user_username = 'U4xJsCmznHzKDAPp03540Nc12ZGthVA8';
   private $sponsor_username = 'qO5q0I73ifiSpc7VQktkL0SDJeJLGde7';
+  private $mis = [
+    'gr' => 'my_gr_id',
+    'cm' => '',
+    'non_existent' => 'my_nonexistent_id',
+  ];
 
 
   public function __construct() {
@@ -40,13 +45,7 @@ class SponsorShortcodeTest extends Test {
     $this->sponsor = $this->create_user( $this->sponsor_username );
 
     // Give MIS to Sponsor
-    $mis = [
-      'gr' => 'my_gr_id',
-      'cm' => '',
-      'non_existent' => 'my_nonexistent_id',
-    ];
-
-    foreach( $mis as $slug => $value ) {
+    foreach( $this->mis as $slug => $value ) {
       $meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $slug;
       update_user_meta( $this->sponsor->ID, $meta_key, $value );
     }

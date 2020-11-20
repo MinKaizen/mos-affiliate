@@ -200,6 +200,12 @@ class SponsorShortcodeTest extends Test {
     }
   }
 
+
+  private function assert_mis( string $mis_slug, $expected, ...$data ): void {
+    $shortcode = "[mos_sponsor_mis network=$mis_slug]";
+    $this->assert_shortcode_equal( $shortcode, $expected );
+  }
+
   
   private function create_user( string $username ): User {
     // Create User

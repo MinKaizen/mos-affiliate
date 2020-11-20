@@ -63,10 +63,9 @@ class AccessRedirectTest extends Test {
   }
 
 
-  private function check_redirect( string $start, string $end ) {
-    $url = \home_url( $start );
-    $redirected = $this->get_redirect( $url );
-    $this->assert_equal( \home_url( $end ), $redirected );
+  private function check_redirect( string $start, string $expected_redirect ) {
+    $actual_redirect = $this->get_redirect( $start );
+    $this->assert_equal( $expected_redirect, $actual_redirect );
   }
 
 

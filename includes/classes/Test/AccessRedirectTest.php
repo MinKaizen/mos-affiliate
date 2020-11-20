@@ -22,11 +22,6 @@ class AccessRedirectTest extends Test {
   private $user;
   private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';
   private $post;
-  private $post_data = [
-    // 'post_author' => 1,
-    'post_title' => 'spyNukLYZxQ521u8ngnBoSKxrwwoBwSE',
-    'post_status' => 'public',
-  ];
   private $urls = [
     [
       'start' => '/monthly-partners-only',

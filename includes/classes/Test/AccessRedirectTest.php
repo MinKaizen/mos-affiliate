@@ -11,6 +11,8 @@ use function \get_user_by;
 
 class AccessRedirectTest extends Test {
 
+  private $user;
+  private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';
   private $urls = [
     [
       'start' => '/monthly-partners-only',
@@ -25,6 +27,22 @@ class AccessRedirectTest extends Test {
       'end' => '/',
     ],
   ];
+
+
+  public function __construct() {
+    $prev_user = get_user_by( 'login', $this->username );
+
+    if ( $prev_user ) {
+      $this->delete_user( $prev_user->ID );
+    }
+
+    $this->user = $this->create_user( $this->username );
+  }
+
+
+  public function __destruct() {
+    $this->delete_user( $this->user->ID );
+  }
 
 
   public function test_main(): void {

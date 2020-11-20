@@ -52,7 +52,7 @@ class AccessRedirectTest extends Test {
 
     $this->user = $this->create_user( $this->username );
     $this->set_user();
-    $this->post = $this->create_post( $this->post_data );
+    $this->post = $this->create_post();
   }
 
 
@@ -138,7 +138,12 @@ class AccessRedirectTest extends Test {
   }
 
 
-  private function create_post( array $post_data ): WP_Post {
+  private function create_post(): WP_Post {
+    $post_data = [
+      'post_author' => 1,
+      'post_title' => $this->ran_str(),
+      'post_status' => 'public',
+    ];
     $post_id = wp_insert_post( $post_data, false );
     $this->assert_not_equal_strict( $post_id, 0 );
     $post = get_post( $post_id, 'OBJECT' );

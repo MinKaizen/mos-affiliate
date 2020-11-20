@@ -22,20 +22,6 @@ class AccessRedirectTest extends Test {
   private $user;
   private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';
   private $post;
-  private $urls = [
-    [
-      'start' => '/monthly-partners-only',
-      'end' => '/no-access-monthly-partner',
-    ],
-    [
-      'start' => '/yearly-partners-only',
-      'end' => '/no-access-yearly-partner',
-    ],
-    [
-      'start' => '/free-members-only',
-      'end' => '/',
-    ],
-  ];
 
 
   public function __construct() {
@@ -55,13 +41,6 @@ class AccessRedirectTest extends Test {
     $this->delete_user( $this->user->ID );
     $this->unset_user();
     $this->delete_post( $this->post->ID );
-  }
-
-
-  public function test_main(): void {
-    foreach ( $this->urls as $pair ) {
-      $this->check_redirect( $pair['start'], $pair['end'] );
-    }
   }
 
 

@@ -16,6 +16,7 @@ use function \wp_insert_post;
 use function \wp_delete_post;
 use function \get_post;
 use function \wp_set_post_tags;
+use function \home_url;
 
 class AccessRedirectTest extends Test {
 

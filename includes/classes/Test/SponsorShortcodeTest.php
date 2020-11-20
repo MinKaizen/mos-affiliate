@@ -6,6 +6,7 @@ use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
 use \WP_CLI;
+use MOS\Affiliate\Mis;
 
 use function \do_shortcode;
 use function \get_user_by;
@@ -104,21 +105,39 @@ class SponsorShortcodeTest extends Test {
     
 
   public function test_sponsor_mis_shortcode(): void {
-    $mis = [
-      'gr' => 'my_gr_id',
-      'cm' => '',
-      'non_existent' => 'my_nonexistent_id',
-    ];
+    // User not logged in --> show default
+    $this->unset_user();
+    $this->assert_mis( 'gr', Mis::get_default( 'gr' ) );
+    $this->assert_mis( 'cm', Mis::get_default( 'cm' ) );
+    $this->assert_mis( 'cb', Mis::get_default( 'cb' ) );
+    $this->set_user();
+    
+    // User has no caps --> show default
+    $mis_slug = 'gr';
+    $this->assert_mis( 'gr', Mis::get_default( 'gr' ) );
+    $this->assert_mis( 'cm', Mis::get_default( 'cm' ) );
+    $this->assert_mis( 'cb', Mis::get_default( 'cb' ) );
 
-    foreach( $mis as $slug => $value ) {
-      $meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $slug;
-      update_user_meta( $this->sponsor->ID, $meta_key, $value );
+    // Add caps
+    foreach ( $this->mis as $slug => $value ) {
+      $mis = Mis::get( $slug );
+      if ( $mis->exists() ) {
+        $cap = $mis->cap;
+        $this->sponsor->add_cap( $cap );
+      }
     }
 
-    // #TODO: show default if NOT logged in
-    // #TODO: show default if sponsor no caps
-    // #TODO: show default if value is empty
-    // #TODO: show empty if mis not registered in config
+    // Has cap --> show value
+    $this->assert_mis( 'gr', $this->mis['gr'] );
+
+    // Has cap but value is empty --> show default value
+    $this->assert_mis( 'cm', Mis::get_default( 'cm' ) );
+
+    // mis slug not in config --> show nothing
+    $this->assert_mis( 'non_existent', '' );
+
+    // did not fill in mis --> show default
+    $this->assert_mis( 'cb', Mis::get_default( 'cb' ) );
   }
 
 

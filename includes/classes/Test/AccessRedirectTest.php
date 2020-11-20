@@ -60,4 +60,21 @@ class AccessRedirectTest extends Test {
     return $redirectedUrl;
   }
 
+
+  private function create_user( string $username ): User {
+    $id = wp_insert_user(['user_login' => $username]);
+    $this->assert_is_int( $id, $id );
+    $this->db_notice( "$id - user created" );
+    $user = User::from_id( $id );
+    return $user;
+  }
+
+
+  private function delete_user( int $id ): void {
+    wp_delete_user( $id );
+    $user_exists = (get_user_by( 'id', $id ) !== false);
+    $this->assert_false_strict( $user_exists );
+    $this->db_notice( "$id - user deleted" );
+  }
+
 }

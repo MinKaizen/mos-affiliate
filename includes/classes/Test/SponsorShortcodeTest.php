@@ -39,6 +39,18 @@ class SponsorShortcodeTest extends Test {
     $this->user = $this->create_user( $this->user_username );
     $this->sponsor = $this->create_user( $this->sponsor_username );
 
+    // Give MIS to Sponsor
+    $mis = [
+      'gr' => 'my_gr_id',
+      'cm' => '',
+      'non_existent' => 'my_nonexistent_id',
+    ];
+
+    foreach( $mis as $slug => $value ) {
+      $meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $slug;
+      update_user_meta( $this->sponsor->ID, $meta_key, $value );
+    }
+
     $this->set_user();
     $this->set_sponsor();
   }

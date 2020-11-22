@@ -63,6 +63,17 @@ class AccessRedirectTest extends Test {
   }
 
 
+  public function test_free_member(): void {
+    $this->user->set_role('free');
+    wp_set_post_tags( $this->post->ID, 'access_free' );
+    $this->assert_login_and_redirect( $this->permalink, $this->permalink );
+    wp_set_post_tags( $this->post->ID, 'access_monthly_partner' );
+    $this->assert_login_and_redirect( $this->permalink, home_url( '/no-access-monthly-partner' ) );
+    wp_set_post_tags( $this->post->ID, 'access_yearly_partner' );
+    $this->assert_login_and_redirect( $this->permalink, home_url( '/no-access-yearly-partner' ) );
+  }
+
+
   public function get_user(): User {
     return $this->user;
   }

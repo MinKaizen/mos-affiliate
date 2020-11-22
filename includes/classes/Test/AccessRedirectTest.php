@@ -89,6 +89,10 @@ class AccessRedirectTest extends Test {
       'expected' => $expected_redirect,
       'actual' => $actual_redirect,
     ];
+
+    $actual_redirect = trim( $actual_redirect, '/' );
+    $expected_redirect = trim( $expected_redirect, '/' );
+
     $this->assert_equal( $expected_redirect, $actual_redirect, $data );
   }
 
@@ -99,6 +103,10 @@ class AccessRedirectTest extends Test {
       'expected' => $expected_redirect,
       'actual' => $actual_redirect,
     ];
+
+    $actual_redirect = trim( $actual_redirect, '/' );
+    $expected_redirect = trim( $expected_redirect, '/' );
+
     $this->assert_equal( $expected_redirect, $actual_redirect, $data );
   }
 

@@ -238,7 +238,7 @@ class SponsorShortcodeTest extends Test {
 
     $this->assert_is_int( $id, $id );
     $this->assert_true_strict( $success );
-    $this->db_notice( "$id - user created" );
+    $this->db_notice( "user created: $id" );
 
     $user = User::from_id( $id );
     return $user;
@@ -259,7 +259,7 @@ class SponsorShortcodeTest extends Test {
     
     $this->assert_false_strict( $user_exists );
     $this->assert_not_equal_strict( $rows_deleted, false );
-    $this->db_notice( "$id - user deleted" );
+    $this->db_notice( "user deleted: $id" );
   }
 
 

@@ -194,28 +194,28 @@ class SponsorShortcodeTest extends Test {
 
   private function set_user(): void {
     add_filter( 'mos_current_user', [$this, 'get_user'], self::INJECTION_PRIORITY );
-    WP_CLI::line('Filter added: set_user');
+    $this->db_notice('filter added: set_user');
   }
 
 
   private function unset_user(): void {
     $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'], self::INJECTION_PRIORITY );
     if ($remove_success) {
-      WP_CLI::line('Filter removed: set_user');
+      $this->db_notice('filter removed: set_user');
     }
   }
 
 
   private function set_sponsor(): void {
     add_filter( 'mos_sponsor', [$this, 'get_sponsor'], self::INJECTION_PRIORITY, 2 );
-    WP_CLI::line('Filter added: set_sponsor');
+    $this->db_notice('filter added: set_sponsor');
   }
 
 
   private function unset_sponsor(): void {
     $remove_success = remove_filter( 'mos_sponsor', [$this, 'get_sponsor'], self::INJECTION_PRIORITY, 2 );
     if ($remove_success) {
-      WP_CLI::line('Filter removed: set_sponsor');
+      $this->db_notice('filter removed: set_sponsor');
     }
   }
 

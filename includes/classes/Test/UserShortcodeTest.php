@@ -148,14 +148,14 @@ class UserShortcodeTest extends Test {
 
   private function set_user(): void {
     add_filter( 'mos_current_user', [$this, 'get_user'] );
-    WP_CLI::line('Filter added: set_user');
+    $this->db_notice('filter added: set_user');
   }
 
 
   private function unset_user(): void {
     $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'] );
     if ($remove_success) {
-      WP_CLI::line('Filter removed: set_user');
+      $this->db_notice('filter removed: set_user');
     }
   }
 

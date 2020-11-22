@@ -18,6 +18,7 @@ use function \get_post;
 use function \wp_set_post_tags;
 use function \home_url;
 use function \wp_get_upload_dir;
+use function \wp_login_url;
 
 class AccessRedirectTest extends Test {
 

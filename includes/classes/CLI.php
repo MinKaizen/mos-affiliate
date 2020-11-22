@@ -12,6 +12,7 @@ class CLI {
     'user',
     'user_shortcode',
     'sponsor_shortcode',
+    'levels',
   ];
 
 

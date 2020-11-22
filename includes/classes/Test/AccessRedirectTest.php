@@ -17,6 +17,7 @@ use function \wp_delete_post;
 use function \get_post;
 use function \wp_set_post_tags;
 use function \home_url;
+use function \wp_get_upload_dir;
 
 class AccessRedirectTest extends Test {
 
@@ -25,13 +26,19 @@ class AccessRedirectTest extends Test {
   private $user_pass = '5FwZsUZ8IFJ60ofVz2rgftHxDcvcrQXb';
   private $post;
   private $permalink;
+  private $cookie_file;
 
 
   public function __construct() {
     // Check for curl
     if ( !function_exists( 'curl_init' ) || ! function_exists( 'curl_exec' ) ) {
       WP_CLI::error( __CLASS__ . 'requires curl' );
-    }    
+    }
+
+    // Set cookie file for curl
+    $upload_dir = (array) wp_get_upload_dir();
+    $upload_basedir = $upload_dir['basedir'];
+    $this->cookie_file = $upload_basedir . '/mos-affiliate/tests/access_redirect/cookies.txt';
 
     $prev_user = get_user_by( 'login', $this->username );
 

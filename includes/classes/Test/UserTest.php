@@ -34,7 +34,7 @@ class UserTest extends Test {
     $add_sponsor_success = $db->add_sponsor( $user_id, $sponsor_id);
     $this->assert_true_strict( $add_sponsor_success );
     $this->assert_true_strict( $db->user_has_sponsor( $user_id ) );
-    $this->db_notice( "$user_id - added sponsor ($sponsor_id)" );
+    $this->db_notice( "add sponsor: {$user_id}->$sponsor_id" );
   }
 
 
@@ -164,13 +164,13 @@ class UserTest extends Test {
       'user_login' => $username,
     ]);
     $this->assert_is_int( $id, $id );
-    $this->db_notice( "$id - user created" );
+    $this->db_notice( "user created: $id" );
 
     // Register user as affiliate
     $db = new Database();
     $success = $db->register_affiliate( $id );
     $this->assert_true_strict( $success );
-    $this->db_notice( "$id - registered as affiliate" );
+    $this->db_notice( "register affiliate: $id" );
 
     return $id;
   }
@@ -181,7 +181,7 @@ class UserTest extends Test {
 
     // Delete User
     \wp_delete_user( $id );
-    $this->db_notice( "$id - user deleted" );
+    $this->db_notice( "user deleted: $id" );
     $this->assert_false_strict( $this->wpid_exists( $id ) );
 
     // Remove affiliate ID
@@ -189,7 +189,7 @@ class UserTest extends Test {
     $columns = ['uid' => $id];
     $formats = ['uid' => '%d'];
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    $this->db_notice( "$id - removed affiliate" );
+    $this->db_notice( "remove affiliate: $id" );
     $this->assert_not_equal_strict( $rows_deleted, false );
     
     // Remove sponsor
@@ -197,7 +197,7 @@ class UserTest extends Test {
     $columns = ['referral_wp_uid' => $id];
     $formats = ['referral_wp_uid' => '%d'];
     $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    $this->db_notice( "$id - removed sponsor" );
+    $this->db_notice( "remove sponsor: $id" );
     $this->assert_not_equal_strict( $rows_deleted, false );
   }
 

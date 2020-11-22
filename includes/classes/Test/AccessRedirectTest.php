@@ -22,6 +22,7 @@ class AccessRedirectTest extends Test {
 
   private $user;
   private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';
+  private $user_pass = '5FwZsUZ8IFJ60ofVz2rgftHxDcvcrQXb';
   private $post;
   private $permalink;
 
@@ -38,7 +39,7 @@ class AccessRedirectTest extends Test {
       $this->delete_user( $prev_user->ID );
     }
 
-    $this->user = $this->create_user( $this->username );
+    $this->user = $this->create_user( $this->username, $this->user_pass );
     $this->set_user();
     $this->post = $this->create_post();
     $this->permalink = get_permalink( $this->post->ID );
@@ -106,8 +107,11 @@ class AccessRedirectTest extends Test {
   }
 
 
-  private function create_user( string $username ): User {
-    $id = wp_insert_user(['user_login' => $username]);
+  private function create_user( string $username, string $password ): User {
+    $id = wp_insert_user([
+      'user_login' => $username,
+      'user_pass' => $password,
+    ]);
     $this->assert_is_int( $id, $id );
     $this->db_notice( "user created: $id" );
     $user = User::from_id( $id );

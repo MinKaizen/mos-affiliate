@@ -149,20 +149,6 @@ class AccessRedirectTest extends Test {
   }
 
 
-  private function assert_redirect( string $start, string $expected_redirect, ...$data ) {
-    $actual_redirect = $this->get_redirect( $start );
-    $data[] = [
-      'expected' => $expected_redirect,
-      'actual' => $actual_redirect,
-    ];
-
-    $actual_redirect = trim( $actual_redirect, '/' );
-    $expected_redirect = trim( $expected_redirect, '/' );
-
-    $this->assert_equal( $expected_redirect, $actual_redirect, $data );
-  }
-
-
   private function login_and_get_redirect( string $url ): string {
     // Preparing postdata for wordpress login
     $data = "log=". $this->username ."&pwd=" . $this->user_pass . "&wp-submit=Log%20In&redirect_to=" . $url;
@@ -201,31 +187,6 @@ class AccessRedirectTest extends Test {
     curl_close( $ch );
   
     return $redirected_url;
-  }
-
-
-  private function get_redirect( string $url ): string {
-    // Initialize a CURL session. 
-    $ch = curl_init(); 
-      
-    // Grab URL and pass it to the variable. 
-    curl_setopt($ch, CURLOPT_URL, $url); 
-      
-    // Catch output (do NOT print!) 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); 
-      
-    // Return follow location true 
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE); 
-    $html = curl_exec($ch); 
-      
-    // Getinfo or redirected URL from effective URL 
-    $redirectedUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL); 
-      
-    // Close handle 
-    curl_close($ch); 
-    // echo "Original URL:   " . $url . "<br/>"; 
-    // echo "Redirected URL: " . $redirectedUrl . "<br/>"; 
-    return $redirectedUrl;
   }
 
 

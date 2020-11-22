@@ -104,6 +104,19 @@ class AccessRedirectTest extends Test {
   }
 
 
+  private function assert_can_access( AccessRedirect $access, ...$data ) {
+    wp_set_post_tags( $this->post->ID, $access->get_tag() );
+    $this->assert_login_and_redirect( $this->permalink, $this->permalink, ...$data );
+  }
+
+
+  private function assert_cannot_access( AccessRedirect $access, ...$data ) {
+    wp_set_post_tags( $this->post->ID, $access->get_tag() );
+    $redirect = home_url( $access->get_redirect_url() );
+    $this->assert_login_and_redirect( $this->permalink, $redirect, ...$data );
+  }
+
+
   private function assert_login_and_redirect( string $start, string $expected_redirect, ...$data ) {
     $actual_redirect = $this->login_and_get_redirect( $start );
     $data[] = [

@@ -26,6 +26,7 @@ class AccessRedirectTest extends Test {
   private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';
   private $user_pass = '5FwZsUZ8IFJ60ofVz2rgftHxDcvcrQXb';
   private $post;
+  private $post_name = 'VTFJxWlLLouadrgNUZ9rdaBKdifhRdm5';
   private $permalink;
   private $cookie_file;
   private $http_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6';
@@ -181,8 +182,10 @@ class AccessRedirectTest extends Test {
   private function create_post(): WP_Post {
     $post_data = [
       'post_author' => 1,
-      'post_title' => $this->ran_str(),
-      'post_status' => 'public',
+      'post_title' => $this->post_name,
+      'post_name' => $this->post_name,
+      'post_status' => 'publish',
+      'post_content' => '#content: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
     ];
     $post_id = wp_insert_post( $post_data, false );
     $this->assert_not_equal_strict( $post_id, 0 );

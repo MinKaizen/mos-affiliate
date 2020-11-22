@@ -125,7 +125,6 @@ class AccessRedirectTest extends Test {
     curl_setopt( $ch, CURLOPT_POST, 1);
     
     $content = curl_exec ($ch);
-    WP_CLI::line( $content );
     $redirected_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
     
     curl_close( $ch );

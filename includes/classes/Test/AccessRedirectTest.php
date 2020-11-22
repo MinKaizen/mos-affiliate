@@ -6,6 +6,9 @@ use \MOS\Affiliate\Test;
 use \MOS\Affiliate\User;
 use \WP_CLI;
 use \WP_Post;
+use \MOS\Affiliate\AccessRedirect\FreeAccessRedirect;
+use \MOS\Affiliate\AccessRedirect\MonthlyPartnerAccessRedirect;
+use \MOS\Affiliate\AccessRedirect\YearlyPartnerAccessRedirect;
 
 use function \wp_insert_user;
 use function \wp_delete_user;

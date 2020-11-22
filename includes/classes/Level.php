@@ -4,10 +4,10 @@ namespace MOS\Affiliate;
 
 class Level {
 
-  private $name = '';
-  private $slug = '';
-  private $order = 0;
-  private $caps = [];
+  protected $name = '';
+  protected $slug = '';
+  protected $order = 0;
+  protected $caps = [];
 
 
   public function get_name(): string {

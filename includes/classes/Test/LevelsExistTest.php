@@ -3,11 +3,10 @@
 namespace MOS\Affiliate\Test;
 
 use \MOS\Affiliate\Test;
-use \WP_CLI;
 
 use function wp_roles;
 
-class LevelsTest extends Test {
+class LevelsExistTest extends Test {
 
   private $roles;
 

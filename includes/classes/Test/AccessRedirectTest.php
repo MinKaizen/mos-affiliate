@@ -90,6 +90,48 @@ class AccessRedirectTest extends Test {
   }
 
 
+  private function login_and_get_redirect( string $url ): string {
+    // Preparing postdata for wordpress login
+    $data = "log=". $this->username ."&pwd=" . $this->user_pass . "&wp-submit=Log%20In&redirect_to=" . $url;
+    $login_url = wp_login_url();
+
+    $ch = curl_init();
+    curl_setopt( $ch, CURLOPT_URL, $login_url );
+  
+    // Set the cookies for the login in a cookie file.
+    curl_setopt( $ch, CURLOPT_COOKIEJAR, $this->cookie_file );
+    
+    // Set SSL to false
+    curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+    
+    // User agent
+    curl_setopt( $ch, CURLOPT_USERAGENT, $this->http_agent );
+    
+    // Maximum time cURL will wait for get response. in seconds
+    curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
+    
+    curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
+    
+    // Return or echo the execution
+    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+  
+    // Set Http referer.
+    curl_setopt( $ch, CURLOPT_REFERER, $login_url );
+  
+    // Post fields to the login url
+    curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
+    curl_setopt( $ch, CURLOPT_POST, 1);
+    
+    $content = curl_exec ($ch);
+    WP_CLI::line( $content );
+    $redirected_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+    
+    curl_close( $ch );
+  
+    return $redirected_url;
+  }
+
+
   private function get_redirect( string $url ): string {
     // Initialize a CURL session. 
     $ch = curl_init(); 

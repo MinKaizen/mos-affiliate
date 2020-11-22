@@ -2,8 +2,8 @@
 
 namespace MOS\Affiliate\Test;
 
-use MOS\Affiliate\Test;
-use MOS\Affiliate\User;
+use \MOS\Affiliate\Test;
+use \MOS\Affiliate\User;
 use \WP_CLI;
 use \WP_Post;
 

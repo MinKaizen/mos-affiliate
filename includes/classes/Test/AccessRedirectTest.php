@@ -82,6 +82,17 @@ class AccessRedirectTest extends Test {
   }
 
 
+  private function assert_login_and_redirect( string $start, string $expected_redirect, ...$data ) {
+    $actual_redirect = $this->login_and_get_redirect( $start );
+    $data[] = [
+      'user' => new User( $this->user->ID ),
+      'expected' => $expected_redirect,
+      'actual' => $actual_redirect,
+    ];
+    $this->assert_equal( $expected_redirect, $actual_redirect, $data );
+  }
+
+
   private function assert_redirect( string $start, string $expected_redirect, ...$data ) {
     $actual_redirect = $this->get_redirect( $start );
     $data[] = [

@@ -27,6 +27,11 @@ class AccessRedirectTest extends Test {
 
 
   public function __construct() {
+    // Check for curl
+    if ( !function_exists( 'curl_init' ) || ! function_exists( 'curl_exec' ) ) {
+      WP_CLI::error( __CLASS__ . 'requires curl' );
+    }    
+
     $prev_user = get_user_by( 'login', $this->username );
 
     if ( $prev_user ) {

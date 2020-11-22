@@ -202,9 +202,5 @@ class AccessRedirectTest extends Test {
     $this->db_notice( "post deleted: $post_id" );
   }
 
-  private function ran_str( int $length=16): string {
-    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
-  }
-
 
 }

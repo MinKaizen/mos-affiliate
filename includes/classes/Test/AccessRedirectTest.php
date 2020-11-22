@@ -93,6 +93,15 @@ class AccessRedirectTest extends Test {
   }
 
 
+  public function test_yearly_partner(): void {
+    $this->user->set_role('yearly_partner');
+    
+    $this->assert_can_access( $this->accesses['free'] );
+    $this->assert_can_access( $this->accesses['monthly_partner'] );
+    $this->assert_can_access( $this->accesses['yearly_partner'] );
+  }
+
+
   public function get_user(): User {
     return $this->user;
   }

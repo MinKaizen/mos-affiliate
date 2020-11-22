@@ -10,6 +10,46 @@ class Level {
   private $caps = [];
 
 
+  public function get_name(): string {
+    return $this->name;
+  }
+
+
+  public function get_slug(): string {
+    return $this->slug;
+  }
+
+
+  public function get_order(): int {
+    return $this->order;
+  }
+
+
+  public function get_caps(): array {
+    return $this->caps;
+  }
+
+
+  public function is_greater_than( self $other_level ): bool {
+    return ( $this->order > $other_level->order );
+  }
+
+
+  public function is_less_than( self $other_level ): bool {
+    return ( $this->order < $other_level->order );
+  }
+
+
+  public function is_atleast( self $other_level ): bool {
+    return ( $this->order >= $other_level->order );
+  }
+
+
+  public function has_cap( string $cap ): bool {
+    return ( in_array( $cap, $this->caps ) );
+  }
+
+
   public static function get( string $slug ): self {
     $new_level = new Level();
 

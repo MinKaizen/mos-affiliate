@@ -28,4 +28,19 @@ class AccessRedirect {
   }
 
 
+  public function get_tag() {
+    return $this->tag;
+  }
+
+  
+  public function get_redirect_url() {
+    return $this->redirect_url;
+  }
+
+
+  public function get_cap() {
+    return $this->cap;
+  }
+
+
 }

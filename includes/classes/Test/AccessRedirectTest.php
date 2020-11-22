@@ -32,6 +32,7 @@ class AccessRedirectTest extends Test {
   private $post_name = 'VTFJxWlLLouadrgNUZ9rdaBKdifhRdm5';
   private $permalink;
   private $cookie_file;
+  private $access_redirects = [];
   private $http_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6';
 
 
@@ -45,6 +46,13 @@ class AccessRedirectTest extends Test {
     $upload_dir = (array) wp_get_upload_dir();
     $upload_basedir = $upload_dir['basedir'];
     $this->cookie_file = $upload_basedir . '/mos-affiliate/tests/access_redirect/cookies.txt';
+
+    // Set access redirects
+    $this->access_redirects = [
+      'free' => new FreeAccessRedirect,
+      'monthly_partner' => new MonthlyPartnerAccessRedirect,
+      'yearly_partner' => new YearlyPartnerAccessRedirect,
+    ];
 
     $prev_user = get_user_by( 'login', $this->username );
 

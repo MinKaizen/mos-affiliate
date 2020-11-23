@@ -4,6 +4,10 @@ namespace MOS\Affiliate;
 
 class Mis {
 
+  const MIS_SLUG_MAX_LEN =  20;
+  const MIS_LINK_PLACEHOLDER = '%affid%';
+  const MIS_META_KEY_PREFIX = 'mos_mis_';
+
   protected $meta_key = '';
   protected $name = '';
   protected $default = '';

@@ -41,7 +41,6 @@ class Plugin {
   public function __construct() {
     require( PLUGIN_DIR . "/includes/config/caps.php" );
     require( PLUGIN_DIR . "/includes/config/mis.php" );
-    require( PLUGIN_DIR . "/includes/config/routes.php" );
     require( PLUGIN_DIR . "/includes/helpers/utils.php" );
   }
 
@@ -50,7 +49,6 @@ class Plugin {
     $this->load_admin();
     $this->load_scripts();
     $this->register_cli_commands();
-    $this->register_routes();
     $this->register_shortcodes();
     $this->register_access_redirects();
   }
@@ -66,17 +64,6 @@ class Plugin {
     \add_action( 'wp_enqueue_scripts', function() {
       \wp_enqueue_script( 'mosAffiliate', PLUGIN_URL . 'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
     });
-  }
-
-
-  private function register_routes(): void {
-    \add_action( 'rest_api_init', function() {
-      foreach ( ROUTES as $route ) {
-        $class_name = class_name( $route, 'Route' );
-        $route_instance = new $class_name();
-        $route_instance->register();
-      }
-    } );
   }
 
 

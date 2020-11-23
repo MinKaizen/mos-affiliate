@@ -133,6 +133,14 @@ class Test {
   }
 
 
+  protected function assert_class_exists( string $class_name ): void {
+    $assertion = __FUNCTION__;
+    $condition = class_exists( $class_name );
+    $data['class_name'] = $class_name;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

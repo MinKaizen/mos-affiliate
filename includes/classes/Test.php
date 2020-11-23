@@ -141,6 +141,19 @@ class Test {
   }
 
 
+  protected function assert_db_table_exists( string $table_without_prefix, ...$data ): void {
+    global $wpdb;
+    $assertion = __FUNCTION__;
+    $table = $wpdb->prefix . $table_without_prefix;
+    $query = "SHOW TABLES LIKE '$table'";
+    $result = $wpdb->get_var( $query );
+    $condition = $result == $table;
+    $data['query'] = $query;
+    $data['result'] = $result;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

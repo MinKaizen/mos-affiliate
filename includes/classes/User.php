@@ -125,7 +125,7 @@ class User extends \WP_User {
 
   public function get_mis( $slug ): string {
     $mis = Mis::get( $slug );
-    $value = $mis->exists() ? $this->get( $mis->meta_key ) : '';
+    $value = $mis->exists() ? $this->get( $mis->get_meta_key() ) : '';
     return $value;
   }
 
@@ -140,7 +140,7 @@ class User extends \WP_User {
 
   public function qualifies_for_mis( string $network ): bool {
     $mis = Mis::get( $network );
-    $qualifies = $mis->exists() ? $this->has_cap( $mis->cap ) : false;
+    $qualifies = $mis->exists() ? $this->has_cap( $mis->get_cap() ) : false;
     return $qualifies;
   }
 

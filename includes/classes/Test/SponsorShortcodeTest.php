@@ -122,7 +122,7 @@ class SponsorShortcodeTest extends Test {
     foreach ( $this->mis as $slug => $value ) {
       $mis = Mis::get( $slug );
       if ( $mis->exists() ) {
-        $cap = $mis->cap;
+        $cap = $mis->get_cap();
         $this->sponsor->add_cap( $cap );
       }
     }

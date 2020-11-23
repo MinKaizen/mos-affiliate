@@ -222,11 +222,13 @@ class AccessRedirectsTest extends Test {
     curl_setopt( $this->curl, CURLOPT_REFERER, $login_url );
     curl_setopt( $this->curl, CURLOPT_POST, 1);
     curl_exec( $this->curl );
+    $this->db_notice( "curl opened" );
   }
 
 
   private function curl_close() {
     curl_close( $this->curl );
+    $this->db_notice( "curl closed" );
   }
 
 

@@ -7,6 +7,12 @@ class Mis {
   const MIS_SLUG_MAX_LEN =  20;
   const MIS_LINK_PLACEHOLDER = '%affid%';
   const MIS_META_KEY_PREFIX = 'mos_mis_';
+  const MIS_LIST = [
+    'get_response_mis',
+    'click_bank_mis',
+    'click_magick_mis',
+    'click_bank_banners_mis',
+  ];
 
   protected $meta_key = '';
   protected $name = '';

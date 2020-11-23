@@ -16,7 +16,7 @@ use function \wp_insert_user;
 use function \wp_delete_user;
 use function \update_user_meta;
 
-class SponsorShortcodeTest extends Test {
+class SponsorShortcodesTest extends Test {
 
   const INJECTION_PRIORITY = 39;
 

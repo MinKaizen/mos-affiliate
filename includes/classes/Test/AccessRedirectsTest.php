@@ -24,7 +24,7 @@ use function \home_url;
 use function \wp_get_upload_dir;
 use function \wp_login_url;
 
-class AccessRedirectTest extends Test {
+class AccessRedirectsTest extends Test {
 
   private $user;
   private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';

@@ -16,7 +16,7 @@ use function \wp_insert_user;
 use function \wp_delete_user;
 use function \update_user_meta;
 
-class UserShortcodeTest extends Test {
+class UserShortcodesTest extends Test {
 
   private $user;
   private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';

@@ -7,7 +7,7 @@ use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
 use MOS\Affiliate\Mis;
 
-class UserTest extends Test {
+class UserClassTest extends Test {
 
   private $user_ids_to_delete = [];
   private $user_username = 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv';

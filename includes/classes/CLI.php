@@ -8,10 +8,10 @@ use function MOS\Affiliate\snake_to_pascal_case;
 class CLI {
 
   private $tests = [
-    'access_redirect',
-    'user',
-    'user_shortcode',
-    'sponsor_shortcode',
+    'access_redirects',
+    'user_class',
+    'user_shortcodes',
+    'sponsor_shortcodes',
     'levels_exist',
   ];
 

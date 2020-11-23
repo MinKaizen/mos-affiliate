@@ -24,6 +24,7 @@ class SponsorShortcodesTest extends Test {
   private $sponsor;
   private $user_username = 'U4xJsCmznHzKDAPp03540Nc12ZGthVA8';
   private $sponsor_username = 'qO5q0I73ifiSpc7VQktkL0SDJeJLGde7';
+  private $user_pass = 'BY5GfjKNvo7sSZCB1ZSLPvswKB6QU5pj';
   private $mis = [
     'gr' => 'my_gr_id',
     'cm' => '',
@@ -230,6 +231,7 @@ class SponsorShortcodesTest extends Test {
     // Create User
     $id = wp_insert_user([
       'user_login' => $username,
+      'user_pass' => $this->user_pass,
     ]);
     
     // Register user as affiliate

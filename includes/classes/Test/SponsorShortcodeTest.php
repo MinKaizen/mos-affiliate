@@ -107,16 +107,16 @@ class SponsorShortcodeTest extends Test {
   public function test_sponsor_mis_shortcode(): void {
     // User not logged in --> show default
     $this->unset_user();
-    $this->assert_mis( 'gr', Mis::get_default( 'gr' ) );
-    $this->assert_mis( 'cm', Mis::get_default( 'cm' ) );
-    $this->assert_mis( 'cb', Mis::get_default( 'cb' ) );
+    $this->assert_mis( 'gr', Mis::default_value_for( 'gr' ) );
+    $this->assert_mis( 'cm', Mis::default_value_for( 'cm' ) );
+    $this->assert_mis( 'cb', Mis::default_value_for( 'cb' ) );
     $this->set_user();
     
     // User has no caps --> show default
     $mis_slug = 'gr';
-    $this->assert_mis( 'gr', Mis::get_default( 'gr' ) );
-    $this->assert_mis( 'cm', Mis::get_default( 'cm' ) );
-    $this->assert_mis( 'cb', Mis::get_default( 'cb' ) );
+    $this->assert_mis( 'gr', Mis::default_value_for( 'gr' ) );
+    $this->assert_mis( 'cm', Mis::default_value_for( 'cm' ) );
+    $this->assert_mis( 'cb', Mis::default_value_for( 'cb' ) );
 
     // Add caps
     foreach ( $this->mis as $slug => $value ) {
@@ -131,13 +131,13 @@ class SponsorShortcodeTest extends Test {
     $this->assert_mis( 'gr', $this->mis['gr'] );
 
     // Has cap but value is empty --> show default value
-    $this->assert_mis( 'cm', Mis::get_default( 'cm' ) );
+    $this->assert_mis( 'cm', Mis::default_value_for( 'cm' ) );
 
     // mis slug not in config --> show nothing
     $this->assert_mis( 'non_existent', '' );
 
     // did not fill in mis --> show default
-    $this->assert_mis( 'cb', Mis::get_default( 'cb' ) );
+    $this->assert_mis( 'cb', Mis::default_value_for( 'cb' ) );
   }
 
 

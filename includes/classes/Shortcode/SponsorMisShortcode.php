@@ -19,17 +19,17 @@ class SponsorMisShortcode extends AbstractShortcode {
     $sponsor = User::current()->sponsor();
 
     if ( $sponsor->is_empty() ) {
-      return Mis::get_default( $args['network'] );
+      return Mis::default_value_for( $args['network'] );
     }
     
     if ( ! $sponsor->qualifies_for_mis( $args['network'] ) ) {
-      return Mis::get_default( $args['network'] );
+      return Mis::default_value_for( $args['network'] );
     }
 
     $mis = $sponsor->get_mis( $args['network'] );
 
     if ( empty( $mis ) ) {
-      return Mis::get_default( $args['network'] );
+      return Mis::default_value_for( $args['network'] );
     }
 
     return $mis;

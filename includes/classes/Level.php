@@ -54,8 +54,10 @@ class Level {
 
 
   public static function slug_to_name( string $slug ): string {
-    if ( in_array( $slug, array_keys( LEVELS ) ) ) {
-      return LEVELS[$slug]['name'];
+    $level = self::get( $slug );
+
+    if ( $level->exists() ) {
+      return $level->get_name();
     } else {
       return ucwords( trim( preg_replace( '/[-_]+/', ' ', $slug ) ) );
     }

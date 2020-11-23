@@ -41,7 +41,9 @@ class Mis {
   }
 
 
-  public function get_meta_key(){}
+  public function get_meta_key(): string {
+    return $this->meta_key;
+  }
 
 
   public function get_name(): string {

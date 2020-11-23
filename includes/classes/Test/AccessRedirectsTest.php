@@ -110,20 +110,6 @@ class AccessRedirectsTest extends Test {
   }
 
 
-  private function set_user(): void {
-    add_filter( 'mos_current_user', [$this, 'get_user'] );
-    $this->db_notice( "filter added: {$this->user->ID}" );
-  }
-
-
-  private function unset_user(): void {
-    $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'] );
-    if ($remove_success) {
-      $this->db_notice("filter removed: {$this->user->ID}");
-    }
-  }
-
-
   private function assert_can_access( AccessRedirect $access, ...$data ) {
     wp_set_post_tags( $this->post->ID, $access->get_tag() );
     $this->assert_login_and_redirect( $this->permalink, $this->permalink, ...$data );
@@ -178,6 +164,20 @@ class AccessRedirectsTest extends Test {
     $user_exists = (get_user_by( 'id', $id ) !== false);
     $this->assert_false_strict( $user_exists );
     $this->db_notice( "user deleted: $id" );
+  }
+
+
+  private function set_user(): void {
+    add_filter( 'mos_current_user', [$this, 'get_user'] );
+    $this->db_notice( "filter added: {$this->user->ID}" );
+  }
+
+
+  private function unset_user(): void {
+    $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'] );
+    if ($remove_success) {
+      $this->db_notice("filter removed: {$this->user->ID}");
+    }
   }
 
 

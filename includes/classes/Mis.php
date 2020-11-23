@@ -10,6 +10,7 @@ class Mis {
 
   protected $meta_key = '';
   protected $name = '';
+  protected $slug = '';
   protected $default = '';
   protected $link_template = '';
   protected $cap = '';
@@ -67,6 +68,11 @@ class Mis {
 
   public function get_cap(): string {
     return $this->cap;
+  }
+
+
+  public function get_slug(): string {
+    return $this->slug;
   }
 
 

@@ -10,7 +10,6 @@ class Plugin {
   public function __construct() {
     require( PLUGIN_DIR . "/includes/config/access_redirects.php" );
     require( PLUGIN_DIR . "/includes/config/caps.php" );
-    require( PLUGIN_DIR . "/includes/config/levels.php" );
     require( PLUGIN_DIR . "/includes/config/mis.php" );
     require( PLUGIN_DIR . "/includes/config/routes.php" );
     require( PLUGIN_DIR . "/includes/config/shortcodes.php" );

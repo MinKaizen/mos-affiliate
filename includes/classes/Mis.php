@@ -71,7 +71,7 @@ class Mis {
 
 
   public function generate_link( string $mis_value ): string {
-    $link = str_replace( MIS_LINK_PLACEHOLDER, $mis_value, $this->link_template );
+    $link = str_replace( self::MIS_LINK_PLACEHOLDER, $mis_value, $this->link_template );
     return $link;
   }
 

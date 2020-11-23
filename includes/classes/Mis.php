@@ -30,7 +30,7 @@ class Mis {
 
   public static function default_value_for( string $mis_slug ): string {
     $mis = self::get( $mis_slug );
-    $default_value = $mis->exists() ? $mis->default : '';
+    $default_value = $mis->exists() ? $mis->get_default() : '';
     return $default_value;
   }
 
@@ -56,9 +56,9 @@ class Mis {
   }
 
 
-  // public function get_default(): string {
-    
-  // }
+  public function get_default(): string {
+    return $this->default;
+  }
 
 
   public function get_cap(): string {

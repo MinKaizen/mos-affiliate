@@ -4,7 +4,7 @@ namespace MOS\Affiliate\Mis;
 
 use \MOS\Affiliate\Mis;
 
-class GetResponseMis extends Mis {
+class GrMis extends Mis {
 
   protected $meta_key = parent::MIS_META_KEY_PREFIX . 'gr';
   protected $name = 'Get Response';

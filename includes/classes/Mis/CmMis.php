@@ -4,7 +4,7 @@ namespace MOS\Affiliate\Mis;
 
 use \MOS\Affiliate\Mis;
 
-class ClickMagickMis extends Mis {
+class CmMis extends Mis {
 
   protected $meta_key = parent::MIS_META_KEY_PREFIX . 'cm';
   protected $name = 'Click Magick';

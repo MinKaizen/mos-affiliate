@@ -4,13 +4,13 @@ namespace MOS\Affiliate\Mis;
 
 use \MOS\Affiliate\Mis;
 
-class ClickBankMis extends Mis {
+class CbBannersMis extends Mis {
 
   protected $meta_key = parent::MIS_META_KEY_PREFIX . 'cb';
-  protected $name = 'ClickBank';
-  protected $slug = 'cb';
+  protected $name = 'ClickBank (Banners)';
+  protected $slug = 'banner';
   protected $default = 'htlcb';
   protected $link_template = 'https://www.google.com/search?q=' . parent::MIS_LINK_PLACEHOLDER;
-  protected $cap = \MOS\Affiliate\CAP_MIS;
+  protected $cap = \MOS\Affiliate\CAP_BANNER_MIS;
 
 }

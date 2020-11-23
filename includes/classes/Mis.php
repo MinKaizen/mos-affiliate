@@ -7,12 +7,6 @@ class Mis {
   const MIS_SLUG_MAX_LEN =  20;
   const MIS_LINK_PLACEHOLDER = '%affid%';
   const MIS_META_KEY_PREFIX = 'mos_mis_';
-  const MIS_LIST = [
-    'get_response_mis',
-    'click_bank_mis',
-    'click_magick_mis',
-    'click_bank_banners_mis',
-  ];
 
   protected $meta_key = '';
   protected $name = '';
@@ -23,19 +17,12 @@ class Mis {
 
 
   public static function get( string $slug ): self {
-    $new_mis = new self;
-    
-    if ( ! in_array( $slug, array_keys(MIS_NETWORKS) )) {
-      return $new_mis;
+    $mis_class = class_name( $slug . '_mis', 'Mis' );
+    if ( class_exists( $mis_class ) ) {
+      return new $mis_class();
+    } else {
+      return new self();
     }
-
-    $new_mis->meta_key = self::MIS_META_KEY_PREFIX . MIS_NETWORKS[$slug]['meta_key'];
-    $new_mis->name = MIS_NETWORKS[$slug]['name'];
-    $new_mis->default = MIS_NETWORKS[$slug]['default'];
-    $new_mis->link_template = MIS_NETWORKS[$slug]['link_template'];
-    $new_mis->cap = MIS_NETWORKS[$slug]['cap'];
-
-    return $new_mis;
   }
 
 

@@ -18,24 +18,33 @@ class LevelsExistTest extends Test {
 
   public function test_free() {
     $this->assert_has_key( $this->roles, 'free' );
-    $this->assert_equal( $this->roles['free']['capabilities']['access_free'], 1 );    
+    $expected_caps = [
+      'access_free' => true,
+    ];
+    $this->assert_equal( $this->roles['free']['capabilities'], $expected_caps );    
   }
   
   
   public function test_monthly_partner() {
     $this->assert_has_key( $this->roles, 'monthly_partner' );
-    $this->assert_equal( $this->roles['monthly_partner']['capabilities']['access_free'], 1 );    
-    $this->assert_equal( $this->roles['monthly_partner']['capabilities']['access_monthly_partner'], 1 );    
-    $this->assert_equal( $this->roles['monthly_partner']['capabilities']['display_mis'], 1 );    
+    $expected_caps = [
+      'access_free' => true,
+      'access_monthly_partner' => true,
+      'display_mis' => true,
+    ];
+    $this->assert_equal( $this->roles['monthly_partner']['capabilities'], $expected_caps );      
   }
 
 
   public function test_yearly_partner() {
     $this->assert_has_key( $this->roles, 'yearly_partner' );
-    $this->assert_equal( $this->roles['yearly_partner']['capabilities']['access_free'], 1 );    
-    $this->assert_equal( $this->roles['yearly_partner']['capabilities']['access_monthly_partner'], 1 );    
-    $this->assert_equal( $this->roles['yearly_partner']['capabilities']['access_yearly_partner'], 1 );    
-    $this->assert_equal( $this->roles['yearly_partner']['capabilities']['display_mis'], 1 );    
+    $expected_caps = [
+      'access_free' => true,
+      'access_monthly_partner' => true,
+      'access_yearly_partner' => true,
+      'display_mis' => true,
+    ];
+    $this->assert_equal( $this->roles['yearly_partner']['capabilities'], $expected_caps );    
   }
 
 }

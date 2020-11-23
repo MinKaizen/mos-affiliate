@@ -22,7 +22,7 @@ class Mis {
       return $new_mis;
     }
 
-    $new_mis->meta_key = MIS_META_KEY_PREFIX . MIS_NETWORKS[$slug]['meta_key'];
+    $new_mis->meta_key = self::MIS_META_KEY_PREFIX . MIS_NETWORKS[$slug]['meta_key'];
     $new_mis->name = MIS_NETWORKS[$slug]['name'];
     $new_mis->default = MIS_NETWORKS[$slug]['default'];
     $new_mis->link_template = MIS_NETWORKS[$slug]['link_template'];

@@ -5,6 +5,7 @@ namespace MOS\Affiliate\Test;
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
+use MOS\Affiliate\Mis;
 use \WP_CLI;
 
 use function \do_shortcode;
@@ -86,7 +87,7 @@ class UserShortcodeTest extends Test {
     ];
 
     foreach( $mis as $slug => $value ) {
-      $meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $slug;
+      $meta_key = Mis::MIS_META_KEY_PREFIX . $slug;
       update_user_meta( $this->user->ID, $meta_key, $value );
     }
 

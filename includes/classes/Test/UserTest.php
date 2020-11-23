@@ -5,6 +5,7 @@ namespace MOS\Affiliate\Test;
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
+use MOS\Affiliate\Mis;
 
 class UserTest extends Test {
 
@@ -108,14 +109,14 @@ class UserTest extends Test {
     $id = $user->get_wpid();
 
     $mis_slug = 'key_not_in_config';
-    $mis_meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $mis_slug;
+    $mis_meta_key = Mis::MIS_META_KEY_PREFIX . $mis_slug;
     $mis_value = 'some_value';
     $success = \update_user_meta( $id, $mis_meta_key , $mis_value );
     $this->assert_true( $success );
     $this->assert_equal_strict( $user->get_mis( $mis_slug ), '' );
 
     $mis_slug = 'gr';
-    $mis_meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $mis_slug;
+    $mis_meta_key = Mis::MIS_META_KEY_PREFIX . $mis_slug;
     $mis_value = 'some_value';
     $success = \update_user_meta( $id, $mis_meta_key, $mis_value );
     $this->assert_true( $success );

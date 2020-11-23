@@ -47,7 +47,7 @@ class SponsorShortcodeTest extends Test {
 
     // Give MIS to Sponsor
     foreach( $this->mis as $slug => $value ) {
-      $meta_key = \MOS\Affiliate\MIS_META_KEY_PREFIX . $slug;
+      $meta_key = Mis::MIS_META_KEY_PREFIX . $slug;
       update_user_meta( $this->sponsor->ID, $meta_key, $value );
     }
 

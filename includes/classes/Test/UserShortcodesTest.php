@@ -20,6 +20,7 @@ class UserShortcodesTest extends Test {
 
   private $user;
   private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
+  private $user_pass = '0m7Gau2TcVIcpG9o9luA3OErb6Cx15R6';
 
 
   public function __construct() {
@@ -165,6 +166,7 @@ class UserShortcodesTest extends Test {
     // Create User
     $id = wp_insert_user([
       'user_login' => $username,
+      'user_pass' => $this->user_pass,
     ]);
     
     // Register user as affiliate

@@ -12,6 +12,7 @@ class UserClassTest extends Test {
   private $user_ids_to_delete = [];
   private $user_username = 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv';
   private $sponsor_username = 'rEW2i41jztjYawCHbz8ImrcVSrkM95kr';
+  private $user_pass = 'KJJC5bvtzoZQNSrs4NlFDSs5MJJCEjwQ';
 
 
   public function __construct() {
@@ -162,6 +163,7 @@ class UserClassTest extends Test {
     // Create User
     $id = \wp_insert_user([
       'user_login' => $username,
+      'user_pass' => $this->user_pass,
     ]);
     $this->assert_is_int( $id, $id );
     $this->db_notice( "user created: $id" );

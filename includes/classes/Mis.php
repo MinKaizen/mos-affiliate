@@ -41,6 +41,29 @@ class Mis {
   }
 
 
+  public function get_meta_key(){}
+
+
+  public function get_name(): string {
+    return $this->name;
+  }
+
+
+  public function get_link_template(): string {
+    return $this->link_template;
+  }
+
+
+  // public function get_default(): string {
+    
+  // }
+
+
+  public function get_cap(): string {
+    return $this->cap;
+  }
+
+
   public function generate_link( string $mis_value ): string {
     $link = str_replace( MIS_LINK_PLACEHOLDER, $mis_value, $this->link_template );
     return $link;

@@ -35,6 +35,7 @@ class AccessRedirectsTest extends Test {
   private $cookie_file;
   private $accesses= [];
   private $http_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6';
+  private $curl;
 
 
   public function __construct() {
@@ -65,6 +66,7 @@ class AccessRedirectsTest extends Test {
     $this->set_user();
     $this->post = $this->create_post();
     $this->permalink = get_permalink( $this->post->ID );
+    $this->curl_init();
   }
 
 
@@ -72,6 +74,7 @@ class AccessRedirectsTest extends Test {
     $this->delete_user( $this->user->ID );
     $this->unset_user();
     $this->delete_post( $this->post->ID );
+    $this->curl_close();
   }
 
 
@@ -135,7 +138,7 @@ class AccessRedirectsTest extends Test {
 
 
   private function assert_login_and_redirect( string $start, string $expected_redirect, ...$data ) {
-    $actual_redirect = $this->login_and_get_redirect( $start );
+    $actual_redirect = $this->curl_get_redirect( $start );
     $data[] = [
       'user' => new User( $this->user->ID ),
       'expected' => $expected_redirect,
@@ -149,43 +152,11 @@ class AccessRedirectsTest extends Test {
   }
 
 
-  private function login_and_get_redirect( string $url ): string {
-    // Preparing postdata for wordpress login
-    $data = "log=". $this->username ."&pwd=" . $this->user_pass . "&wp-submit=Log%20In&redirect_to=" . $url;
-    $login_url = wp_login_url();
-
-    $ch = curl_init();
-    curl_setopt( $ch, CURLOPT_URL, $login_url );
-  
-    // Set the cookies for the login in a cookie file.
-    curl_setopt( $ch, CURLOPT_COOKIEJAR, $this->cookie_file );
-    
-    // Set SSL to false
-    curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-    
-    // User agent
-    curl_setopt( $ch, CURLOPT_USERAGENT, $this->http_agent );
-    
-    // Maximum time cURL will wait for get response. in seconds
-    curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
-    
-    curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
-    
-    // Return or echo the execution
-    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-  
-    // Set Http referer.
-    curl_setopt( $ch, CURLOPT_REFERER, $login_url );
-  
-    // Post fields to the login url
-    curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
-    curl_setopt( $ch, CURLOPT_POST, 1);
-    
-    $content = curl_exec ($ch);
-    $redirected_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
-    
-    curl_close( $ch );
-  
+  private function curl_get_redirect( string $url ): string {
+    curl_setopt( $this->curl, CURLOPT_URL, $url );
+    curl_setopt( $this->curl, CURLOPT_POST, 0);
+    curl_exec( $this->curl );
+    $redirected_url = curl_getinfo( $this->curl, CURLINFO_EFFECTIVE_URL );
     return $redirected_url;
   }
 

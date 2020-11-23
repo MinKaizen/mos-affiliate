@@ -141,10 +141,9 @@ class UserTest extends Test {
     $user = new User();
     
     $slug = 'gr';
-    $mis = \MOS\Affiliate\MIS_NETWORKS['gr'];
-    $this->assert_false_strict( empty( $mis ) );
-    $this->assert_has_key( $mis, 'cap' );
-    $cap = $mis['cap'];
+    $mis = Mis::get( $slug );
+    $this->assert_true_strict( $mis->exists() );
+    $cap = $mis->get_cap();
 
     $this->assert_false_strict( $user->qualifies_for_mis( $slug ) );
     $user->add_cap( $cap );

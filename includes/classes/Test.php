@@ -133,7 +133,7 @@ class Test {
   }
 
 
-  protected function assert_class_exists( string $class_name ): void {
+  protected function assert_class_exists( string $class_name, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = class_exists( $class_name );
     $data['class_name'] = $class_name;

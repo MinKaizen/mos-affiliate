@@ -4,11 +4,11 @@ namespace MOS\Affiliate;
 
 class Mis {
 
-  public $meta_key = '';
-  public $name = '';
-  public $default = '';
-  public $link_template = '';
-  public $cap = '';
+  protected $meta_key = '';
+  protected $name = '';
+  protected $default = '';
+  protected $link_template = '';
+  protected $cap = '';
 
 
   public static function get( string $slug ): self {

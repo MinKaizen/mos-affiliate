@@ -6,7 +6,7 @@ use \MOS\Affiliate\Mis;
 
 class GetResponseMis extends Mis {
 
-  protected $meta_key = 'gr';
+  protected $meta_key = parent::MIS_META_KEY_PREFIX . 'gr';
   protected $name = 'Get Response';
   protected $slug = 'gr';
   protected $default = 'htlcb';

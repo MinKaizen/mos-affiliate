@@ -6,7 +6,7 @@ use \MOS\Affiliate\Mis;
 
 class ClickBankMis extends Mis {
 
-  protected $meta_key = 'cb';
+  protected $meta_key = parent::MIS_META_KEY_PREFIX . 'cb';
   protected $name = 'ClickBank (Banners)';
   protected $slug = 'banner';
   protected $default = 'htlcb';

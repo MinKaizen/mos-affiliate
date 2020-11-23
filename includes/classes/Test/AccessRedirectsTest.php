@@ -235,4 +235,28 @@ class AccessRedirectsTest extends Test {
   }
 
 
+  private function curl_init() {
+    $this->curl = curl_init();
+    $login_url = wp_login_url();
+    $redirect = home_url( '/' );
+    $data = "log={$this->username}&pwd={$this->user_pass}&wp-submit=Log%20In&redirect_to={$redirect}";
+    curl_setopt( $this->curl, CURLOPT_POSTFIELDS, $data );
+    curl_setopt( $this->curl, CURLOPT_URL, $login_url );
+    curl_setopt( $this->curl, CURLOPT_COOKIEJAR, $this->cookie_file );
+    curl_setopt( $this->curl, CURLOPT_SSL_VERIFYPEER, false );
+    curl_setopt( $this->curl, CURLOPT_USERAGENT, $this->http_agent );
+    curl_setopt( $this->curl, CURLOPT_TIMEOUT, 10 );
+    curl_setopt( $this->curl, CURLOPT_FOLLOWLOCATION, 1 );
+    curl_setopt( $this->curl, CURLOPT_RETURNTRANSFER, 1 );
+    curl_setopt( $this->curl, CURLOPT_REFERER, $login_url );
+    curl_setopt( $this->curl, CURLOPT_POST, 1);
+    curl_exec( $this->curl );
+  }
+
+
+  private function curl_close() {
+    curl_close( $this->curl );
+  }
+
+
 }

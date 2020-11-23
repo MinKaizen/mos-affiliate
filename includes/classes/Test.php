@@ -34,6 +34,7 @@ class Test {
   protected function assert_is_int( $var, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = is_int( $var );
+    $data['var'] = $var;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -41,6 +42,8 @@ class Test {
   protected function assert_equal( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 == $value2;
+    $data['value1'] = $value1;
+    $data['value2'] = $value2;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -48,6 +51,8 @@ class Test {
   protected function assert_equal_strict( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 === $value2;
+    $data['value1'] = $value1;
+    $data['value2'] = $value2;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -56,6 +61,8 @@ class Test {
   protected function assert_not_equal( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 != $value2;
+    $data['value1'] = $value1;
+    $data['value2'] = $value2;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -63,6 +70,8 @@ class Test {
   protected function assert_not_equal_strict( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 !== $value2;
+    $data['value1'] = $value1;
+    $data['value2'] = $value2;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -77,6 +86,7 @@ class Test {
   protected function assert_true_strict( $expression, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $expression === true;
+    $data['expression'] = $expression;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -91,6 +101,7 @@ class Test {
   protected function assert_false_strict( $expression, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $expression === false;
+    $data['expression'] = $expression;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -98,6 +109,8 @@ class Test {
   protected function assert_string_contains( string $haystack, string $needle, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = ( strpos( $haystack, $needle ) !== false );
+    $data['haystack'] = $haystack;
+    $data['needle'] = $needle;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -105,6 +118,8 @@ class Test {
   protected function assert_has_key( array $array, $key, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = array_key_exists( $key, $array );
+    $data['array'] = $array;
+    $data['key'] = $key;
     $this->assert( $condition, $data, $assertion );
   }
 
@@ -112,6 +127,8 @@ class Test {
   protected function assert_instanceof( $instance, string $class, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $instance instanceof $class;
+    $data['instance'] = $instance;
+    $data['class'] = $class;
     $this->assert( $condition, $data, $assertion );
   }
 

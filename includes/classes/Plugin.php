@@ -6,6 +6,31 @@ use function MOS\Affiliate\class_name;
 
 class Plugin {
 
+  private $shortcodes = [
+    'affid_shortcode',
+    'campaign_form_shortcode',
+    'campaign_list_shortcode',
+    'campaign_report_shortcode',
+    'email_shortcode',
+    'first_name_shortcode',
+    'last_name_shortcode',
+    'level_shortcode',
+    'mis_shortcode',
+    'name_shortcode',
+    'sponsor_affid_shortcode',
+    'sponsor_email_shortcode',
+    'sponsor_first_name_shortcode',
+    'sponsor_last_name_shortcode',
+    'sponsor_level_shortcode',
+    'sponsor_mis_shortcode',
+    'sponsor_name_shortcode',
+    'sponsor_username_shortcode',
+    'sponsor_wpid_shortcode',
+    'test_shortcode',
+    'username_shortcode',
+    'wpid_shortcode',
+  ];
+
   private $access_redirects = [
     'free_access_redirect',
     'monthly_partner_access_redirect',
@@ -17,7 +42,6 @@ class Plugin {
     require( PLUGIN_DIR . "/includes/config/caps.php" );
     require( PLUGIN_DIR . "/includes/config/mis.php" );
     require( PLUGIN_DIR . "/includes/config/routes.php" );
-    require( PLUGIN_DIR . "/includes/config/shortcodes.php" );
     require( PLUGIN_DIR . "/includes/helpers/utils.php" );
   }
 
@@ -57,7 +81,7 @@ class Plugin {
 
 
   private function register_shortcodes(): void {
-    foreach ( SHORTCODES as $shortcode ) {
+    foreach ( $this->shortcodes as $shortcode ) {
       $class_name = class_name( $shortcode, 'Shortcode' );
       $shortcode_instance = new $class_name();
       $shortcode_instance->register();

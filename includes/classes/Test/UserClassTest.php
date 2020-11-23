@@ -61,7 +61,7 @@ class UserClassTest extends Test {
   public function test_get_wpid(): void {
     $test_user_id = 42;
     $user = new User();
-    $user->id = $test_user_id;
+    $user->ID = $test_user_id;
     $this->assert_equal_strict( $user->get_wpid(), $test_user_id );
   }
 

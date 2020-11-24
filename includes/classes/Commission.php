@@ -2,6 +2,8 @@
 
 namespace MOS\Affiliate;
 
+use function \MOS\Affiliate\is_dateable;
+
 class Commission {
 
   private $id;

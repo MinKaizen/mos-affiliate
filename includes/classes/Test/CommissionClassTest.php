@@ -25,11 +25,11 @@ class CommissionClassTest extends Test {
       'campaign' => 'facebook',
       'actor_id' => 64,
       'earner_id' => 144,
-      'payout_date' => '',
-      'payout_method' => '',
-      'payout_address' => '',
-      'payout_transaction_id' => '',
-      'refund_date' => '',
+      'payout_date' => null,
+      'payout_method' => null,
+      'payout_address' => null,
+      'payout_transaction_id' => null,
+      'refund_date' => null,
     ];
     $commission = Commission::create_from_array( $commission_data );
     $this->assert_equal( $commission->get_date(), $commission_data['date']);

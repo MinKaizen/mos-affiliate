@@ -10,7 +10,7 @@ class CommissionsMigration extends Migration {
   protected $columns = [
     'id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT',
     'date date NOT NULL',
-    'amount int(10) UNSIGNED NOT NULL',
+    'amount float(10, 2) UNSIGNED NOT NULL',
     'description varchar(90) DEFAULT "" NOT NULL',
     'transaction_id varchar(255) DEFAULT "" NOT NULL',
     'campaign varchar(255) DEFAULT "" NOT NULL',

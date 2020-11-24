@@ -16,6 +16,7 @@ class TestCliCommand extends CliCommand {
     'migrations',
     'access_redirects',
     'user_class',
+    'commission_class',
     'user_shortcodes',
     'sponsor_shortcodes',
     'levels_exist',

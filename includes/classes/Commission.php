@@ -54,7 +54,7 @@ class Commission {
   }
 
 
-  public static function get_all( array $filters ): array {
+  public static function lookup_multi( array $filters ): array {
     return [];
   }
 

@@ -31,20 +31,7 @@ class CommissionClassTest extends Test {
 
 
   public function test_construct_from_array(): void {
-    $commission_data = [
-      'date' => '2020-12-06',
-      'amount' => 50,
-      'description' => 'Some description',
-      'transaction_id' => '1vG92ClVTga2GIROZ5fEK8JQ1GL7gkCk',
-      'campaign' => 'facebook',
-      'actor_id' => 64,
-      'earner_id' => 144,
-      'payout_date' => null,
-      'payout_method' => null,
-      'payout_address' => null,
-      'payout_transaction_id' => null,
-      'refund_date' => null,
-    ];
+    $commission_data = $this->valid_data;
     $commission = Commission::create_from_array( $commission_data );
     $this->assert_equal( $commission->get_date(), $commission_data['date']);
     $this->assert_equal( $commission->get_amount(), $commission_data['amount']);
@@ -62,20 +49,7 @@ class CommissionClassTest extends Test {
 
 
   public function test_is_valid(): void {
-    $valid_data = [
-      'date' => '2020-12-06',
-      'amount' => 50,
-      'description' => 'Some description',
-      'transaction_id' => '1vG92ClVTga2GIROZ5fEK8JQ1GL7gkCk',
-      'campaign' => 'facebook',
-      'actor_id' => 64,
-      'earner_id' => 144,
-      'payout_date' => null,
-      'payout_method' => null,
-      'payout_address' => null,
-      'payout_transaction_id' => null,
-      'refund_date' => null,
-    ];
+    $valid_data = $this->valid_data;
     
     $edit = [];
     $this->assert_true( $this->commission_is_valid( $valid_data, $edit ));

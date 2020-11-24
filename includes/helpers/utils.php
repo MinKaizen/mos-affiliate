@@ -98,3 +98,24 @@ function first_non_empty_element( array $array ) {
   }
   return null;
 }
+
+
+function is_dateable( string $str ): bool {
+  $dateable = true;
+
+  $parts = explode( '-', $str );
+  if ( count( $parts ) !== 3 ) {
+    $dateable = false;
+  }
+
+  $year = $parts[0];
+  $month = $parts[1];
+  $day = $parts[2];
+
+  $date = \DateTime::createFromFormat( 'Y-m-d', $str );
+  $dateable = ( $year == $date->format( 'Y' ) ) ? $dateable : false;
+  $dateable = ( $month == $date->format( 'm' ) ) ? $dateable : false;
+  $dateable = ( $day == $date->format( 'd' ) ) ? $dateable : false;
+
+  return $dateable;
+}

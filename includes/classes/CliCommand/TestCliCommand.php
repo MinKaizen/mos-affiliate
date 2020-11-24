@@ -1,25 +1,29 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace MOS\Affiliate;
+namespace MOS\Affiliate\CliCommand;
 
+use MOS\Affiliate\CliCommand;
 use \WP_CLI;
-use function MOS\Affiliate\snake_to_pascal_case;
 
-class CLI {
+use function MOS\Affiliate\class_name;
+
+class TestCliCommand extends CliCommand {
+
+  protected $command = 'test';
 
   private $tests = [
-    'pre_conditions',
-    'migrations',
-    'access_redirects',
-    'user_class',
-    'user_shortcodes',
-    'sponsor_shortcodes',
-    'levels_exist',
+    'pre_conditions_test',
+    'migrations_test',
+    'access_redirects_test',
+    'user_class_test',
+    'user_shortcodes_test',
+    'sponsor_shortcodes_test',
+    'levels_exist_test',
   ];
 
 
-  public function test( $args ): void {
-    list( $test_name ) = $args;    
+  public function run( array $pos_args, array $assoc_args ): void {
+    list( $test_name ) = $pos_args;    
 
     if ( $test_name == 'all' ) {
       $this->test_all();
@@ -44,15 +48,9 @@ class CLI {
 
 
   private function test_single( string $test_stub ): void {
-    $test_class_name = $this->stub_to_class_name( $test_stub );
-      $test = new $test_class_name();
-      $test->run();
-  }
-
-
-  private function stub_to_class_name( string $stub ): string {
-    $pascalized = snake_to_pascal_case( $stub );
-    return NS . 'Test\\' . $pascalized . 'Test';
+    $test_class_name = class_name( $test_stub, 'Test' );
+    $test = new $test_class_name();
+    $test->run();
   }
 
 

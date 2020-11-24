@@ -2,6 +2,8 @@
 
 namespace MOS\Affiliate;
 
+use \WP_CLI;
+
 use function MOS\Affiliate\class_name;
 
 class Plugin {
@@ -35,6 +37,10 @@ class Plugin {
     'free_access_redirect',
     'monthly_partner_access_redirect',
     'yearly_partner_access_redirect',
+  ];
+
+  private $cli_commands = [
+    'test_cli_command',
   ];
 
 
@@ -85,10 +91,14 @@ class Plugin {
 
 
   private function register_cli_commands(): void {
-    if ( !defined( 'WP_CLI' ) || !\WP_CLI ) {
+    if ( !defined( 'WP_CLI' ) || !WP_CLI ) {
       return;  
     }
-    \WP_CLI::add_command( 'mosa', NS . 'CLI' );
+    foreach ( $this->cli_commands as $cli_command_name ) {
+      $class_name = class_name( $cli_command_name, 'CliCommand' );
+      $cli_command = new $class_name();
+      $cli_command->register();
+    }
   }
 
 

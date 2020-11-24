@@ -12,13 +12,13 @@ class TestCliCommand extends CliCommand {
   protected $command = 'test';
 
   private $tests = [
-    'pre_conditions_test',
-    'migrations_test',
-    'access_redirects_test',
-    'user_class_test',
-    'user_shortcodes_test',
-    'sponsor_shortcodes_test',
-    'levels_exist_test',
+    'pre_conditions',
+    'migrations',
+    'access_redirects',
+    'user_class',
+    'user_shortcodes',
+    'sponsor_shortcodes',
+    'levels_exist',
   ];
 
 
@@ -48,7 +48,7 @@ class TestCliCommand extends CliCommand {
 
 
   private function test_single( string $test_stub ): void {
-    $test_class_name = class_name( $test_stub, 'Test' );
+    $test_class_name = class_name( $test_stub . '_test', 'Test' );
     $test = new $test_class_name();
     $test->run();
   }

@@ -41,6 +41,7 @@ class Plugin {
 
   private $cli_commands = [
     'test_cli_command',
+    'reactivate_cli_command',
   ];
 
 

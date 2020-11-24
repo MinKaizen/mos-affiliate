@@ -22,6 +22,7 @@ class CommissionsMigration extends Migration {
     'payout_transaction_id varchar(100) NOT NULL',
     'refund_date date NOT NULL',
     'PRIMARY KEY  (id)',
+    'KEY for_campaign_report (earner_id, campaign, date)',
   ];
 
 }

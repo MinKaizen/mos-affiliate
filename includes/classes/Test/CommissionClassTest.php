@@ -47,4 +47,95 @@ class CommissionClassTest extends Test {
   }
 
 
+  public function test_is_valid(): void {
+    $valid_data = [
+      'date' => '2020-12-06',
+      'amount' => 50,
+      'description' => 'Some description',
+      'transaction_id' => '1vG92ClVTga2GIROZ5fEK8JQ1GL7gkCk',
+      'campaign' => 'facebook',
+      'actor_id' => 64,
+      'earner_id' => 144,
+      'payout_date' => null,
+      'payout_method' => null,
+      'payout_address' => null,
+      'payout_transaction_id' => null,
+      'refund_date' => null,
+    ];
+    
+    $edit = [];
+    $this->assert_true( $this->commission_is_valid( $valid_data, $edit ));
+
+    $edit = ['date' => '2020-13-13'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['date' => '2020-06-32'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['date' => '2020-02-31'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['amount' => 'string instead of number'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['amount' => -1];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['description' => ''];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['campaign' => null];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['earner_id' => 'string instead of int'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['earner_id' => -1];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['earner_id' => 0.05];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['payout_date' => '2020-13-13'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['payout_date' => '2020-06-32'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['payout_date' => '2020-02-31'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+    
+    $edit = ['payout_method' => 42];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+    
+    $edit = ['payout_address' => 42];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+    
+    $edit = ['payout_transaction_id' => 42];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['refund_date' => '2020-13-13'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['refund_date' => '2020-06-32'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+
+    $edit = ['refund_date' => '2020-02-31'];
+    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
+    
+  }
+
+
+  private function commission_is_valid( array $commission_data, array $edit=[], ...$data ): bool {
+    // Apply edits
+    if ( !empty( $edit ) ) {
+      foreach( $edit as $index => $value ) {
+        $commission_data[$index] = $value;
+      }
+    }
+
+    $commission = Commission::create_from_array( $commission_data );
+    return $commission->is_valid();
+  }
+
 }

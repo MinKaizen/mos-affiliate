@@ -124,6 +124,34 @@ class Commission {
   }
 
 
+  public function is_valid(): bool {
+    $conditions = [
+      is_dateable( $this->date ),
+      is_numeric( $this->amount ),
+      $this->amount > 0,
+      ! empty( $this->description ),
+      is_string( $this->campaign ),
+      is_int( $this->earner_id ),
+      $this->earner_id > 0,
+      $this->payout_date == null || is_dateable( $this->payout_date ),
+      $this->payout_method == null || is_string( $this->payout_method ),
+      $this->payout_address == null || is_string( $this->payout_address ),
+      $this->payout_transaction_id == null || is_string( $this->payout_transaction_id ),
+      $this->refund_date == null || is_dateable( $this->refund_date ),
+    ];
+
+    $valid = true;
+    foreach( $conditions as $condition ) {
+      if ( $condition === false ) {
+        $valid = false;
+        break;
+      }
+    }
+    
+    return $valid;
+  }
+
+
   public function db_insert(): bool {
     return false;
   }

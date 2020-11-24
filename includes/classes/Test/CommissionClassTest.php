@@ -114,7 +114,7 @@ class CommissionClassTest extends Test {
   }
 
 
-  private function commission_is_valid( array $commission_data, array $edit=[], ...$data ): bool {
+  private function commission_is_valid( array $commission_data, array $edit=[] ): bool {
     // Apply edits
     if ( !empty( $edit ) ) {
       foreach( $edit as $index => $value ) {

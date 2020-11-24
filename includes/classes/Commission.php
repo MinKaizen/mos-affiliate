@@ -21,7 +21,7 @@ class Commission {
   private $refund_date;
 
 
-  public static function get( int $id ): self {
+  public static function lookup( int $id ): self {
     return new self();
   }
 

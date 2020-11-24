@@ -35,7 +35,20 @@ class Commission {
 
 
   public static function from_array( array $data ): self {
-    return new self();
+    $new_commission = new self();
+    $new_commission->date = $data['date'];
+    $new_commission->amount = $data['amount'];
+    $new_commission->description = $data['description'];
+    $new_commission->transaction_id = $data['transaction_id'];
+    $new_commission->campaign = $data['campaign'];
+    $new_commission->actor_id = $data['actor_id'];
+    $new_commission->earner_id = $data['earner_id'];
+    $new_commission->payout_date = $data['payout_date'];
+    $new_commission->payout_method = $data['payout_method'];
+    $new_commission->payout_address = $data['payout_address'];
+    $new_commission->payout_transaction_id = $data['payout_transaction_id'];
+    $new_commission->refund_date = $data['refund_date'];
+    return $new_commission;
   }
 
 

@@ -106,6 +106,7 @@ function is_dateable( string $str ): bool {
   $parts = explode( '-', $str );
   if ( count( $parts ) !== 3 ) {
     $dateable = false;
+    return $dateable;
   }
 
   $year = $parts[0];
@@ -113,6 +114,11 @@ function is_dateable( string $str ): bool {
   $day = $parts[2];
 
   $date = \DateTime::createFromFormat( 'Y-m-d', $str );
+  if ( ! $date instanceof \DateTime ) {
+    $dateable = false;
+    return $dateable;
+  }
+
   $dateable = ( $year == $date->format( 'Y' ) ) ? $dateable : false;
   $dateable = ( $month == $date->format( 'm' ) ) ? $dateable : false;
   $dateable = ( $day == $date->format( 'd' ) ) ? $dateable : false;

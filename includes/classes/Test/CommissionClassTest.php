@@ -7,6 +7,20 @@ use \MOS\Affiliate\Commission;
 
 class CommissionClassTest extends Test {
 
+  private $valid_data = [
+    'date' => '2020-12-06',
+    'amount' => 50,
+    'description' => 'Some description',
+    'transaction_id' => '1vG92ClVTga2GIROZ5fEK8JQ1GL7gkCk',
+    'campaign' => 'facebook',
+    'actor_id' => 64,
+    'earner_id' => 144,
+    'payout_date' => null,
+    'payout_method' => null,
+    'payout_address' => null,
+    'payout_transaction_id' => null,
+    'refund_date' => null,
+  ];
 
   public function test_construct(): void {
     $class_name = '\MOS\Affiliate\Commission';

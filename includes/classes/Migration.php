@@ -9,9 +9,7 @@ abstract class Migration {
   protected $db_prefix;
   protected $charset_collate;
 
-  private $vendor_prefix = 'mos_';
 
-  
   public function __construct() {
     global $wpdb;
     $this->db_prefix = $wpdb->prefix;
@@ -21,7 +19,7 @@ abstract class Migration {
   
   public function sql(): string {
     $columns = implode( ',' . PHP_EOL, $this->columns );
-    $table_name = $this->db_prefix . $this->vendor_prefix . $this->table_name;
+    $table_name = $this->db_prefix . $this->table_name;
     $sql = "CREATE TABLE $table_name (
       $columns
     ) $this->charset_collate;";

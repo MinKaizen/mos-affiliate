@@ -5,7 +5,7 @@ namespace MOS\Affiliate;
 class Upgrader {
 
   const MIGRATIONS = [
-    'mis_migration',
+    'commissions_migration',
   ];
 
   

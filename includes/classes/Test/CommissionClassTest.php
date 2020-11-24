@@ -31,7 +31,7 @@ class CommissionClassTest extends Test {
       'payout_transaction_id' => '',
       'refund_date' => '',
     ];
-    $commission = Commission::from_array( $commission_data );
+    $commission = Commission::create_from_array( $commission_data );
     $this->assert_equal( $commission->get_date(), $commission_data['date']);
     $this->assert_equal( $commission->get_amount(), $commission_data['amount']);
     $this->assert_equal( $commission->get_description(), $commission_data['description']);

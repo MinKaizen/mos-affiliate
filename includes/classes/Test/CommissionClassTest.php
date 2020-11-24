@@ -18,7 +18,7 @@ class CommissionClassTest extends Test {
 
   public function test_construct_from_array(): void {
     $commission_data = [
-      'date' => '2020-15-06',
+      'date' => '2020-12-06',
       'amount' => 50,
       'description' => 'Some description',
       'transaction_id' => '1vG92ClVTga2GIROZ5fEK8JQ1GL7gkCk',

@@ -21,7 +21,7 @@ class CommissionsMigration extends Migration {
     'payout_address varchar(100) NOT NULL',
     'payout_transaction_id varchar(100) NOT NULL',
     'refund_date date NOT NULL',
-    'PRIMARY KEY  (id)'
+    'PRIMARY KEY  (id)',
   ];
 
 }

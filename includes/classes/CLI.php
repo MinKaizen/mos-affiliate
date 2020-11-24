@@ -9,6 +9,7 @@ class CLI {
 
   private $tests = [
     'pre_conditions',
+    'migrations',
     'access_redirects',
     'user_class',
     'user_shortcodes',

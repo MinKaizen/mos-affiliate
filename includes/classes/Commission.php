@@ -24,17 +24,17 @@ class Commission {
   }
 
 
-  public static function from_stripe_data( array $stripe_data ): self {
+  public static function create_from_stripe_data( array $stripe_data ): self {
     return new self();
   }
 
 
-  public static function from_cb_data( array $cb_data ): self {
+  public static function create_from_cb_data( array $cb_data ): self {
     return new self();
   }
 
 
-  public static function from_array( array $data ): self {
+  public static function create_from_array( array $data ): self {
     $new_commission = new self();
     $new_commission->date = $data['date'];
     $new_commission->amount = $data['amount'];

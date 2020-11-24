@@ -22,6 +22,7 @@ class CommissionClassTest extends Test {
     'refund_date' => null,
   ];
 
+
   public function test_construct(): void {
     $class_name = '\MOS\Affiliate\Commission';
     $this->assert_class_exists( $class_name );
@@ -52,7 +53,7 @@ class CommissionClassTest extends Test {
     $valid_data = $this->valid_data;
     
     $edit = [];
-    $this->assert_true( $this->commission_is_valid( $valid_data, $edit ));
+    $this->assert_true( $this->commission_is_valid( $valid_data, $edit ) );
 
     $edit = ['date' => '2020-13-13'];
     $this->assert_false( $this->commission_is_valid( $valid_data, $edit ) );
@@ -126,4 +127,5 @@ class CommissionClassTest extends Test {
     return $commission->is_valid();
   }
 
+  
 }

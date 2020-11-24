@@ -8,7 +8,7 @@ class CommissionsMigration extends Migration {
 
   protected $table_name = 'mos_commissions';
   protected $columns = [
-    'id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+    'id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT',
     'date date NOT NULL',
     'amount int(10) UNSIGNED NOT NULL',
     'description varchar(90) DEFAULT "" NOT NULL',
@@ -21,6 +21,7 @@ class CommissionsMigration extends Migration {
     'payout_address varchar(100) NOT NULL',
     'payout_transaction_id varchar(100) NOT NULL',
     'refund_date date NOT NULL',
+    'PRIMARY KEY  (id)'
   ];
 
 }

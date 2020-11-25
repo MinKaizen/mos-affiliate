@@ -100,6 +100,12 @@ function first_non_empty_element( array $array ) {
 }
 
 
+/**
+ * Whether a string is in the date form yyyy-mm-dd
+ *
+ * @param string $str   String to check
+ * @return boolean
+ */
 function is_dateable( string $str ): bool {
   $dateable = true;
 

@@ -73,9 +73,6 @@ class CommissionClassTest extends Test {
     $edit = ['description' => ''];
     $this->assert_false( $this->commission_is_valid( $valid_data, $edit ), ['valid_data'=>$valid_data, 'edit'=>$edit] );
 
-    $edit = ['campaign' => null];
-    $this->assert_false( $this->commission_is_valid( $valid_data, $edit ), ['valid_data'=>$valid_data, 'edit'=>$edit] );
-
     $edit = ['earner_id' => 'string instead of int'];
     $this->assert_false( $this->commission_is_valid( $valid_data, $edit ), ['valid_data'=>$valid_data, 'edit'=>$edit] );
 

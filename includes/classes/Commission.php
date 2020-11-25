@@ -42,7 +42,7 @@ class Commission {
     $new_commission->amount = $data['amount'];
     $new_commission->description = $data['description'];
     $new_commission->transaction_id = $data['transaction_id'];
-    $new_commission->campaign = $data['campaign'];
+    $new_commission->campaign = (string) $data['campaign'];
     $new_commission->actor_id = $data['actor_id'];
     $new_commission->earner_id = $data['earner_id'];
     $new_commission->payout_date = $data['payout_date'];

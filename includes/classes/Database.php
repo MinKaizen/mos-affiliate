@@ -8,6 +8,8 @@ namespace MOS\Affiliate;
 
 class Database {
 
+  const RETURN_TYPE_DEFAULT = 'ARRAY_A';
+
   public function get_campaign_data(): array {
     global $wpdb;
 
@@ -390,5 +392,17 @@ class Database {
 
     return $level;
   }
+
+
+  public function get_row( string $table_name_stub, array $conditions ): array {
+    global $wpdb;
+    $table = $wpdb->prefix . $table_name_stub;
+    $conditions_string = implode( ' AND ', $conditions );
+    $query = "SELECT * FROM $table WHERE $conditions_string LIMIT 1";
+    $query = $wpdb->prepare( $query );
+    $result = $wpdb->get_row( $query, self::RETURN_TYPE_DEFAULT );
+    $result = $result ? $result : [];
+    return $result;
+  } 
 
 }

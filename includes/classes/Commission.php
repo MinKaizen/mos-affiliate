@@ -157,8 +157,8 @@ class Commission {
   }
 
 
-  public function db_insert(): bool {
-    return false;
+  public function db_insert(): void {
+    
   }
 
 

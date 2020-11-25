@@ -6,7 +6,9 @@ use MOS\Affiliate\Migration;
 
 class CommissionsMigration extends Migration {
 
-  protected $table_name = 'mos_commissions';
+  const TABLE_NAME = 'mos_commissions';
+
+  protected $table_name = self::TABLE_NAME;
   protected $columns = [
     'id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT',
     'date date NOT NULL',

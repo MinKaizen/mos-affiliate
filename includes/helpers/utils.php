@@ -8,7 +8,7 @@ namespace MOS\Affiliate;
  * @param string  $view_name   Name of the view
  * @return string $view        The view's html as a string
  */
-function get_view( string $view_name ) {
+function get_view( string $view_name, array $args=[] ) {
   $view_file_name = PLUGIN_DIR . "/includes/views/$view_name.php";
   
   // Check if view exits
@@ -22,6 +22,11 @@ function get_view( string $view_name ) {
   // If controller exists, extract its data
   if ( $controller !== false ) {
     extract( $controller->data() );
+  }
+
+  // If args passed, extract (and override controller args)
+  if ( !empty( $args ) ) {
+    extract( $args );
   }
 
   // Get view html as a string

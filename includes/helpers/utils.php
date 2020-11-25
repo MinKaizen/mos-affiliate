@@ -131,3 +131,16 @@ function is_dateable( string $str ): bool {
 
   return $dateable;
 }
+
+
+/**
+ * Convert Proper case to kebab case
+ *
+ * @param string $proper_case     String in proper case (Hello World)
+ * @return string                 String in kebab case (hello-world)
+ */
+function proper_to_kebab_case( string $proper_case ): string {
+  $lower_case = strtolower( $proper_case );
+  $kebab_case = str_replace( ' ', '-', $lower_case );
+  return $kebab_case;
+}

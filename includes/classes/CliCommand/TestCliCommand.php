@@ -12,6 +12,7 @@ class TestCliCommand extends CliCommand {
   protected $command = 'test';
 
   private $tests = [
+    'commission_table_controller',
     'database_class',
     'pre_conditions',
     'migrations',

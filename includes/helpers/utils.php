@@ -144,3 +144,16 @@ function proper_to_kebab_case( string $proper_case ): string {
   $kebab_case = str_replace( ' ', '-', $lower_case );
   return $kebab_case;
 }
+
+
+/**
+ * Convert Proper case to kebab case
+ *
+ * @param string $snake_case     Snake case (hello_world)
+ * @return string                Proper case (Hello World)
+ */
+function snake_to_proper_case( string $snake_case ): string {
+  $words_separated = str_replace( '_', ' ', $snake_case );
+  $proper_case = ucwords( $words_separated );
+  return $proper_case;
+}

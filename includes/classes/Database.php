@@ -394,11 +394,12 @@ class Database {
   }
 
 
-  public function get_row( string $table_name_stub, array $conditions ): array {
+  public function get_row( string $table_name_stub, array $conditions=[], array $columns=['*'] ): array {
     global $wpdb;
     $table = $wpdb->prefix . $table_name_stub;
     $conditions_string = implode( ' AND ', $conditions );
-    $query = "SELECT * FROM $table WHERE $conditions_string LIMIT 1";
+    $columns_string = implode( ',', $columns );
+    $query = "SELECT $columns_string FROM $table WHERE $conditions_string LIMIT 1";
     $query = $wpdb->prepare( $query );
     $result = $wpdb->get_row( $query, self::RETURN_TYPE_DEFAULT );
     $result = $result ? $result : [];

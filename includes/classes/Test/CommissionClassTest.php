@@ -106,7 +106,7 @@ class CommissionClassTest extends Test {
   }
 
 
-  private function assert_commission_valid( array $edit=[] ): void {
+  private function assert_commission_valid( array $edit=[], ...$data ): void {
     $commission_data = $this->valid_data;
     // Apply edits
     if ( !empty( $edit ) ) {
@@ -120,7 +120,7 @@ class CommissionClassTest extends Test {
   }
 
 
-  private function assert_commission_invalid( array $edit=[] ): void {
+  private function assert_commission_invalid( array $edit=[], ...$data ): void {
     $commission_data = $this->valid_data;
     // Apply edits
     if ( !empty( $edit ) ) {

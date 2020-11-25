@@ -403,6 +403,6 @@ class Database {
     $result = $wpdb->get_row( $query, self::RETURN_TYPE_DEFAULT );
     $result = $result ? $result : [];
     return $result;
-  } 
+  }
 
 }

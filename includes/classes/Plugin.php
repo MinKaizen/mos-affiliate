@@ -9,6 +9,7 @@ use function MOS\Affiliate\class_name;
 class Plugin {
 
   private $shortcodes = [
+    'commission_table_shortcode',
     'affid_shortcode',
     'campaign_form_shortcode',
     'campaign_list_shortcode',

@@ -24,6 +24,7 @@ class DatabaseClassTest extends Test {
     $db = new Database();
     $result = $db->get_rows( 'options', ['1'], ['option_name', 'option_value'] );
     $this->assert_is_array( $result );
+    $this->assert_greater_than( count($result), 1, 'Result should contain more than 1 element' );
 
     $site_name_expected = site_url();
     $site_name_found = '';

@@ -15,6 +15,7 @@ class DatabaseClassTest extends Test {
     $result = $db->get_row( 'users', ['ID=1'] );
     $result = $db->get_row( 'users', ['ID=1'], ['ID'] );
     $this->assert_is_array( $result );
+    $this->assert_equal( count($result), 1, 'Result should only contain 1 column because of the filter' );
     $this->assert_equal( $result['ID'], 1, $result );
     $this->assert_false( $result['user_login'] );
   }

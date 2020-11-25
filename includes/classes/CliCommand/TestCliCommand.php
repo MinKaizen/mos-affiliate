@@ -12,7 +12,6 @@ class TestCliCommand extends CliCommand {
   protected $command = 'test';
 
   private $tests = [
-    'html_table_class',
     'database_class',
     'pre_conditions',
     'migrations',

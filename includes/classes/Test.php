@@ -23,7 +23,7 @@ class Test {
 
   private function run_method( string $method ): void {
     $current_test = $this->get_class_name() . "::" . $method;
-    WP_CLI::debug( "Running $current_test", 'mosa_test' );
+    WP_CLI::debug( "Running $current_test", 'mosa test' );
     $this->_before();
     $this->{$method}();
     $this->_after();

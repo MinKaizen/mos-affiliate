@@ -400,7 +400,6 @@ class Database {
     $conditions_string = implode( ' AND ', $conditions );
     $columns_string = implode( ',', $columns );
     $query = "SELECT $columns_string FROM $table WHERE $conditions_string LIMIT 1";
-    $query = $wpdb->prepare( $query );
     $result = $wpdb->get_row( $query, self::RETURN_TYPE_DEFAULT );
     $result = $result ? $result : [];
     return $result;
@@ -413,7 +412,6 @@ class Database {
     $conditions_string = implode( ' AND ', $conditions );
     $columns_string = implode( ',', $columns );
     $query = "SELECT $columns_string FROM $table WHERE $conditions_string";
-    $query = $wpdb->prepare( $query );
     $result = $wpdb->get_results( $query, self::RETURN_TYPE_DEFAULT );
     $result = $result ? $result : [];
     return $result;

@@ -62,6 +62,16 @@ class CommissionClassTest extends Test {
     // Valid
     $this->assert_commission_valid();
 
+    // Fields that can be null or coerced
+    $this->assert_commission_valid( ['campaign' => null] );
+    $this->assert_commission_valid( ['transaction_id' => null] );
+    $this->assert_commission_valid( ['actor_id' => null] );
+    $this->assert_commission_valid( ['payout_date' => null] );
+    $this->assert_commission_valid( ['payout_method' => null] );
+    $this->assert_commission_valid( ['payout_address' => null] );
+    $this->assert_commission_valid( ['payout_transaction_id' => null] );
+    $this->assert_commission_valid( ['refund_date' => null] );
+
     // Invalid
     $this->assert_commission_invalid( ['date' => '2020-13-13'] );
     $this->assert_commission_invalid( ['date' => '2020-06-32'] );

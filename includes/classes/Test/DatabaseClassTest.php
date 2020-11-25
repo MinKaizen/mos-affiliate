@@ -12,7 +12,6 @@ class DatabaseClassTest extends Test {
   
   public function test_get_row(): void {
     $db = new Database();
-    $result = $db->get_row( 'users', ['ID=1'] );
     $result = $db->get_row( 'users', ['ID=1'], ['ID'] );
     $this->assert_is_array( $result );
     $this->assert_equal( count($result), 1, 'Result should only contain 1 column because only one column was filtered' );

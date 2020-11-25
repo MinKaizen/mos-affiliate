@@ -120,8 +120,10 @@ class CommissionClassTest extends Test {
     $commission = Commission::create_from_array( $commission_data );
     $this->assert_true( $commission->is_valid(), $commission );
 
-    // $commission->db_insert();
-    // check the newly inserted row
+    $commission->db_insert();
+    $this->assert_not_equal( $commission->get_id(), 0, 'Commission ID should be populated after insert' );
+    $this->assert_true_strict( $commission->exists(), 'Commission should exist() after insert' );
+
     // delete the row again
   }
 

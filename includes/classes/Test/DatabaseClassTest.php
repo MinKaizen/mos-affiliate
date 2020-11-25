@@ -8,7 +8,7 @@ use \MOS\Affiliate\Database;
 class DatabaseClassTest extends Test {
 
   
-  public function test_get_row() {
+  public function test_get_row(): void {
     $db = new Database();
     $result = $db->get_row( 'users', ['ID=1'] );
     $result = $db->get_row( 'users', ['ID=1'], ['ID'] );

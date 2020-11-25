@@ -11,6 +11,7 @@ class Test {
 
   protected function _after(): void {}
 
+
   public function run(): void {
     $methods = get_class_methods( get_class( $this ) );
     foreach( $methods as $method ) {
@@ -110,7 +111,6 @@ class Test {
     $data['value2'] = $value2;
     $this->assert( $condition, $data, $assertion );
   }
-
 
 
   protected function assert_not_equal( $value1, $value2, ...$data ): void {

@@ -144,4 +144,32 @@ class CommissionClassTest extends Test {
   }
 
 
+  private function assert_commission_valid( array $edit=[] ): void {
+    $commission_data = $this->valid_data;
+    // Apply edits
+    if ( !empty( $edit ) ) {
+      foreach( $edit as $index => $value ) {
+        $commission_data[$index] = $value;
+      }
+    }
+
+    $commission = Commission::create_from_array( $commission_data );
+    $this->assert_true( $commission->is_valid(), $edit );
+  }
+
+
+  private function assert_commission_invalid( array $edit=[] ): void {
+    $commission_data = $this->valid_data;
+    // Apply edits
+    if ( !empty( $edit ) ) {
+      foreach( $edit as $index => $value ) {
+        $commission_data[$index] = $value;
+      }
+    }
+
+    $commission = Commission::create_from_array( $commission_data );
+    $this->assert_false( $commission->is_valid(), $edit );
+  }
+
+
 }

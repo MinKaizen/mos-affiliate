@@ -70,7 +70,9 @@ class CommissionTable extends Controller {
 
 
   protected function headers(): array {
-    return array_keys( reset( $this->rows()) );
+    $rows = $this->rows();
+    $first_row = reset( $rows );
+    return array_keys( $first_row );
   }
 
 

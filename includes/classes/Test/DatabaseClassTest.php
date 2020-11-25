@@ -29,7 +29,7 @@ class DatabaseClassTest extends Test {
     $site_name_found = '';
     $option_row = [];
     foreach ( $result as $option ) {
-      if ( $option['option_name'] ) {
+      if ( $option['option_name'] == 'siteurl' ) {
         $option_row = $option;
         $site_name_found = $option['option_value'];
       }

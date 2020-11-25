@@ -59,6 +59,11 @@ class Commission {
   }
 
 
+  public function get_id(): ?int {
+    return $this->id;
+  }
+
+
   public function get_date(): ?string {
     return $this->date;
   }

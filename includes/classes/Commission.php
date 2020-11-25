@@ -158,7 +158,43 @@ class Commission {
 
 
   public function db_insert(): void {
-    
+    global $wpdb;
+    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+    $columns = [
+      'id' => $this->id,
+      'date' => $this->date,
+      'amount' => $this->amount,
+      'description' => $this->description,
+      'transaction_id' => $this->transaction_id,
+      'campaign' => $this->campaign,
+      'actor_id' => $this->actor_id,
+      'earner_id' => $this->earner_id,
+      'payout_date' => $this->payout_date,
+      'payout_method' => $this->payout_method,
+      'payout_address' => $this->payout_address,
+      'payout_transaction_id' => $this->payout_transaction_id,
+      'refund_date' => $this->refund_date,
+    ];
+    $formats = [
+      'id' => '%d',
+      'date' => '%s',
+      'amount' => '%f',
+      'description' => '%s',
+      'transaction_id' => '%s',
+      'campaign' => '%s',
+      'actor_id' => '%d',
+      'earner_id' => '%d',
+      'payout_date' => '%s',
+      'payout_method' => '%s',
+      'payout_address' => '%s',
+      'payout_transaction_id' => '%s',
+      'refund_date' => '%s',
+    ];
+    $rows_inserted = $wpdb->insert( $table, $columns, $formats );
+
+    if ( $rows_inserted === 1 ) {
+      $this->id = $wpdb->insert_id;
+    }
   }
 
 

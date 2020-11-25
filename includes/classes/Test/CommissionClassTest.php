@@ -120,7 +120,7 @@ class CommissionClassTest extends Test {
 
 
   public function test_db_insert(): void {
-    $commission_data = $this->valid_data;
+    $commission_data = $this->min_data;
     $commission = Commission::create_from_array( $commission_data );
     $this->assert_true( $commission->is_valid(), $commission );
 

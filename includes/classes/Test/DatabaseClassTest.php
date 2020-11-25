@@ -12,6 +12,7 @@ class DatabaseClassTest extends Test {
     $db = new Database();
     $result = $db->get_row( 'users', ['ID=1'] );
     $result = $db->get_row( 'users', ['ID=1'], ['ID'] );
+    $this->assert_is_array( $result );
     $this->assert_equal( $result['ID'], 1, $result );
     $this->assert_false( $result['user_login'] );
   }

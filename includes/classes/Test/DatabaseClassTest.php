@@ -5,6 +5,8 @@ namespace MOS\Affiliate\Test;
 use \MOS\Affiliate\Test;
 use \MOS\Affiliate\Database;
 
+use function \site_url;
+
 class DatabaseClassTest extends Test {
 
   
@@ -15,6 +17,24 @@ class DatabaseClassTest extends Test {
     $this->assert_is_array( $result );
     $this->assert_equal( $result['ID'], 1, $result );
     $this->assert_false( $result['user_login'] );
+  }
+
+
+  public function test_get_multiple_rows(): void {
+    $db = new Database();
+    $result = $db->get_rows( 'options', ['1'], ['option_name', 'option_value'] );
+    $this->assert_is_array( $result );
+
+    $site_name_expected = site_url();
+    $site_name_found = '';
+    $option_row = [];
+    foreach ( $result as $option ) {
+      if ( $option['option_name'] ) {
+        $option_row = $option;
+        $site_name_found = $option['option_value'];
+      }
+    }
+    $this->assert_equal( $site_name_found, $site_name_expected, $option_row );
   }
 
 

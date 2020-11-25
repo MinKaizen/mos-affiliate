@@ -12,22 +12,37 @@ class Test {
   protected function _after(): void {}
 
   public function run(): void {
+    $methods = get_class_methods( get_class( $this ) );
+    foreach( $methods as $method ) {
+      if ( strpos( $method, 'test_' ) === 0 ) {
+        $this->run_method( $method );
+      }
+    }
+  }
+
+
+  private function run_method( string $method ): void {
+    $current_test = $this->get_class_name() . "::" . $method;
+    WP_CLI::debug( "Running $current_test", 'mosa_test' );
+    $this->_before();
+    $this->{$method}();
+    $this->_after();
+    WP_CLI::line( WP_CLI::colorize( "%g✔%n $current_test" ) );
+  }
+
+
+  private function get_class_name( bool $verbose=false ): string {
     $class_name = get_class( $this );
 
-    // Get class name stub
-    foreach ( explode( '\\', $class_name ) as $part ) {
-      $class_name_short = $part;
-    }
-    
-    foreach( get_class_methods( $class_name ) as $method ) {
-      if ( strpos( $method, 'test_' ) !== 0 ) {
-        continue;
+    if ( $verbose === false ) {
+      // Get class name stub
+      foreach ( explode( '\\', $class_name ) as $part ) {
+        $class_name_short = $part;
       }
-      $this->_before();
-      $this->{$method}();
-      $this->_after();
-      WP_CLI::line( WP_CLI::colorize( "%g✔%n $class_name_short::$method" ) );
+      $class_name = $class_name_short;
     }
+
+    return $class_name;
   }
 
 

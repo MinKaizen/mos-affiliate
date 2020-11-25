@@ -26,16 +26,16 @@ class DatabaseClassTest extends Test {
     $this->assert_is_array( $result );
     $this->assert_greater_than( count($result), 1, 'Result should contain more than 1 element' );
 
-    $site_name_expected = site_url();
-    $site_name_found = '';
+    $site_url_expected = site_url();
+    $site_url_found = '';
     $option_row = [];
     foreach ( $result as $option ) {
       if ( $option['option_name'] == 'siteurl' ) {
         $option_row = $option;
-        $site_name_found = $option['option_value'];
+        $site_url_found = $option['option_value'];
       }
     }
-    $this->assert_equal( $site_name_found, $site_name_expected, $option_row );
+    $this->assert_equal( $site_url_found, $site_url_expected, $option_row );
   }
 
 

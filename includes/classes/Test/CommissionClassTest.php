@@ -10,16 +10,23 @@ class CommissionClassTest extends Test {
   private $valid_data = [
     'date' => '2020-12-06',
     'amount' => 50,
-    'description' => 'Some description',
+    'description' => 'Full info',
     'transaction_id' => '1vG92ClVTga2GIROZ5fEK8JQ1GL7gkCk',
     'campaign' => 'facebook',
     'actor_id' => 64,
     'earner_id' => 144,
-    'payout_date' => null,
-    'payout_method' => null,
-    'payout_address' => null,
-    'payout_transaction_id' => null,
-    'refund_date' => null,
+    'payout_date' => '2020-04-04',
+    'payout_method' => 'Bitcoin',
+    'payout_address' => 'sd54f5s4df6sd5f16sd54fs5d4f',
+    'payout_transaction_id' => '54654-5464',
+    'refund_date' => '2020-12-24',
+  ];
+
+  private $min_data = [
+    'date' => '2020-12-06',
+    'amount' => 50,
+    'description' => 'Minimum info',
+    'earner_id' => 144,
   ];
 
 

@@ -13,7 +13,7 @@ class CommissionsMigration extends Migration {
     'id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT',
     'date date NOT NULL',
     'amount float(10, 2) UNSIGNED NOT NULL',
-    'description varchar(90) DEFAULT "" NOT NULL',
+    'description varchar(90) NOT NULL',
     'transaction_id varchar(255) NULL',
     'campaign varchar(255) DEFAULT "" NOT NULL',
     'actor_id bigint(20) UNSIGNED NULL',

@@ -54,6 +54,38 @@ class Test {
   }
 
 
+  protected function assert_greater_than( $var1, $var2, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = $var1 > $var2;
+    $data['comparison'] = "$var1 > $var2";
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_greater_than_or_equal( $var1, $var2, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = $var1 >= $var2;
+    $data['comparison'] = "$var1 >= $var2";
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_less_than( $var1, $var2, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = $var1 < $var2;
+    $data['comparison'] = "$var1 < $var2";
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_less_than_or_equal( $var1, $var2, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = $var1 <= $var2;
+    $data['comparison'] = "$var1 <= $var2";
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_is_array( $var, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = is_array( $var );

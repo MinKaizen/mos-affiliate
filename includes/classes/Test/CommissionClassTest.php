@@ -115,6 +115,17 @@ class CommissionClassTest extends Test {
   }
 
 
+  public function test_db_insert(): void {
+    $commission_data = $this->valid_data;
+    $commission = Commission::create_from_array( $commission_data );
+    $this->assert_true( $commission->is_valid(), $commission );
+
+    // $commission->db_insert();
+    // check the newly inserted row
+    // delete the row again
+  }
+
+
   private function commission_is_valid( array $commission_data, array $edit=[] ): bool {
     // Apply edits
     if ( !empty( $edit ) ) {

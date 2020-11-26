@@ -9,10 +9,16 @@ use \MOS\Affiliate\User;
 use function \wp_delete_user;
 use function \wp_insert_user;
 use function \MOS\Affiliate\ranstr;
+use function \add_filter;
+use function \remove_filter;
+use function \remove_all_filters;
 
 class Test {
 
+  const CURRENT_USER_HOOK = 'mos_current_user';
+
   protected $_user_ids_to_delete;
+  protected $_injected_user;
 
 
   public function run(): void {
@@ -25,6 +31,7 @@ class Test {
 
   protected final function _clean_up() {
     $this->delete_test_users();
+    $this->unset_user();
   }
 
 
@@ -320,6 +327,35 @@ class Test {
     foreach ( $this->_user_ids_to_delete as $id ) {
       wp_delete_user( $id );
       $this->db_notice( "user deleted: $id" );
+    }
+  }
+
+
+  /**
+   * Used as a callback for add_filter only
+   * Do not call directly!
+   */
+  public final function _get_injected_user(): ?User {
+    return $this->_injected_user;
+  }
+
+
+  protected final function set_user( User $user ): void {
+    $this->_injected_user = $user;
+    remove_all_filters( self::CURRENT_USER_HOOK );
+    add_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
+    $this->db_notice( "current user filter added: {$user->ID}" );
+  }
+
+
+  protected final function unset_user(): void {
+    if ( empty( $this->_injected_user ) ) {
+      return;
+    }
+
+    $remove_success = remove_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
+    if ($remove_success) {
+      $this->db_notice("current user filter removed: {$this->_injected_user->ID}");
     }
   }
 

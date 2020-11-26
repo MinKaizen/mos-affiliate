@@ -51,7 +51,7 @@ class User extends \WP_User {
   }
 
 
-  public function affid_exists( int $affid ): bool {
+  public static function affid_exists( int $affid ): bool {
     global $wpdb;
     $table = $wpdb->prefix . 'uap_affiliates';
     $query = "SELECT id FROM $table WHERE id = $affid LIMIT 1";

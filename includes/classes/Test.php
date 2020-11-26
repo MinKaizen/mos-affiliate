@@ -22,10 +22,16 @@ class Test {
 
 
   public function run(): void {
+    $this->_set_up();
     foreach( $this->get_test_methods() as $method ) {
       $this->run_method( $method );
     }
     $this->_clean_up();
+  }
+
+
+  protected final function _set_up() {
+    $this->set_user();
   }
 
 
@@ -335,28 +341,25 @@ class Test {
    * Used as a callback for add_filter only
    * Do not call directly!
    */
-  public final function _get_injected_user(): ?User {
-    return $this->_injected_user;
+  public final function _get_injected_user( $user ): ?User {
+    if ( empty( $this->_injected_user ) ) {
+      return $user;
+    } else {
+      return $this->_injected_user;
+    }
   }
 
 
-  protected final function set_user( User $user ): void {
-    $this->_injected_user = $user;
+  protected final function set_user(): void {
     remove_all_filters( self::CURRENT_USER_HOOK );
     add_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
-    $this->db_notice( "current user filter added: {$user->ID}" );
+    $this->db_notice( "current user set" );
   }
 
 
   protected final function unset_user(): void {
-    if ( empty( $this->_injected_user ) ) {
-      return;
-    }
-
-    $remove_success = remove_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
-    if ($remove_success) {
-      $this->db_notice("current user filter removed: {$this->_injected_user->ID}");
-    }
+    remove_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
+    $this->db_notice("current user unset");
   }
 
 

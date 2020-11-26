@@ -15,19 +15,30 @@ class Test {
   protected $_user_ids_to_delete;
 
 
+  public function run(): void {
+    foreach( $this->get_test_methods() as $method ) {
+      $this->run_method( $method );
+    }
+    $this->_clean_up();
+  }
+
+
   protected final function _clean_up() {
     $this->delete_test_users();
   }
 
 
-  public function run(): void {
+  private function get_test_methods(): array {
     $methods = get_class_methods( get_class( $this ) );
+    $test_methods = [];
+
     foreach( $methods as $method ) {
-      if ( strpos( $method, 'test_' ) === 0 ) {
-        $this->run_method( $method );
+      if ( strpos( $method, 'test_'  ) === 0 ) {
+        $test_methods[] = $method;
       }
     }
-    $this->_clean_up();
+
+    return $test_methods;
   }
 
 

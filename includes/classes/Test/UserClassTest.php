@@ -7,6 +7,8 @@ use MOS\Affiliate\User;
 use MOS\Affiliate\Database;
 use MOS\Affiliate\Mis;
 
+use function \MOS\Affiliate\ranstr;
+
 class UserClassTest extends Test {
 
   private $user_ids_to_delete = [];
@@ -156,6 +158,51 @@ class UserClassTest extends Test {
     $user = User::from_username( $this->user_username );
     $sponsor = $user->sponsor();
     $this->assert_equal_strict( $sponsor->user_login, $this->sponsor_username );
+  }
+
+
+  public function test_db(): void {
+    global $wpdb;
+    $username = ranstr();
+    $password = ranstr();
+    $sponsor_username = ranstr();
+    $sponsor_password = ranstr();
+
+    $user = new User();
+    $user->user_login = $username;
+    $user->user_pass = $password;
+
+    // insert user()
+    $user->db_insert();
+    $this->assert_not_empty( $wpdb->insert_id, 'wpdb->insert_id should not be empty after user->db_insert()' );
+    $db_user = \get_user_by( 'login', $username );
+    $this->assert_not_empty( $db_user, "Username $username should exist after db_insert()" );
+    $this->assert_equal( $user->ID, $db_user->ID, "user->ID should equal db_user->ID after insert" );
+    $this->assert_not_empty( $user->get_affid(), "UAP should auto register affid after db_insert(). Check UAP settings" );
+
+    // add sponsor
+    $sponsor = new User();
+    $sponsor->user_login = $sponsor_username;
+    $sponsor->user_pass = $sponsor_password;
+    $sponsor->db_insert();
+    $user->db_add_sponsor( $sponsor);
+    $db_sponsor = $user->sponsor();
+    $this->assert_equal( $sponsor->ID, $db_sponsor->ID, "Sponsor in DB should be same as sponsor in variable", $sponsor, $db_sponsor );
+
+    // delete user
+    $affid = $user->get_affid();
+    $id = $user->ID;
+    $user->db_delete();
+    $this->assert_false( User::affid_exists( $affid ), "Affid $affid should be deleted after user->db_delete()" );
+    $this->assert_false( User::id_exists( $id ), "User ID $id should not exist after user->db_delete" );
+    $this->assert_true( $user->sponsor()->is_empty(), "Sponsor relationship should be deleted after user->db_delete()" );
+    
+    // delete sponsor
+    $sponsor_affid = $sponsor->get_affid();
+    $sponsor_id = $sponsor->ID;
+    $sponsor->db_delete();
+    $this->assert_false( User::affid_exists( $sponsor_affid ), "Affid $sponsor_affid should be deleted after sponsor->db_delete()" );
+    $this->assert_false( User::id_exists( $sponsor_id ), "User ID $sponsor_id should not exist after sponsor->db_delete" );
   }
 
 

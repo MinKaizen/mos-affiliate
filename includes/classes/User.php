@@ -160,4 +160,87 @@ class User extends \WP_User {
     return $qualifies;
   }
 
+
+  public function db_insert(): void {
+    if ( ! empty( $this->ID ) && self::id_exists( $this->ID ) ) {
+      return;
+    }
+
+    if ( empty( $this->user_login ) ) {
+      return;
+    }
+
+    if ( empty( $this->user_pass ) ) {
+      return;
+    }
+
+    $new_user_id = \wp_insert_user( $this );
+    if ( is_int( $new_user_id ) && !empty( $new_user_id ) ) {
+      $this->ID = $new_user_id;
+    }
+  }
+
+
+  public function db_delete(): void {
+    $is_affiliate = ! empty( $this->get_affid() );
+    $has_sponsor = ! $this->sponsor()->is_empty();
+    $is_real_user = ! $this->is_empty();
+
+    if ( $is_real_user ) {
+      \wp_delete_user( $this->ID );
+    }
+
+    if ( $has_sponsor ) {
+      $this->db_remove_sponsor();
+    }
+
+    if ( $is_affiliate ) {
+      $this->db_unregister_affiliate();
+    }
+  }
+
+
+  public function db_add_sponsor( User $sponsor ): void {
+    $already_has_sponsor = ! $this->sponsor()->is_empty();
+    if ( $already_has_sponsor ) {
+      return;
+    }
+
+    $sponsor_affid = $sponsor->get_affid();
+    if ( empty( $sponsor_affid ) ) {
+      return;
+    }
+
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+    $columns = [
+      'affiliate_id' => $sponsor_affid,
+      'referral_wp_uid' => $this->ID,
+    ];
+    $formats = [
+      'affiliate_id' => '%d',
+      'referral_wp_uid' => '%d',
+    ];
+    $wpdb->insert( $table, $columns, $formats );
+  }
+
+
+  private function db_remove_sponsor(): void {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+    $where = ['referral_wp_uid' => $this->ID];
+    $formats = ['referral_wp_uid' => '%d'];
+    $wpdb->delete( $table, $where, $formats );
+  }
+
+
+  private function db_unregister_affiliate(): void {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_affiliates';
+    $where = ['uid' => $this->ID];
+    $formats = ['uid' => '%d'];
+    $wpdb->delete( $table, $where, $formats );
+  }
+
+
 }

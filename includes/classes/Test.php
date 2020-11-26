@@ -4,12 +4,24 @@ namespace MOS\Affiliate;
 
 use \Exception;
 use \WP_CLI;
+use \MOS\Affiliate\User;
+
+use function \wp_delete_user;
+use function \wp_insert_user;
+use function \MOS\Affiliate\ranstr;
 
 class Test {
+
+  protected $_user_ids_to_delete;
 
   protected function _before(): void {}
 
   protected function _after(): void {}
+
+
+  protected final function _clean_up() {
+    $this->delete_test_users();
+  }
 
 
   public function run(): void {
@@ -19,6 +31,7 @@ class Test {
         $this->run_method( $method );
       }
     }
+    $this->_clean_up();
   }
 
 
@@ -272,6 +285,37 @@ class Test {
     }
 
     return $formatted;
+  }
+
+
+  protected function create_test_user( array $user_data=[] ): User {
+    if ( empty( $user_data['user_login'] ) ) {
+      $user_data['user_login'] = ranstr();
+    }
+    
+    if ( empty( $user_data['user_pass'] ) ) {
+      $user_data['user_pass'] = ranstr();
+    }
+
+    $id = wp_insert_user( $user_data );
+    $this->assert_is_int( $id, "wp_insert_user should return user ID on success", $user_data );
+    $this->_user_ids_to_delete[] = $id;
+    $this->db_notice( "user created: $id" );
+    
+    $user = User::from_id( $id );
+    return $user;
+  }
+
+
+  protected function delete_test_users(): void {
+    if ( empty( $this->_user_ids_to_delete ) ) {
+      return;
+    }
+
+    foreach ( $this->_user_ids_to_delete as $id ) {
+      wp_delete_user( $id );
+      $this->db_notice( "user deleted: $id" );
+    }
   }
 
 

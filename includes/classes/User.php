@@ -45,6 +45,12 @@ class User extends \WP_User {
   }
 
 
+  public static function id_exists( int $id ): bool {
+    $user = \get_user_by( 'id', $id );
+    return ! empty( $user );
+  }
+
+
   public function sponsor(): self {
     global $wpdb;
 

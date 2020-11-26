@@ -14,10 +14,6 @@ class Test {
 
   protected $_user_ids_to_delete;
 
-  protected function _before(): void {}
-
-  protected function _after(): void {}
-
 
   protected final function _clean_up() {
     $this->delete_test_users();
@@ -38,9 +34,7 @@ class Test {
   private function run_method( string $method ): void {
     $current_test = $this->get_class_name() . "::" . $method;
     WP_CLI::debug( "Running $current_test", 'mosa test' );
-    $this->_before();
     $this->{$method}();
-    $this->_after();
     WP_CLI::line( WP_CLI::colorize( "%g✔%n $current_test" ) );
   }
 

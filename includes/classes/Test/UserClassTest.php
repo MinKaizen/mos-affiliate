@@ -11,43 +11,6 @@ use function \MOS\Affiliate\ranstr;
 
 class UserClassTest extends Test {
 
-  private $user_ids_to_delete = [];
-  private $user_username = 'JGvDwdQPVp0DHDzeUog9HftVeajzpqCv';
-  private $sponsor_username = 'rEW2i41jztjYawCHbz8ImrcVSrkM95kr';
-  private $user_pass = 'KJJC5bvtzoZQNSrs4NlFDSs5MJJCEjwQ';
-
-
-  public function __construct() {
-    $prev_user = \get_user_by( 'login', $this->user_username );
-    if ( $prev_user ) {
-      $this->delete_user( $prev_user->ID );
-    }
-    
-    $prev_sponsor = \get_user_by( 'login', $this->sponsor_username );
-    if ( $prev_sponsor ) {
-      $this->delete_user( $prev_sponsor->ID );
-    }
-    
-    $user_id = $this->create_user( $this->user_username );
-    $sponsor_id = $this->create_user( $this->sponsor_username );
-
-    $this->user_ids_to_delete[] = $user_id;
-    $this->user_ids_to_delete[] = $sponsor_id;
-
-    $db = new Database();
-    $add_sponsor_success = $db->add_sponsor( $user_id, $sponsor_id);
-    $this->assert_true_strict( $add_sponsor_success );
-    $this->assert_true_strict( $db->user_has_sponsor( $user_id ) );
-    $this->db_notice( "add sponsor: {$user_id}->$sponsor_id" );
-  }
-
-
-  public function __destruct() {
-    foreach ( $this->user_ids_to_delete as $id ) {
-      $this->delete_user( $id );
-    }
-  }
-
 
   public function test_construct(): void {
     $user = new User();
@@ -70,8 +33,8 @@ class UserClassTest extends Test {
 
 
   public function test_get_affid(): void {
-    $user = new User();
-    $this->assert_equal( $user->get_affid(), 0 );
+    $user = $this->create_test_user();
+    $this->assert_not_empty( $user->get_affid(), "UAP should automatically populare affid after insert. Check UAP settings" );
   }
 
 
@@ -107,7 +70,7 @@ class UserClassTest extends Test {
 
 
   public function test_get_mis(): void {
-    $user = User::from_username( $this->user_username );
+    $user = $this->create_test_user();
 
     $id = $user->get_wpid();
 
@@ -154,23 +117,20 @@ class UserClassTest extends Test {
   }
 
 
-  public function test_sponsor(): void {
-    $user = User::from_username( $this->user_username );
-    $sponsor = $user->sponsor();
-    $this->assert_equal_strict( $sponsor->user_login, $this->sponsor_username );
-  }
-
-
   public function test_db(): void {
     global $wpdb;
+    
     $username = ranstr();
     $password = ranstr();
-    $sponsor_username = ranstr();
-    $sponsor_password = ranstr();
-
     $user = new User();
     $user->user_login = $username;
     $user->user_pass = $password;
+    
+    $sponsor_username = ranstr();
+    $sponsor_password = ranstr();
+    $sponsor = new User();
+    $sponsor->user_login = $sponsor_username;
+    $sponsor->user_pass = $sponsor_password;
 
     // insert user()
     $user->db_insert();
@@ -181,9 +141,6 @@ class UserClassTest extends Test {
     $this->assert_not_empty( $user->get_affid(), "UAP should auto register affid after db_insert(). Check UAP settings" );
 
     // add sponsor
-    $sponsor = new User();
-    $sponsor->user_login = $sponsor_username;
-    $sponsor->user_pass = $sponsor_password;
     $sponsor->db_insert();
     $user->db_add_sponsor( $sponsor);
     $db_sponsor = $user->sponsor();
@@ -203,57 +160,6 @@ class UserClassTest extends Test {
     $sponsor->db_delete();
     $this->assert_false( User::affid_exists( $sponsor_affid ), "Affid $sponsor_affid should be deleted after sponsor->db_delete()" );
     $this->assert_false( User::id_exists( $sponsor_id ), "User ID $sponsor_id should not exist after sponsor->db_delete" );
-  }
-
-
-  private function create_user( string $username ): int {
-    // Create User
-    $id = \wp_insert_user([
-      'user_login' => $username,
-      'user_pass' => $this->user_pass,
-    ]);
-    $this->assert_is_int( $id, $id );
-    $this->db_notice( "user created: $id" );
-
-    // Register user as affiliate
-    $db = new Database();
-    $success = $db->register_affiliate( $id );
-    $this->assert_true_strict( $success );
-    $this->db_notice( "register affiliate: $id" );
-
-    return $id;
-  }
-
-
-  private function delete_user( int $id ): void {
-    global $wpdb;
-
-    // Delete User
-    \wp_delete_user( $id );
-    $this->db_notice( "user deleted: $id" );
-    $this->assert_false_strict( $this->wpid_exists( $id ) );
-
-    // Remove affiliate ID
-    $table = $wpdb->prefix . 'uap_affiliates';
-    $columns = ['uid' => $id];
-    $formats = ['uid' => '%d'];
-    $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    $this->db_notice( "remove affiliate: $id" );
-    $this->assert_not_equal_strict( $rows_deleted, false );
-    
-    // Remove sponsor
-    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
-    $columns = ['referral_wp_uid' => $id];
-    $formats = ['referral_wp_uid' => '%d'];
-    $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    $this->db_notice( "remove sponsor: $id" );
-    $this->assert_not_equal_strict( $rows_deleted, false );
-  }
-
-
-  private function wpid_exists( int $id ): bool {
-    $user = \get_user_by( 'id', $id );
-    return !empty( $user );
   }
 
 

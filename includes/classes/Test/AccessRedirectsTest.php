@@ -26,7 +26,6 @@ use function \wp_login_url;
 
 class AccessRedirectsTest extends Test {
 
-  private $user;
   private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';
   private $user_pass = '5FwZsUZ8IFJ60ofVz2rgftHxDcvcrQXb';
   private $post;
@@ -56,14 +55,11 @@ class AccessRedirectsTest extends Test {
       'yearly_partner' => new YearlyPartnerAccessRedirect(),
     ];
 
-    $prev_user = get_user_by( 'login', $this->username );
-
-    if ( $prev_user ) {
-      $this->delete_user( $prev_user->ID );
-    }
-
-    $this->user = $this->create_user( $this->username, $this->user_pass );
-    $this->set_user();
+    $this->_injected_user = $this->create_test_user( [
+      'user_login' => $this->username,
+      'user_pass' => $this->user_pass,
+    ] );
+    
     $this->post = $this->create_post();
     $this->permalink = get_permalink( $this->post->ID );
     $this->curl_init();
@@ -71,15 +67,13 @@ class AccessRedirectsTest extends Test {
 
 
   public function __destruct() {
-    $this->delete_user( $this->user->ID );
-    $this->unset_user();
     $this->delete_post( $this->post->ID );
     $this->curl_close();
   }
 
 
   public function test_free_member(): void {
-    $this->user->set_role('free');
+    $this->_injected_user->set_role('free');
     
     $this->assert_can_access( $this->accesses['free'] );
     $this->assert_cannot_access( $this->accesses['monthly_partner'] );
@@ -88,7 +82,7 @@ class AccessRedirectsTest extends Test {
 
 
   public function test_monthly_partner(): void {
-    $this->user->set_role('monthly_partner');
+    $this->_injected_user->set_role('monthly_partner');
     
     $this->assert_can_access( $this->accesses['free'] );
     $this->assert_can_access( $this->accesses['monthly_partner'] );
@@ -97,16 +91,11 @@ class AccessRedirectsTest extends Test {
 
 
   public function test_yearly_partner(): void {
-    $this->user->set_role('yearly_partner');
+    $this->_injected_user->set_role('yearly_partner');
     
     $this->assert_can_access( $this->accesses['free'] );
     $this->assert_can_access( $this->accesses['monthly_partner'] );
     $this->assert_can_access( $this->accesses['yearly_partner'] );
-  }
-
-
-  public function get_user(): User {
-    return $this->user;
   }
 
 
@@ -126,7 +115,7 @@ class AccessRedirectsTest extends Test {
   private function assert_login_and_redirect( string $start, string $expected_redirect, ...$data ) {
     $actual_redirect = $this->curl_get_redirect( $start );
     $data[] = [
-      'user' => new User( $this->user->ID ),
+      'user' => $this->_injected_user,
       'expected' => $expected_redirect,
       'actual' => $actual_redirect,
     ];
@@ -144,40 +133,6 @@ class AccessRedirectsTest extends Test {
     curl_exec( $this->curl );
     $redirected_url = curl_getinfo( $this->curl, CURLINFO_EFFECTIVE_URL );
     return $redirected_url;
-  }
-
-
-  private function create_user( string $username, string $password ): User {
-    $id = wp_insert_user([
-      'user_login' => $username,
-      'user_pass' => $password,
-    ]);
-    $this->assert_is_int( $id, $id );
-    $this->db_notice( "user created: $id" );
-    $user = User::from_id( $id );
-    return $user;
-  }
-
-
-  private function delete_user( int $id ): void {
-    wp_delete_user( $id );
-    $user_exists = (get_user_by( 'id', $id ) !== false);
-    $this->assert_false_strict( $user_exists );
-    $this->db_notice( "user deleted: $id" );
-  }
-
-
-  private function set_user(): void {
-    add_filter( 'mos_current_user', [$this, 'get_user'] );
-    $this->db_notice( "filter added: {$this->user->ID}" );
-  }
-
-
-  private function unset_user(): void {
-    $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'] );
-    if ($remove_success) {
-      $this->db_notice("filter removed: {$this->user->ID}");
-    }
   }
 
 

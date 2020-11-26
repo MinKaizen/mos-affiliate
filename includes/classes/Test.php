@@ -16,9 +16,11 @@ use function \remove_all_filters;
 class Test {
 
   const CURRENT_USER_HOOK = 'mos_current_user';
+  const CURRENT_SPONSOR_HOOK = 'mos_sponsor';
 
   protected $_user_ids_to_delete;
   protected $_injected_user;
+  protected $_injected_sponsor;
 
 
   public function run(): void {
@@ -32,12 +34,14 @@ class Test {
 
   protected final function _set_up() {
     $this->set_user();
+    $this->set_sponsor();
   }
 
 
   protected final function _clean_up() {
     $this->delete_test_users();
     $this->unset_user();
+    $this->unset_sponsor();
   }
 
 
@@ -376,6 +380,32 @@ class Test {
   protected final function unset_user(): void {
     remove_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
     $this->db_notice("current user unset");
+  }
+
+
+  /**
+   * Used as a callback for add_filter only
+   * Do not call directly!
+   */
+  public final function _get_injected_sponsor( $sponsor ): ?User {
+    if ( empty( $this->_injected_sponsor ) ) {
+      return $sponsor;
+    } else {
+      return $this->_injected_sponsor;
+    }
+  }
+
+
+  protected final function set_sponsor(): void {
+    remove_all_filters( self::CURRENT_SPONSOR_HOOK );
+    add_filter( self::CURRENT_SPONSOR_HOOK, [$this, '_get_injected_sponsor'] );
+    $this->db_notice( "current sponsor set" );
+  }
+
+
+  protected final function unset_sponsor(): void {
+    remove_filter( self::CURRENT_SPONSOR_HOOK, [$this, '_get_injected_sponsor'] );
+    $this->db_notice("current sponsor unset");
   }
 
 

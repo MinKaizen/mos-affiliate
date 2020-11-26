@@ -162,3 +162,14 @@ function snake_to_proper_case( string $snake_case ): string {
   $proper_case = ucwords( $words_separated );
   return $proper_case;
 }
+
+
+function ranstr( int $length=32 ): string {
+  $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  $characters_length = strlen($characters);
+  $random_string = '';
+  for ($i = 0; $i < $length; $i++) {
+      $random_string .= $characters[rand(0, $characters_length - 1)];
+  }
+  return $random_string;
+}

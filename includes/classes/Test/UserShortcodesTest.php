@@ -3,45 +3,23 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
-use MOS\Affiliate\User;
-use MOS\Affiliate\Database;
 use MOS\Affiliate\Mis;
-use \WP_CLI;
 
 use function \do_shortcode;
-use function \get_user_by;
-use function \add_filter;
-use function \remove_filter;
-use function \wp_insert_user;
-use function \wp_delete_user;
 use function \update_user_meta;
 
 class UserShortcodesTest extends Test {
 
-  private $user;
-  private $username = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN';
-  private $user_pass = '0m7Gau2TcVIcpG9o9luA3OErb6Cx15R6';
+  protected $_injected_user;
 
 
   public function __construct() {
-    $prev_user = get_user_by( 'login', $this->username );
-    if ( $prev_user ) {
-      $this->delete_user( $prev_user->ID );
-    }
-    
-    $this->user = $this->create_user( $this->username );
-    $this->set_user();
-  }
-
-
-  public function __destruct() {
-    $this->delete_user( $this->user->ID );
-    $this->unset_user();
+    $this->_injected_user = $this->create_test_user();
   }
 
 
   public function test_affid_shortcode(): void {
-    $expected = $this->user->get_affid();
+    $expected = $this->_injected_user->get_affid();
     $shortcode = '[mos_affid]';
     $this->assert_shortcode_equal( $shortcode, $expected );
   }
@@ -49,7 +27,7 @@ class UserShortcodesTest extends Test {
 
   public function test_email_shortcode(): void {
     $email = 'teEGRaghlR83SBEOfMCfYjNO4NIrHZvN@gmail.com';
-    $this->user->user_email = $email;
+    $this->_injected_user->user_email = $email;
     $shortcode = '[mos_email]';
     $this->assert_shortcode_equal( $shortcode, $email );
   }
@@ -57,7 +35,7 @@ class UserShortcodesTest extends Test {
 
   public function test_first_name(): void {
     $first_name = 'Hayasaka';
-    $this->user->first_name = $first_name;
+    $this->_injected_user->first_name = $first_name;
     $shortcode = '[mos_first_name]';
     $this->assert_shortcode_equal( $shortcode, $first_name );
   }
@@ -65,7 +43,7 @@ class UserShortcodesTest extends Test {
 
   public function test_last_name(): void {
     $last_name = 'Ai';
-    $this->user->last_name = $last_name;
+    $this->_injected_user->last_name = $last_name;
     $shortcode = '[mos_last_name]';
     $this->assert_shortcode_equal( $shortcode, $last_name );
   }
@@ -74,7 +52,7 @@ class UserShortcodesTest extends Test {
   public function test_level_shortcode(): void {
     $level_slug = 'monthly_partner';
     $level_name = 'Monthly Partner';
-    $this->user->roles = [$level_slug];
+    $this->_injected_user->roles = [$level_slug];
     $shortcode = '[mos_level]';
     $this->assert_shortcode_equal( $shortcode, $level_name );
   }
@@ -89,7 +67,7 @@ class UserShortcodesTest extends Test {
 
     foreach( $mis as $slug => $value ) {
       $meta_key = Mis::MIS_META_KEY_PREFIX . $slug;
-      update_user_meta( $this->user->ID, $meta_key, $value );
+      update_user_meta( $this->_injected_user->ID, $meta_key, $value );
     }
 
 
@@ -110,8 +88,8 @@ class UserShortcodesTest extends Test {
   public function test_name_shortcode(): void {
     $first_name = 'Hayasaka';
     $last_name = 'Ai';
-    $this->user->first_name = $first_name;
-    $this->user->last_name = $last_name;
+    $this->_injected_user->first_name = $first_name;
+    $this->_injected_user->last_name = $last_name;
 
     $expected = "$first_name $last_name";
     $shortcode = '[mos_name]';
@@ -120,14 +98,14 @@ class UserShortcodesTest extends Test {
 
 
   public function test_username_shortcode(): void {
-    $expected = $this->username;
+    $expected = $this->_injected_user->user_login;
     $shortcode = '[mos_username]';
     $this->assert_shortcode_equal( $shortcode, $expected );
   }
 
 
   public function test_wpid_shortcode(): void {
-    $expected = $this->user->ID;
+    $expected = $this->_injected_user->ID;
     $shortcode = '[mos_wpid]';
     $this->assert_shortcode_equal( $shortcode, $expected );
   }
@@ -140,63 +118,6 @@ class UserShortcodesTest extends Test {
       'shortcode' => $shortcode,
       'output' => $output,
     ] );
-  }
-
-
-  public function get_user(): User {
-    return $this->user;
-  }
-
-
-  private function set_user(): void {
-    add_filter( 'mos_current_user', [$this, 'get_user'] );
-    $this->db_notice('filter added: set_user');
-  }
-
-
-  private function unset_user(): void {
-    $remove_success = remove_filter( 'mos_current_user', [$this, 'get_user'] );
-    if ($remove_success) {
-      $this->db_notice('filter removed: set_user');
-    }
-  }
-
-
-  private function create_user( string $username ): User {
-    // Create User
-    $id = wp_insert_user([
-      'user_login' => $username,
-      'user_pass' => $this->user_pass,
-    ]);
-    
-    // Register user as affiliate
-    $db = new Database();
-    $success = $db->register_affiliate( $id );
-
-    $this->assert_is_int( $id, $id );
-    $this->assert_true_strict( $success );
-    $this->db_notice( "user created: $id" );
-
-    $user = User::from_id( $id );
-    return $user;
-  }
-
-
-  private function delete_user( int $id ): void {
-    // Delete User
-    wp_delete_user( $id );
-    $user_exists = (get_user_by( 'id', $id ) !== false);
-    
-    // Remove affiliate ID
-    global $wpdb;
-    $table = $wpdb->prefix . 'uap_affiliates';
-    $columns = ['uid' => $id];
-    $formats = ['uid' => '%d'];
-    $rows_deleted = $wpdb->delete( $table, $columns, $formats );
-    
-    $this->assert_false_strict( $user_exists );
-    $this->assert_not_equal_strict( $rows_deleted, false );
-    $this->db_notice( "user deleted: $id" );
   }
 
 

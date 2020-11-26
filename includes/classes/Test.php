@@ -184,6 +184,22 @@ class Test {
   }
 
 
+  protected function assert_empty( $var, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = empty( $var );
+    $data['var'] = $var;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_not_empty( $var, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = ! empty( $var );
+    $data['var'] = $var;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_false_strict( $expression, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $expression === false;

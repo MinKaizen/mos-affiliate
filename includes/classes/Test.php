@@ -335,12 +335,16 @@ class Test {
       $user_data['user_pass'] = ranstr();
     }
 
-    $id = wp_insert_user( $user_data );
-    $this->assert_is_int( $id, "wp_insert_user should return user ID on success", $user_data );
-    $this->_user_ids_to_delete[] = $id;
-    $this->db_notice( "user created: $id" );
+    $user = new User();
+
+    foreach ( $user_data as $key => $value ) {
+      $user->$key = $value;
+    }
+
+    $user->db_insert();
+    $user = User::from_username( $user->get_username() );
+    $this->db_notice( "user created: $user->ID" );
     
-    $user = User::from_id( $id );
     return $user;
   }
 
@@ -351,7 +355,8 @@ class Test {
     }
 
     foreach ( $this->_user_ids_to_delete as $id ) {
-      wp_delete_user( $id );
+      $user = User::from_id( $id );
+      $user->db_delete();
       $this->db_notice( "user deleted: $id" );
     }
   }

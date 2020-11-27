@@ -36,7 +36,12 @@ class Commission {
 
 
   public static function lookup( int $id ): self {
-    return new self();
+    global $wpdb;
+    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+    $query = "SELECT * FROM $table WHERE id = $id";
+    $result = $wpdb->get_row( $query, 'ARRAY_A' );
+    $commission = self::create_from_array( $result );
+    return $commission;
   }
 
 

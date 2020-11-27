@@ -3,17 +3,9 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
-use MOS\Affiliate\User;
-use MOS\Affiliate\Database;
-use \WP_CLI;
 use MOS\Affiliate\Mis;
 
 use function \do_shortcode;
-use function \get_user_by;
-use function \add_filter;
-use function \remove_filter;
-use function \wp_insert_user;
-use function \wp_delete_user;
 use function \update_user_meta;
 
 class SponsorShortcodesTest extends Test {

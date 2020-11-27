@@ -144,16 +144,20 @@ class UserClassTest extends Test {
 
 
   public function test_qualifies_for_mis(): void {
+    $this->_test_single_mis( '\MOS\Affiliate\Mis\GrMis' );
+    $this->_test_single_mis( '\MOS\Affiliate\Mis\CbMis' );
+    $this->_test_single_mis( '\MOS\Affiliate\Mis\CmMis' );
+    $this->_test_single_mis( '\MOS\Affiliate\Mis\BannersMis' );
+  }
+  
+  
+  private function _test_single_mis( $class_name ): void {
+    $this->assert_class_exists( $class_name );
     $user = new User();
-    
-    $slug = 'gr';
-    $mis = Mis::get( $slug );
-    $this->assert_true_strict( $mis->exists() );
-    $cap = $mis->get_cap();
-
-    $this->assert_false_strict( $user->qualifies_for_mis( $slug ) );
-    $user->add_cap( $cap );
-    $this->assert_true_strict( $user->qualifies_for_mis( $slug ) );
+    $mis = new $class_name();
+    $this->assert_false_strict( $user->qualifies_for_mis( $mis->get_slug() ) );
+    $user->add_cap( $mis->get_cap() );
+    $this->assert_true_strict( $user->qualifies_for_mis( $mis->get_slug() ) );
   }
 
 

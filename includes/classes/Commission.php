@@ -177,7 +177,7 @@ class Commission {
   }
 
 
-  public function db_insert( bool $test=false ): void {
+  public function db_insert( bool $test=false ): int {
     global $wpdb;
     $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
     $columns = [
@@ -216,6 +216,8 @@ class Commission {
       $this->id = $wpdb->insert_id;
       $this->_db_delete_on_destruct = $test ? true : false;
     }
+
+    return $wpdb->insert_id;
   }
 
 

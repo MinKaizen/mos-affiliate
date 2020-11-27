@@ -4,8 +4,11 @@ namespace MOS\Affiliate;
 
 use \Exception;
 use \WP_CLI;
+use \WP_Post;
 use \MOS\Affiliate\User;
 
+use function \get_post;
+use function \wp_insert_post;
 use function \wp_delete_user;
 use function \wp_insert_user;
 use function \MOS\Affiliate\ranstr;
@@ -20,6 +23,7 @@ class Test {
   const CURRENT_SPONSOR_HOOK = 'mos_sponsor';
 
   protected $_user_ids_to_delete;
+  protected $_post_ids_to_delete;
   protected $_injected_user;
   protected $_injected_sponsor;
 
@@ -41,6 +45,7 @@ class Test {
 
   protected final function _clean_up() {
     $this->delete_test_users();
+    $this->delete_test_posts();
     $this->unset_user();
     $this->unset_sponsor();
   }

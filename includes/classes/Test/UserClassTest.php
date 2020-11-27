@@ -17,6 +17,16 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_construct_from_id(): void {
+    $inserted_user = $this->create_test_user();
+    $get_user = User::from_id( $inserted_user->ID );
+    $this->assert_equal( $inserted_user, $get_user, [
+      'User created via insert' => $inserted_user,
+      'User created via User::from_id()' => $get_user,
+    ] );
+  }
+
+
   public function test_is_empty(): void {
     $user = new User();
     $this->assert_true( $user->is_empty() );

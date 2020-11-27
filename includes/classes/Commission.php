@@ -57,14 +57,14 @@ class Commission {
 
   public static function create_from_array( array $data ): self {
     $new_commission = new self();
-    $new_commission->id = (!empty($data['id']) ? $data['id'] : null);
+    $new_commission->id = (int) (!empty($data['id']) ? $data['id'] : null);
     $new_commission->date = (!empty($data['date']) ? $data['date'] : null);
     $new_commission->amount = (float) (!empty($data['amount']) ? $data['amount'] : null);
     $new_commission->description = (!empty($data['description']) ? $data['description'] : null);
     $new_commission->transaction_id = (!empty($data['transaction_id']) ? $data['transaction_id'] : null);
     $new_commission->campaign = (string) (!empty($data['campaign']) ? $data['campaign'] : null);
-    $new_commission->actor_id = (!empty($data['actor_id']) ? $data['actor_id'] : null);
-    $new_commission->earner_id = (!empty($data['earner_id']) ? $data['earner_id'] : null);
+    $new_commission->actor_id = (int) (!empty($data['actor_id']) ? $data['actor_id'] : null);
+    $new_commission->earner_id = (int) (!empty($data['earner_id']) ? $data['earner_id'] : null);
     $new_commission->payout_date = (!empty($data['payout_date']) ? $data['payout_date'] : null);
     $new_commission->payout_method = (!empty($data['payout_method']) ? $data['payout_method'] : null);
     $new_commission->payout_address = (!empty($data['payout_address']) ? $data['payout_address'] : null);

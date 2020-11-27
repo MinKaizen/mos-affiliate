@@ -9,6 +9,7 @@ use \MOS\Affiliate\User;
 
 use function \get_post;
 use function \wp_insert_post;
+use function \update_user_meta;
 use function \MOS\Affiliate\ranstr;
 use function \add_filter;
 use function \remove_filter;
@@ -19,6 +20,8 @@ class Test {
 
   const CURRENT_USER_HOOK = 'mos_current_user';
   const CURRENT_SPONSOR_HOOK = 'mos_sponsor';
+  const TEST_META_KEY = 'mos_test';
+  const TEST_META_VALUE = 1;
 
   protected $_user_ids_to_delete;
   protected $_post_ids_to_delete;
@@ -347,6 +350,7 @@ class Test {
 
     $user->db_insert();
     $user = User::from_username( $user->get_username() );
+    update_user_meta( $user->ID, self::TEST_META_KEY, self::TEST_META_VALUE );
     $this->db_notice( "user created: $user->ID" );
     $this->_user_ids_to_delete[] = $user->ID;
     

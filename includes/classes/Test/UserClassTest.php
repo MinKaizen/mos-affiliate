@@ -37,6 +37,16 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_construct_from_username(): void {
+    $inserted_user = $this->create_test_user();
+    $get_user = User::from_username( $inserted_user->user_login );
+    $this->assert_equal( $inserted_user, $get_user, [
+      'User created via insert' => $inserted_user,
+      'User created via User::from_username()' => $get_user,
+    ] );
+  }
+
+
   public function test_is_empty(): void {
     $user = new User();
     $this->assert_true( $user->is_empty() );

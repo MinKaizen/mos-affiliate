@@ -22,13 +22,6 @@ class CommissionClassTest extends Test {
     'refund_date' => '2020-12-24',
   ];
 
-  private $min_data = [
-    'date' => '2020-12-06',
-    'amount' => 50,
-    'description' => 'Minimum info',
-    'earner_id' => 144,
-  ];
-
   private $_commission_ids_to_delete;
 
 

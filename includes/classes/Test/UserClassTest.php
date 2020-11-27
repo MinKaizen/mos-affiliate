@@ -27,6 +27,16 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_construct_from_affid(): void {
+    $inserted_user = $this->create_test_user();
+    $get_user = User::from_affid( $inserted_user->get_affid() );
+    $this->assert_equal( $inserted_user, $get_user, [
+      'User created via insert' => $inserted_user,
+      'User created via User::from_affid()' => $get_user,
+    ] );
+  }
+
+
   public function test_is_empty(): void {
     $user = new User();
     $this->assert_true( $user->is_empty() );

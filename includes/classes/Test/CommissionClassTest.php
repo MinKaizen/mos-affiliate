@@ -29,6 +29,13 @@ class CommissionClassTest extends Test {
     'earner_id' => 144,
   ];
 
+  private $_commission_ids_to_delete;
+
+
+  public function __destruct() {
+    $this->delete_test_commissions();
+  }
+
 
   public function test_construct(): void {
     $class_name = '\MOS\Affiliate\Commission';
@@ -95,12 +102,8 @@ class CommissionClassTest extends Test {
 
 
   public function test_db_insert(): void {
-    $commission_data = $this->min_data;
-    $commission = Commission::create_from_array( $commission_data );
-    $this->assert_true( $commission->is_valid(), $commission );
-
-    $id = $commission->db_insert( true );
-    $lookup_commission = Commission::lookup( $id );
+    $commission = $this->create_test_commission();
+    $lookup_commission = Commission::lookup( $commission->get_id() );
     $this->assert_equal( $commission->get_date(), $lookup_commission->get_date() );
     $this->assert_equal( $commission->get_amount(), $lookup_commission->get_amount() );
     $this->assert_equal( $commission->get_description(), $lookup_commission->get_description() );
@@ -150,7 +153,7 @@ class CommissionClassTest extends Test {
 
   private function create_test_commission( array $passed_data=[] ): Commission {
     $default_data = [
-      'date' => '1991',
+      'date' => '1991-01-01',
       'amount' => 1.00,
       'description' => '---',
       'earner_id' => 1,
@@ -158,9 +161,25 @@ class CommissionClassTest extends Test {
     $data = array_replace_recursive( $default_data, $passed_data );
     $commission = Commission::create_from_array( $data );
     $this->assert_true( $commission->is_valid(), "Commission should be valid before we try to insert it..." );
-    $commission->db_insert();
-    $this->db_notice( "commission created: " );
+    $id = $commission->db_insert();
+    $inserted_commission = Commission::lookup( $id );
+    $this->assert_true( $inserted_commission->exists(), "Commission should exist after insert" );
+    $this->_commission_ids_to_delete[] = $id;
+    $this->db_notice( "commission created: $id" );
     return $commission;
+  }
+
+
+  private function delete_test_commissions():void {
+    if ( empty( $this->_commission_ids_to_delete ) ) {
+      return;
+    }
+
+    foreach ( $this->_commission_ids_to_delete as $id ) {
+      $commission = Commission::lookup( $id );
+      $commission->db_delete();
+      $this->db_notice( "commission deleted: $id" );
+    }
   }
 
 

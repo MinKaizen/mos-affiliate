@@ -19,19 +19,12 @@ class Commission {
   private $payout_address;
   private $payout_transaction_id;
   private $refund_date;
-  private $_db_delete_on_destruct;
   private $table;
+
 
   public function __construct() {
     global $wpdb;
     $this->table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
-  }
-
-
-  public function __destruct() {
-    if ( !empty( $this->_db_delete_on_destruct ) && !empty( $this->id ) ) {
-      $this->db_delete();
-    }
   }
 
 
@@ -177,7 +170,7 @@ class Commission {
   }
 
 
-  public function db_insert( bool $test=false ): int {
+  public function db_insert(): int {
     global $wpdb;
     $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
     $columns = [
@@ -214,15 +207,13 @@ class Commission {
 
     if ( $rows_inserted === 1 ) {
       $this->id = $wpdb->insert_id;
-      $this->_db_delete_on_destruct = $test ? true : false;
     }
 
     return $wpdb->insert_id;
   }
 
 
-  // #NOTE: Make sure function is private
-  private function db_delete(): void {
+  public function db_delete(): void {
     global $wpdb;
     $where = ['id' => $this->id];
     $formats = ['id' => '%d'];

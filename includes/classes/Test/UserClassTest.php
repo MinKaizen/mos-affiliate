@@ -52,6 +52,12 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_affid_exists(): void {
+    $user = $this->create_test_user();
+    $this->assert_true( User::affid_exists( $user->get_affid() ), "Affid of newly created user should exist" );
+  }
+
+
   public function test_is_empty(): void {
     $user = new User();
     $this->assert_true( $user->is_empty() );

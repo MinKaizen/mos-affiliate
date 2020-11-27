@@ -431,18 +431,18 @@ class Test {
     $post_id = wp_insert_post( $post_data, false );
     $post = get_post( $post_id, 'OBJECT' );
     $this->assert_instanceof( $post, 'WP_Post' );
-    $this->_test_posts_to_delete[] = $post_id;
+    $this->_post_ids_to_delete[] = $post_id;
     $this->db_notice( "post created: $post_id" );
     return $post;
   }
 
 
   protected final function delete_test_posts(): void {
-    if ( empty( $this->_test_posts_to_delete ) ) {
+    if ( empty( $this->_post_ids_to_delete ) ) {
       return;
     }
     
-    foreach ( $this->_test_posts_to_delete as $post_id ) {
+    foreach ( $this->_post_ids_to_delete as $post_id ) {
       wp_delete_post( $post_id, true );
       $post = get_post( $post_id );
       $this->assert_true( empty( $post ), $post );

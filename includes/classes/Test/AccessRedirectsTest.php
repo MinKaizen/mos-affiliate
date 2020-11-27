@@ -5,14 +5,10 @@ namespace MOS\Affiliate\Test;
 use MOS\Affiliate\AccessRedirect;
 use \MOS\Affiliate\Test;
 use \WP_CLI;
-use \WP_Post;
 use \MOS\Affiliate\AccessRedirect\FreeAccessRedirect;
 use \MOS\Affiliate\AccessRedirect\MonthlyPartnerAccessRedirect;
 use \MOS\Affiliate\AccessRedirect\YearlyPartnerAccessRedirect;
 
-use function \wp_insert_post;
-use function \wp_delete_post;
-use function \get_post;
 use function \wp_set_post_tags;
 use function \home_url;
 use function \wp_get_upload_dir;
@@ -23,7 +19,6 @@ class AccessRedirectsTest extends Test {
   private $username = '3TQSX6qfj22oX7tgB5zIpV3RPZePfDAA';
   private $user_pass = '5FwZsUZ8IFJ60ofVz2rgftHxDcvcrQXb';
   private $post;
-  private $post_name = 'VTFJxWlLLouadrgNUZ9rdaBKdifhRdm5';
   private $permalink;
   private $cookie_file;
   private $accesses= [];
@@ -54,14 +49,13 @@ class AccessRedirectsTest extends Test {
       'user_pass' => $this->user_pass,
     ] );
     
-    $this->post = $this->create_post();
+    $this->post = $this->create_test_post();
     $this->permalink = get_permalink( $this->post->ID );
     $this->curl_init();
   }
 
 
   public function __destruct() {
-    $this->delete_post( $this->post->ID );
     $this->curl_close();
   }
 
@@ -127,31 +121,6 @@ class AccessRedirectsTest extends Test {
     curl_exec( $this->curl );
     $redirected_url = curl_getinfo( $this->curl, CURLINFO_EFFECTIVE_URL );
     return $redirected_url;
-  }
-
-
-  private function create_post(): WP_Post {
-    $post_data = [
-      'post_author' => 1,
-      'post_title' => $this->post_name,
-      'post_name' => $this->post_name,
-      'post_status' => 'publish',
-      'post_content' => '#content: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
-    ];
-    $post_id = wp_insert_post( $post_data, false );
-    $this->assert_not_equal_strict( $post_id, 0 );
-    $post = get_post( $post_id, 'OBJECT' );
-    $this->assert_instanceof( $post, 'WP_Post' );
-    $this->db_notice( "post created: $post_id" );
-    return $post;
-  }
-
-
-  private function delete_post( int $post_id ): void {
-    wp_delete_post( $post_id, true );
-    $post = get_post( $post_id );
-    $this->assert_true( empty( $post ), $post );
-    $this->db_notice( "post deleted: $post_id" );
   }
 
 

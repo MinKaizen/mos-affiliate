@@ -431,7 +431,7 @@ class Test {
       'post_status' => 'publish',
       'post_content' => '#content: test',
       'meta_input' => [
-        'mos_test' => 1,
+        self::TEST_META_KEY => self::TEST_META_VALUE,
       ],
     ];
     $post_data = array_replace_recursive( $default_data, $data );

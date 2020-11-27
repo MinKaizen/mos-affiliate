@@ -20,7 +20,7 @@ class Test {
 
   const CURRENT_USER_HOOK = 'mos_current_user';
   const CURRENT_SPONSOR_HOOK = 'mos_sponsor';
-  const TEST_META_KEY = 'mos_test';
+  const TEST_META_KEY = 'mos_inserted_via_test';
   const TEST_META_VALUE = 1;
 
   protected $_user_ids_to_delete;

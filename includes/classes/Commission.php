@@ -52,6 +52,7 @@ class Commission {
 
   public static function create_from_array( array $data ): self {
     $new_commission = new self();
+    $new_commission->id = (!empty($data['id']) ? $data['id'] : null);
     $new_commission->date = (!empty($data['date']) ? $data['date'] : null);
     $new_commission->amount = (!empty($data['amount']) ? $data['amount'] : null);
     $new_commission->description = (!empty($data['description']) ? $data['description'] : null);

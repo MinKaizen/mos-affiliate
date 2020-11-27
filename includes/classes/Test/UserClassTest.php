@@ -4,7 +4,6 @@ namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
-use MOS\Affiliate\Database;
 use MOS\Affiliate\Mis;
 
 use function \MOS\Affiliate\ranstr;

@@ -216,10 +216,9 @@ class Commission {
   // #NOTE: Make sure function is private
   private function db_delete(): void {
     global $wpdb;
-    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
     $where = ['id' => $this->id];
     $formats = ['id' => '%d'];
-    $wpdb->delete( $table, $where, $formats );
+    $wpdb->delete( $this->table, $where, $formats );
   }
 
 }

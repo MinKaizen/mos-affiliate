@@ -416,4 +416,39 @@ class Test {
   }
 
 
+  protected final function create_test_post( array $data=[] ): WP_Post {
+    $default_data = [
+      'post_author' => 1,
+      'post_title' => ranstr(),
+      'post_name' => ranstr(),
+      'post_status' => 'publish',
+      'post_content' => '#content: test',
+      'meta_input' => [
+        'mos_test' => 1,
+      ],
+    ];
+    $post_data = array_replace_recursive( $default_data, $data );
+    $post_id = wp_insert_post( $post_data, false );
+    $post = get_post( $post_id, 'OBJECT' );
+    $this->assert_instanceof( $post, 'WP_Post' );
+    $this->_test_posts_to_delete[] = $post_id;
+    $this->db_notice( "post created: $post_id" );
+    return $post;
+  }
+
+
+  protected final function delete_test_posts(): void {
+    if ( empty( $this->_test_posts_to_delete ) ) {
+      return;
+    }
+    
+    foreach ( $this->_test_posts_to_delete as $post_id ) {
+      wp_delete_post( $post_id, true );
+      $post = get_post( $post_id );
+      $this->assert_true( empty( $post ), $post );
+      $this->db_notice( "post deleted: $post_id" );
+    }
+  }
+
+
 }

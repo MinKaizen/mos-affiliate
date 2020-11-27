@@ -134,4 +134,20 @@ class CommissionClassTest extends Test {
   }
 
 
+  private function create_test_commission( array $passed_data=[] ): Commission {
+    $default_data = [
+      'date' => '1991',
+      'amount' => 1.00,
+      'description' => '---',
+      'earner_id' => 1,
+    ];
+    $data = array_replace_recursive( $default_data, $passed_data );
+    $commission = Commission::create_from_array( $data );
+    $this->assert_true( $commission->is_valid(), "Commission should be valid before we try to insert it..." );
+    $commission->db_insert();
+    $this->db_notice( "commission created: " );
+    return $commission;
+  }
+
+
 }

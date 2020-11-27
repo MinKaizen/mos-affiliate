@@ -20,6 +20,12 @@ class Commission {
   private $payout_transaction_id;
   private $refund_date;
   private $_db_delete_on_destruct;
+  private $commission_table_name;
+
+  public function __construct() {
+    global $wpdb;
+    $this->commission_table_name = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+  }
 
 
   public function __destruct() {

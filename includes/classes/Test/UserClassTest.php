@@ -74,7 +74,7 @@ class UserClassTest extends Test {
 
   public function test_get_affid(): void {
     $user = $this->create_test_user();
-    $this->assert_not_empty( $user->get_affid(), "UAP should automatically populare affid after insert. Check UAP settings" );
+    $this->assert_not_empty( $user->get_affid(), "UAP should automatically populate affid after insert. Check UAP settings" );
   }
 
 

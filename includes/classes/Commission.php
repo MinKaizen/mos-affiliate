@@ -59,7 +59,7 @@ class Commission {
     $new_commission = new self();
     $new_commission->id = (!empty($data['id']) ? $data['id'] : null);
     $new_commission->date = (!empty($data['date']) ? $data['date'] : null);
-    $new_commission->amount = (!empty($data['amount']) ? $data['amount'] : null);
+    $new_commission->amount = (float) (!empty($data['amount']) ? $data['amount'] : null);
     $new_commission->description = (!empty($data['description']) ? $data['description'] : null);
     $new_commission->transaction_id = (!empty($data['transaction_id']) ? $data['transaction_id'] : null);
     $new_commission->campaign = (string) (!empty($data['campaign']) ? $data['campaign'] : null);

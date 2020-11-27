@@ -345,6 +345,7 @@ class Test {
     $user->db_insert();
     $user = User::from_username( $user->get_username() );
     $this->db_notice( "user created: $user->ID" );
+    $this->_user_ids_to_delete[] = $user->ID;
     
     return $user;
   }

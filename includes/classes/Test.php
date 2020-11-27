@@ -9,8 +9,6 @@ use \MOS\Affiliate\User;
 
 use function \get_post;
 use function \wp_insert_post;
-use function \wp_delete_user;
-use function \wp_insert_user;
 use function \MOS\Affiliate\ranstr;
 use function \add_filter;
 use function \remove_filter;

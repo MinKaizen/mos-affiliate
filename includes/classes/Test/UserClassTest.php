@@ -47,6 +47,11 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_id_exists(): void {
+    $this->assert_true( User::id_exists(1), "#CRUDE TEST: assert that user with ID 1 exists." );
+  }
+
+
   public function test_is_empty(): void {
     $user = new User();
     $this->assert_true( $user->is_empty() );

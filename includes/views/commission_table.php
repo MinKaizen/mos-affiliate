@@ -1,4 +1,4 @@
-<?php namespace MOS\Affiliate; ?>
+<?php use function MOS\Affiliate\proper_to_kebab_case; ?>
 <table id="<?php echo $id; ?>" class="table <?php echo $class; ?>">
   <thead class="table-header">
     <tr class="table-header__row">

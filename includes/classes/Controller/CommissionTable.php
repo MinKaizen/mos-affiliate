@@ -3,6 +3,7 @@
 namespace MOS\Affiliate\Controller;
 
 use MOS\Affiliate\Controller;
+use MOS\Affiliate\Database;
 
 class CommissionTable extends Controller {
 
@@ -16,38 +17,25 @@ class CommissionTable extends Controller {
   private $rows;
 
 
-  protected function rows(): array {
-    if ( !empty( $this->rows ) ) {
-      return $this->rows;
-    }
-    $this->rows = [
-      [
-        'name' => 'Martin',
-        'email' => 'martin@gmail.com',
-        'username' => 'martin145',
-        'something_snake_case' => 'martin145',
-      ],
-      [
-        'name' => 'Tom',
-        'email' => 'tom@gmail.com',
-        'username' => 'tomhanks',
-        'something_snake_case' => 'tomhanks',
-      ],
-      [
-        'name' => 'Hayasa',
-        'email' => 'hayasa@gmail.com',
-        'username' => 'hayasaka<3',
-        'something_snake_case' => 'hayasaka<3',
-      ],
+  public function __construct() {
+    $id = \get_current_user_id();
+    $db = new Database();
+    $conditions = [
+      "earner_id = $id",
+      "refund_date IS NULL",
+      "payout_date IS NOT NULL",
     ];
-    return $this->rows;
-  }
-
-
-  protected function headers(): array {
-    $rows = $this->rows();
-    $first_row = reset( $rows );
-    return array_keys( $first_row );
+    $columns = [
+      'date',
+      'amount',
+      'description',
+      'campaign',
+      'actor_id',
+      'payout_method',
+    ];
+    $rows = $db->get_rows( 'mos_commissions', $conditions, $columns );
+    $this->rows = $this->format_rows( $rows );
+    parent::__construct();
   }
 
 
@@ -59,5 +47,25 @@ class CommissionTable extends Controller {
   protected function class(): string {
     return "new-class";
   }
+
+
+  protected function rows(): array {
+    return $this->rows;
+  }
+
+
+  protected function headers(): array {
+    $rows = $this->rows();
+    $first_row = reset( $rows );
+    return array_keys( $first_row );
+  }
+
+
+  private function format_rows( array $rows_raw ): array {
+    $rows = [];
+
+    return $rows_raw;
+  }
+
 
 }

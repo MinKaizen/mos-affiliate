@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
 
@@ -38,13 +38,13 @@ class Test {
   }
 
 
-  protected final function _set_up() {
+  protected final function _set_up(): void {
     $this->set_user();
     $this->set_sponsor();
   }
 
 
-  protected final function _clean_up() {
+  protected final function _clean_up(): void {
     $this->delete_test_users();
     $this->delete_test_posts();
     $this->unset_user();

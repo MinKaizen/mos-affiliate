@@ -1,13 +1,4 @@
-<?php
-/**
- * Base class for controllers
- * 
- * Controller Names use CapitalCamelCase
- * Controller Names should match the snake_case_name of the view and append "Controller"
- * 
- * View name: this_is_an_example
- * Controller name: ThisIsAnExampleController
- */
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
 

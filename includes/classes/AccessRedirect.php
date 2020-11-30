@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
 
@@ -28,17 +28,17 @@ class AccessRedirect {
   }
 
 
-  public function get_tag() {
+  public function get_tag(): string {
     return $this->tag;
   }
 
   
-  public function get_redirect_url() {
+  public function get_redirect_url(): string {
     return $this->redirect_url;
   }
 
 
-  public function get_cap() {
+  public function get_cap(): string {
     return $this->cap;
   }
 

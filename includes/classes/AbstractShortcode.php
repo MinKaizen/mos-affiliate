@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
 
@@ -17,7 +17,7 @@ abstract class AbstractShortcode {
   }
 
 
-  public function register() {
+  public function register(): void {
     \add_shortcode( $this->slug, [ $this, 'shortcode_router' ] );
   }
 

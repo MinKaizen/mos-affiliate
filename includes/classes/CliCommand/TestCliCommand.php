@@ -12,16 +12,16 @@ class TestCliCommand extends CliCommand {
   protected $command = 'test';
 
   private $tests = [
+    'access_redirects',
+    'commission_class',
     'commission_table',
     'database_class',
-    'pre_conditions',
-    'migrations',
-    'access_redirects',
-    'user_class',
-    'commission_class',
-    'user_shortcodes',
-    'sponsor_shortcodes',
     'levels_exist',
+    'migrations',
+    'pre_conditions',
+    'sponsor_shortcodes',
+    'user_class',
+    'user_shortcodes',
   ];
 
 

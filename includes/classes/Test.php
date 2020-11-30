@@ -27,6 +27,8 @@ class Test {
   protected $_post_ids_to_delete;
   protected $_injected_user;
   protected $_injected_sponsor;
+  protected $_user_is_set = false;
+  protected $_sponsor_is_set = false;
   protected $_commission_ids_to_delete = [];
 
 
@@ -388,14 +390,22 @@ class Test {
 
 
   protected final function set_user(): void {
+    if ( $this->_user_is_set ) {
+      return;
+    }
     add_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
     $this->db_notice( "current user set" );
+    $this->_user_is_set = true;
   }
 
 
   protected final function unset_user(): void {
+    if ( ! $this->_user_is_set ) {
+      return;
+    }
     remove_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
     $this->db_notice("current user unset");
+    $this->_user_is_set = false;
   }
 
 
@@ -413,14 +423,22 @@ class Test {
 
 
   protected final function set_sponsor(): void {
+    if ( $this->_sponsor_is_set ) {
+      return;
+    }
     add_filter( self::CURRENT_SPONSOR_HOOK, [$this, '_get_injected_sponsor'] );
     $this->db_notice( "current sponsor set" );
+    $this->_sponsor_is_set = true;
   }
 
 
   protected final function unset_sponsor(): void {
+    if ( ! $this->_sponsor_is_set ) {
+      return;
+    }
     remove_filter( self::CURRENT_SPONSOR_HOOK, [$this, '_get_injected_sponsor'] );
     $this->db_notice("current sponsor unset");
+    $this->_sponsor_is_set = false;
   }
 
 

@@ -394,13 +394,13 @@ class Test {
 
 
   protected final function set_user(): void {
-    add_filter( $hook, [$this, '_get_injected_user'] );
+    add_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
     $this->db_notice( "current user set" );
   }
 
 
   protected final function unset_user(): void {
-    remove_filter( $hook, [$this, '_get_injected_user'] );
+    remove_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
     $this->db_notice("current user unset");
   }
 

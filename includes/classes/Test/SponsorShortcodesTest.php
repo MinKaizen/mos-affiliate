@@ -21,6 +21,7 @@ class SponsorShortcodesTest extends Test {
 
   public function __construct() {
     $this->_injected_sponsor = $this->create_test_user();
+    $this->set_sponsor();
 
     // Give MIS to Sponsor
     foreach( $this->mis as $slug => $value ) {

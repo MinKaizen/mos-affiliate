@@ -41,8 +41,7 @@ class Test {
 
 
   protected final function _set_up(): void {
-    $this->set_user();
-    $this->set_sponsor();
+
   }
 
 

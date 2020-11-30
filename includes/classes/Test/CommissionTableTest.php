@@ -12,6 +12,7 @@ class CommissionTableTest extends Test {
 
   public function __construct() {
     $this->_injected_user = $this->create_test_user();
+    $this->set_user();
 
     $actor_data = [
       'first_name' => 'Jill',

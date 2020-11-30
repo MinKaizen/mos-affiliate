@@ -48,6 +48,7 @@ class AccessRedirectsTest extends Test {
       'user_login' => $this->username,
       'user_pass' => $this->user_pass,
     ] );
+    $this->set_user();
     
     $this->post = $this->create_test_post();
     $this->permalink = get_permalink( $this->post->ID );

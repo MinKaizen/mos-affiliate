@@ -33,18 +33,32 @@ class Test {
 
   public function run(): void {
     $this->_set_up();
+    $this->_before();
     foreach( $this->get_test_methods() as $method ) {
       $this->run_method( $method );
     }
+    $this->_after();
     $this->_clean_up();
   }
 
 
-  protected final function _set_up(): void {
-
+  protected function _before(): void {
+    // To be overridden for each individual test
+  }
+  
+  
+  protected function _after(): void {
+    // To be overridden for each individual test
   }
 
 
+  // Common setup for all tests
+  protected final function _set_up(): void {
+    
+  }
+  
+  
+  // Common cleanup for all tests
   protected final function _clean_up(): void {
     $this->delete_test_users();
     $this->delete_test_posts();

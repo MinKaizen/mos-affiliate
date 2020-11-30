@@ -27,6 +27,7 @@ class Test {
   protected $_post_ids_to_delete;
   protected $_injected_user;
   protected $_injected_sponsor;
+  protected $_commission_ids_to_delete = [];
 
 
   public function run(): void {
@@ -47,6 +48,7 @@ class Test {
   protected final function _clean_up(): void {
     $this->delete_test_users();
     $this->delete_test_posts();
+    $this->delete_test_commissions();
     $this->unset_user();
     $this->unset_sponsor();
   }
@@ -454,6 +456,38 @@ class Test {
       $post = get_post( $post_id );
       $this->assert_true( empty( $post ), $post );
       $this->db_notice( "post deleted: $post_id" );
+    }
+  }
+
+
+  protected final function create_test_commission( array $passed_data=[] ): Commission {
+    $default_data = [
+      'date' => '1991-01-01',
+      'amount' => 1.00,
+      'description' => '---',
+      'earner_id' => 1,
+    ];
+    $data = array_replace_recursive( $default_data, $passed_data );
+    $commission = Commission::create_from_array( $data );
+    $this->assert_true( $commission->is_valid(), "Commission should be valid before we try to insert it..." );
+    $id = $commission->db_insert();
+    $inserted_commission = Commission::lookup( $id );
+    $this->assert_true( $inserted_commission->exists(), "Commission should exist after insert" );
+    $this->_commission_ids_to_delete[] = $id;
+    $this->db_notice( "commission created: $id" );
+    return $commission;
+  }
+
+
+  protected final function delete_test_commissions(): void {
+    if ( empty( $this->_commission_ids_to_delete ) ) {
+      return;
+    }
+
+    foreach ( $this->_commission_ids_to_delete as $id ) {
+      $commission = Commission::lookup( $id );
+      $commission->db_delete();
+      $this->db_notice( "commission deleted: $id" );
     }
   }
 

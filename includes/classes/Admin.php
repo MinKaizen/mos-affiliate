@@ -64,7 +64,7 @@ class Admin {
       $options['title'],
       $options['capability'],
       $options['slug'],
-      function() use ($options) { echo get_view( $options['view'] ); },
+      function() use ($options) { render_view( $options['view'] ); },
       $options['icon'],
       $options['position'],
     );
@@ -90,7 +90,7 @@ class Admin {
       $options['title'],
       $options['capability'],
       $options['slug'],
-      function() use ($options) { echo get_view( $options['view'] ); },
+      function() use ($options) { render_view( $options['view'] ); },
       $options['position'],
     );
 

@@ -2,39 +2,29 @@
 
 namespace MOS\Affiliate;
 
-/**
- * Get view html as string
- *
- * @param string  $view_name   Name of the view
- * @return string $view        The view's html as a string
- */
 function get_view( string $view_name, array $args=[] ) {
-  $view_file_name = PLUGIN_DIR . "/includes/views/$view_name.php";
-  
-  // Check if view exits
-  if ( !file_exists( $view_file_name ) ) {
-    return '';
-  }
-  
-  // Load controller
-  $controller = Controller::get_controller( $view_name );
+  ob_start();
+  render_view( $view_name, $args );
+  $view = ob_get_clean();
+  return $view;
+}
 
-  // If controller exists, extract its data
-  if ( $controller !== false ) {
-    extract( $controller->data() );
+
+function render_view( string $view_name, array $args=[] ): void {
+  $view_file_name = PLUGIN_DIR . "/includes/views/$view_name.php";
+  if ( !file_exists( $view_file_name ) ) {
+    return;
   }
+  
+  $controller = Controller::get_controller( $view_name );
+  extract( $controller->get_vars() );
 
   // If args passed, extract (and override controller args)
   if ( !empty( $args ) ) {
     extract( $args );
   }
 
-  // Get view html as a string
-  ob_start();
   include( $view_file_name );
-  $view = ob_get_clean();
-  
-  return $view;
 }
 
 

@@ -7,13 +7,10 @@ use MOS\Affiliate\Database;
 
 class CampaignReport extends Controller {
 
-  protected $variables = [
-    'campaigns',
-    'headers',
-  ];
+  private $campaigns = [];
 
 
-  protected function campaigns() {
+  public function __construct() {
     $db = new Database();
     $campaigns = $db->get_campaign_data();
 
@@ -32,7 +29,21 @@ class CampaignReport extends Controller {
       }
     }
 
-    return $campaigns;
+    $this->campaigns = $campaigns;
+  }
+
+
+  protected function export_campaigns(): array {
+    return $this->campaigns;
+  }
+
+
+  protected function export_headers(): array {
+    if ( empty( $this->campaigns ) ) {
+      return [];
+    }
+    $first_element = reset( $this->campaigns );
+    return array_keys( $first_element );
   }
 
 

@@ -8,14 +8,6 @@ use MOS\Affiliate\User;
 
 class CommissionTable extends Controller {
 
-  protected $variables = [
-    'rows',
-    'headers',
-    'id',
-    'class',
-    'tooltips',
-  ];
-
   private $rows;
   private $tooltips;
 
@@ -31,33 +23,32 @@ class CommissionTable extends Controller {
     $rows = $db->get_rows( 'mos_commissions', $conditions );
     $this->rows = $this->format_rows( $rows );
     $this->tooltips = $this->generate_tooltips( $rows );
-    parent::__construct();
   }
 
 
-  protected function id(): string {
+  protected function export_id(): string {
     return "new_id";
   }
 
 
-  protected function class(): string {
+  protected function export_class(): string {
     return "new-class";
   }
 
 
-  protected function rows(): array {
+  protected function export_rows(): array {
     return $this->rows;
   }
 
 
-  protected function headers(): array {
-    $rows = $this->rows();
+  protected function export_headers(): array {
+    $rows = $this->export_rows();
     $first_row = reset( $rows );
     return array_keys( $first_row );
   }
 
 
-  protected function tooltips(): array {
+  protected function export_tooltips(): array {
     return $this->tooltips;
   }
 

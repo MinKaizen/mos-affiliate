@@ -1,7 +1,7 @@
 <table class='js-campaign-report'>
   <thead>
     <tr>
-      <?php foreach( array_keys(reset($campaigns)) as $header ):?>
+      <?php foreach( $headers as $header ):?>
       <th><?php echo $header; ?></th>
       <?php endforeach; ?>
     </tr>

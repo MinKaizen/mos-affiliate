@@ -3,7 +3,6 @@
 namespace MOS\Affiliate\Shortcode;
 
 use MOS\Affiliate\AbstractShortcode;
-use MOS\Affiliate\HtmlTable;
 
 use function MOS\Affiliate\get_view;
 

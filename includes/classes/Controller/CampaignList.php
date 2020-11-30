@@ -7,15 +7,12 @@ use MOS\Affiliate\Database;
 
 class CampaignList extends Controller {
 
-  protected $variables = [
-      'campaigns',
-    ];
 
-
-  protected function campaigns() {
+  protected function export_campaigns() {
     $db = new Database();
     $campaigns = $db->get_campaigns();
     return $campaigns;
   }
+
 
 }

@@ -15,7 +15,7 @@
         <?php
           echo $cell;
           if ( $cell_index == 'payment' ) {
-            echo get_view( 'commission_table_tooltip', ['pairs' => $tooltips[$row_number] ] );
+            render_view( 'commission_table_tooltip', ['pairs' => $tooltips[$row_number] ] );
           }
         ?>
       </td>

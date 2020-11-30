@@ -30,12 +30,16 @@ class Test {
   protected $_commission_ids_to_delete = [];
 
 
+  public function __destruct(): void {
+    $this->_clean_up();
+  }
+
+
   public function run(): void {
     $this->_set_up();
     foreach( $this->get_test_methods() as $method ) {
       $this->run_method( $method );
     }
-    $this->_clean_up();
   }
 
 
@@ -281,7 +285,6 @@ class Test {
     WP_CLI::line( $trace_formatted );
 
     $this->print_yaml( $data );
-    $this->_clean_up();
     $this->print_error( $assertion );
   }
 

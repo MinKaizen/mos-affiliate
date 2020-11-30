@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
-
-use \WP_CLI;
 
 use function MOS\Affiliate\class_name;
 
@@ -52,7 +50,7 @@ class Plugin {
   }
 
 
-  public function init() {
+  public function init(): void {
     $this->load_admin();
     $this->load_scripts();
     $this->register_cli_commands();
@@ -61,13 +59,13 @@ class Plugin {
   }
 
 
-  private function load_admin() {
+  private function load_admin(): void {
     $admin = new Admin();
     $admin->init();
   }
 
 
-  private function load_scripts() {
+  private function load_scripts(): void {
     \add_action( 'wp_enqueue_scripts', function() {
       \wp_enqueue_script( 'mosAffiliate', PLUGIN_URL . 'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
     });

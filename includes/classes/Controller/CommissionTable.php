@@ -13,7 +13,7 @@ class CommissionTable extends Controller {
 
 
   public function __construct() {
-    $id = \get_current_user_id();
+    $id = User::current()->get_wpid();
     $db = new Database();
     $conditions = [
       "earner_id = $id",

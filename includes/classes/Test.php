@@ -13,7 +13,6 @@ use function \update_user_meta;
 use function \MOS\Affiliate\ranstr;
 use function \add_filter;
 use function \remove_filter;
-use function \remove_all_filters;
 use function \WP_CLI\Utils\format_items;
 
 class Test {

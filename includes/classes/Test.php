@@ -32,11 +32,14 @@ class Test {
 
   public function __destruct() {
     $this->_clean_up();
+    \WP_CLI::line('finishing desctruct');
   }
 
 
   public function run(): void {
+    \WP_CLI::line('doing setup');
     $this->_set_up();
+    \WP_CLI::line('running tests...');
     foreach( $this->get_test_methods() as $method ) {
       $this->run_method( $method );
     }
@@ -391,23 +394,12 @@ class Test {
 
 
   protected final function set_user(): void {
-    global $wp_filter;
-    $hook = self::CURRENT_USER_HOOK;
-    if ( !isset( $wp_filter[$hook] ) ) {
-      return;
-    }
-    remove_all_filters( $hook );
     add_filter( $hook, [$this, '_get_injected_user'] );
     $this->db_notice( "current user set" );
   }
 
 
   protected final function unset_user(): void {
-    global $wp_filter;
-    $hook = self::CURRENT_USER_HOOK;
-    if ( !isset( $wp_filter[$hook] ) ) {
-      return;
-    }
     remove_filter( $hook, [$this, '_get_injected_user'] );
     $this->db_notice("current user unset");
   }
@@ -427,7 +419,6 @@ class Test {
 
 
   protected final function set_sponsor(): void {
-    remove_all_filters( self::CURRENT_SPONSOR_HOOK );
     add_filter( self::CURRENT_SPONSOR_HOOK, [$this, '_get_injected_sponsor'] );
     $this->db_notice( "current sponsor set" );
   }

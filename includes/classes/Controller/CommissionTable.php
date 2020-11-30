@@ -12,6 +12,7 @@ class CommissionTable extends Controller {
     'headers',
     'id',
     'class',
+    'tooltips',
   ];
 
   private $rows;

@@ -12,8 +12,12 @@
     <tr class="table-body__row">
       <?php foreach( $row as $cell_index => $cell ): ?>
       <td class="table-cell table-body-cell col-<?php echo proper_to_kebab_case($cell_index); ?>">
-        <?php echo $cell; ?>
-        <?php echo get_view( 'commission_table_tooltip', ['pairs' => $tooltips[$row_number] ] ); ?>
+        <?php
+          echo $cell;
+          if ( $cell_index == 'payout_method' ) {
+            echo get_view( 'commission_table_tooltip', ['pairs' => $tooltips[$row_number] ] );
+          }
+        ?>
       </td>
       <?php endforeach; ?>
     </tr>

@@ -296,7 +296,7 @@ class Test {
   
   
   protected function db_notice( string $message ): void {
-    $colorized_message = WP_CLI::colorize( '%b✦%n ' . $message);
+    $colorized_message = $this->get_class_name() . ": $message";
     WP_CLI::debug( $colorized_message, 'mosa db notice' );
   }
 

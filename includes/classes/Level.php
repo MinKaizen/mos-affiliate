@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
 
@@ -64,7 +64,7 @@ class Level {
   }
 
 
-  public function exists() {
+  public function exists(): bool {
     $exists = !empty( $this->slug );
     return $exists;
   }

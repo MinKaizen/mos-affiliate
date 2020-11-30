@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate\Shortcode;
 
@@ -10,7 +10,7 @@ class AffidShortcode extends AbstractShortcode {
   protected $slug = 'mos_affid';
 
   public function shortcode_action( $args ): string {
-    $affid = User::current()->get_affid();
+    $affid = (string) User::current()->get_affid();
     return $affid;
   }
 

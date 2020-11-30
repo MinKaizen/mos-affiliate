@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate\Shortcode;
 
@@ -10,7 +10,7 @@ class SponsorWpidShortcode extends AbstractShortcode {
   protected $slug = 'mos_sponsor_wpid';
 
   public function shortcode_action( $args ): string {
-    $sponsor_wpid = User::current()->sponsor()->get_wpid();
+    $sponsor_wpid = (string) User::current()->sponsor()->get_wpid();
     return $sponsor_wpid;
   }
 

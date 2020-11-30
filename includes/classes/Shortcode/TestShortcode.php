@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate\Shortcode;
 
 use MOS\Affiliate\AbstractShortcode;
-use MOS\Affiliate\User;
 
 class TestShortcode extends AbstractShortcode {
 

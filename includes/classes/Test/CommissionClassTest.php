@@ -57,8 +57,6 @@ class CommissionClassTest extends Test {
 
 
   public function test_is_valid(): void {
-    $valid_data = $this->valid_data;
-    
     // Valid
     $this->assert_commission_valid();
 

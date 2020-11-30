@@ -30,7 +30,7 @@ class Test {
   protected $_commission_ids_to_delete = [];
 
 
-  public function __destruct(): void {
+  public function __destruct() {
     $this->_clean_up();
   }
 

@@ -32,14 +32,11 @@ class Test {
 
   public function __destruct() {
     $this->_clean_up();
-    \WP_CLI::line('finishing desctruct');
   }
 
 
   public function run(): void {
-    \WP_CLI::line('doing setup');
     $this->_set_up();
-    \WP_CLI::line('running tests...');
     foreach( $this->get_test_methods() as $method ) {
       $this->run_method( $method );
     }

@@ -161,7 +161,7 @@ class CommissionClassTest extends Test {
   }
 
 
-  private function delete_test_commissions():void {
+  private function delete_test_commissions(): void {
     if ( empty( $this->_commission_ids_to_delete ) ) {
       return;
     }

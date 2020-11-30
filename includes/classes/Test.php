@@ -391,14 +391,24 @@ class Test {
 
 
   protected final function set_user(): void {
-    remove_all_filters( self::CURRENT_USER_HOOK );
-    add_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
+    global $wp_filter;
+    $hook = self::CURRENT_USER_HOOK;
+    if ( !isset( $wp_filter[$hook] ) ) {
+      return;
+    }
+    remove_all_filters( $hook );
+    add_filter( $hook, [$this, '_get_injected_user'] );
     $this->db_notice( "current user set" );
   }
 
 
   protected final function unset_user(): void {
-    remove_filter( self::CURRENT_USER_HOOK, [$this, '_get_injected_user'] );
+    global $wp_filter;
+    $hook = self::CURRENT_USER_HOOK;
+    if ( !isset( $wp_filter[$hook] ) ) {
+      return;
+    }
+    remove_filter( $hook, [$this, '_get_injected_user'] );
     $this->db_notice("current user unset");
   }
 

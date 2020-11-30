@@ -8,10 +8,13 @@
     </tr>
   </thead>
   <tbody class="table-body">
-    <?php foreach( $rows as $row ): ?>
+    <?php foreach( $rows as $row_number => $row ): ?>
     <tr class="table-body__row">
       <?php foreach( $row as $cell_index => $cell ): ?>
-      <td class="table-cell table-body-cell col-<?php echo proper_to_kebab_case($cell_index); ?>"><?php echo $cell; ?></td>
+      <td class="table-cell table-body-cell col-<?php echo proper_to_kebab_case($cell_index); ?>">
+        <?php echo $cell; ?>
+        <?php echo get_view( 'commission_table_tooltip', ['pairs' => $tooltips[$row_number] ] ); ?>
+      </td>
       <?php endforeach; ?>
     </tr>
     <?php endforeach; ?>

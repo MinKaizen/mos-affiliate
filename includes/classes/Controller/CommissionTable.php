@@ -4,6 +4,7 @@ namespace MOS\Affiliate\Controller;
 
 use MOS\Affiliate\Controller;
 use MOS\Affiliate\Database;
+use MOS\Affiliate\User;
 
 class CommissionTable extends Controller {
 
@@ -27,15 +28,7 @@ class CommissionTable extends Controller {
       "refund_date IS NULL",
       "payout_date IS NOT NULL",
     ];
-    $columns = [
-      'date',
-      'amount',
-      'description',
-      'campaign',
-      'actor_id',
-      'payout_method',
-    ];
-    $rows = $db->get_rows( 'mos_commissions', $conditions, $columns );
+    $rows = $db->get_rows( 'mos_commissions', $conditions );
     $this->rows = $this->format_rows( $rows );
     $this->tooltips = $this->generate_tooltips( $rows );
     parent::__construct();
@@ -71,7 +64,18 @@ class CommissionTable extends Controller {
 
   private function format_rows( array $rows_raw ): array {
     $rows = [];
-    return $rows_raw;
+    foreach ( $rows_raw as $row ) {
+      $rows[] = [
+        'date' => empty( $row['date'] ) ? '' : $row['date'],
+        'amount' => empty( $row['amount'] ) ? '' : '$' . $row['amount'],
+        'name' => empty( $row['actor_id'] ) ? '' : ucwords( strtolower( User::from_id($row['actor_id'])->get_name() ) ),
+        'email' => empty( $row['actor_id'] ) ? '' : strtolower( User::from_id($row['actor_id'])->get_email() ),
+        'product' => empty( $row['description'] ) ? '' : $row['description'],
+        'campaign' => empty( $row['campaign'] ) ? '' : $row['campaign'],
+        'payment' => empty( $row['payout_method'] ) ? '' : $row['payout_method'],
+      ];
+    }
+    return $rows;
   }
 
 

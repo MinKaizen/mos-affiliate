@@ -14,7 +14,7 @@
       <td class="table-cell table-body-cell col-<?php echo proper_to_kebab_case($cell_index); ?>">
         <?php
           echo $cell;
-          if ( $cell_index == 'payout_method' ) {
+          if ( $cell_index == 'payment' ) {
             echo get_view( 'commission_table_tooltip', ['pairs' => $tooltips[$row_number] ] );
           }
         ?>

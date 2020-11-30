@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
 
@@ -24,18 +24,18 @@ class Admin {
   ];
 
 
-  public function init() {
+  public function init(): void {
     \add_action( 'admin_enqueue_scripts', [$this, 'enqueue_styles'] );
     \add_action( 'admin_menu', [$this, 'register_menus'] );
   }
 
 
-  public function enqueue_styles( $hook_suffix ) {
+  public function enqueue_styles( $hook_suffix ): void {
 
   }
 
 
-  public function register_menus() {
+  public function register_menus(): void {
     foreach ( $this->parent_menus as $parent_menu ) {
       $this->add_parent_menu( $parent_menu );
     }
@@ -47,7 +47,7 @@ class Admin {
   }
 
 
-  private function add_parent_menu( $args ) {
+  private function add_parent_menu( array $args ): void {
     $defaults = [
       'title' => '',
       'capability' => 'manage_options',
@@ -72,7 +72,7 @@ class Admin {
   }
 
 
-  private function add_sub_menu( $args ) {
+  private function add_sub_menu( array $args ): void {
     $defaults = [
       'parent_slug' => '',
       'title' => '',

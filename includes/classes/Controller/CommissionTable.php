@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate\Controller;
 
@@ -59,8 +59,8 @@ class CommissionTable extends Controller {
       $rows[] = [
         'date' => empty( $row['date'] ) ? '' : $row['date'],
         'amount' => empty( $row['amount'] ) ? '' : '$' . $row['amount'],
-        'name' => empty( $row['actor_id'] ) ? '' : ucwords( strtolower( User::from_id($row['actor_id'])->get_name() ) ),
-        'email' => empty( $row['actor_id'] ) ? '' : strtolower( User::from_id($row['actor_id'])->get_email() ),
+        'name' => empty( $row['actor_id'] ) ? '' : ucwords( strtolower( User::from_id( (int) $row['actor_id'])->get_name() ) ),
+        'email' => empty( $row['actor_id'] ) ? '' : strtolower( User::from_id( (int) $row['actor_id'])->get_email() ),
         'product' => empty( $row['description'] ) ? '' : $row['description'],
         'campaign' => empty( $row['campaign'] ) ? '' : $row['campaign'],
         'payment' => empty( $row['payout_method'] ) ? '' : $row['payout_method'],

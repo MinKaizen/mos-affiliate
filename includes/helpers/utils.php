@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
 
-function get_view( string $view_name, array $args=[] ) {
+function get_view( string $view_name, array $args=[] ): string {
   ob_start();
   render_view( $view_name, $args );
   $view = ob_get_clean();

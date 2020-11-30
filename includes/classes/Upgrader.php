@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MOS\Affiliate;
 
@@ -9,7 +9,7 @@ class Upgrader {
   ];
 
   
-  public static function upgrade() {
+  public static function upgrade(): void {
     self::run_migrations();
   }
 

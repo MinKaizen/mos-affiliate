@@ -125,9 +125,9 @@ class CommissionTableTest extends Test {
       ],
     ];
 
-    function sort_by_date( array $commission1, array $commission2 ): int {
+    $sort_by_date_function = function ( array $commission1, array $commission2 ): int {
       return $commission1['date'] <=> $commission2['date'];
-    }
+    };
 
     foreach ( $expected_rows as $commission ) {
       $this->assert_has_key( $commission, 'date' );
@@ -137,8 +137,8 @@ class CommissionTableTest extends Test {
       $this->assert_has_key( $commission, 'date' );
     }
 
-    $expected_rows = usort( $expected_rows, __NAMESPACE__ . '\\sort_by_date' );
-    $vars['rows'] = usort( $vars['rows'], __NAMESPACE__ . '\\sort_by_date' );
+    $expected_rows = usort( $expected_rows, $sort_by_date_function );
+    $vars['rows'] = usort( $vars['rows'], $sort_by_date_function );
 
     $this->assert_equal( $expected_rows, $vars['rows'] );
   }

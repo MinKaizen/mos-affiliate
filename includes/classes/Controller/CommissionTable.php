@@ -44,7 +44,8 @@ class CommissionTable extends Controller {
   protected function export_headers(): array {
     $rows = $this->export_rows();
     $first_row = reset( $rows );
-    return array_keys( $first_row );
+    $headers = empty( $first_row ) ? [] : array_keys( $first_row );
+    return $headers;
   }
 
 

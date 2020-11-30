@@ -43,7 +43,8 @@ class CampaignReport extends Controller {
       return [];
     }
     $first_element = reset( $this->campaigns );
-    return array_keys( $first_element );
+    $headers = empty( $first_element ) ? [] : array_keys( $first_element );
+    return $headers;
   }
 
 

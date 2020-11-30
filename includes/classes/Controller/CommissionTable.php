@@ -26,16 +26,6 @@ class CommissionTable extends Controller {
   }
 
 
-  protected function export_id(): string {
-    return "new_id";
-  }
-
-
-  protected function export_class(): string {
-    return "new-class";
-  }
-
-
   protected function export_rows(): array {
     return $this->rows;
   }

@@ -1,5 +1,5 @@
 <?php namespace MOS\Affiliate; ?>
-<table id="<?php echo $id; ?>" class="table <?php echo $class; ?>">
+<table>
   <thead class="table-header">
     <tr class="table-header__row">
       <?php foreach( $headers as $header ): ?>

@@ -144,4 +144,47 @@ class CommissionTableTest extends Test {
   }
 
 
+  public function test_tooltips(): void {
+    $controller = Controller::get_controller( 'commission_table' );;
+    $vars = $controller->get_vars();
+    $expected_tooltips = [
+      [
+        'Date' => '2020-04-01',
+        'Method' => 'Bitcoin',
+        'Address' => 'sd54f5s4df6sd5f16sd54fs5d4f',
+        'Transaction ID' => '54654-5464',
+      ],
+      [
+        'Date' => '2020-04-02',
+        'Method' => 'Bitcoin',
+        'Address' => 'sd54f5s4asdaf16sd54fs5d4f',
+        'Transaction ID' => '53354-5464',
+      ],
+      [
+        'Date' => '2020-04-03',
+        'Method' => 'Bitcoin',
+        'Address' => 'sd54f5s4df6sd5f36sd54fs5d4f',
+        'Transaction ID' => '54654-5464',
+      ],
+    ];
+
+    $sort_by_date_function = function ( array $commission1, array $commission2 ): int {
+      return $commission1['Date'] <=> $commission2['Date'];
+    };
+
+    foreach ( $expected_tooltips as $commission ) {
+      $this->assert_has_key( $commission, 'Date' );
+    }
+    
+    foreach ( $vars['tooltips'] as $commission ) {
+      $this->assert_has_key( $commission, 'Date' );
+    }
+
+    $expected_tooltips = usort( $expected_tooltips, $sort_by_date_function );
+    $vars['tooltips'] = usort( $vars['tooltips'], $sort_by_date_function );
+
+    $this->assert_equal( $expected_tooltips, $vars['tooltips'] );
+  }
+
+
 }

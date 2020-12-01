@@ -161,6 +161,19 @@ class User extends \WP_User {
   }
 
 
+  public function is_partner(): bool {
+    $partner_levels = [
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+      'partner',
+      'legendary_partner',
+    ];
+    $is_partner = in_array( $this->get_level(), $partner_levels );
+    return $is_partner;
+  }
+
+
   public function db_insert(): void {
     if ( ! empty( $this->ID ) && self::id_exists( $this->ID ) ) {
       return;

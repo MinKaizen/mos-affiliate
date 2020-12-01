@@ -181,6 +181,26 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_get_referrals(): void {
+    $this->_injected_user = $this->create_test_user();
+    $referral1 = $this->create_test_user();
+    $referral1->db_add_sponsor( $this->_injected_user );
+    $this->assert_equal( $referral1->sponsor(), $this->_injected_user );
+    $referral2 = $this->create_test_user();
+    $referral2->db_add_sponsor( $this->_injected_user );
+    $this->assert_equal( $referral2->sponsor(), $this->_injected_user );
+    $referral3 = $this->create_test_user();
+    $referral3->db_add_sponsor( $this->_injected_user );
+    $this->assert_equal( $referral3->sponsor(), $this->_injected_user );
+
+    $referrals = $this->_injected_user->get_referrals();
+    $this->assert_equal( count( $referrals ), 3, ['$referrals' => $referrals] );
+    $this->assert_contains( $referrals, $referral1 );
+    $this->assert_contains( $referrals, $referral2 );
+    $this->assert_contains( $referrals, $referral3 );
+  }
+
+
   public function test_db(): void {
     global $wpdb;
     

@@ -47,14 +47,28 @@ class UserClassTest extends Test {
   }
 
 
-  public function test_id_exists(): void {
-    $this->assert_true( User::id_exists(1), "#CRUDE TEST: assert that user with ID 1 exists." );
-  }
-
-
-  public function test_affid_exists(): void {
+  public function test_existence(): void {
     $user = $this->create_test_user();
-    $this->assert_true( User::affid_exists( $user->get_affid() ), "Affid of newly created user should exist" );
+    $this->assert_true( User::id_exists( $user->ID ), "User ID should exist after create", ['user' => $user] );
+    $this->assert_true( User::affid_exists( $user->get_affid() ), "Affid should exist after create", ['user' => $user] );
+    $this->assert_true( User::username_exists( $user->user_login ), "Username should exist after create", ['user' => $user] );
+    $this->assert_true( User::email_exists( $user->user_email ), "Email should exist after create", ['user' => $user] );
+    $this->assert_true( $user->exists(), "User->exist() should be true after create", ['user' => $user] );
+
+    $empty_user = new User();
+    $this->assert_false( $empty_user->exists(), 'empty_user->exists() should be false' );
+
+    $generated_user = new User();
+    $generated_user->user_email = $user->user_email;
+    $this->assert_true( $generated_user->exists(), 'User should exist if email is taken', ['generated_user' => $generated_user] );
+    
+    $generated_user = new User();
+    $generated_user->user_login = $user->user_login;
+    $this->assert_true( $generated_user->exists(), 'User should exist if username is taken', ['generated_user' => $generated_user] );
+    
+    $generated_user = new User();
+    $generated_user->ID = $user->ID;
+    $this->assert_true( $generated_user->exists(), 'User should exist if ID is taken', ['generated_user' => $generated_user] );
   }
 
 

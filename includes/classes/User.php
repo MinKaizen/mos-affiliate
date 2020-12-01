@@ -174,6 +174,25 @@ class User extends \WP_User {
   }
 
 
+  public function get_referral_ids(): array {
+    global $wpdb;
+    $table = $wpdb->prefix . "uap_affiliate_referral_users_relations";
+    $affid = $this->get_affid();
+    $query = "SELECT referral_wp_uid FROM $table WHERE affiliate_id = $affid";
+    $results = $wpdb->get_results( $query, \ARRAY_N );
+    $results = empty( $results ) ? [] : $results;
+    
+    $referral_ids = [];
+    foreach ( $results as $row ) {
+      if ( !empty( $row[0] ) ) {
+        $referral_ids[] = $row[0];
+      }
+    }
+
+    return $referral_ids;
+  }
+
+
   public function db_insert(): void {
     if ( ! empty( $this->ID ) && self::id_exists( $this->ID ) ) {
       return;

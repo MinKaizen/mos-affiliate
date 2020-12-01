@@ -161,6 +161,26 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_get_referral_ids(): void {
+    $this->_injected_user = $this->create_test_user();
+    $referral1 = $this->create_test_user();
+    $referral1->db_add_sponsor( $this->_injected_user );
+    $this->assert_equal( $referral1->sponsor(), $this->_injected_user );
+    $referral2 = $this->create_test_user();
+    $referral2->db_add_sponsor( $this->_injected_user );
+    $this->assert_equal( $referral2->sponsor(), $this->_injected_user );
+    $referral3 = $this->create_test_user();
+    $referral3->db_add_sponsor( $this->_injected_user );
+    $this->assert_equal( $referral3->sponsor(), $this->_injected_user );
+
+    $referral_ids = $this->_injected_user->get_referral_ids();
+    $this->assert_equal( count( $referral_ids ), 3, ['$referral_ids' => $referral_ids] );
+    $this->assert_contains( $referral_ids, $referral1->get_wpid() );
+    $this->assert_contains( $referral_ids, $referral2->get_wpid() );
+    $this->assert_contains( $referral_ids, $referral3->get_wpid() );
+  }
+
+
   public function test_db(): void {
     global $wpdb;
     

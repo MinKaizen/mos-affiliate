@@ -308,7 +308,8 @@ class Test {
   
   
   protected function db_notice( string $message ): void {
-    $colorized_message = $this->get_class_name() . ": $message";
+    $class_name = $this->get_class_name();
+    $colorized_message = WP_CLI::colorize( "%c♦%n $class_name: $message" );
     WP_CLI::debug( $colorized_message, 'mosa db notice' );
   }
 

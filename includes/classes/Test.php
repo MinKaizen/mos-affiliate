@@ -83,10 +83,9 @@ class Test {
 
 
   private function run_method( string $method ): void {
-    $current_test = $this->get_class_name() . "::" . $method;
-    WP_CLI::debug( "Running $current_test", 'mosa test' );
+    $this->notice( "$method starting..." );
     $this->{$method}();
-    WP_CLI::line( WP_CLI::colorize( "%g✔%n $current_test" ) );
+    $this->notice_success( "$method finished" );
   }
 
 

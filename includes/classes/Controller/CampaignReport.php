@@ -3,7 +3,6 @@
 namespace MOS\Affiliate\Controller;
 
 use MOS\Affiliate\Controller;
-use MOS\Affiliate\Database;
 use MOS\Affiliate\User;
 
 class CampaignReport extends Controller {
@@ -12,7 +11,6 @@ class CampaignReport extends Controller {
 
 
   public function __construct() {
-    $db = new Database();
     $campaigns = $this->get_campaign_data();
 
     // Add empty partners column to campaigns
@@ -21,12 +19,13 @@ class CampaignReport extends Controller {
     }
     
     // Get a list of referrals
-    $referrals = $db->get_referrals(['level', 'campaign']);
+    $user = User::current();
+    $referrals = $user->get_referrals();
 
     // Count partners
     foreach ( $referrals as $referral ) {
-      if ( strpos( 'partner', $referral['level']) !== false ) {
-        $campaigns[$referral['campaign']]['partners']++;
+      if ( $referral->is_partner() ) {
+        // $campaigns[$referral['campaign']]['partners']++;
       }
     }
 

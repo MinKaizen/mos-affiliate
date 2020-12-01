@@ -25,7 +25,10 @@ class CampaignReport extends Controller {
     // Count partners
     foreach ( $referrals as $referral ) {
       if ( $referral->is_partner() ) {
-        // $campaigns[$referral['campaign']]['partners']++;
+        if ( empty( $referral->get_campaign() ) ) {
+          continue;
+        }
+        $campaigns[$referral->get_campaign()]['partners']++;
       }
     }
 

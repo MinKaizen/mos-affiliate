@@ -13,7 +13,7 @@ class UserShortcodesTest extends Test {
   protected $_injected_user;
 
 
-  public function __construct() {
+  protected function _before(): void {
     $this->_injected_user = $this->create_test_user();
     $this->set_user();
   }

@@ -19,7 +19,7 @@ class SponsorShortcodesTest extends Test {
   ];
 
 
-  public function __construct() {
+  protected function _before(): void {
     $this->_injected_sponsor = $this->create_test_user();
     $this->set_sponsor();
 

@@ -26,7 +26,7 @@ class AccessRedirectsTest extends Test {
   private $curl;
 
 
-  public function __construct() {
+  protected function _before(): void {
     // Check for curl
     if ( !function_exists( 'curl_init' ) || ! function_exists( 'curl_exec' ) ) {
       WP_CLI::error( __CLASS__ . 'requires curl' );
@@ -56,7 +56,7 @@ class AccessRedirectsTest extends Test {
   }
 
 
-  public function __destruct() {
+  protected function _after(): void {
     $this->curl_close();
   }
 

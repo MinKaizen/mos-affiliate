@@ -11,7 +11,7 @@ class LevelsExistTest extends Test {
   private $roles;
 
 
-  public function __construct() {
+  protected function _before(): void {
     $this->roles = wp_roles()->roles;
   }
 

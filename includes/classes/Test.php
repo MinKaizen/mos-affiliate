@@ -295,6 +295,7 @@ class Test {
     WP_CLI::line( $trace_formatted );
 
     $this->print_yaml( $data );
+    $this->_after();
     $this->_clean_up();
     $this->print_error( $assertion );
   }

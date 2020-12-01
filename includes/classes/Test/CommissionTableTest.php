@@ -10,7 +10,7 @@ use function \MOS\Affiliate\ranstr;
 class CommissionTableTest extends Test {
 
 
-  public function __construct() {
+  protected function _before(): void {
     $this->_injected_user = $this->create_test_user();
     $this->set_user();
 

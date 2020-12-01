@@ -51,6 +51,12 @@ class User extends \WP_User {
   }
 
 
+  public static function username_exists( string $username ): bool {
+    $user = \get_user_by( 'login', $username );
+    return ! empty( $user );
+  }
+
+
   public static function affid_exists( int $affid ): bool {
     global $wpdb;
     $table = $wpdb->prefix . 'uap_affiliates';

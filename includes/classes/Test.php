@@ -310,7 +310,14 @@ class Test {
   protected function db_notice( string $message ): void {
     $class_name = $this->get_class_name();
     $colorized_message = WP_CLI::colorize( "%c♦%n $class_name: $message" );
-    WP_CLI::debug( $colorized_message, 'mosa db notice' );
+    WP_CLI::debug( $colorized_message, 'mosa test' );
+  }
+
+
+  protected function notice( string $message ): void {
+    $class_name = $this->get_class_name();
+    $colorized_message = WP_CLI::colorize( "%k●%n $class_name: $message" );
+    WP_CLI::debug( $colorized_message, 'mosa test' );
   }
 
 

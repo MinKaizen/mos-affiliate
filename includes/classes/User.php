@@ -266,16 +266,13 @@ class User extends \WP_User {
 
   public function db_delete(): void {
     $is_affiliate = ! empty( $this->get_affid() );
-    $has_sponsor = ! $this->sponsor()->is_empty();
     $is_real_user = ! $this->is_empty();
 
     if ( $is_real_user ) {
       \wp_delete_user( $this->ID );
     }
 
-    if ( $has_sponsor ) {
-      $this->db_remove_sponsor();
-    }
+    $this->db_remove_sponsor();
 
     if ( $is_affiliate ) {
       $this->db_unregister_affiliate();
@@ -309,6 +306,9 @@ class User extends \WP_User {
 
 
   private function db_remove_sponsor(): void {
+    if ( ! $this->sponsor()->exists() ) {
+      return;
+    }
     global $wpdb;
     $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
     $where = ['referral_wp_uid' => $this->ID];

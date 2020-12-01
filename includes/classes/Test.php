@@ -321,6 +321,13 @@ class Test {
   }
 
 
+  protected function notice_success( string $message ): void {
+    $class_name = $this->get_class_name();
+    $colorized_message = WP_CLI::colorize( "%g✔ $class_name: $message%n" );
+    WP_CLI::debug( $colorized_message, 'mosa test' );
+  }
+
+
   protected function print_yaml( $original ): void {
     if ( empty( $original ) ) {
       WP_CLI::warning( "No debug data passed" );

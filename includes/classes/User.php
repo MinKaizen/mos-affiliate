@@ -154,6 +154,16 @@ class User extends \WP_User {
   }
 
 
+  public function get_campaign(): string {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_referrals';
+    $query = "SELECT campaign FROM $table WHERE refferal_wp_uid = $this->ID LIMIT 1";
+    $campaign = $wpdb->get_var( $query );
+    $campaign = empty( $campaign ) ? '' : (string) $campaign;
+    return $campaign;
+  }
+
+
   public function qualifies_for_mis( string $network ): bool {
     $mis = Mis::get( $network );
     $qualifies = $mis->exists() ? $this->has_cap( $mis->get_cap() ) : false;

@@ -265,9 +265,7 @@ class User extends \WP_User {
 
 
   public function db_delete(): void {
-    $is_real_user = ! $this->is_empty();
-
-    if ( $is_real_user ) {
+    if ( self::id_exists( $this->ID ) ) {
       \wp_delete_user( $this->ID );
     }
 

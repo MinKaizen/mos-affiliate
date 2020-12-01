@@ -193,6 +193,16 @@ class User extends \WP_User {
   }
 
 
+  public function get_referrals(): array {
+    $referral_ids = $this->get_referral_ids();
+    $referrals = [];
+    foreach ( $referral_ids as $id ) {
+      $referrals[] = User::from_id( $id );
+    }
+    return $referrals;
+  }
+
+
   public function db_insert(): void {
     if ( ! empty( $this->ID ) && self::id_exists( $this->ID ) ) {
       return;

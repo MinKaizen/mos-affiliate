@@ -185,7 +185,7 @@ class User extends \WP_User {
     $referral_ids = [];
     foreach ( $results as $row ) {
       if ( !empty( $row[0] ) ) {
-        $referral_ids[] = $row[0];
+        $referral_ids[] = (int) $row[0];
       }
     }
 

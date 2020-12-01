@@ -265,7 +265,6 @@ class User extends \WP_User {
 
 
   public function db_delete(): void {
-    $is_affiliate = ! empty( $this->get_affid() );
     $is_real_user = ! $this->is_empty();
 
     if ( $is_real_user ) {
@@ -273,10 +272,7 @@ class User extends \WP_User {
     }
 
     $this->db_remove_sponsor();
-
-    if ( $is_affiliate ) {
-      $this->db_unregister_affiliate();
-    }
+    $this->db_unregister_affiliate();
   }
 
 
@@ -318,6 +314,9 @@ class User extends \WP_User {
 
 
   private function db_unregister_affiliate(): void {
+    if ( empty( $this->get_affid() ) ) {
+      return;
+    }
     global $wpdb;
     $table = $wpdb->prefix . 'uap_affiliates';
     $where = ['uid' => $this->ID];

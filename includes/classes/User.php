@@ -87,6 +87,25 @@ class User extends \WP_User {
   }
 
 
+  public function exists(): bool {
+    $exists = false;
+    
+    if ( ! empty( $this->get_email() ) && self::email_exists( $this->get_email() ) ) {
+      $exists = true;
+    }
+    
+    if ( ! empty( $this->get_username() ) && self::username_exists( $this->get_username() ) ) {
+      $exists = true;
+    }
+
+    if ( ! empty( $this->get_wpid() ) && self::id_exists( $this->get_wpid() ) ) {
+      $exists = true;
+    }
+
+    return $exists;
+  }
+
+
   public function is_empty(): bool {
     $is_empty = empty( $this->ID );
     return $is_empty;

@@ -252,6 +252,15 @@ class Test {
   }
 
 
+  protected function assert_contains( array $array, $item, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = in_array( $item, $array );
+    $data['array'] = $array;
+    $data['item'] = $item;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_instanceof( $instance, string $class, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $instance instanceof $class;

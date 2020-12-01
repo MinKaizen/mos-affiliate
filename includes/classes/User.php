@@ -163,11 +163,11 @@ class User extends \WP_User {
 
   public function is_partner(): bool {
     $partner_levels = [
-      'monthly_partner',
-      'yearly_partner',
-      'lifetime_partner',
-      'partner',
-      'legendary_partner',
+      'Monthly Partner',
+      'Yearly Partner',
+      'Lifetime Partner',
+      'Partner',
+      'Legendary Partner',
     ];
     $is_partner = in_array( $this->get_level(), $partner_levels );
     return $is_partner;

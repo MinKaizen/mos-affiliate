@@ -57,6 +57,12 @@ class User extends \WP_User {
   }
 
 
+  public static function emaiL_exists( string $email ): bool {
+    $user = \get_user_by( 'email', $email );
+    return ! empty( $user );
+  }
+
+
   public static function affid_exists( int $affid ): bool {
     global $wpdb;
     $table = $wpdb->prefix . 'uap_affiliates';

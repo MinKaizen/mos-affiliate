@@ -245,7 +245,7 @@ class User extends \WP_User {
 
 
   public function db_insert(): void {
-    if ( ! empty( $this->ID ) && self::id_exists( $this->ID ) ) {
+    if ( $this->exists() ) {
       return;
     }
 

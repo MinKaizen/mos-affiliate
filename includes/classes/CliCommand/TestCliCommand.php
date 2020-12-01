@@ -44,8 +44,11 @@ class TestCliCommand extends CliCommand {
 
 
   public function test_all() {
+    $num_tests = count($this->tests);
+    $progress = \WP_CLI\Utils\make_progress_bar( 'Progress', $num_tests );
     foreach ( $this->tests as $test_stub ) {
       $this->test_single( $test_stub );
+      $progress->tick();
     }
   }
 

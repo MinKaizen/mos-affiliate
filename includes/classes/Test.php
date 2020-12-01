@@ -383,6 +383,10 @@ class Test {
       $user_data['user_pass'] = ranstr();
     }
 
+    if ( empty( $user_data['user_email'] ) ) {
+      $user_data['user_email'] = ranstr() . "@" . ranstr(5) . ".com";
+    }
+
     $user = new User();
 
     foreach ( $user_data as $key => $value ) {

@@ -99,4 +99,20 @@ class CampaignReport extends Controller {
   }
 
 
+  private function get_campaign_clicks(): array {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_visits';
+    $query = "SELECT campaign_name as name, COUNT(campaign_name) as clicks from $table WHERE affiliate_id = $this->affid GROUP BY CAMPAIGN_NAME";
+    $result = (array) $wpdb->get_results( $query, \ARRAY_A );
+
+    // Set array index to campaign name
+    foreach ( $result as $index => $row ) {
+      $result[$row['name']] = $row;
+      unset($result[$index]);
+    }
+
+    return $result;
+  }
+
+
 }

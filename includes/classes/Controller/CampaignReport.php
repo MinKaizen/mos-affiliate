@@ -116,9 +116,15 @@ class CampaignReport extends Controller {
   }
 
 
+  private function add_empty_row( array $campaign ): array {
+    $modified_campaign = $campaign;
+    $modified_campaign[self::EMPTY_CAMPAIGN_NAME] = [
+      'clicks' => $this->get_empty_campaign_clicks(),
+      'referrals' => $this->get_empty_campaign_referrals(),
     ];
-    $campaign_names = array_merge( $campaign_names, User::current()->get_campaigns() );
-    return $campaign_names;
+    return $modified_campaign;
+  }
+
   }
 
 

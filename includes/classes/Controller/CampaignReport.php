@@ -90,9 +90,32 @@ class CampaignReport extends Controller {
   }
 
 
-  public function export_campaign_names(): array {
-    $campaign_names = [
-      self::EMPTY_CAMPAIGN_NAME,
+
+
+  private function get_campaign_clicks_and_refs(): array {
+    if ( empty( $this->affid ) ) {
+      return [];
+    }
+
+    global $wpdb;
+    $table = $wpdb->prefix.'uap_campaigns';
+    $query = "SELECT `name`, `unique_visits_count` as clicks, `referrals` FROM $table WHERE affiliate_id = $this->affid";
+    $campaign_data = (array) $wpdb->get_results( $query, \ARRAY_A );
+
+    if ( empty( $campaign_data ) ) {
+      return [];
+    }
+
+    // Set index to campaign name
+    foreach( $campaign_data as $index => $campaign ) {
+      $campaign_data[$campaign['name']] = $campaign;
+      unset( $campaign_data[$index] );
+    }
+
+    return $campaign_data;
+  }
+
+
     ];
     $campaign_names = array_merge( $campaign_names, User::current()->get_campaigns() );
     return $campaign_names;

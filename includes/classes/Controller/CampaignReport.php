@@ -5,6 +5,8 @@ namespace MOS\Affiliate\Controller;
 use MOS\Affiliate\Controller;
 use MOS\Affiliate\User;
 
+use function MOS\Affiliate\format_currency;
+
 class CampaignReport extends Controller {
 
   const EMPTY_CAMPAIGN_NAME = '(no campaign)';
@@ -132,6 +134,10 @@ class CampaignReport extends Controller {
       if ( isset( $campaigns[$campaign_name]['commissions'] ) ) {
         $campaigns[$campaign_name]['commissions'] += $commission->get_amount();
       }
+    }
+
+    foreach ( $campaigns as &$campaign ) {
+      $campaign['commissions'] = format_currency( $campaign['commissions'], 0 );
     }
 
     return $campaigns;

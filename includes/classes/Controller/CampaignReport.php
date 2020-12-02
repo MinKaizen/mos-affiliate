@@ -21,34 +21,7 @@ class CampaignReport extends Controller {
     $this->affid = $this->user->get_affid();
     $this->referrals = $this->user->get_referrals();
     $this->commissions = $this->user->get_commissions();
-
-    $campaigns = $this->get_campaign_data();
-
-    // Add empty partners column to campaigns
-    foreach ( $campaigns as &$campaign ) {
-      $campaign['partners'] = 0;
-    }
-    
-    // Get a list of referrals
-    $user = User::current();
-    $referrals = $user->get_referrals();
-
-    // Count partners
-    foreach ( $referrals as $referral ) {
-      if ( $referral->is_partner() ) {
-        if ( empty( $referral->get_campaign() ) ) {
-          continue;
-        }
-        $campaigns[$referral->get_campaign()]['partners']++;
-      }
-    }
-
-    $this->campaigns = $campaigns;
-  }
-
-
-  protected function export_campaigns(): array {
-    return $this->campaigns;
+    $this->campaigns = $this->get_campaigns();
   }
 
 
@@ -62,37 +35,12 @@ class CampaignReport extends Controller {
   }
 
 
-  private function get_campaign_data(): array {
-    global $wpdb;
-
-    // Get affid of current user
-    $affid = User::current()->get_affid();
-
-    // Check if affid is valid
-    if ( empty( $affid ) ) {
-      return [];
-    }
-
-    // Perform SQL lookup
-    $table = $wpdb->prefix.'uap_campaigns';
-    $query = "SELECT `name`, `visit_count` as clicks, `unique_visits_count` as unique_clicks, `referrals` FROM $table WHERE affiliate_id = $affid";
-    $campaign_data = $wpdb->get_results( $query, \ARRAY_A );
-
-    // Check if campaign data is valid
-    if ( empty( $campaign_data ) ) {
-      return [];
-    }
-
-    foreach( $campaign_data as $index => $campaign ) {
-      $campaign_data[$campaign['name']] = $campaign;
-      unset( $campaign_data[$index] );
-    }
-
-    return $campaign_data;
+  public function export_campaigns(): array {
+    return $this->campaigns;
   }
 
 
-  public function export_test_campaigns(): array {
+  private function get_campaigns(): array {
     $campaigns = $this->get_campaign_clicks_and_refs();
     $campaigns = $this->add_empty_row( $campaigns );
     $campaigns = $this->append_partners( $campaigns );

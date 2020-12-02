@@ -163,7 +163,8 @@ class CampaignReport extends Controller {
   }
 
 
-    return $result;
+  private function append_commissions( array $campaigns ): array {
+    return $campaigns;
   }
 
 

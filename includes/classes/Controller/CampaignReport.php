@@ -7,6 +7,8 @@ use MOS\Affiliate\User;
 
 class CampaignReport extends Controller {
 
+  const EMPTY_CAMPAIGN_NAME = '(no campaign)';
+
   private $campaigns = [];
 
 

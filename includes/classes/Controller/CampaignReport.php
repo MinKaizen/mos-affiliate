@@ -111,7 +111,7 @@ class CampaignReport extends Controller {
   private function get_empty_campaign_referrals(): int {
     global $wpdb;
     $table = $wpdb->prefix . 'uap_referrals';
-    $query = "SELECT COUNT(`campaign_name`) FROM $table WHERE `campaign_name` = '' AND `affiliate_id` = $this->affid";
+    $query = "SELECT COUNT(`campaign`) FROM $table WHERE `campaign` = '' AND `affiliate_id` = $this->affid";
     $result = (int) $wpdb->get_var( $query );
     return $result;
   }

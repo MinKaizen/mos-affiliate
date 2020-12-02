@@ -126,12 +126,11 @@ class CampaignReport extends Controller {
 
 
   private function add_empty_row( array $campaign ): array {
-    $modified_campaign = $campaign;
-    $modified_campaign[self::EMPTY_CAMPAIGN_NAME] = [
+    $campaign[self::EMPTY_CAMPAIGN_NAME] = [
       'clicks' => $this->get_empty_campaign_clicks(),
       'referrals' => $this->get_empty_campaign_referrals(),
     ];
-    return $modified_campaign;
+    return $campaign;
   }
 
 

@@ -12,11 +12,13 @@ class CampaignReport extends Controller {
   private $campaigns = [];
   private $user;
   private $affid = 0;
+  private $referrals = [];
 
 
   public function __construct() {
     $this->user = User::current();
     $this->affid = $this->user->get_affid();
+    $this->referrals = $this->user->get_referrals();
     
     $campaigns = $this->get_campaign_data();
 

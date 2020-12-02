@@ -90,6 +90,13 @@ class CampaignReport extends Controller {
   }
 
 
+  public function export_test_campaigns(): array {
+    $campaigns = $this->get_campaign_clicks_and_refs();
+    $campaigns = $this->add_empty_row( $campaigns );
+    $campaigns = $this->append_partners( $campaigns );
+    $campaigns = $this->append_commissions( $campaigns );
+    return $campaigns;
+  }
 
 
   private function get_campaign_clicks_and_refs(): array {

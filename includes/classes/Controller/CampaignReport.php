@@ -139,6 +139,20 @@ class CampaignReport extends Controller {
 
 
   private function append_epc( array $campaigns ): array {
+    foreach ( $campaigns as $campaign ) {
+      if ( !isset( $campaign['clicks'] ) ) {
+        return [];
+      }
+      if ( !isset( $campaign['commissions'] ) ) {
+        return [];
+      }
+    }
+
+    foreach ( $campaigns as &$campaign ) {
+      $campaign['EPC'] = (float) $campaign['commissions'] / (float) $campaign['clicks'];
+      $campaign['EPC'] = is_nan($campaign['EPC']) ? 0 : $campaign['EPC'];
+    }
+
     return $campaigns;
   }
 

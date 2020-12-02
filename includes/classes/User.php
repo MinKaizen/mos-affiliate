@@ -244,6 +244,29 @@ class User extends \WP_User {
   }
 
 
+  public function get_campaigns(): array {
+    $affid = $this->get_affid();
+    if ( empty( $affid ) ) {
+      return [];
+    }
+
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_campaigns';
+    $query = "SELECT DISTINCT `name` FROM $table WHERE affiliate_id = $affid";
+    $result = (array) $wpdb->get_results( $query, \ARRAY_N );
+
+    // Format result
+    $campaign_names = [];
+    foreach ( $result as $row ) {
+      if ( isset( $row[0] ) ) {
+        $campaign_names[] = $row[0];
+      }
+    }
+    
+    return $campaign_names;
+  }
+
+
   public function db_insert(): void {
     if ( $this->exists() ) {
       return;

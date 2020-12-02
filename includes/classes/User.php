@@ -267,6 +267,15 @@ class User extends \WP_User {
   }
 
 
+  public function get_commissions(): array {
+    global $wpdb;
+    $table = $wpdb->prefix . Migration\CommissionsMigration::TABLE_NAME;
+    $query = "SELECT * FROM $table WHERE earner_id = {$this->get_wpid()}";
+    $commissions = (array) $wpdb->get_results( $query, \ARRAY_A ) ;
+    return $commissions;
+  }
+
+
   public function db_insert(): void {
     if ( $this->exists() ) {
       return;

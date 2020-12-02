@@ -117,6 +117,24 @@ class CampaignReport extends Controller {
   }
 
 
+  private function append_partners( array $campaigns ): array {
+    foreach ( $campaigns as &$campaign ) {
+      $campaign['partners'] = 0;
+    }
+
+    foreach ( $this->referrals as $user ) {
+      if ( $user->is_partner() ) {
+        $campaign_name = $user->get_campaign();
+        $campaign_name = $campaign_name ? $campaign_name : self::EMPTY_CAMPAIGN_NAME;
+        if ( isset( $campaigns[$campaign_name]['partners'] ) ) {
+          $campaigns[$campaign_name]['partners']++;
+        }
+      }
+    }
+
+    return $campaigns;
+  }
+
 
     return $result;
   }

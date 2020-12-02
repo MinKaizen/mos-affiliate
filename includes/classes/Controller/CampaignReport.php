@@ -107,11 +107,16 @@ class CampaignReport extends Controller {
     return $result;
   }
 
-    // Set array index to campaign name
-    foreach ( $result as $index => $row ) {
-      $result[$row['name']] = $row;
-      unset($result[$index]);
-    }
+
+  private function get_empty_campaign_referrals(): int {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_referrals';
+    $query = "SELECT COUNT(`campaign_name`) FROM $table WHERE `campaign_name` = '' AND `affiliate_id` = $this->affid";
+    $result = (int) $wpdb->get_var( $query );
+    return $result;
+  }
+
+
 
     return $result;
   }

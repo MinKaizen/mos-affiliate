@@ -13,13 +13,15 @@ class CampaignReport extends Controller {
   private $user;
   private $affid = 0;
   private $referrals = [];
+  private $commissions = [];
 
 
   public function __construct() {
     $this->user = User::current();
     $this->affid = $this->user->get_affid();
     $this->referrals = $this->user->get_referrals();
-    
+    $this->commissions = $this->user->get_commissions();
+
     $campaigns = $this->get_campaign_data();
 
     // Add empty partners column to campaigns
@@ -171,6 +173,16 @@ class CampaignReport extends Controller {
 
 
   private function append_commissions( array $campaigns ): array {
+    foreach ( $campaigns as &$campaign ) {
+      $campaign['commissions'] = 0;
+    }
+
+    foreach ( $this->commissions as $commission ) {
+      if ( isset( $campaigns[$commission->get_campaign()]['commissions'] ) ) {
+        $campaigns[$commission->get_campaign()]['commissions'] += $commission->get_amount();
+      }
+    }
+
     return $campaigns;
   }
 

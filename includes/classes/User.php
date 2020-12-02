@@ -267,11 +267,18 @@ class User extends \WP_User {
   }
 
 
-  public function get_commissions(): array {
+  public function get_commissions( bool $return_objects=true ): array {
     global $wpdb;
     $table = $wpdb->prefix . Migration\CommissionsMigration::TABLE_NAME;
     $query = "SELECT * FROM $table WHERE earner_id = {$this->get_wpid()}";
     $commissions = (array) $wpdb->get_results( $query, \ARRAY_A ) ;
+
+    if ( $return_objects ) {
+      foreach ( $commissions as &$commission ) {
+        $commission = Commission::create_from_array( $commission );
+      }
+    }
+
     return $commissions;
   }
 

@@ -10,9 +10,14 @@ class CampaignReport extends Controller {
   const EMPTY_CAMPAIGN_NAME = '(no campaign)';
 
   private $campaigns = [];
+  private $user;
+  private $affid = 0;
 
 
   public function __construct() {
+    $this->user = User::current();
+    $this->affid = $this->user->get_affid();
+    
     $campaigns = $this->get_campaign_data();
 
     // Add empty partners column to campaigns

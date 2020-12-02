@@ -178,8 +178,10 @@ class CampaignReport extends Controller {
     }
 
     foreach ( $this->commissions as $commission ) {
-      if ( isset( $campaigns[$commission->get_campaign()]['commissions'] ) ) {
-        $campaigns[$commission->get_campaign()]['commissions'] += $commission->get_amount();
+      $campaign_name = $commission->get_campaign();
+      $campaign_name = $campaign_name ? $campaign_name : self::EMPTY_CAMPAIGN_NAME;
+      if ( isset( $campaigns[$campaign_name]['commissions'] ) ) {
+        $campaigns[$campaign_name]['commissions'] += $commission->get_amount();
       }
     }
 

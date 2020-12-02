@@ -125,8 +125,6 @@ class CampaignReport extends Controller {
     return $modified_campaign;
   }
 
-  }
-
 
   private function get_empty_campaign_clicks(): int {
     global $wpdb;

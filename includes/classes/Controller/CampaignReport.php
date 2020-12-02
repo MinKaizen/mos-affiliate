@@ -149,8 +149,8 @@ class CampaignReport extends Controller {
     }
 
     foreach ( $campaigns as &$campaign ) {
-      $campaign['EPC'] = (float) $campaign['commissions'] / (float) $campaign['clicks'];
-      $campaign['EPC'] = is_nan($campaign['EPC']) ? 0 : $campaign['EPC'];
+      $campaign['EPC'] = (float) $campaign['clicks'] == 0.0 ? 0.0 : (float) $campaign['commissions'] / (float) $campaign['clicks'];
+      $campaign['EPC'] = format_currency( $campaign['EPC'] );
     }
 
     return $campaigns;

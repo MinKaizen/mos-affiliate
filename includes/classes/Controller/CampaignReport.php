@@ -81,5 +81,13 @@ class CampaignReport extends Controller {
   }
 
 
+  public function export_campaign_names(): array {
+    $campaign_names = [
+      self::EMPTY_CAMPAIGN_NAME,
+    ];
+    $campaign_names = array_merge( $campaign_names, User::current()->get_campaigns() );
+    return $campaign_names;
+  }
+
 
 }

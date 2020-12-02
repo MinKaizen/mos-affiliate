@@ -45,6 +45,7 @@ class CampaignReport extends Controller {
     $campaigns = $this->add_empty_row( $campaigns );
     $campaigns = $this->append_partners( $campaigns );
     $campaigns = $this->append_commissions( $campaigns );
+    $campaigns = $this->append_epc( $campaigns );
     return $campaigns;
   }
 
@@ -133,6 +134,11 @@ class CampaignReport extends Controller {
       }
     }
 
+    return $campaigns;
+  }
+
+
+  private function append_epc( array $campaigns ): array {
     return $campaigns;
   }
 

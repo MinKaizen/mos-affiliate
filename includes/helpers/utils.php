@@ -163,3 +163,9 @@ function ranstr( int $length=32 ): string {
   }
   return $random_string;
 }
+
+
+function format_currency( float $number, int $decimals=2 ): string {
+  $currency = '$' . number_format( $number, $decimals );
+  return $currency;
+}

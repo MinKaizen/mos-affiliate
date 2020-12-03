@@ -45,6 +45,25 @@ class User extends \WP_User {
   }
 
 
+  public function exists(): bool {
+    $exists = false;
+    
+    if ( ! empty( $this->get_email() ) && self::email_exists( $this->get_email() ) ) {
+      $exists = true;
+    }
+    
+    if ( ! empty( $this->get_username() ) && self::username_exists( $this->get_username() ) ) {
+      $exists = true;
+    }
+
+    if ( ! empty( $this->get_wpid() ) && self::id_exists( $this->get_wpid() ) ) {
+      $exists = true;
+    }
+
+    return $exists;
+  }
+
+
   public static function id_exists( int $id ): bool {
     $user = \get_user_by( 'id', $id );
     return ! empty( $user );
@@ -84,25 +103,6 @@ class User extends \WP_User {
     $sponsor = self::from_affid( $sponsor_affid );
     $sponsor = \apply_filters( 'mos_sponsor', $sponsor, $this->ID );
     return $sponsor;
-  }
-
-
-  public function exists(): bool {
-    $exists = false;
-    
-    if ( ! empty( $this->get_email() ) && self::email_exists( $this->get_email() ) ) {
-      $exists = true;
-    }
-    
-    if ( ! empty( $this->get_username() ) && self::username_exists( $this->get_username() ) ) {
-      $exists = true;
-    }
-
-    if ( ! empty( $this->get_wpid() ) && self::id_exists( $this->get_wpid() ) ) {
-      $exists = true;
-    }
-
-    return $exists;
   }
 
 

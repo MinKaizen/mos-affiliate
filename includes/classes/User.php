@@ -344,6 +344,8 @@ class User extends \WP_User {
       return;
     }
     global $wpdb;
+    
+    // Sever relationship
     $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
     $where = ['referral_wp_uid' => $this->ID];
     $formats = ['referral_wp_uid' => '%d'];

@@ -197,14 +197,17 @@ class User extends \WP_User {
 
 
   public function is_partner(): bool {
-    $partner_levels = [
-      'Monthly Partner',
-      'Yearly Partner',
-      'Lifetime Partner',
-      'Partner',
-      'Legendary Partner',
+    $role = empty( $this->roles ) ? '' : $this->roles[0];
+    $partner_slugs = [
+      'partner',
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+      'legacy_partner',
+      'legendary_partner',
+      'legacy_legendary_partner',
     ];
-    $is_partner = in_array( $this->get_level(), $partner_levels );
+    $is_partner = in_array( $role, $partner_slugs );
     return $is_partner;
   }
 

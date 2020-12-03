@@ -169,6 +169,37 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_is_partner(): void {
+    $user = new User();
+    
+    // Valid partner roles
+    $user->roles = ['partner'];
+    $this->assert_true( $user->is_partner() );
+    $user->roles = ['monthly_partner'];
+    $this->assert_true( $user->is_partner() );
+    $user->roles = ['yearly_partner'];
+    $this->assert_true( $user->is_partner() );
+    $user->roles = ['lifetime_partner'];
+    $this->assert_true( $user->is_partner() );
+    $user->roles = ['legacy_partner'];
+    $this->assert_true( $user->is_partner() );
+    $user->roles = ['legendary_partner'];
+    $this->assert_true( $user->is_partner() );
+    $user->roles = ['legacy_legendary_partner'];
+    $this->assert_true( $user->is_partner() );
+
+    // Invalid partner roles
+    $user->roles = [];
+    $this->assert_false( $user->is_partner() );
+    $user->roles = ['administrator'];
+    $this->assert_false( $user->is_partner() );
+    $user->roles = ['free'];
+    $this->assert_false( $user->is_partner() );
+    $user->roles = ['subscriber'];
+    $this->assert_false( $user->is_partner() );
+  }
+
+
   public function test_get_referral_ids(): void {
     $this->_injected_user = $this->create_test_user();
     $referral1 = $this->create_test_user();

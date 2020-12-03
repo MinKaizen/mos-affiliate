@@ -393,4 +393,19 @@ class User extends \WP_User {
   }
 
 
+  private function db_remove_clicks(): void {
+    $affid = $this->get_affid();
+    if ( empty( $affid ) ) {
+      return;
+    }
+
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'uap_visits';
+    $where = ['affiliate_id' => $affid];
+    $formats = ['affiliate_id' => '%d'];
+    $wpdb->delete( $table, $where, $formats );
+  }
+
+
 }

@@ -244,6 +244,22 @@ class User extends \WP_User {
   }
 
 
+  public function has_campaign( string $campaign_name ): bool {
+    $affid = $this->get_affid();
+    if ( empty( $affid ) ) {
+      return false;
+    }
+
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'uap_campaigns';
+    $query = "SELECT name FROM $table WHERE name = '$campaign_name' AND affiliate_id = $affid";
+    $result = (string) $wpdb->get_var( $query );
+    $has_campaign = strtolower( $result ) == strtolower( $campaign_name );
+    return $has_campaign;
+  }
+
+
   public function get_campaigns(): array {
     $affid = $this->get_affid();
     if ( empty( $affid ) ) {

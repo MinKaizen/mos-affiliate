@@ -362,4 +362,18 @@ class User extends \WP_User {
   }
 
 
+  private function db_remove_downlines(): void {
+    $affid = $this->get_affid();
+    if ( empty( $affid ) ) {
+      return;
+    }
+
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+    $where = ['affiliate_id' => $affid];
+    $formats = ['affiliate_id' => '%d'];
+    $wpdb->delete( $table, $where, $formats );
+  }
+
+
 }

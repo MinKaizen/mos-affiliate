@@ -350,6 +350,12 @@ class User extends \WP_User {
     $where = ['referral_wp_uid' => $this->ID];
     $formats = ['referral_wp_uid' => '%d'];
     $wpdb->delete( $table, $where, $formats );
+
+    // Remove self from sponsor's referral stats
+    $table = $wpdb->prefix . 'uap_referrals';
+    $where = ['refferal_wp_uid' => $this->ID];
+    $formats = ['refferal_wp_uid' => '%d'];
+    $wpdb->delete( $table, $where, $formats );
   }
 
 

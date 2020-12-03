@@ -312,6 +312,7 @@ class User extends \WP_User {
     $this->db_remove_downlines();
     $this->db_unregister_affiliate();
     $this->db_remove_clicks();
+    $this->db_remove_campaigns();
   }
 
 

@@ -332,6 +332,32 @@ class User extends \WP_User {
   }
 
 
+  public function db_add_campaign( string $campaign_name ): void {
+    $affid = $this->get_affid();
+    if ( empty( $affid ) ) {
+      echo "affid is empty!";
+      return;
+    }
+    
+    if ( $this->has_campaign( $campaign_name ) ) {
+      echo "Already has campaign!";
+      return;
+    }
+
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_campaigns';
+    $columns = [
+      'name' => $campaign_name,
+      'affiliate_id' => $affid,
+    ];
+    $formats = [
+      'name' => '%s',
+      'affiliate_id' => '%d',
+    ];
+    $wpdb->insert( $table, $columns, $formats );
+  }
+
+
   public function db_add_sponsor( User $sponsor ): void {
     $already_has_sponsor = ! $this->sponsor()->is_empty();
     if ( $already_has_sponsor ) {

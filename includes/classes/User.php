@@ -370,7 +370,15 @@ class User extends \WP_User {
     }
 
     global $wpdb;
+
+    // Remove affiliate relationships
     $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+    $where = ['affiliate_id' => $affid];
+    $formats = ['affiliate_id' => '%d'];
+    $wpdb->delete( $table, $where, $formats );
+
+    // Remove referral stats
+    $table = $wpdb->prefix . 'uap_referrals';
     $where = ['affiliate_id' => $affid];
     $formats = ['affiliate_id' => '%d'];
     $wpdb->delete( $table, $where, $formats );

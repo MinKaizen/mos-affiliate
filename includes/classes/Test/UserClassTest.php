@@ -72,12 +72,6 @@ class UserClassTest extends Test {
   }
 
 
-  public function test_is_empty(): void {
-    $user = new User();
-    $this->assert_true( $user->is_empty() );
-  }
-
-
   public function test_get_wpid(): void {
     $test_user_id = 42;
     $user = new User();
@@ -250,7 +244,7 @@ class UserClassTest extends Test {
     $user->db_delete();
     $this->assert_false( User::affid_exists( $affid ), "Affid $affid should be deleted after user->db_delete()" );
     $this->assert_false( User::id_exists( $id ), "User ID $id should not exist after user->db_delete" );
-    $this->assert_true( $user->sponsor()->is_empty(), "Sponsor relationship should be deleted after user->db_delete()" );
+    $this->assert_false( $user->sponsor()->exists(), "Sponsor relationship should be deleted after user->db_delete()" );
     
     // delete sponsor
     $sponsor_affid = $sponsor->get_affid();

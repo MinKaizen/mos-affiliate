@@ -106,12 +106,6 @@ class User extends \WP_User {
   }
 
 
-  public function is_empty(): bool {
-    $is_empty = empty( $this->ID );
-    return $is_empty;
-  }
-
-
   public function get_wpid(): int {
     $wpid = $this->ID ? $this->ID : 0;
     return $wpid;
@@ -359,7 +353,7 @@ class User extends \WP_User {
 
 
   public function db_add_sponsor( User $sponsor ): void {
-    $already_has_sponsor = ! $this->sponsor()->is_empty();
+    $already_has_sponsor = $this->sponsor()->exists();
     if ( $already_has_sponsor ) {
       return;
     }

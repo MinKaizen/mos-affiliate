@@ -18,7 +18,7 @@ class SponsorMisShortcode extends AbstractShortcode {
   public function shortcode_action( $args ): string {
     $sponsor = User::current()->sponsor();
 
-    if ( $sponsor->is_empty() ) {
+    if ( ! $sponsor->exists() ) {
       return Mis::default_value_for( $args['network'] );
     }
     

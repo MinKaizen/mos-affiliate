@@ -409,4 +409,19 @@ class User extends \WP_User {
   }
 
 
+  private function db_remove_campaigns(): void {
+    $affid = $this->get_affid();
+    if ( empty( $affid ) ) {
+      return;
+    }
+
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'uap_campaigns';
+    $where = ['affiliate_id' => $affid];
+    $formats = ['affiliate_id' => '%d'];
+    $wpdb->delete( $table, $where, $formats );
+  }
+
+
 }

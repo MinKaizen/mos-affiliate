@@ -78,7 +78,7 @@ class CampaignReport extends Controller {
 
     // Set index to campaign name
     $modified_campaign_data = [];
-    foreach( $campaign_data as $campaign ) {
+    foreach ( $campaign_data as $campaign ) {
       $modified_campaign_data[$campaign['name']] = $campaign;
     }
 

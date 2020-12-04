@@ -11,12 +11,6 @@ class Database {
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
 
-  public function user_has_sponsor( int $id ): bool {
-    $sponsor_affid = $this->sponsor_affid( $id );
-    return !empty( $sponsor_affid );
-  }
-
-
   public function sponsor_affid( int $id ): int {
     global $wpdb;
     $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';

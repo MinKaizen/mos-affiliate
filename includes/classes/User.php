@@ -241,45 +241,6 @@ class User extends \WP_User {
   }
 
 
-  public function has_campaign( string $campaign_name ): bool {
-    $affid = $this->get_affid();
-    if ( empty( $affid ) ) {
-      return false;
-    }
-
-    global $wpdb;
-
-    $table = $wpdb->prefix . 'uap_campaigns';
-    $query = "SELECT name FROM $table WHERE name = '$campaign_name' AND affiliate_id = $affid";
-    $result = (string) $wpdb->get_var( $query );
-    $has_campaign = strtolower( $result ) == strtolower( $campaign_name );
-    return $has_campaign;
-  }
-
-
-  public function get_campaigns(): array {
-    $affid = $this->get_affid();
-    if ( empty( $affid ) ) {
-      return [];
-    }
-
-    global $wpdb;
-    $table = $wpdb->prefix . 'uap_campaigns';
-    $query = "SELECT DISTINCT `name` FROM $table WHERE affiliate_id = $affid";
-    $result = (array) $wpdb->get_results( $query, \ARRAY_N );
-
-    // Format result
-    $campaign_names = [];
-    foreach ( $result as $row ) {
-      if ( isset( $row[0] ) ) {
-        $campaign_names[] = $row[0];
-      }
-    }
-    
-    return $campaign_names;
-  }
-
-
   public function get_commissions( bool $return_objects=true ): array {
     global $wpdb;
     $table = $wpdb->prefix . Migration\CommissionsMigration::TABLE_NAME;
@@ -325,33 +286,6 @@ class User extends \WP_User {
     $this->db_remove_downlines();
     $this->db_unregister_affiliate();
     $this->db_remove_clicks();
-    $this->db_remove_campaigns();
-  }
-
-
-  public function db_add_campaign( string $campaign_name ): void {
-    $affid = $this->get_affid();
-    if ( empty( $affid ) ) {
-      echo "affid is empty!";
-      return;
-    }
-    
-    if ( $this->has_campaign( $campaign_name ) ) {
-      echo "Already has campaign!";
-      return;
-    }
-
-    global $wpdb;
-    $table = $wpdb->prefix . 'uap_campaigns';
-    $columns = [
-      'name' => $campaign_name,
-      'affiliate_id' => $affid,
-    ];
-    $formats = [
-      'name' => '%s',
-      'affiliate_id' => '%d',
-    ];
-    $wpdb->insert( $table, $columns, $formats );
   }
 
 
@@ -443,21 +377,6 @@ class User extends \WP_User {
     global $wpdb;
 
     $table = $wpdb->prefix . 'uap_visits';
-    $where = ['affiliate_id' => $affid];
-    $formats = ['affiliate_id' => '%d'];
-    $wpdb->delete( $table, $where, $formats );
-  }
-
-
-  private function db_remove_campaigns(): void {
-    $affid = $this->get_affid();
-    if ( empty( $affid ) ) {
-      return;
-    }
-
-    global $wpdb;
-
-    $table = $wpdb->prefix . 'uap_campaigns';
     $where = ['affiliate_id' => $affid];
     $formats = ['affiliate_id' => '%d'];
     $wpdb->delete( $table, $where, $formats );

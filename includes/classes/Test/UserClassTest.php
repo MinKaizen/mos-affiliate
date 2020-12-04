@@ -151,6 +151,11 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_get_campaign(): void {
+    #todo
+  }
+
+
   public function test_qualifies_for_mis(): void {
     $this->_test_single_mis( '\MOS\Affiliate\Mis\GrMis' );
     $this->_test_single_mis( '\MOS\Affiliate\Mis\CbMis' );

@@ -521,7 +521,7 @@ class Test {
     $default_data = [
       'date' => '1991-01-01',
       'amount' => 1.00,
-      'description' => '---',
+      'description' => 'mos_test',
       'earner_id' => 1,
     ];
     $data = array_replace_recursive( $default_data, $passed_data );

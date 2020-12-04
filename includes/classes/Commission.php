@@ -6,19 +6,19 @@ use function \MOS\Affiliate\is_dateable;
 
 class Commission {
 
-  private $id;
-  private $date;
-  private $amount;
-  private $description;
-  private $transaction_id;
-  private $campaign;
-  private $actor_id;
-  private $earner_id;
-  private $payout_date;
-  private $payout_method;
-  private $payout_address;
-  private $payout_transaction_id;
-  private $refund_date;
+  private $id = 0;
+  private $date = '';
+  private $amount = 0.0;
+  private $description = '';
+  private $transaction_id = '';
+  private $campaign = '';
+  private $actor_id = 0;
+  private $earner_id = 0;
+  private $payout_date = '';
+  private $payout_method = '';
+  private $payout_address = '';
+  private $payout_transaction_id = '';
+  private $refund_date = '';
   private $table;
 
 

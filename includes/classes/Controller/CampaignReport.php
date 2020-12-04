@@ -158,7 +158,9 @@ class CampaignReport extends Controller {
     }
 
     foreach ( $campaigns as &$campaign ) {
-      $campaign['EPC'] = (float) $campaign['clicks'] == 0.0 ? 0.0 : (float) $campaign['commissions'] / (float) $campaign['clicks'];
+      $clicks = (int) $campaign['clicks'];
+      $commissions = (float) $campaign['commissions'];
+      $campaign['EPC'] = $clicks == 0 ? 0.0 : $commissions / $clicks;
     }
 
     return $campaigns;

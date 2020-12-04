@@ -11,12 +11,6 @@ class Database {
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
 
-  public function user_exists( int $id ): bool {
-    $user = \get_user_by( 'id', $id );
-    return !empty($user);
-  }
-
-
   public function user_has_sponsor( int $id ): bool {
     $sponsor_affid = $this->sponsor_affid( $id );
     return !empty( $sponsor_affid );

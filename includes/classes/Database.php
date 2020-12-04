@@ -179,29 +179,6 @@ class Database {
   }
   
 
-  public function get_campaigns(): array {
-    global $wpdb;
-
-    // Get wpid of current user
-    $affid = $this->get_affid();
-
-    if ( empty( $affid ) ) {
-      return [];
-    }
-
-    // Perform SQL lookup
-    $table = $wpdb->prefix.'uap_campaigns';
-    $query = "SELECT DISTINCT name FROM $table WHERE affiliate_id = $affid";
-    $campaigns = $wpdb->get_col( $query );
-
-    if ( empty($campaigns) ) {
-      return [];
-    }
-
-    return $campaigns;
-  }
-
-
   public function get_affid(): int {
     global $wpdb;
 

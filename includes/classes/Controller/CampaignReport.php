@@ -153,10 +153,10 @@ class CampaignReport extends Controller {
   private function append_epc( array $campaigns ): array {
     foreach ( $campaigns as $campaign ) {
       if ( !isset( $campaign['clicks'] ) ) {
-        return [];
+        return $campaigns;
       }
       if ( !isset( $campaign['commissions'] ) ) {
-        return [];
+        return $campaigns;
       }
     }
 

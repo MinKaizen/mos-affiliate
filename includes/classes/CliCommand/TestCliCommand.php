@@ -15,7 +15,6 @@ class TestCliCommand extends CliCommand {
     'access_redirects',
     'commission_class',
     'commission_table',
-    'database_class',
     'levels_exist',
     'migrations',
     'pre_conditions',

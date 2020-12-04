@@ -66,14 +66,22 @@ class CampaignReport extends Controller {
       return [];
     }
 
-    // Set index to campaign name
-    foreach( $campaign_data as $numbererd_index => $campaign ) {
-      $named_index = empty( $campaign['name'] ) ? self::EMPTY_CAMPAIGN_NAME : $campaign['name'];
-      $campaign_data[$named_index] = $campaign;
-      unset( $campaign_data[$numbererd_index] );
+    
+    // Rename empty campaign name
+    foreach ( $campaign_data as &$campaign ) {
+      if ( $campaign['name'] === '') {
+        $campaign['name'] = self::EMPTY_CAMPAIGN_NAME;
+        break;
+      }
     }
 
-    return $campaign_data;
+    // Set index to campaign name
+    $modified_campaign_data = [];
+    foreach( $campaign_data as $campaign ) {
+      $modified_campaign_data[$campaign['name']] = $campaign;
+    }
+
+    return $modified_campaign_data;
   }
 
 

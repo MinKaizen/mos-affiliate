@@ -95,16 +95,15 @@ class CampaignReport extends Controller {
       return $campaigns;
     }
 
-    // Set index to campaign name
-    foreach( $results as $numbererd_index => $result ) {
-      $named_index = empty( $result['name'] ) ? self::EMPTY_CAMPAIGN_NAME : $result['name'];
-      $results[$named_index] = $result;
-      unset( $results[$numbererd_index] );
+    foreach ( $campaigns as &$campaign ) {
+      $campaign['referrals'] = 0;
     }
-    
-    // Merge arrays
-    foreach ( $campaigns as $campaign_name => &$campaign ) {
-      $campaign['referrals'] = empty( $results[$campaign_name] ) ? 0 : (int) $results[$campaign_name]['referrals'];
+
+    foreach ( $results as $result ) {
+      $campaign_name = empty( $result['name'] ) ? self::EMPTY_CAMPAIGN_NAME : $result['name'];
+      if ( isset( $campaigns[$campaign_name] ) ) {
+        $campaigns[$campaign_name]['referrals'] = $result['referrals'];
+      }
     }
 
     return $campaigns;

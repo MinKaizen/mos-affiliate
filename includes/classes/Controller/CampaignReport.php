@@ -138,7 +138,7 @@ class CampaignReport extends Controller {
 
   private function append_commissions( array $campaigns ): array {
     foreach ( $campaigns as &$campaign ) {
-      $campaign['commissions'] = 0;
+      $campaign['commissions'] = 0.0;
     }
 
     foreach ( $this->commissions as $commission ) {

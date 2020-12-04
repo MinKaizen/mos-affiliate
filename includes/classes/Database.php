@@ -11,31 +11,6 @@ class Database {
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
 
-  /**
-   * Convert WP Capability (serialized php array) to slug or nice name (optional)
-   *
-   * @param string $wpcap               Wordpress capability in php serialized array form
-   * @param boolean $use_nice_name      (optional) whether to return a nice name instead of a slug
-   * @return string                     Slug or nicename of the level
-   */
-  private function wpcap_to_level( string $wpcap, bool $use_nice_name=false ): string {
-    $unserialized = unserialize( $wpcap );
-
-    if ( empty(array_keys( $unserialized )[0] ) ) {
-      return '';
-    }
-
-    $level = array_keys( $unserialized )[0];
-
-    // Optionally, return a nice name instead of a slug
-    if ( $use_nice_name ) {
-      $level = ucwords( str_replace( '_', ' ', $level ) );
-    }
-
-    return $level;
-  }
-
-
   public function get_row( string $table_name_stub, array $conditions=[], array $columns=['*'] ): array {
     global $wpdb;
     $table = $wpdb->prefix . $table_name_stub;

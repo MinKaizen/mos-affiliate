@@ -102,7 +102,7 @@ class CampaignReport extends Controller {
     foreach ( $results as $result ) {
       $campaign_name = empty( $result['name'] ) ? self::EMPTY_CAMPAIGN_NAME : $result['name'];
       if ( isset( $campaigns[$campaign_name] ) ) {
-        $campaigns[$campaign_name]['referrals'] = $result['referrals'];
+        $campaigns[$campaign_name]['referrals'] = (int) $result['referrals'];
       }
     }
 

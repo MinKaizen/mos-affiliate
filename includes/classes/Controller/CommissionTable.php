@@ -13,14 +13,12 @@ class CommissionTable extends Controller {
 
 
   public function __construct() {
+    global $wpdb;
     $id = User::current()->get_wpid();
-    $db = new Database();
-    $conditions = [
-      "earner_id = $id",
-      "refund_date IS NULL",
-      "payout_date IS NOT NULL",
-    ];
-    $rows = $db->get_rows( 'mos_commissions', $conditions );
+    $table = $wpdb->prefix . 'mos_commissions';
+    $return_type = 'ARRAY_A';
+    $query = "SELECT * FROM $table WHERE earner_id = $id AND refund_date IS NULL AND payout_date IS NOT NULL";
+    $rows = $wpdb->get_results( $query, $return_type );
     $this->rows = $this->format_rows( $rows );
     $this->tooltips = $this->generate_tooltips( $rows );
   }

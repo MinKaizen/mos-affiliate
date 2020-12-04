@@ -10,18 +10,6 @@ class Database {
 
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
-
-  public function get_wpid(): int {
-    $wpid = \get_current_user_id();
-
-    if ( empty( $wpid ) ) {
-      return 0;
-    }
-
-    return $wpid;
-  }
-
-
   /**
    * Register a user as a UAP Affiliate
    * If user doesn't exist, return false

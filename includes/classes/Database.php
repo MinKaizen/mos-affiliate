@@ -11,15 +11,6 @@ class Database {
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
 
-  public function sponsor_affid( int $id ): int {
-    global $wpdb;
-    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
-    $query = "SELECT affiliate_id FROM $table WHERE referral_wp_uid = $id LIMIT 1";
-    $sponsor_affid = (int) $wpdb->get_var( $query );
-    return $sponsor_affid;
-  }
-
-
   /**
    * Convert WP Capability (serialized php array) to slug or nice name (optional)
    *

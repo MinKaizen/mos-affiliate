@@ -3,7 +3,6 @@
 namespace MOS\Affiliate\Controller;
 
 use MOS\Affiliate\Controller;
-use MOS\Affiliate\Database;
 use MOS\Affiliate\User;
 
 class CommissionTable extends Controller {

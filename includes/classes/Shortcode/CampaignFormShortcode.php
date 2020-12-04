@@ -10,7 +10,8 @@ class CampaignFormShortcode extends AbstractShortcode {
   protected $slug = 'mos_campaign_form';
 
   public function shortcode_action( $args ): string {
-    return get_view( 'campaign_form' );
+    // return get_view( 'campaign_form' );
+    return 'ERROR: Campaign form has been deprecated';
   }
 
 }

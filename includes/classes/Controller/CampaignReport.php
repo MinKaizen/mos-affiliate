@@ -81,6 +81,13 @@ class CampaignReport extends Controller {
       $modified_campaign_data[$campaign['name']] = $campaign;
     }
 
+    // Coerce clicks to int
+    foreach ( $campaign_data as &$campaign ) {
+      if ( isset( $campaign['clicks'] ) ) {
+        $campaign['clicks'] = (int) $campaign['clicks'];
+      }
+    }
+
     return $modified_campaign_data;
   }
 

@@ -9,7 +9,7 @@ use function MOS\Affiliate\format_currency;
 
 class CampaignReport extends Controller {
 
-  const EMPTY_CAMPAIGN_NAME = '(no campaign)';
+  const EMPTY_CAMPAIGN_NAME = '(none)';
 
   private $campaigns = [];
   private $user;
@@ -43,8 +43,8 @@ class CampaignReport extends Controller {
 
 
   private function get_campaigns(): array {
-    $campaigns = $this->get_campaign_clicks_and_refs();
-    $campaigns = $this->add_empty_row( $campaigns );
+    $campaigns = $this->get_campaign_clicks();
+    $campaigns = $this->append_referrals( $campaigns );
     $campaigns = $this->append_partners( $campaigns );
     $campaigns = $this->append_commissions( $campaigns );
     $campaigns = $this->append_epc( $campaigns );
@@ -52,14 +52,14 @@ class CampaignReport extends Controller {
   }
 
 
-  private function get_campaign_clicks_and_refs(): array {
+  private function get_campaign_clicks(): array {
     if ( empty( $this->affid ) ) {
       return [];
     }
 
     global $wpdb;
-    $table = $wpdb->prefix.'uap_campaigns';
-    $query = "SELECT `name`, `unique_visits_count` as clicks, `referrals` FROM $table WHERE affiliate_id = $this->affid";
+    $table = $wpdb->prefix.'uap_visits';
+    $query = "SELECT campaign_name as name, count(DISTINCT ip) as clicks FROM $table WHERE affiliate_id = $this->affid GROUP BY campaign_name";
     $campaign_data = (array) $wpdb->get_results( $query, \ARRAY_A );
 
     if ( empty( $campaign_data ) ) {
@@ -67,40 +67,39 @@ class CampaignReport extends Controller {
     }
 
     // Set index to campaign name
-    foreach( $campaign_data as $index => $campaign ) {
-      $campaign_data[$campaign['name']] = $campaign;
-      unset( $campaign_data[$index] );
+    foreach( $campaign_data as $numbererd_index => $campaign ) {
+      $named_index = empty( $campaign['name'] ) ? self::EMPTY_CAMPAIGN_NAME : $campaign['name'];
+      $campaign_data[$named_index] = $campaign;
+      unset( $campaign_data[$numbererd_index] );
     }
 
     return $campaign_data;
   }
 
 
-  private function add_empty_row( array $campaign ): array {
-    $campaign[self::EMPTY_CAMPAIGN_NAME] = [
-      'name' => self::EMPTY_CAMPAIGN_NAME,
-      'clicks' => $this->get_empty_campaign_clicks(),
-      'referrals' => $this->get_empty_campaign_referrals(),
-    ];
-    return $campaign;
-  }
-
-
-  private function get_empty_campaign_clicks(): int {
-    global $wpdb;
-    $table = $wpdb->prefix . 'uap_visits';
-    $query = "SELECT COUNT(`campaign_name`) FROM $table WHERE `campaign_name` = '' AND `affiliate_id` = $this->affid";
-    $result = (int) $wpdb->get_var( $query );
-    return $result;
-  }
-
-
-  private function get_empty_campaign_referrals(): int {
+  private function append_referrals( array $campaigns ): array {
     global $wpdb;
     $table = $wpdb->prefix . 'uap_referrals';
-    $query = "SELECT COUNT(`campaign`) FROM $table WHERE `campaign` = '' AND `affiliate_id` = $this->affid";
-    $result = (int) $wpdb->get_var( $query );
-    return $result;
+    $query = "SELECT campaign as name, count(DISTINCT refferal_wp_uid) as referrals FROM $table WHERE affiliate_id = $this->affid GROUP BY campaign";
+    $results = $wpdb->get_results( $query, \ARRAY_A );
+
+    if ( empty( $results ) ) {
+      return $campaigns;
+    }
+
+    // Set index to campaign name
+    foreach( $results as $numbererd_index => $result ) {
+      $named_index = empty( $result['name'] ) ? self::EMPTY_CAMPAIGN_NAME : $result['name'];
+      $results[$named_index] = $result;
+      unset( $results[$numbererd_index] );
+    }
+    
+    // Merge arrays
+    foreach ( $campaigns as $campaign_name => &$campaign ) {
+      $campaign['referrals'] = empty( $results[$campaign_name] ) ? 0 : (int) $results[$campaign_name]['referrals'];
+    }
+
+    return $campaigns;
   }
 
 

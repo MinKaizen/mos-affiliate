@@ -48,6 +48,7 @@ class CampaignReport extends Controller {
     $campaigns = $this->append_partners( $campaigns );
     $campaigns = $this->append_commissions( $campaigns );
     $campaigns = $this->append_epc( $campaigns );
+    $campaigns = $this->format_campaigns( $campaigns );
     return $campaigns;
   }
 
@@ -142,10 +143,6 @@ class CampaignReport extends Controller {
       }
     }
 
-    foreach ( $campaigns as &$campaign ) {
-      $campaign['commissions'] = format_currency( $campaign['commissions'], 0 );
-    }
-
     return $campaigns;
   }
 
@@ -162,9 +159,25 @@ class CampaignReport extends Controller {
 
     foreach ( $campaigns as &$campaign ) {
       $campaign['EPC'] = (float) $campaign['clicks'] == 0.0 ? 0.0 : (float) $campaign['commissions'] / (float) $campaign['clicks'];
-      $campaign['EPC'] = format_currency( $campaign['EPC'] );
     }
 
+    return $campaigns;
+  }
+
+
+  private function format_campaigns( array $campaigns ): array {
+    foreach ( $campaigns as &$campaign ) {
+      // Format EPC
+      if ( isset( $campaign['EPC'] ) ) {
+        $campaign['EPC'] = format_currency( (float) $campaign['EPC'] );
+      }
+
+      // Format Commission
+      if ( isset( $campaign['commissions'] ) ) {
+        $campaign['commissions'] = format_currency( (float) $campaign['commissions'], 0 );
+      }
+
+    }
     return $campaigns;
   }
 

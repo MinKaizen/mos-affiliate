@@ -76,9 +76,6 @@ class CommissionClassTest extends Test {
     $this->assert_commission_invalid( ['payout_date' => '2020-13-13'] );
     $this->assert_commission_invalid( ['payout_date' => '2020-06-32'] );
     $this->assert_commission_invalid( ['payout_date' => '2020-02-31'] );
-    $this->assert_commission_invalid( ['payout_method' => 42] );
-    $this->assert_commission_invalid( ['payout_address' => 42] );
-    $this->assert_commission_invalid( ['payout_transaction_id' => 42] );
     $this->assert_commission_invalid( ['refund_date' => '2020-13-13'] );
     $this->assert_commission_invalid( ['refund_date' => '2020-06-32'] );
     $this->assert_commission_invalid( ['refund_date' => '2020-02-31'] );

@@ -10,35 +10,6 @@ class Database {
 
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
-  public function get_campaign_data(): array {
-    global $wpdb;
-
-    // Get affid of current user
-    $affid = $this->get_affid();
-
-    // Check if affid is valid
-    if ( empty( $affid ) ) {
-      return [];
-    }
-
-    // Perform SQL lookup
-    $table = $wpdb->prefix.'uap_campaigns';
-    $query = "SELECT `name`, `visit_count` as clicks, `unique_visits_count` as unique_clicks, `referrals` FROM $table WHERE affiliate_id = $affid";
-    $campaign_data = $wpdb->get_results( $query, \ARRAY_A );
-
-    // Check if campaign data is valid
-    if ( empty( $campaign_data ) ) {
-      return [];
-    }
-
-    foreach( $campaign_data as $index => $campaign ) {
-      $campaign_data[$campaign['name']] = $campaign;
-      unset( $campaign_data[$index] );
-    }
-
-    return $campaign_data;
-  }
-
 
   public function get_referrals( array $requested_columns ): array {
     global $wpdb;

@@ -11,21 +11,6 @@ class Database {
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
 
-  public function user_is_affiliate( int $id ): bool {
-    global $wpdb;
-
-    $table = $wpdb->prefix . 'uap_affiliates';
-    $query = "SELECT id FROM $table WHERE uid = $id LIMIT 1";
-    $affid = (int) $wpdb->get_var( $query );
-
-    if ( empty( $affid ) ) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-
   public function user_affid( int $id ): int {
     global $wpdb;
 

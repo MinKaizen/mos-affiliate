@@ -11,46 +11,6 @@ class Database {
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
 
-  public function add_sponsor( int $user_id, int $sponsor_id ): bool {
-    if ( ! $this->user_exists( $user_id )) {
-      return false;
-    }
-
-    if ( ! $this->user_exists( $sponsor_id ) ) {
-      return false;
-    }
-
-    if ( ! $this->user_is_affiliate( $user_id ) ) {
-      return false;
-    }
-
-    if ( ! $this->user_is_affiliate( $sponsor_id ) ) {
-      return false;
-    }
-
-    if ( $this->user_has_sponsor( $user_id ) ) {
-      return false;
-    }
-
-    global $wpdb;
-
-    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
-    $data = [
-      'affiliate_id' => $this->user_affid( $sponsor_id ),
-      'referral_wp_uid' => $user_id,
-    ];
-    $formats = [
-      'affiliate_id' => '%d',
-      'referral_wp_uid' => '%d',
-
-    ];
-    
-    $rows_inserted = $wpdb->insert( $table, $data, $formats );
-    $success = ($rows_inserted === 1);
-    return $success;
-  }
-
-
   public function user_is_affiliate( int $id ): bool {
     global $wpdb;
 

@@ -67,7 +67,6 @@ class CampaignReport extends Controller {
       return [];
     }
 
-    
     // Rename empty campaign name
     foreach ( $campaign_data as &$campaign ) {
       if ( $campaign['name'] === '') {

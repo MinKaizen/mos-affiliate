@@ -10,7 +10,6 @@ class Database {
 
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
-
   public function get_campaign_data(): array {
     global $wpdb;
 

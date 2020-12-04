@@ -11,31 +11,6 @@ class Database {
   const RETURN_TYPE_DEFAULT = 'ARRAY_A';
 
 
-  public function get_affid(): int {
-    global $wpdb;
-
-    // Get wpid of current user
-    $wpid = $this->get_wpid();
-
-    // If wpid no found, return 0
-    if ( empty( $wpid ) ) {
-      return 0;
-    }
-
-    // Perform SQL lookup
-    $table = $wpdb->prefix.'uap_affiliates';
-    $query = "SELECT id FROM $table WHERE uid = $wpid LIMIT 1";
-    $affid = $wpdb->get_var($query);
-
-    // If lookup failed, return 0
-    if ( empty( $affid ) ) {
-      return 0;
-    }
-
-    return $affid;
-  }
-
-
   public function get_wpid(): int {
     $wpid = \get_current_user_id();
 

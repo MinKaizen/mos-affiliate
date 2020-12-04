@@ -9,8 +9,6 @@ class Plugin {
   private $shortcodes = [
     'commission_table_shortcode',
     'affid_shortcode',
-    'campaign_form_shortcode',
-    'campaign_list_shortcode',
     'campaign_report_shortcode',
     'email_shortcode',
     'first_name_shortcode',

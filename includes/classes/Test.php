@@ -22,13 +22,13 @@ class Test {
   const TEST_META_KEY = 'mos_inserted_via_test';
   const TEST_META_VALUE = 1;
 
-  protected $_user_ids_to_delete;
-  protected $_post_ids_to_delete;
+  protected $_user_ids_to_delete = [];
+  protected $_post_ids_to_delete = [];
+  protected $_commission_ids_to_delete = [];
   protected $_injected_user;
   protected $_injected_sponsor;
   protected $_user_is_set = false;
   protected $_sponsor_is_set = false;
-  protected $_commission_ids_to_delete = [];
 
 
   public function run(): void {
@@ -413,6 +413,8 @@ class Test {
       $user->db_delete();
       $this->db_notice( "user deleted: $id" );
     }
+
+    $this->_user_ids_to_delete = [];
   }
 
 
@@ -514,6 +516,8 @@ class Test {
       $this->assert_true( empty( $post ), $post );
       $this->db_notice( "post deleted: $post_id" );
     }
+
+    $this->_post_ids_to_delete = [];
   }
 
 
@@ -546,6 +550,8 @@ class Test {
       $commission->db_delete();
       $this->db_notice( "commission deleted: $id" );
     }
+
+    $this->_commission_ids_to_delete = [];
   }
 
 

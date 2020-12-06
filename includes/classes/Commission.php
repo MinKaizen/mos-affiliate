@@ -174,7 +174,6 @@ class Commission {
     global $wpdb;
     $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
     $columns = [
-      'id' => $this->id,
       'date' => $this->date,
       'amount' => $this->amount,
       'description' => $this->description,
@@ -189,7 +188,6 @@ class Commission {
       'refund_date' => $this->refund_date,
     ];
     $formats = [
-      'id' => '%d',
       'date' => '%s',
       'amount' => '%f',
       'description' => '%s',

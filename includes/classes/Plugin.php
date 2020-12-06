@@ -100,4 +100,14 @@ class Plugin {
   }
 
 
+  private function admin_notice( string $message, string $type='info' ): void {
+    $full_message = "<strong>".PLUGIN_NAME.": </strong>" . $message;
+    $notice_class = "notice notice-$type";
+    $html_message = "<div class='$notice_class'><p>$full_message</p></div>";
+    \add_action( 'admin_notices', function() use ($html_message) {
+      echo $html_message;
+    } );
+  }
+
+
 }

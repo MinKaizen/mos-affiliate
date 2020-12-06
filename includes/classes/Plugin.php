@@ -9,11 +9,6 @@ class Plugin {
   private $ok_to_init = false;
   private $pre_init_errors = ['Pre init check did not run!'];
 
-  private $cli_commands = [
-    'test_cli_command',
-    'reactivate_cli_command',
-  ];
-
 
   public function __construct() {
     require( PLUGIN_DIR . "/includes/config/caps.php" );
@@ -52,9 +47,11 @@ class Plugin {
     if ( $this->ok_to_init ) {
       $this->load_admin();
       $this->load_scripts();
-      $this->register_cli_commands();
-      $this->register_shortcodes();
-      $this->register_access_redirects();
+      if ( defined( 'WP_CLI' ) && WP_CLI ) {
+        $this->register_classes_from_folder( 'CliCommand' );
+      }
+      $this->register_classes_from_folder( 'Shortcode' );
+      $this->register_classes_from_folder( 'AccessRedirect' );
     } else {
       $this->print_pre_init_errors();
     }
@@ -81,38 +78,15 @@ class Plugin {
   }
 
 
-  private function register_shortcodes(): void {
-    $dir = new \DirectoryIterator( PLUGIN_DIR . 'includes/classes/Shortcode/' );
+  private function register_classes_from_folder( string $relative_namespace, string $function_name='register' ): void {
+    $autoload_root_path = PLUGIN_DIR . 'includes/classes/';
+    $dir = new \DirectoryIterator( $autoload_root_path . $relative_namespace );
     foreach ( $dir as $fileinfo ) {
       if ( !$fileinfo->isDot() ) {
-        $class_name = NS . 'Shortcode\\' . str_replace( '.php', '', $fileinfo->getFilename() );
-        $shortcode_instance = new $class_name();
-        $shortcode_instance->register();
+        $class_name = NS . $relative_namespace . '\\' . str_replace( '.php', '', $fileinfo->getFilename() );
+        $instance = new $class_name();
+        $instance->$function_name();
       }
-    }
-  }
-
-
-  private function register_access_redirects(): void {
-    $dir = new \DirectoryIterator( PLUGIN_DIR . 'includes/classes/AccessRedirect/' );
-    foreach ( $dir as $fileinfo ) {
-      if ( !$fileinfo->isDot() ) {
-        $class_name = NS . 'AccessRedirect\\' . str_replace( '.php', '', $fileinfo->getFilename() );
-        $access_redirect_instance = new $class_name();
-        $access_redirect_instance->register();
-      }
-    }
-  }
-
-
-  private function register_cli_commands(): void {
-    if ( !defined( 'WP_CLI' ) || !WP_CLI ) {
-      return;  
-    }
-    foreach ( $this->cli_commands as $cli_command_name ) {
-      $class_name = class_name( $cli_command_name, 'CliCommand' );
-      $cli_command = new $class_name();
-      $cli_command->register();
     }
   }
 

@@ -27,10 +27,10 @@ class TestCliCommand extends CliCommand {
   public function run( array $pos_args, array $assoc_args ): void {
     list( $test_name ) = $pos_args;    
 
-    if ( $test_name == 'all' ) {
-      $this->test_all();
-    } elseif ( empty( $test_name ) ) {
+    if ( empty( $test_name ) ) {
       WP_CLI::error( "Please specify a test" );
+    } elseif ( $test_name == 'all' ) {
+      $this->test_multiple( $this->tests );
     } elseif ( in_array( $test_name, $this->tests ) ) {
       $this->test_single( $test_name );
     } else {
@@ -42,10 +42,10 @@ class TestCliCommand extends CliCommand {
   }
 
 
-  public function test_all() {
-    $num_tests = count($this->tests);
+  private function test_multiple( array $tests ): void {
+    $num_tests = count( $tests );
     $progress = \WP_CLI\Utils\make_progress_bar( 'Progress', $num_tests );
-    foreach ( $this->tests as $test_stub ) {
+    foreach ( $tests as $test_stub ) {
       $this->test_single( $test_stub );
       $progress->tick();
     }

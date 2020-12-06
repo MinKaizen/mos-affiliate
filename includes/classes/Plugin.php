@@ -9,12 +9,6 @@ class Plugin {
   private $ok_to_init = false;
   private $pre_init_errors = ['Pre init check did not run!'];
 
-  private $access_redirects = [
-    'free_access_redirect',
-    'monthly_partner_access_redirect',
-    'yearly_partner_access_redirect',
-  ];
-
   private $cli_commands = [
     'test_cli_command',
     'reactivate_cli_command',
@@ -100,10 +94,13 @@ class Plugin {
 
 
   private function register_access_redirects(): void {
-    foreach ( $this->access_redirects as $access_redirect ) {
-      $class_name = class_name( $access_redirect, 'AccessRedirect' );
-      $access_redirect_instance = new $class_name();
-      $access_redirect_instance->register();
+    $dir = new \DirectoryIterator( PLUGIN_DIR . 'includes/classes/AccessRedirect/' );
+    foreach ( $dir as $fileinfo ) {
+      if ( !$fileinfo->isDot() ) {
+        $class_name = NS . 'AccessRedirect\\' . str_replace( '.php', '', $fileinfo->getFilename() );
+        $access_redirect_instance = new $class_name();
+        $access_redirect_instance->register();
+      }
     }
   }
 

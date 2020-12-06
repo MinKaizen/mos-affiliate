@@ -9,30 +9,6 @@ class Plugin {
   private $ok_to_init = false;
   private $pre_init_errors = ['Pre init check did not run!'];
 
-  private $shortcodes = [
-    'commission_table_shortcode',
-    'affid_shortcode',
-    'campaign_report_shortcode',
-    'email_shortcode',
-    'first_name_shortcode',
-    'last_name_shortcode',
-    'level_shortcode',
-    'mis_shortcode',
-    'name_shortcode',
-    'sponsor_affid_shortcode',
-    'sponsor_email_shortcode',
-    'sponsor_first_name_shortcode',
-    'sponsor_last_name_shortcode',
-    'sponsor_level_shortcode',
-    'sponsor_mis_shortcode',
-    'sponsor_name_shortcode',
-    'sponsor_username_shortcode',
-    'sponsor_wpid_shortcode',
-    'test_shortcode',
-    'username_shortcode',
-    'wpid_shortcode',
-  ];
-
   private $access_redirects = [
     'free_access_redirect',
     'monthly_partner_access_redirect',
@@ -112,10 +88,13 @@ class Plugin {
 
 
   private function register_shortcodes(): void {
-    foreach ( $this->shortcodes as $shortcode ) {
-      $class_name = class_name( $shortcode, 'Shortcode' );
-      $shortcode_instance = new $class_name();
-      $shortcode_instance->register();
+    $dir = new \DirectoryIterator( PLUGIN_DIR . 'includes/classes/Shortcode/' );
+    foreach ( $dir as $fileinfo ) {
+      if ( !$fileinfo->isDot() ) {
+        $class_name = NS . 'Shortcode\\' . str_replace( '.php', '', $fileinfo->getFilename() );
+        $shortcode_instance = new $class_name();
+        $shortcode_instance->register();
+      }
     }
   }
 

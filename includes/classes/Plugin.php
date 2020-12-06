@@ -6,6 +6,9 @@ use function MOS\Affiliate\class_name;
 
 class Plugin {
 
+  private $ok_to_init = false;
+  private $pre_init_errors = ['Pre init check did not run!'];
+
   private $shortcodes = [
     'commission_table_shortcode',
     'affid_shortcode',
@@ -48,12 +51,50 @@ class Plugin {
   }
 
 
+  public function pre_init_check(): void {
+    require( PLUGIN_DIR . '/includes/config/pre_init.php' );
+
+    $this->ok_to_init = true;
+    $this->pre_init_errors = [];
+
+    if ( version_compare( phpversion(), PHP_VERSION_MIN, '<' ) ) {
+      $this->ok_to_init = false;
+      $this->pre_init_errors[] = 'PHP version ' . PHP_VERSION_MIN . ' required. ' . phpversion() . ' found';
+    }
+    
+    foreach ( FUNCTION_DEPENDENCIES as $function ) {
+      if ( !function_exists( $function ) ) {
+        $this->ok_to_init = false;
+        $this->pre_init_errors[] = "Function $function required but not found";
+      }
+    }
+
+    foreach ( CLASS_DEPENDENCIES as $class ) {
+      if ( !class_exists( $class ) ) {
+        $this->ok_to_init = false;
+        $this->pre_init_errors[] = "Class $class required but not found";
+      }
+    }
+  }
+
+
   public function init(): void {
-    $this->load_admin();
-    $this->load_scripts();
-    $this->register_cli_commands();
-    $this->register_shortcodes();
-    $this->register_access_redirects();
+    if ( $this->ok_to_init ) {
+      $this->load_admin();
+      $this->load_scripts();
+      $this->register_cli_commands();
+      $this->register_shortcodes();
+      $this->register_access_redirects();
+    } else {
+      $this->print_pre_init_errors();
+    }
+  }
+
+
+  private function print_pre_init_errors(): void {
+    foreach ( $this->pre_init_errors as $error ) {
+      $this->admin_notice( $error, 'error' );
+    }
   }
 
 

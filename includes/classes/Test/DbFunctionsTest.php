@@ -11,7 +11,7 @@ class DbFunctionsTest extends Test {
   }
 
 
-  public function test_create_user(): void {
+  public function test_create_empty_user(): void {
     $user = $this->create_test_user();
     $user = new \WP_User($user);
     $user_from_db = get_user_by( 'id', $user->ID );

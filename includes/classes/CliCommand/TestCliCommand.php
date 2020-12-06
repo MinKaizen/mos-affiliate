@@ -12,16 +12,14 @@ class TestCliCommand extends CliCommand {
   protected $command = 'test';
 
   private $pre_tests = [
-
+    'db_tables',
+    'levels_exist',
   ];
 
   private $tests = [
     'access_redirects',
     'commission_class',
     'commission_table',
-    'levels_exist',
-    'migrations',
-    'pre_conditions',
     'sponsor_shortcodes',
     'user_class',
     'user_shortcodes',
@@ -33,6 +31,8 @@ class TestCliCommand extends CliCommand {
 
     if ( empty( $test_name ) ) {
       WP_CLI::error( "Please specify a test" );
+    } elseif ( $test_name == 'pre' ) {
+      $this->test_multiple( $this->pre_tests );
     } elseif ( $test_name == 'all' ) {
       $this->test_multiple( $this->pre_tests );
       $this->test_multiple( $this->tests );

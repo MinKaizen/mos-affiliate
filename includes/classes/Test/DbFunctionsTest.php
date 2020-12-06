@@ -46,6 +46,16 @@ class DbFunctionsTest extends Test {
   }
 
 
+  public function test_create_empty_commission(): void {
+    $commission = $this->create_test_commission();
+    $this->assert_true( $this->commission_exists( $commission->get_id() ), 'Commission should exist after create' );
+    
+    // Delete commission
+    $this->delete_test_commissions();
+    $this->assert_false( $this->commission_exists( $commission->get_id() ), 'Commission should not exist after delete' );
+  }
+
+
   private function commission_exists( int $id ): bool {
     global $wpdb;
     $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;

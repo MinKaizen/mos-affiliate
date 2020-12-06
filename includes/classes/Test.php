@@ -531,7 +531,8 @@ class Test {
     $data = array_replace_recursive( $default_data, $passed_data );
     $commission = Commission::create_from_array( $data );
     $this->assert_true( $commission->is_valid(), "Commission should be valid before we try to insert it..." );
-    $id = $commission->db_insert();
+    $commission->db_insert();
+    $id = $commission->get_id();
     $inserted_commission = Commission::lookup( $id );
     $this->assert_true( $inserted_commission->exists(), "Commission should exist after insert" );
     $this->_commission_ids_to_delete[] = $id;

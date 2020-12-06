@@ -170,7 +170,7 @@ class Commission {
   }
 
 
-  public function db_insert(): int {
+  public function db_insert(): void {
     global $wpdb;
     $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
     $columns = [
@@ -203,11 +203,9 @@ class Commission {
     ];
     $rows_inserted = $wpdb->insert( $table, $columns, $formats );
 
-    if ( $rows_inserted === 1 ) {
+    if ( $rows_inserted === 1 && is_int( $wpdb->insert_id ) ) {
       $this->id = $wpdb->insert_id;
     }
-
-    return $wpdb->insert_id;
   }
 
 

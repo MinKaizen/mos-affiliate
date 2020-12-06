@@ -46,4 +46,14 @@ class DbFunctionsTest extends Test {
   }
 
 
+  private function commission_exists( int $id ): bool {
+    global $wpdb;
+    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+    $query = "SELECT id FROM $table WHERE id = $id";
+    $id_from_db = (int) $wpdb->get_var( $query );
+    $exists = $id == $id_from_db;
+    return $exists;
+  }
+
+
 }

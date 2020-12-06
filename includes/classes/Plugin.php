@@ -44,17 +44,19 @@ class Plugin {
 
 
   public function init(): void {
-    if ( $this->ok_to_init ) {
-      $this->load_admin();
-      $this->load_scripts();
-      if ( defined( 'WP_CLI' ) && WP_CLI ) {
-        $this->register_classes_from_folder( 'CliCommand' );
-      }
-      $this->register_classes_from_folder( 'Shortcode' );
-      $this->register_classes_from_folder( 'AccessRedirect' );
-    } else {
+    if ( ! $this->ok_to_init ) {
       $this->print_pre_init_errors();
+      return;
     }
+
+    if ( defined( 'WP_CLI' ) && WP_CLI ) {
+      $this->register_classes_from_folder( 'CliCommand' );
+    }
+    
+    $this->load_admin();
+    $this->load_scripts();
+    $this->register_classes_from_folder( 'Shortcode' );
+    $this->register_classes_from_folder( 'AccessRedirect' );
   }
 
 

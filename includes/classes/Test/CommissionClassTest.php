@@ -83,23 +83,23 @@ class CommissionClassTest extends Test {
 
 
   public function test_db_insert(): void {
-    $this->db_notice((string) __LINE__); $commission = $this->create_test_commission();
-    $this->db_notice((string) __LINE__); $lookup_commission = Commission::lookup( $commission->get_id() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_date(), $lookup_commission->get_date() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_amount(), $lookup_commission->get_amount() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_description(), $lookup_commission->get_description() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_transaction_id(), $lookup_commission->get_transaction_id() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_campaign(), $lookup_commission->get_campaign() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_actor_id(), $lookup_commission->get_actor_id() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_earner_id(), $lookup_commission->get_earner_id() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_payout_date(), $lookup_commission->get_payout_date() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_payout_method(), $lookup_commission->get_payout_method() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_payout_address(), $lookup_commission->get_payout_address() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_payout_transaction_id(), $lookup_commission->get_payout_transaction_id() );
-    $this->db_notice((string) __LINE__); $this->assert_equal( $commission->get_refund_date(), $lookup_commission->get_refund_date() );
-    $this->db_notice((string) __LINE__); 
-    $this->db_notice((string) __LINE__); $this->assert_not_equal( $commission->get_id(), 0, 'Commission ID should be populated after insert' );
-    $this->db_notice((string) __LINE__); $this->assert_true_strict( $commission->exists(), 'Commission should exist() after insert' );
+    $commission = $this->create_test_commission();
+    $lookup_commission = Commission::lookup( $commission->get_id() );
+    $this->assert_equal( $commission->get_date(), $lookup_commission->get_date() );
+    $this->assert_equal( $commission->get_amount(), $lookup_commission->get_amount() );
+    $this->assert_equal( $commission->get_description(), $lookup_commission->get_description() );
+    $this->assert_equal( $commission->get_transaction_id(), $lookup_commission->get_transaction_id() );
+    $this->assert_equal( $commission->get_campaign(), $lookup_commission->get_campaign() );
+    $this->assert_equal( $commission->get_actor_id(), $lookup_commission->get_actor_id() );
+    $this->assert_equal( $commission->get_earner_id(), $lookup_commission->get_earner_id() );
+    $this->assert_equal( $commission->get_payout_date(), $lookup_commission->get_payout_date() );
+    $this->assert_equal( $commission->get_payout_method(), $lookup_commission->get_payout_method() );
+    $this->assert_equal( $commission->get_payout_address(), $lookup_commission->get_payout_address() );
+    $this->assert_equal( $commission->get_payout_transaction_id(), $lookup_commission->get_payout_transaction_id() );
+    $this->assert_equal( $commission->get_refund_date(), $lookup_commission->get_refund_date() );
+    
+    $this->assert_not_equal( $commission->get_id(), 0, 'Commission ID should be populated after insert' );
+    $this->assert_true_strict( $commission->exists(), 'Commission should exist() after insert' );
 
   }
 

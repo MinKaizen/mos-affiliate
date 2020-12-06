@@ -13,12 +13,12 @@ class Plugin {
   public function __construct() {
     require( PLUGIN_DIR . "/includes/config/caps.php" );
     require( PLUGIN_DIR . "/includes/helpers/utils.php" );
+    require( PLUGIN_DIR . '/includes/config/pre_init.php' );
+    $this->pre_init_check();
   }
 
 
   public function pre_init_check(): void {
-    require( PLUGIN_DIR . '/includes/config/pre_init.php' );
-
     $this->ok_to_init = true;
     $this->pre_init_errors = [];
 
@@ -52,7 +52,7 @@ class Plugin {
     if ( defined( 'WP_CLI' ) && WP_CLI ) {
       $this->register_classes_from_folder( 'CliCommand' );
     }
-    
+
     $this->load_admin();
     $this->load_scripts();
     $this->register_classes_from_folder( 'Shortcode' );

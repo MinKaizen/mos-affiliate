@@ -2,8 +2,6 @@
 
 namespace MOS\Affiliate;
 
-use function MOS\Affiliate\class_name;
-
 class Plugin {
 
   private $ok_to_init = false;

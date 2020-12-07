@@ -23,6 +23,8 @@ class DbFunctionsTest extends Test {
       'roles' => ['monthly_partner'],
     ];
     $user = $this->create_test_user( $user_data );
+
+    $this->assert_user_id_exists( $user->ID );
     $user_from_db = \get_user_by( 'id', $user->ID );
 
     $this->assert_instanceof( $user, '\MOS\Affiliate\User' );

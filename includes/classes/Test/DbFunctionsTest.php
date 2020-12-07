@@ -128,4 +128,23 @@ class DbFunctionsTest extends Test {
   }
   
   
+  public function test_create_post(): void {
+    $post_data = [
+      'post_title' => ranstr(),
+      'post_content' => '#test ' . ranstr(),
+      'post_excerpt' => ranstr(),
+      'post_name' => ranstr(),
+    ];
+    $post = $this->create_test_post( $post_data );
+    $post_from_db = \get_post( $post->ID, 'OBJECT' );
+    $this->assert_instanceof( $post, 'WP_Post', "Test post should be instance of WP_Post" );
+    $this->assert_equal( $post, $post_from_db, "Generated post should equal post from db" );
+    
+    // Delete post
+    $this->delete_test_posts();
+    $post_from_db = \get_post( $post->ID, 'OBJECT' );
+    $this->assert_equal( $post_from_db, null, "get_post() should return null after delete posts" );
+  }
+
+
 }

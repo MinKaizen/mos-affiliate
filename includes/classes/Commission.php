@@ -204,7 +204,7 @@ class Commission {
     $rows_inserted = $wpdb->insert( $table, $columns, $formats );
 
     if ( $rows_inserted === 1 && is_int( $wpdb->insert_id ) ) {
-      $this->id = $wpdb->insert_id;
+      $this->id = (int) $wpdb->insert_id;
     }
   }
 

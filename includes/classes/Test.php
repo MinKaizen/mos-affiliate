@@ -699,4 +699,31 @@ class Test {
   }
 
 
+  protected final function create_test_referral( int $user_id, int $sponsor_id, string $campaign=null ): void {
+    $this->assert_user_has_test_meta( $user_id );
+    $this->assert_user_has_test_meta( $sponsor_id );
+    
+    global $wpdb;
+    $sponsor_affid = $this->get_affid( $sponsor_id );
+    $table = $wpdb->prefix . "uap_referrals";
+    $columns = [
+      'refferal_wp_uid' => $user_id,
+      'affiliate_id' => $sponsor_affid,
+      'campaign' => $campaign,
+      'description' => 'mos_affiliate_test',
+      'source' => 'mos_affiliate_test',
+      'reference' => 'mos_affiliate_test',
+    ];
+    $formats = [
+      'refferal_wp_uid' => '%d',
+      'affiliate_id' => '%d',
+      'campaign' => '%s',
+      'description' => '%s',
+      'source' => '%s',
+      'reference' => '%s',
+    ];
+    $wpdb->insert( $table, $columns, $formats );
+  }
+
+
 }

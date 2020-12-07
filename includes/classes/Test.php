@@ -390,6 +390,44 @@ class Test {
   }
 
 
+  protected function assert_user_has_referral( int $user_id, int $referral_id, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $referral_ids = $this->get_referral_ids( $user_id );
+    $condition = in_array( $referral_id, $referral_ids );
+    $data['referral_id'] = $referral_id;
+    $data['user_id'] = $user_id;
+    $data['user_referral_ids'] = $referral_ids;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_user_not_has_referrals( int $id, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $referral_ids = $this->get_referral_ids( $id );
+    $condition = empty( $referral_ids );
+    $data['user_id'] = $id;
+    $data['user_referral_ids'] = $referral_ids;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  private function get_referral_ids( int $id ): array {
+    global $wpdb;
+    $affid = $this->get_affid( $id );
+    $table = $wpdb->prefix . 'uap_referrals';
+    $query = "SELECT refferal_wp_uid FROM $table WHERE affiliate_id = $affid";
+    $results = $wpdb->get_results( $query, \ARRAY_A );
+
+    $referrals = [];
+    foreach ( $results as $row ) {
+      if ( isset( $row['refferal_wp_uid'] ) ) {
+        $referrals[] = (int) $row['refferal_wp_uid'];
+      }
+    }
+    return $referrals;
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

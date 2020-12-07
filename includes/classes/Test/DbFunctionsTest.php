@@ -34,8 +34,7 @@ class DbFunctionsTest extends Test {
     
     // Delete user
     $this->delete_test_users();
-    $user_from_db = get_user_by( 'id', $user->ID );
-    $this->assert_false_strict( $user_from_db, "get_user_by() should return false after we delete users" );
+    $this->assert_user_id_not_exists( $user->ID, "User ID should not exist after delete" );
     $this->assert_equal( $this->get_affid( $user->ID ), 0, "User affid should not exist after delete" );
     $this->assert_false( \get_user_meta( $user->ID, 'first_name' ), "User meta should be deleted after user delete: first_name" );
     $this->assert_false( \get_user_meta( $user->ID, 'last_name' ), "User meta should be deleted after user delete: last_name" );

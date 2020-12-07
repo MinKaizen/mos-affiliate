@@ -23,15 +23,21 @@ class DbFunctionsTest extends Test {
       'roles' => ['monthly_partner'],
     ];
     $user = $this->create_test_user( $user_data );
+    $user_from_db = \get_user_by( 'id', $user->ID );
+
     $this->assert_instanceof( $user, '\MOS\Affiliate\User' );
-    $user = new \WP_User($user);
-    $user_from_db = get_user_by( 'id', $user->ID );
-    $this->assert_equal( $user, $user_from_db, "Generated user should equal user in db" );
+    $this->assert_equal( $user->get( Test::TEST_META_KEY ), Test::TEST_META_VALUE, 'User created via test should have test meta' );
+    $this->assert_equal( $user->get('first_name'), $user_from_db->get('first_name'), "Generated user and user from db should have same first_name" );
+    $this->assert_equal( $user->get('last_name'), $user_from_db->get('last_name'), "Generated user and user from db should have same last_name" );
+    $this->assert_equal( $user->get('email'), $user_from_db->get('email'), "Generated user and user from db should have same email" );
+    $this->assert_equal( $user->get('login'), $user_from_db->get('login'), "Generated user and user from db should have same login" );
+    $this->assert_equal( $user->roles, $user_from_db->roles, "Generated user and user from db should have same roles" );
     
     // Delete user
     $this->delete_test_users();
     $user_from_db = get_user_by( 'id', $user->ID );
     $this->assert_false_strict( $user_from_db, "get_user_by() should return false after we delete users" );
+    
   }
 
 

@@ -163,7 +163,7 @@ class DbFunctionsTest extends Test {
   }
 
 
-  public function test_create_sponsor_and_downlines(): void {
+  public function test_create_referral(): void {
     $user = $this->create_test_user();
     $downline = $this->create_test_user();
     $this->create_test_referral( $downline->ID, $user->ID );

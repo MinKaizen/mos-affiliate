@@ -38,6 +38,7 @@ class DbFunctionsTest extends Test {
     $this->delete_test_users();
     $user_from_db = get_user_by( 'id', $user->ID );
     $this->assert_false_strict( $user_from_db, "get_user_by() should return false after we delete users" );
+    $this->assert_equal( $this->get_affid( $user->ID ), 0, "User affid should not exist after delete" );
     
   }
 

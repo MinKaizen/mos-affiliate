@@ -20,21 +20,17 @@ class DbFunctionsTest extends Test {
       'user_login' => ranstr(),
       'first_name' => ranstr(),
       'last_name' => ranstr(),
-      'roles' => ['monthly_partner'],
     ];
     $user = $this->create_test_user( $user_data );
 
     $this->assert_user_id_exists( $user->ID );
-    $user_from_db = \get_user_by( 'id', $user->ID );
-
     $this->assert_instanceof( $user, '\MOS\Affiliate\User' );
     $this->assert_equal( $user->get( Test::TEST_META_KEY ), Test::TEST_META_VALUE, 'User created via test should have test meta' );
     $this->assert_not_equal( $this->get_affid( $user->ID ), 0, "User should get an affid after create" );
-    $this->assert_equal( $user->get('first_name'), $user_from_db->get('first_name'), "Generated user and user from db should have same first_name" );
-    $this->assert_equal( $user->get('last_name'), $user_from_db->get('last_name'), "Generated user and user from db should have same last_name" );
-    $this->assert_equal( $user->get('email'), $user_from_db->get('email'), "Generated user and user from db should have same email" );
-    $this->assert_equal( $user->get('login'), $user_from_db->get('login'), "Generated user and user from db should have same login" );
-    $this->assert_equal( $user->roles, $user_from_db->roles, "Generated user and user from db should have same roles" );
+    $this->assert_equal( $user->get('first_name'), $user_data['first_name'], "Newly created user first_name should match user_data array" );
+    $this->assert_equal( $user->get('last_name'), $user_data['last_name'], "Newly created user last_name should match user_data array" );
+    $this->assert_equal( $user->get('email'), $user_data['email'], "Newly created user email should match user_data array" );
+    $this->assert_equal( $user->get('login'), $user_data['login'], "Newly created user login should match user_data array" );
     
     // Delete user
     $this->delete_test_users();

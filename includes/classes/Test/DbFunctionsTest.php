@@ -163,5 +163,19 @@ class DbFunctionsTest extends Test {
   }
 
 
-  
+  public function test_set_sponsor(): void {
+    $this->set_sponsor();
+    $this->_injected_sponsor = new User();
+    $this->_injected_sponsor->user_login = ranstr();
+    $this->_injected_sponsor->first_name = ranstr();
+    $this->_injected_sponsor->last_name = ranstr();
+    $this->_injected_sponsor->user_email = ranstr() . '@asdqwe.orgs';
+    $this->assert_equal( $this->_injected_sponsor, User::current()->sponsor(), "Injected sponsor should equal current sponsor after set" );
+    
+    // Unset Sponsor
+    $this->unset_sponsor();
+    $this->assert_not_equal( $this->_injected_sponsor, User::current()->sponsor(), "Injected should NOT should equal current sponsor after unset" );
+  }
+
+
 }

@@ -23,7 +23,7 @@ class DbFunctionsTest extends Test {
     ];
     $user = $this->create_test_user( $user_data );
 
-    $this->assert_user_id_exists( $user->ID );
+    $this->assert_user_id_exists( $user->ID, "User ID should exist after create" );
     $this->assert_instanceof( $user, '\MOS\Affiliate\User' );
     $this->assert_equal( $user->get( Test::TEST_META_KEY ), Test::TEST_META_VALUE, 'User created via test should have test meta' );
     $this->assert_not_equal( $this->get_affid( $user->ID ), 0, "User should get an affid after create" );

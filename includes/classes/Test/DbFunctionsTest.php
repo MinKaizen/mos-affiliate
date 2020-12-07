@@ -163,6 +163,21 @@ class DbFunctionsTest extends Test {
   }
 
 
+  public function test_create_sponsor_and_downlines(): void {
+    $user = $this->create_test_user();
+    $downline = $this->create_test_user();
+    $this->create_test_referral( $downline->ID, $user->ID );
+    
+    $this->assert_user_has_sponsor( $downline->ID, "Downline should have sponsor after create_test_referral()" );
+    $this->assert_user_has_referral( $user->ID, $downline->ID, "User should have Downline as a referral after create_test_referral()" );
+
+    // Delete users
+    $this->delete_test_users();
+    $this->assert_user_not_has_sponsor( $downline->ID, "Downline should have no sponsor after delete" );
+    $this->assert_user_not_has_referrals( $user->ID, "User should have no referrals after delete" );
+  }
+
+
   private function get_commission_array( int $id ): array {
     global $wpdb;
     $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;

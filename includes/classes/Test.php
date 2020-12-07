@@ -300,6 +300,15 @@ class Test {
   }
 
 
+  protected function assert_user_id_not_exists( int $id, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $user = \get_user_by( 'id', $id );
+    $condition = $user === false;
+    $data['user'] = $user;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

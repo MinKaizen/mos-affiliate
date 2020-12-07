@@ -27,6 +27,7 @@ class DbFunctionsTest extends Test {
 
     $this->assert_instanceof( $user, '\MOS\Affiliate\User' );
     $this->assert_equal( $user->get( Test::TEST_META_KEY ), Test::TEST_META_VALUE, 'User created via test should have test meta' );
+    $this->assert_not_equal( $this->get_affid( $user->ID ), 0, "User should get an affid after create" );
     $this->assert_equal( $user->get('first_name'), $user_from_db->get('first_name'), "Generated user and user from db should have same first_name" );
     $this->assert_equal( $user->get('last_name'), $user_from_db->get('last_name'), "Generated user and user from db should have same last_name" );
     $this->assert_equal( $user->get('email'), $user_from_db->get('email'), "Generated user and user from db should have same email" );

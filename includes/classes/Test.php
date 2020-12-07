@@ -21,6 +21,9 @@ class Test {
   const CURRENT_SPONSOR_HOOK = 'mos_sponsor';
   const TEST_META_KEY = 'mos_inserted_via_test';
   const TEST_META_VALUE = 'true';
+  const TEST_REFERRAL_DESCRIPTION = 'mos_affiliate_test';
+  const TEST_REFERRAL_SOURCE = 'mos_affiliate_test';
+  const TEST_REFERRAL_REFERENCE = 'mos_affiliate_test';
 
   protected $_user_ids_to_delete = [];
   protected $_post_ids_to_delete = [];
@@ -730,9 +733,9 @@ class Test {
       'refferal_wp_uid' => $user_id,
       'affiliate_id' => $sponsor_affid,
       'campaign' => $campaign,
-      'description' => 'mos_affiliate_test',
-      'source' => 'mos_affiliate_test',
-      'reference' => 'mos_affiliate_test',
+      'description' => self::TEST_REFERRAL_DESCRIPTION,
+      'source' => self::TEST_REFERRAL_SOURCE,
+      'reference' => self::TEST_REFERRAL_REFERENCE,
     ];
     $formats = [
       'refferal_wp_uid' => '%d',

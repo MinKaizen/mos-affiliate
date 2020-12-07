@@ -95,8 +95,8 @@ class User extends \WP_User {
   public function sponsor(): self {
     global $wpdb;
 
-    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
-    $query = "SELECT affiliate_id FROM $table WHERE referral_wp_uid = $this->ID";
+    $table = $wpdb->prefix . 'uap_referrals';
+    $query = "SELECT affiliate_id FROM $table WHERE refferal_wp_uid = $this->ID";
     $sponsor_affid = $wpdb->get_var( $query );
     $sponsor_affid = $sponsor_affid ? (int) $sponsor_affid : 0;
 
@@ -214,9 +214,9 @@ class User extends \WP_User {
 
   public function get_referral_ids(): array {
     global $wpdb;
-    $table = $wpdb->prefix . "uap_affiliate_referral_users_relations";
+    $table = $wpdb->prefix . "uap_referrals";
     $affid = $this->get_affid();
-    $query = "SELECT referral_wp_uid FROM $table WHERE affiliate_id = $affid";
+    $query = "SELECT refferal_wp_uid FROM $table WHERE affiliate_id = $affid";
     $results = $wpdb->get_results( $query, \ARRAY_N );
     $results = empty( $results ) ? [] : $results;
     
@@ -301,14 +301,14 @@ class User extends \WP_User {
     }
 
     global $wpdb;
-    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+    $table = $wpdb->prefix . 'uap_referrals';
     $columns = [
       'affiliate_id' => $sponsor_affid,
-      'referral_wp_uid' => $this->ID,
+      'refferal_wp_uid' => $this->ID,
     ];
     $formats = [
       'affiliate_id' => '%d',
-      'referral_wp_uid' => '%d',
+      'refferal_wp_uid' => '%d',
     ];
     $wpdb->insert( $table, $columns, $formats );
   }

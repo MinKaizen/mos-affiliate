@@ -39,7 +39,6 @@ class DbFunctionsTest extends Test {
     $this->assert_false( \get_user_meta( $user->ID, 'first_name' ), "User meta should be deleted after user delete: first_name" );
     $this->assert_false( \get_user_meta( $user->ID, 'last_name' ), "User meta should be deleted after user delete: last_name" );
     $this->assert_false( \get_user_meta( $user->ID, Test::TEST_META_KEY ), "User meta should be deleted after user delete: " . Test::TEST_META_KEY );
-    
   }
 
 

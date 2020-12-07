@@ -511,7 +511,6 @@ class Test {
     
     foreach ( $this->_post_ids_to_delete as $post_id ) {
       wp_delete_post( $post_id, true );
-      $post = get_post( $post_id );
       $this->db_notice( "post deleted: $post_id" );
     }
 
@@ -531,7 +530,6 @@ class Test {
     $this->assert_true( $commission->is_valid(), "Commission should be valid before we try to insert it..." );
     $commission->db_insert();
     $id = $commission->get_id();
-    $inserted_commission = Commission::lookup( $id );
     $this->_commission_ids_to_delete[] = $id;
     $this->db_notice( "commission created: $id" );
     return $commission;

@@ -318,15 +318,9 @@ class User extends \WP_User {
     if ( ! $this->sponsor()->exists() ) {
       return;
     }
-    global $wpdb;
     
-    // Sever relationship
-    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
-    $where = ['referral_wp_uid' => $this->ID];
-    $formats = ['referral_wp_uid' => '%d'];
-    $wpdb->delete( $table, $where, $formats );
-
     // Remove self from sponsor's referral stats
+    global $wpdb;
     $table = $wpdb->prefix . 'uap_referrals';
     $where = ['refferal_wp_uid' => $this->ID];
     $formats = ['refferal_wp_uid' => '%d'];
@@ -352,15 +346,8 @@ class User extends \WP_User {
       return;
     }
 
-    global $wpdb;
-
-    // Remove affiliate relationships
-    $table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
-    $where = ['affiliate_id' => $affid];
-    $formats = ['affiliate_id' => '%d'];
-    $wpdb->delete( $table, $where, $formats );
-
     // Remove referral stats
+    global $wpdb;
     $table = $wpdb->prefix . 'uap_referrals';
     $where = ['affiliate_id' => $affid];
     $formats = ['affiliate_id' => '%d'];

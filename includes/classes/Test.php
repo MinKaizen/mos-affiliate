@@ -439,6 +439,17 @@ class Test {
   }
 
 
+  protected function assert_user_campaign_is( int $id, string $campaign, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $campaign_actual = $this->user_get_campaign( $id );
+    $condition = $campaign == $campaign_actual;
+    $data['user_id'] = $id;
+    $data['expected_campaign'] = $campaign;
+    $data['actual_campaign'] = $campaign_actual;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   private function user_get_campaign( int $id ): string {
     global $wpdb;
     $table = $wpdb->prefix . 'uap_referrals';

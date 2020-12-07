@@ -126,8 +126,8 @@ class DbFunctionsTest extends Test {
     $post_from_db = \get_post( $post->ID, 'OBJECT' );
     $this->assert_equal( $post_from_db, null, "get_post() should return null after delete posts" );
   }
-  
-  
+
+
   public function test_create_post(): void {
     $post_data = [
       'post_title' => ranstr(),

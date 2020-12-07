@@ -53,11 +53,11 @@ class DbFunctionsTest extends Test {
 
   public function test_create_empty_commission(): void {
     $commission = $this->create_test_commission();
-    $this->assert_true( $this->commission_exists( $commission->get_id() ), 'Commission should exist after create' );
+    $this->assert_commission_exists( $commission->get_id(), 'Commission should exist after create' );
     
     // Delete commission
     $this->delete_test_commissions();
-    $this->assert_false( $this->commission_exists( $commission->get_id() ), 'Commission should not exist after delete' );
+    $this->assert_commission_not_exists( $commission->get_id(), 'Commission should not exist after delete' );
   }
 
 
@@ -79,7 +79,7 @@ class DbFunctionsTest extends Test {
     $commission = $this->create_test_commission( $commission_data );
     $commission_data_from_db = $this->get_commission_array( $commission->get_id() );
 
-    $this->assert_true( $this->commission_exists( $commission->get_id() ), 'Commission should exist after create' );
+    $this->assert_commission_exists( $commission->get_id(), 'Commission should exist after create' );
     $this->assert_equal( $commission_data['date'], $commission_data_from_db['date'] );
     $this->assert_equal( $commission_data['amount'], $commission_data_from_db['amount'] );
     $this->assert_equal( $commission_data['description'], $commission_data_from_db['description'] );
@@ -95,7 +95,7 @@ class DbFunctionsTest extends Test {
 
     // Delete commission
     $this->delete_test_commissions();
-    $this->assert_false( $this->commission_exists( $commission->get_id() ), 'Commission should not exist after delete' );
+    $this->assert_commission_not_exists( $commission->get_id(), 'Commission should not exist after delete' );
   }
 
 
@@ -158,16 +158,6 @@ class DbFunctionsTest extends Test {
     // Unset Sponsor
     $this->unset_sponsor();
     $this->assert_not_equal( $this->_injected_sponsor, User::current()->sponsor(), "Injected should NOT should equal current sponsor after unset" );
-  }
-
-
-  private function commission_exists( int $id ): bool {
-    global $wpdb;
-    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
-    $query = "SELECT id FROM $table WHERE id = $id";
-    $id_from_db = (int) $wpdb->get_var( $query );
-    $exists = $id == $id_from_db;
-    return $exists;
   }
 
 

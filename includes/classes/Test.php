@@ -361,6 +361,35 @@ class Test {
   }
 
 
+  protected function assert_user_has_sponsor( $id, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $sponsor_id = $this->get_sponsor_id( $id );
+    $condition = $sponsor_id != 0;
+    $data['user_id'] = $id;
+    $data['sponsor_id'] = $sponsor_id;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_user_not_has_sponsor( $id, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $sponsor_id = $this->get_sponsor_id( $id );
+    $condition = $sponsor_id == 0;
+    $data['user_id'] = $id;
+    $data['sponsor_id'] = $sponsor_id;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  private function get_sponsor_id( int $id ): int {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_referrals';
+    $query = "SELECT affiliate_id FROM $table WHERE refferal_wp_uid = $id";
+    $sponsor_id = (int) $wpdb->get_var( $query );
+    return $sponsor_id;
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

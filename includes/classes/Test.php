@@ -428,6 +428,17 @@ class Test {
   }
 
 
+  protected function assert_user_has_test_meta( int $id, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $meta_value = \get_user_meta( $id, self::TEST_META_KEY, true );
+    $condition = $meta_value == self::TEST_META_VALUE;
+    $data['user_id'] = $id;
+    $data['expected_meta_value'] = self::TEST_META_VALUE;
+    $data['actual_meta_value'] = $meta_value;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

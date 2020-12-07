@@ -158,7 +158,7 @@ class DbFunctionsTest extends Test {
     
     // Unset Sponsor
     $this->unset_sponsor();
-    $this->assert_not_equal( $this->_injected_sponsor, User::current()->sponsor(), "Injected should NOT should equal current sponsor after unset" );
+    $this->assert_not_equal( $this->_injected_sponsor, User::current()->sponsor(), "Injected should NOT equal current sponsor after unset" );
     $this->assert_false( User::current()->sponsor()->exists(), "Current sponsor should be nonexistent user after unset" );
   }
 

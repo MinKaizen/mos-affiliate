@@ -166,10 +166,12 @@ class DbFunctionsTest extends Test {
   public function test_create_referral(): void {
     $user = $this->create_test_user();
     $downline = $this->create_test_user();
-    $this->create_test_referral( $downline->ID, $user->ID );
+    $campaign = 'test_campaign_hello_123_0973';
+    $this->create_test_referral( $downline->ID, $user->ID, $campaign );
     
     $this->assert_user_has_sponsor( $downline->ID, "Downline should have sponsor after create_test_referral()" );
     $this->assert_user_has_referral( $user->ID, $downline->ID, "User should have Downline as a referral after create_test_referral()" );
+    $this->assert_user_campaign_is( $downline->ID, $campaign );
 
     // Delete users
     $this->delete_test_users();

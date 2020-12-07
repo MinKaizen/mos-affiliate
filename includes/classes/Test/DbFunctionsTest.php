@@ -22,6 +22,7 @@ class DbFunctionsTest extends Test {
       'roles' => ['monthly_partner'],
     ];
     $user = $this->create_test_user( $user_data );
+    $this->assert_instanceof( $user, '\MOS\Affiliate\User' );
     $user = new \WP_User($user);
     $user_from_db = get_user_by( 'id', $user->ID );
     $this->assert_equal( $user, $user_from_db, "Generated user should equal user in db" );
@@ -35,6 +36,7 @@ class DbFunctionsTest extends Test {
 
   public function test_create_empty_user(): void {
     $user = $this->create_test_user();
+    $this->assert_instanceof( $user, '\MOS\Affiliate\User' );
     $user = new \WP_User($user);
     $user_from_db = get_user_by( 'id', $user->ID );
     $this->assert_equal( $user, $user_from_db, "Generated empty user should equal user in db" );

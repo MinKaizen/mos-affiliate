@@ -3,6 +3,7 @@
 namespace MOS\Affiliate\Test;
 
 use \MOS\Affiliate\Test;
+use \MOS\Affiliate\User;
 
 use function \MOS\Affiliate\ranstr;
 
@@ -147,4 +148,20 @@ class DbFunctionsTest extends Test {
   }
 
 
+  public function test_set_user(): void {
+    $this->set_user();
+    $this->_injected_user = new User();
+    $this->_injected_user->user_login = ranstr();
+    $this->_injected_user->first_name = ranstr();
+    $this->_injected_user->last_name = ranstr();
+    $this->_injected_user->user_email = ranstr() . '@asdqwe.orgs';
+    $this->assert_equal( $this->_injected_user, User::current(), "Injected user should equal current user after set" );
+    
+    // Unset user
+    $this->unset_user();
+    $this->assert_not_equal( $this->_injected_user, User::current(), "Injected should NOT should equal current user after unset" );
+  }
+
+
+  
 }

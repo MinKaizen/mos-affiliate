@@ -439,6 +439,15 @@ class Test {
   }
 
 
+  private function user_get_campaign( int $id ): string {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_referrals';
+    $query = "SELECT campaign FROM $table WHERE refferal_wp_uid = $id";
+    $campaign = (string) $wpdb->get_var( $query );
+    return $campaign;
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

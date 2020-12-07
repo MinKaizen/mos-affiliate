@@ -335,6 +335,19 @@ class Test {
   }
 
 
+  protected function assert_commission_exists( int $id, ...$data ): void {
+    global $wpdb;
+    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+    $query = "SELECT id FROM $table WHERE id = $id";
+    $result = (int) $wpdb->get_var( $query );
+    $condition = $result == $id;
+    $assertion = __FUNCTION__;
+    $data['id'] = $id;
+    $data['sql_result'] = $result;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

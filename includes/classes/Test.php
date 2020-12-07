@@ -309,6 +309,32 @@ class Test {
   }
 
 
+  protected function assert_user_is_affiliate( int $wpid ): void {
+    $assertion = __FUNCTION__;
+    $condition = $this->_get_affid( $wpid ) != 0;
+    $data['wpid'] = $wpid;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_user_is_not_affiliate( int $wpid ): void {
+    $assertion = __FUNCTION__;
+    $condition = $this->_get_affid( $wpid ) == 0;
+    $data['wpid'] = $wpid;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  private function _get_affid( int $wpid ): int {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_affiliates';
+    $query = "SELECT id FROM $table WHERE uid = $wpid";
+    $affid = (int) $wpdb->get_var( $query );
+    $affid = $affid ? $affid : 0;
+    return $affid;
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

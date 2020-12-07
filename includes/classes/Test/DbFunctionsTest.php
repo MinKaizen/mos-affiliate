@@ -26,7 +26,7 @@ class DbFunctionsTest extends Test {
     $this->assert_user_id_exists( $user->ID, "User ID should exist after create" );
     $this->assert_instanceof( $user, '\MOS\Affiliate\User' );
     $this->assert_equal( $user->get( Test::TEST_META_KEY ), Test::TEST_META_VALUE, 'User created via test should have test meta' );
-    $this->assert_not_equal( $this->get_affid( $user->ID ), 0, "User should get an affid after create" );
+    $this->assert_user_is_affiliate( $user->ID, "User should get an affid after create" );
     $this->assert_equal( $user->get('first_name'), $user_data['first_name'], "Newly created user first_name should match user_data array" );
     $this->assert_equal( $user->get('last_name'), $user_data['last_name'], "Newly created user last_name should match user_data array" );
     $this->assert_equal( $user->get('email'), $user_data['email'], "Newly created user email should match user_data array" );
@@ -35,7 +35,7 @@ class DbFunctionsTest extends Test {
     // Delete user
     $this->delete_test_users();
     $this->assert_user_id_not_exists( $user->ID, "User ID should not exist after delete" );
-    $this->assert_equal( $this->get_affid( $user->ID ), 0, "User affid should not exist after delete" );
+    $this->assert_user_is_not_affiliate( $user->ID, "User affid should not exist after delete" );
     $this->assert_false( \get_user_meta( $user->ID, 'first_name' ), "User meta should be deleted after user delete: first_name" );
     $this->assert_false( \get_user_meta( $user->ID, 'last_name' ), "User meta should be deleted after user delete: last_name" );
     $this->assert_false( \get_user_meta( $user->ID, Test::TEST_META_KEY ), "User meta should be deleted after user delete: " . Test::TEST_META_KEY );
@@ -163,16 +163,6 @@ class DbFunctionsTest extends Test {
     // Unset Sponsor
     $this->unset_sponsor();
     $this->assert_not_equal( $this->_injected_sponsor, User::current()->sponsor(), "Injected should NOT should equal current sponsor after unset" );
-  }
-
-
-  private function get_affid( int $wpid ): int {
-    global $wpdb;
-    $table = $wpdb->prefix . 'uap_affiliates';
-    $query = "SELECT id FROM $table WHERE uid = $wpid";
-    $affid = (int) $wpdb->get_var( $query );
-    $affid = $affid ? $affid : 0;
-    return $affid;
   }
 
 

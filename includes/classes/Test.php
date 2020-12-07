@@ -294,7 +294,7 @@ class Test {
   protected function assert_user_id_exists( int $id, ...$data ): void {
     $assertion = __FUNCTION__;
     $user = \get_user_by( 'id', $id );
-    $condition = $user === false;
+    $condition = $user !== false;
     $data['user'] = $user;
     $this->assert( $condition, $data, $assertion );
   }

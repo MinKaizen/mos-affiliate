@@ -165,6 +165,16 @@ class DbFunctionsTest extends Test {
   }
 
 
+  private function get_affid( int $wpid ): int {
+    global $wpdb;
+    $table = $wpdb->prefix . 'uap_affiliates';
+    $query = "SELECT id FROM $table WHERE uid = $wpid";
+    $affid = (int) $wpdb->get_var( $query );
+    $affid = $affid ? $affid : 0;
+    return $affid;
+  }
+
+
   private function commission_exists( int $id ): bool {
     global $wpdb;
     $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;

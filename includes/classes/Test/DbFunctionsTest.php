@@ -159,7 +159,7 @@ class DbFunctionsTest extends Test {
     
     // Unset user
     $this->unset_user();
-    $this->assert_not_equal( $this->_injected_user, User::current(), "Injected should NOT should equal current user after unset" );
+    $this->assert_not_equal( $this->_injected_user, User::current(), "Injected user should NOT should equal current user after unset" );
   }
 
 

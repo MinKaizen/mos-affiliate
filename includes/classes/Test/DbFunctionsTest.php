@@ -59,16 +59,6 @@ class DbFunctionsTest extends Test {
   }
 
 
-  private function commission_exists( int $id ): bool {
-    global $wpdb;
-    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
-    $query = "SELECT id FROM $table WHERE id = $id";
-    $id_from_db = (int) $wpdb->get_var( $query );
-    $exists = $id == $id_from_db;
-    return $exists;
-  }
-
-
   public function test_create_commission(): void {
     $commission_data = [
       'date' => '2020-12-06',
@@ -104,15 +94,6 @@ class DbFunctionsTest extends Test {
     // Delete commission
     $this->delete_test_commissions();
     $this->assert_false( $this->commission_exists( $commission->get_id() ), 'Commission should not exist after delete' );
-  }
-
-
-  private function get_commission_array( int $id ): array {
-    global $wpdb;
-    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
-    $query = "SELECT * FROM $table WHERE id = $id";
-    $commission_array = (array) $wpdb->get_row( $query, \ARRAY_A );
-    return $commission_array;
   }
 
 
@@ -175,6 +156,25 @@ class DbFunctionsTest extends Test {
     // Unset Sponsor
     $this->unset_sponsor();
     $this->assert_not_equal( $this->_injected_sponsor, User::current()->sponsor(), "Injected should NOT should equal current sponsor after unset" );
+  }
+
+
+  private function commission_exists( int $id ): bool {
+    global $wpdb;
+    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+    $query = "SELECT id FROM $table WHERE id = $id";
+    $id_from_db = (int) $wpdb->get_var( $query );
+    $exists = $id == $id_from_db;
+    return $exists;
+  }
+
+
+  private function get_commission_array( int $id ): array {
+    global $wpdb;
+    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+    $query = "SELECT * FROM $table WHERE id = $id";
+    $commission_array = (array) $wpdb->get_row( $query, \ARRAY_A );
+    return $commission_array;
   }
 
 

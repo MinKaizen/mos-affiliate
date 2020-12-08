@@ -56,6 +56,17 @@ abstract class CliCommand {
   }
 
   
+  protected final function get_any_key( $prompt='' ): void {
+    $prompt .= $prompt ? ' ' : '';
+    $prompt .= '[any key] to continue';
+    fwrite( STDOUT, $prompt . PHP_EOL );
+
+    while ( !isset( $answer ) ) {
+      $answer = trim( (string) fgets( STDIN ) );
+    }
+  }
+
+  
   protected final function exit(): void {
     $this->_on_exit();
     exit;

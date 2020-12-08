@@ -112,6 +112,15 @@ class UserShortcodesTest extends Test {
   }
 
 
+  public function test_campaign_shortcode(): void {
+    $sponsor = $this->create_test_user();
+    $campaign = 'UserShortcodesTest->test_campaign_shortcode()';
+    $this->create_test_referral( $this->_injected_user->ID, $sponsor->ID, $campaign );
+    $shortcode = '[mos_campaign]';
+    $this->assert_shortcode_equal( $shortcode, $campaign );
+  }
+
+
   private function assert_shortcode_equal( string $shortcode, $expected ): void {
     $output = do_shortcode( $shortcode );
     $this->assert_equal( $expected, $output, [

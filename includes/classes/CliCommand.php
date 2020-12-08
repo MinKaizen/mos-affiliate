@@ -30,4 +30,18 @@ abstract class CliCommand {
   }
 
   
+  public function get_confirmation( string $prompt, string $confirm_word='y' ): void {
+    $answer = '';
+    
+    while ( $answer == '' ) {
+      $answer = $this->get_input( $prompt );
+    }
+
+    if ( $answer !== $confirm_word ) {
+      WP_CLI::line( 'aborted' );
+      exit;
+    }
+  }
+
+  
 }

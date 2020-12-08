@@ -86,6 +86,13 @@ class ClearTestDataCliCommand extends CliCommand {
 
   private function prompt_delete( string $term_plural, array $data, string $columns ): void {
     $count = count( $data );
+    
+    if ( $count == 0 ) {
+      $message = $this->colorize( "No $term_plural to delete.", 'success' );
+      $this->get_any_key( $message );
+      return;
+    }
+
     $prompt = "$count $term_plural will be deleted. Continue?";
     format_items( 'table', $data, $columns );
     $this->get_confirmation( $prompt, ['confirm_word' => ranstr(4)] );

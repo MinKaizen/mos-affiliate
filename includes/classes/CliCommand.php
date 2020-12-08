@@ -23,14 +23,14 @@ abstract class CliCommand {
   }
 
   
-  public function get_input( string $prompt ): string {
+  protected final function get_input( string $prompt ): string {
     fwrite( STDOUT, $prompt . PHP_EOL );
     $answer = trim( (string) fgets( STDIN ) );
     return $answer;
   }
 
   
-  public function get_confirmation( string $prompt, string $confirm_word='y' ): void {
+  protected final function get_confirmation( string $prompt, string $confirm_word='y' ): void {
     $answer = '';
     
     while ( $answer == '' ) {

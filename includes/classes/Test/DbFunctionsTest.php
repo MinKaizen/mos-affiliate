@@ -180,6 +180,30 @@ class DbFunctionsTest extends Test {
   }
 
 
+  public function test_create_clicks(): void {
+    $user = $this->create_test_user();
+    $no_campaign_clicks = 2;
+    $campaign_clicks = 3;
+    $campaign_name = 'mos_affiliate_test_' . ranstr();
+    
+    for ( $i=0; $i<$no_campaign_clicks; $i++ ) {
+      $this->create_test_click( $user->ID );
+    }
+
+    for ( $i=0; $i<$campaign_clicks; $i++ ) {
+      $this->create_test_click( $user->ID, $campaign_name );
+    }
+
+    $this->assert_user_clicks_equal( $user->ID, $no_campaign_clicks + $campaign_clicks );
+    $this->assert_user_clicks_equal( $user->ID, $campaign_clicks, $campaign_name );
+    $this->assert_user_clicks_equal( $user->ID, $no_campaign_clicks, '' );
+    
+    // Delete users
+    $this->delete_test_users();
+    $this->assert_user_clicks_equal( $user->ID, 0 );
+  }
+
+
   private function get_commission_array( int $id ): array {
     global $wpdb;
     $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;

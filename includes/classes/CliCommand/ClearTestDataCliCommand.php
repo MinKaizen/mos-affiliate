@@ -58,6 +58,16 @@ class ClearTestDataCliCommand extends CliCommand {
 
 
 
+  private function usermetas_query_stub(): string {
+    global $wpdb;
+    $users_table = $wpdb->prefix . 'users';
+    $user_ids_table = "(SELECT ID FROM $users_table)";
+    $table = $wpdb->prefix . 'usermeta';
+    $query_stub = "FROM $table WHERE user_id NOT IN $user_ids_table";
+    return $query_stub;
+  }
+
+
   private function select( string $query_stub ): array {
     global $wpdb;
     $table = $wpdb->prefix . $table_stub;

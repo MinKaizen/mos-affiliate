@@ -23,6 +23,11 @@ abstract class CliCommand {
   }
 
   
+  protected function _on_exit(): void {
+    // To be overridden by child class
+  }
+
+  
   protected final function get_input( string $prompt ): string {
     fwrite( STDOUT, $prompt . PHP_EOL );
     $answer = trim( (string) fgets( STDIN ) );
@@ -41,6 +46,12 @@ abstract class CliCommand {
       WP_CLI::line( 'aborted' );
       exit;
     }
+  }
+
+  
+  protected final function exit(): void {
+    $this->_on_exit();
+    exit;
   }
 
   

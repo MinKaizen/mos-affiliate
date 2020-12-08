@@ -9,10 +9,6 @@ use function \MOS\Affiliate\ranstr;
 
 class DbFunctionsTest extends Test {
 
-  public function test_main(): void {
-    echo "This is the DB Functions Test" . PHP_EOL;
-  }
-
 
   public function test_create_user(): void {
     $user_data = [

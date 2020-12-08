@@ -749,4 +749,22 @@ class Test {
   }
 
 
+  protected final function create_test_click( int $user_id, string $campaign='' ): void {
+    $this->assert_user_has_test_meta( $user_id );
+
+    global $wpdb;
+    $affid = $this->get_affid( $user_id );
+    $table = $wpdb->prefix . 'uap_visits';
+    $columns = [
+      'affiliate_id' => $affid,
+      'campaign_name' => $campaign,
+    ];
+    $formats = [
+      'affiliate_id' => '%d',
+      'campaign_name' => '%s',
+    ];
+    $wpdb->insert( $table, $columns, $formats );
+  }
+
+
 }

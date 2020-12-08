@@ -57,4 +57,18 @@ abstract class CliCommand {
   }
 
   
+  protected final function colorize( string $message, string $color ): string {
+    $color_map = [
+      'danger' => '%1',
+      'success' => '%2',
+    ];
+
+    if ( !in_array( $color, array_keys( $color_map ) ) ) {
+      return $message;
+    }
+
+    return WP_CLI::colorize( $color_map[$color] . $message . '%n' );
+  }
+
+  
 }

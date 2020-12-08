@@ -29,33 +29,36 @@ class ClearTestDataCliCommand extends CliCommand {
   public function run( array $pos_args, array $assoc_args ): void {
     // Note: order matters!
     $this->maybe_delete_users();
+    $this->maybe_delete_usermetas();
   }
 
 
   private function maybe_delete_users(): void {
-    $users = $this->get_users();
+    $query_stub = $this->users_query_stub();
+    $users = $this->select( $query_stub );
     $this->prompt_delete( 'users', $users, 'user_login, user_email' );
-    $this->delete_users( $users );
+    $this->delete( $query_stub );
   }
 
 
-  private function get_users(): array {
-    $args = [
-      'meta_key' => Test::TEST_META_KEY,
-      'meta_value' => Test::TEST_META_VALUE,
-    ];
-    $user_query = new WP_User_Query( $args );
-    $user_query->query();
-    $results = $user_query->get_results();
-    return $results;
+  private function users_query_stub(): string {
+    global $wpdb;
+    $meta_key = Test::TEST_META_KEY;
+    $meta_value = Test::TEST_META_VALUE;
+    $usermeta_table = $wpdb->prefix . 'usermeta';
+    $test_ids = "SELECT user_id FROM $usermeta_table WHERE meta_key = '$meta_key' AND meta_value = '$meta_value'";
+    $users_table = $wpdb->prefix . 'users';
+    $query_stub = "FROM $users_table WHERE ID in ($test_ids)";
+    return $query_stub;
   }
 
 
-  private function delete_users(): void {
-    WP_CLI::success( 'X users deleted (not really...)' );
+  private function maybe_delete_usermetas(): void {
+    $query_stub = $this->usermetas_query_stub();
+    $usermetas = $this->select( $query_stub );
+    $this->prompt_delete( 'usermetas', $usermetas, 'user_id, meta_key, meta_value' );
+    $this->delete( $query_stub );
   }
-
-
 
 
   private function usermetas_query_stub(): string {
@@ -70,7 +73,6 @@ class ClearTestDataCliCommand extends CliCommand {
 
   private function select( string $query_stub ): array {
     global $wpdb;
-    $table = $wpdb->prefix . $table_stub;
     $query = "SELECT * $query_stub";
     $rows = (array) $wpdb->get_results( $query );
     return $rows;
@@ -86,7 +88,7 @@ class ClearTestDataCliCommand extends CliCommand {
     $count = count( $data );
     $prompt = "$count $term_plural will be deleted. Continue?";
     format_items( 'table', $data, $columns );
-    $this->get_confirmation( $prompt, ranstr(4), 'success' );
+    $this->get_confirmation( $prompt, ['confirm_word' => ranstr(4)] );
   }
 
 

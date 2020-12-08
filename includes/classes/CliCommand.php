@@ -36,15 +36,20 @@ abstract class CliCommand {
   }
 
   
-  protected final function get_confirmation( string $prompt, string $confirm_word='y', string $color='danger' ): void {
+  protected final function get_confirmation( string $prompt, array $passed_opts=[] ): void {
+    $defaults = [
+      'confirm_word' => 'y',
+      'color' => 'danger',
+    ];
+    $opts = array_replace( $defaults, $passed_opts );
     $answer = '';
-    $prompt = $this->colorize( $prompt, $color ) . " [$confirm_word] to confirm...";
+    $prompt = $this->colorize( $prompt, $opts['color'] ) . " [{$opts['confirm_word']}] to confirm...";
     
     while ( $answer == '' ) {
       $answer = $this->get_input( $prompt );
     }
 
-    if ( $answer !== $confirm_word ) {
+    if ( $answer !== $opts['confirm_word'] ) {
       WP_CLI::line( 'aborted' );
       exit;
     }

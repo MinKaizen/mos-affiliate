@@ -77,6 +77,11 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
+  private function delete( string $query_stub ): void {
+
+  }
+
+
   private function prompt_delete( string $term_plural, array $data, string $columns ): void {
     $count = count( $data );
     $prompt = "$count $term_plural will be deleted. Continue?";

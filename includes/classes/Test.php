@@ -780,10 +780,12 @@ class Test {
     $columns = [
       'affiliate_id' => $affid,
       'campaign_name' => $campaign,
+      'ip' => ranstr(16),
     ];
     $formats = [
       'affiliate_id' => '%d',
       'campaign_name' => '%s',
+      'ip' => '%s',
     ];
     $wpdb->insert( $table, $columns, $formats );
   }

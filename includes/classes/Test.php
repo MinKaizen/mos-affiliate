@@ -462,6 +462,17 @@ class Test {
   }
 
 
+  private function user_get_clicks( int $id, $campaign=null ): int {
+    global $wpdb;
+    $affid = $this->get_affid( $id );
+    $table = $wpdb->prefix . 'uap_visits';
+    $query = "SELECT COUNT(affiliate_id) FROM $table WHERE affiliate_id = $affid";
+    $query .= isset( $campaign ) ? " AND campaign_name = '$campaign'" : "";
+    $clicks = (int) $wpdb->get_var( $query );
+    return $clicks;
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

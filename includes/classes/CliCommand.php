@@ -16,7 +16,8 @@ abstract class CliCommand {
 
   public function register(): void {
     if ( empty( $this->command ) ) {
-      return;
+      $error_msg = "Command name for " . __CLASS__ . " is empty!";
+      WP_CLI::error( $error_msg );
     }
     $command = implode( ' ', [self::GLOBAL_COMMAND, $this->command] );
     WP_CLI::add_command( $command, [$this, 'run' ] );

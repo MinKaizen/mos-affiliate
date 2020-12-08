@@ -95,7 +95,7 @@ class ClearTestDataCliCommand extends CliCommand {
 
     $prompt = "$count $term_plural will be deleted. Continue?";
     format_items( 'table', $data, $columns );
-    $this->get_confirmation( $prompt, ['confirm_word' => ranstr(4)] );
+    $this->get_confirmation( $prompt, ['confirm_word' => "delete $count"] );
   }
 
 

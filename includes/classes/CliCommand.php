@@ -23,4 +23,11 @@ abstract class CliCommand {
   }
 
   
+  public function get_input( string $prompt ): string {
+    fwrite( STDOUT, $prompt . PHP_EOL );
+    $answer = trim( (string) fgets( STDIN ) );
+    return $answer;
+  }
+
+  
 }

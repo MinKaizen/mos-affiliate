@@ -27,6 +27,7 @@ class ClearTestDataCliCommand extends CliCommand {
    *  commissions where description is mos_test
    */
   public function run( array $pos_args, array $assoc_args ): void {
+    // Note: order matters!
     $this->maybe_delete_users();
   }
 

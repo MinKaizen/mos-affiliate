@@ -462,6 +462,17 @@ class Test {
   }
 
 
+  protected function assert_user_clicks_equal( int $id, int $expected_clicks, $campaign=null ): void {
+    $assertion = __FUNCTION__;
+    $actual_clicks = $this->user_get_clicks( $id, $campaign );
+    $condition = $expected_clicks == $actual_clicks;
+    $data['user_id'] = $id;
+    $data['expected_clicks'] = $expected_clicks;
+    $data['actual_clicks'] = $actual_clicks;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   private function user_get_clicks( int $id, $campaign=null ): int {
     global $wpdb;
     $affid = $this->get_affid( $id );

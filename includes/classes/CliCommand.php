@@ -38,7 +38,7 @@ abstract class CliCommand {
   
   protected final function get_confirmation( string $prompt, string $confirm_word='y' ): void {
     $answer = '';
-    $prompt = $prompt . " [$confirm_word] to confirm...";
+    $prompt = WP_CLI::colorize( "%1$prompt%n [$confirm_word] to confirm..." );
     
     while ( $answer == '' ) {
       $answer = $this->get_input( $prompt );

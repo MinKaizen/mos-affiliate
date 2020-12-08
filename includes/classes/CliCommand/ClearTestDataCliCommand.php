@@ -56,6 +56,17 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
+
+
+  private function select( string $query_stub ): array {
+    global $wpdb;
+    $table = $wpdb->prefix . $table_stub;
+    $query = "SELECT * $query_stub";
+    $rows = (array) $wpdb->get_results( $query );
+    return $rows;
+  }
+
+
   private function prompt_delete( string $term_plural, array $data, string $columns ): void {
     $count = count( $data );
     $prompt = "$count $term_plural will be deleted. Continue?";

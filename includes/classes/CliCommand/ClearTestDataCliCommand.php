@@ -4,10 +4,7 @@ namespace MOS\Affiliate\CliCommand;
 
 use MOS\Affiliate\CliCommand;
 use MOS\Affiliate\Test;
-use \WP_CLI;
-use \WP_User_Query;
 
-use function MOS\Affiliate\ranstr;
 use function \WP_CLI\Utils\format_items;
 
 class ClearTestDataCliCommand extends CliCommand {

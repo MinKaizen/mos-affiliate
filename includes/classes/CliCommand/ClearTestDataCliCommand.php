@@ -35,10 +35,10 @@ class ClearTestDataCliCommand extends CliCommand {
       'debug_columns' => 'user_id, meta_key, meta_value',
       'where_clause' => 'user_id NOT IN (SELECT ID FROM %PREFIX%users)',
     ],
-    'uap_affiliate' => [
-      'name' => '%PREFIX%uap_affiliate',
+    'uap_affiliates' => [
+      'name' => '%PREFIX%uap_affiliates',
       'debug_columns' => 'id, start_data',
-      'where_clause' => '',
+      'where_clause' => 'uid NOT IN (SELECT ID FROM %PREFIX%users)',
     ],
     'uap_referrals' => [
       'name' => '%PREFIX%uap_referrals',
@@ -67,6 +67,7 @@ class ClearTestDataCliCommand extends CliCommand {
     $this->init();
     $this->maybe_delete( 'users' );
     $this->maybe_delete( 'usermeta' );
+    $this->maybe_delete( 'uap_affiliates' );
   }
 
 

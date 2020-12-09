@@ -90,6 +90,25 @@ class ClearTestDataCliCommand extends CliCommand {
 
 
 
+  private function table_stub_is_valid_or_exit( string $table_stub ): void {
+    if ( !isset( $this->tables[$table_stub] ) ) {
+      $this->exit_error( "table stub invalid: tables[$table_stub] not set" );
+    }
+
+    if ( !isset( $this->tables[$table_stub]['name'] ) ) {
+      $this->exit_error( "table stub invalid: tables[$table_stub][name] not set" );
+    }
+
+    if ( !isset( $this->tables[$table_stub]['where_clause'] ) ) {
+      $this->exit_error( "table stub invalid: tables[$table_stub][where_clause] not set" );
+    }
+
+    if ( !isset( $this->tables[$table_stub]['debug_columns'] ) ) {
+      $this->exit_error( "table stub invalid: tables[$table_stub][debug_columns] not set" );
+    }
+  }
+
+
   private function get_results( string $table, string $where_clause ) {
     global $wpdb;
     $query = "SELECT * FROM $table WHERE $where_clause";

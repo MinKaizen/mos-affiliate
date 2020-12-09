@@ -63,7 +63,7 @@ class ClearTestDataCliCommand extends CliCommand {
     'mos_commissions' => [
       'name' => '%PREFIX%mos_commissions',
       'debug_columns' => 'amount, description, campaign',
-      'where_clause' => '',
+      'where_clause' => 'description = "%COMMISSIONS_TEST_DESCRIPTION%"',
     ],
   ];
 
@@ -77,6 +77,7 @@ class ClearTestDataCliCommand extends CliCommand {
     $this->maybe_delete( 'uap_visits' );
     $this->maybe_delete( 'posts' );
     $this->maybe_delete( 'postmeta' );
+    $this->maybe_delete( 'mos_commissions' );
   }
 
 
@@ -89,6 +90,7 @@ class ClearTestDataCliCommand extends CliCommand {
       '%USERS_TEST_META_VALUE%' => Test::TEST_META_VALUE,
       '%POSTS_TEST_META_KEY%' => Test::TEST_META_KEY,
       '%POSTS_TEST_META_VALUE%' => Test::TEST_META_VALUE,
+      '%COMMISSIONS_TEST_DESCRIPTION%' => Test::TEST_COMMISSION_DESCRIPTION,
     ];
 
     $this->tables = expand_merge_tags( $this->tables, $merge_tags );

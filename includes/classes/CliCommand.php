@@ -69,7 +69,8 @@ abstract class CliCommand {
 
   
   protected final function exit( string $message='', string $color=''  ): void {
-    $message = $this->colorize( $message, $color );
+    $divider = $this->colorize( '==============================', $color );
+    $message = $divider . PHP_EOL . $message . PHP_EOL . $divider;
     $this->_on_exit();
     if ( !empty( $message ) ) {
       WP_CLI::line( $message );

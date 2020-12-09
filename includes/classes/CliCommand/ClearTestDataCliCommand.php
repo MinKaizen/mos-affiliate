@@ -70,6 +70,14 @@ class ClearTestDataCliCommand extends CliCommand {
 
   public function run( array $pos_args, array $assoc_args ): void {
     $this->init();
+
+    // Validate table arrays first
+    foreach ( $this->tables as $table_array ) {
+      if ( ! $this->table_array_is_valid( $table_array ) ) {
+        $this->exit( 'Table is invalid: ' . PHP_EOL . print_r( $table_array, true ), 'error' );
+      }
+    }
+
     foreach ( $this->tables as $table_array ) {
       $this->maybe_delete_from( $table_array );
     }
@@ -93,7 +101,6 @@ class ClearTestDataCliCommand extends CliCommand {
 
 
   private function maybe_delete_from( array $table_array ): void {
-    $this->table_array_is_valid_or_exit( $table_array );
     $results = $this->get_results( $table_array['name'], $table_array['where_clause'] );
 
     if ( count( $results ) == 0 ) {
@@ -124,21 +131,6 @@ class ClearTestDataCliCommand extends CliCommand {
     }
 
     return true;
-  }
-
-
-  private function table_array_is_valid_or_exit( array $table_array ): void {
-    $required_keys = [
-      'name',
-      'where_clause',
-      'debug_columns',
-    ];
-
-    foreach ( $required_keys as $key ) {
-      if ( !array_key_exists( $key, $table_array ) ) {
-        $this->exit( "table array invalid: [$key] not set", 'error' );
-      }
-    }
   }
 
 

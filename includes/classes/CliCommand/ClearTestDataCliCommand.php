@@ -123,11 +123,11 @@ class ClearTestDataCliCommand extends CliCommand {
 
 
   private function delete( string $table, string $where_clause ): void {
-    // global $wpdb;
-    // $query = "DELETE FROM $table WHERE $where_clause";
-    // \WP_CLI::line( "SQL: $query" );
-    // $rows_deleted = (int) $wpdb->query( $query );
-    // $this->get_any_key( "$rows_deleted rows deleted." );
+    global $wpdb;
+    $query = "DELETE FROM $table WHERE $where_clause";
+    \WP_CLI::line( "SQL: $query" );
+    $rows_deleted = (int) $wpdb->query( $query );
+    $this->get_any_key( "$rows_deleted rows deleted." );
   }
 
 

@@ -41,11 +41,8 @@ function class_name( string $stub, string $sub_dir='' ): string {
   // Convert forward slashes to backwards slashes
   if ( ! empty( $sub_dir ) ) {
     $sub_dir = str_replace( "/", "\\", $sub_dir );
-  }
-
-  // Append trailing backslash
-  if ( substr( $sub_dir, -1 ) !== '\\' ) {
-    $sub_dir .= '\\';
+    $ends_in_slash = substr( $sub_dir, -1 ) === '\\';
+    $sub_dir .= $ends_in_slash ? '' : '\\';
   }
 
   return NS . $sub_dir . $pascalized;

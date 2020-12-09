@@ -79,7 +79,7 @@ abstract class CliCommand {
   protected final function colorize( string $message, string $color ): string {
     $color_map = [
       'danger' => '%1',
-      'success' => '%2',
+      'success' => '%g',
       'error' => '%r',
     ];
 

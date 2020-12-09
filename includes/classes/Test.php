@@ -21,6 +21,7 @@ class Test {
   const CURRENT_SPONSOR_HOOK = 'mos_sponsor';
   const TEST_META_KEY = 'mos_inserted_via_test';
   const TEST_META_VALUE = 'true';
+  const TEST_COMMISSION_DESCRIPTION = 'mos_affiliate_test';
   const TEST_REFERRAL_DESCRIPTION = 'mos_affiliate_test';
   const TEST_REFERRAL_SOURCE = 'mos_affiliate_test';
   const TEST_REFERRAL_REFERENCE = 'mos_affiliate_test';
@@ -715,7 +716,7 @@ class Test {
     $default_data = [
       'date' => '1991-01-01',
       'amount' => 1.00,
-      'description' => 'mos_test',
+      'description' => self::TEST_COMMISSION_DESCRIPTION,
       'earner_id' => 1,
     ];
     $data = array_replace_recursive( $default_data, $passed_data );

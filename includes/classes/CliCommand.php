@@ -80,6 +80,7 @@ abstract class CliCommand {
     $color_map = [
       'danger' => '%1',
       'success' => '%2',
+      'error' => '%r',
     ];
 
     if ( !in_array( $color, array_keys( $color_map ) ) ) {

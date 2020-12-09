@@ -110,6 +110,23 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
+  private function table_array_is_valid( $table_array ): bool {
+    $required_keys = [
+      'name',
+      'where_clause',
+      'debug_columns',
+    ];
+
+    foreach ( $required_keys as $key ) {
+      if ( !array_key_exists( $key, $table_array ) ) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+
   private function table_array_is_valid_or_exit( array $table_array ): void {
     $required_keys = [
       'name',

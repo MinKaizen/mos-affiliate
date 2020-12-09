@@ -118,6 +118,21 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
+  private function table_array_is_valid_or_exit( array $table_array ): void {
+    $required_keys = [
+      'name',
+      'where_clause',
+      'debug_columns',
+    ];
+
+    foreach ( $required_keys as $key ) {
+      if ( array_key_exists( $key, $table_array ) ) {
+        $this->exit( "table array invalid: [$key] not set", 'error' );
+      }
+    }
+  }
+
+
   private function table_stub_is_valid_or_exit( string $table_stub ): void {
     if ( !isset( $this->tables[$table_stub] ) ) {
       $this->exit( "table stub invalid: tables[$table_stub] not set", 'error' );

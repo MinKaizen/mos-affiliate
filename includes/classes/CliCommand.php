@@ -82,7 +82,11 @@ abstract class CliCommand {
   }
 
   
-  protected final function colorize( string $message, string $color ): string {
+  protected final function colorize( string $message, string $color='' ): string {
+    if ( empty( $color ) ) {
+      return $message;
+    }
+
     $color_map = [
       'danger' => '%1',
       'success' => '%g',

@@ -2,5 +2,4 @@
 dist
 node_modules
 /vendor
-.vscode
 loose-ends.txt

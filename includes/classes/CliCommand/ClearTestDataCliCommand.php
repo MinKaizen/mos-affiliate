@@ -28,17 +28,12 @@ class ClearTestDataCliCommand extends CliCommand {
     'users' => [
       'name' => '%PREFIX%users',
       'debug_columns' => 'user_login, user_email',
-      'where_clause' => 'ID in (
-                           SELECT user_id
-                           FROM $usermeta_table
-                           WHERE meta_key = "%USERS_TEST_META_KEY%"
-                           AND meta_value = "%USERS_TEST_META_VALUE%"
-                         )',
+      'where_clause' => 'ID in (SELECT user_id FROM %PREFIX%usermeta WHERE meta_key = "%USERS_TEST_META_KEY%" AND meta_value = "%USERS_TEST_META_VALUE%" )',
     ],
     'usermeta' => [
       'name' => '%PREFIX%usermeta',
       'debug_columns' => 'user_id, meta_key, meta_value',
-      'where_clause' => 'user_id NOT IN (SELECT ID FROM $users_table)',
+      'where_clause' => 'user_id NOT IN (SELECT ID FROM %PREFIX%users)',
     ],
     'uap_affiliate' => [
       'name' => '%PREFIX%uap_affiliate',

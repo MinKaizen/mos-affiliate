@@ -10,6 +10,7 @@ use function \MOS\Affiliate\pascal_to_snake_case;
 use function \MOS\Affiliate\first_non_empty_element;
 use function \MOS\Affiliate\is_dateable;
 use function \MOS\Affiliate\proper_to_kebab_case;
+use function \MOS\Affiliate\snake_to_proper_case;
 
 class UtilsTest extends Test {
 
@@ -82,6 +83,14 @@ class UtilsTest extends Test {
     $this->assert_equal( proper_to_kebab_case( '' ), '' );
     $this->assert_equal( proper_to_kebab_case( 'Martin Cao' ), 'martin-cao' );
     $this->assert_equal( proper_to_kebab_case( 'Martin Cao WAS HERE' ), 'martin-cao-was-here' );
+  }
+
+
+  public function test_snake_to_proper_case(): void {
+    $this->assert_equal( snake_to_proper_case( '' ), '' );
+    $this->assert_equal( snake_to_proper_case( 'hello' ), 'Hello' );
+    $this->assert_equal( snake_to_proper_case( 'hello_world' ), 'Hello World' );
+    $this->assert_equal( snake_to_proper_case( 'hello_world_this' ), 'Hello World This' );
   }
 
 }

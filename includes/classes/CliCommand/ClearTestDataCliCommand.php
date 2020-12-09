@@ -10,7 +10,7 @@ use function \MOS\Affiliate\expand_merge_tags;
 
 class ClearTestDataCliCommand extends CliCommand {
 
-  protected $command = 'clear_test_data';
+  protected $command = 'cleanup';
 
   private $tables = [
     [

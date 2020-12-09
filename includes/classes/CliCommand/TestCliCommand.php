@@ -25,6 +25,7 @@ class TestCliCommand extends CliCommand {
     'sponsor_shortcodes',
     'user_class',
     'user_shortcodes',
+    'utils',
   ];
 
 

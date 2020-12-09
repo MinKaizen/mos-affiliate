@@ -8,7 +8,7 @@ use MOS\Affiliate\Test;
 use function \WP_CLI\Utils\format_items;
 use function \MOS\Affiliate\expand_merge_tags;
 
-class ClearTestDataCliCommand extends CliCommand {
+class DeleteTestDataCliCommand extends CliCommand {
 
   protected $command = 'cleanup';
 
@@ -98,7 +98,7 @@ class ClearTestDataCliCommand extends CliCommand {
     }
 
     if ( $this->prompt_delete( $table_array['name'], $results, $table_array['debug_columns'] ) ) {
-      $this->delete( $table_array['table_name'], $table_array['where_clause'] );
+      $this->delete( $table_array['name'], $table_array['where_clause'] );
     } else {
       \WP_CLI::line( "Skipped..." );
     }

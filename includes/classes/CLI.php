@@ -2,7 +2,7 @@
 
 namespace MOS\Affiliate;
 
-use MOS\Affiliate\CliCommand\ClearTestDataCliCommand;
+use MOS\Affiliate\CliCommand\DeleteTestDataCliCommand;
 use MOS\Affiliate\CliCommand\TestCliCommand;
 use MOS\Affiliate\CliCommand\ReactivateCliCommand;
 
@@ -14,8 +14,8 @@ class CLI {
   }
 
 
-  public function clear_test_data( array $pos_args, array $assoc_args  ): void {
-    $command = new ClearTestDataCliCommand();
+  public function delete_test_data( array $pos_args, array $assoc_args  ): void {
+    $command = new DeleteTestDataCliCommand();
     $command->run( $pos_args, $assoc_args );
   }
 

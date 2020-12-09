@@ -67,8 +67,11 @@ abstract class CliCommand {
   }
 
   
-  protected final function exit(): void {
+  protected final function exit( string $message='' ): void {
     $this->_on_exit();
+    if ( !empty( $message ) ) {
+      WP_CLI::line( $message );
+    }
     exit;
   }
 

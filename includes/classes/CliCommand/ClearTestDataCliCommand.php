@@ -105,12 +105,12 @@ class ClearTestDataCliCommand extends CliCommand {
     $results = $this->get_results( $table, $where_clause );
 
     if ( count( $results ) == 0 ) {
-      $message = $this->colorize( "$table_stub: nothing to delete.", 'success' );
+      $message = $this->colorize( "$table: nothing to delete.", 'success' );
       $this->get_any_key( $message );
       return;
     }
 
-    if ( $this->prompt_delete( $table_stub, $results, $debug_columns ) ) {
+    if ( $this->prompt_delete( $table, $results, $debug_columns ) ) {
       $this->delete( $table, $where_clause );
     } else {
       \WP_CLI::line( "Skipped..." );

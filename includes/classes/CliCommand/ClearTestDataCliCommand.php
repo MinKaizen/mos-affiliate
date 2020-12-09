@@ -98,6 +98,8 @@ class ClearTestDataCliCommand extends CliCommand {
 
     if ( $this->prompt_delete( $table_stub, $results, $debug_columns ) ) {
       $this->delete( $table, $where_clause );
+    } else {
+      \WP_CLI::line( "Skipped..." );
     }
   }
 

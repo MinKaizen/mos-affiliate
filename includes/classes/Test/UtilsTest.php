@@ -12,6 +12,7 @@ use function \MOS\Affiliate\is_dateable;
 use function \MOS\Affiliate\proper_to_kebab_case;
 use function \MOS\Affiliate\snake_to_proper_case;
 use function \MOS\Affiliate\ranstr;
+use function \MOS\Affiliate\format_currency;
 
 class UtilsTest extends Test {
 
@@ -131,6 +132,16 @@ class UtilsTest extends Test {
     $this->assert_equal( strlen( ranstr( 19 ) ), 19 );
     $this->assert_equal( strlen( ranstr( 20 ) ), 20 );
     $this->assert_equal( strlen( ranstr( 10 ) ), 10 );
+  }
+
+
+  public function test_format_currency(): void {
+    $this->assert_equal_strict( format_currency( 10 ), "$10.00" ); // passing ints is allowed
+    $this->assert_equal_strict( format_currency( 11.15 ), "$11.15" );
+    $this->assert_equal_strict( format_currency( 12.345, 0 ), "$12" );
+    $this->assert_equal_strict( format_currency( 12.345, 1 ), "$12.3" );
+    $this->assert_equal_strict( format_currency( 12.345, 2 ), "$12.35" ); // rounds up
+    $this->assert_equal_strict( format_currency( 12.345, 3 ), "$12.345" );
   }
 
 }

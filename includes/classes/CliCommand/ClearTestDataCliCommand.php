@@ -126,7 +126,7 @@ class ClearTestDataCliCommand extends CliCommand {
     ];
 
     foreach ( $required_keys as $key ) {
-      if ( array_key_exists( $key, $table_array ) ) {
+      if ( !array_key_exists( $key, $table_array ) ) {
         $this->exit( "table array invalid: [$key] not set", 'error' );
       }
     }

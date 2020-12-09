@@ -88,6 +88,17 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
+
+
+  private function get_results( string $table, string $where_clause ) {
+    global $wpdb;
+    $query = "SELECT * FROM $table WHERE $where_clause";
+    \WP_CLI::line( $query );
+    $results = (array) $wpdb->get_results( $query );
+    return $results;
+  }
+
+
   private function maybe_delete_users(): void {
     $query_stub = $this->users_query_stub();
     $users = $this->select( $query_stub );

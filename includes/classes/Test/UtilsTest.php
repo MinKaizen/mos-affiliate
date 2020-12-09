@@ -65,6 +65,12 @@ class UtilsTest extends Test {
     $this->assert_false( is_dateable('2020-01-34') ); // day 34
     $this->assert_false( is_dateable('2020-01-00') ); // day 0
     
+    // Wrong format
+    $this->assert_false( is_dateable('01-01-2020') ); // dd-mm-yyyy
+    $this->assert_false( is_dateable('01/01/2020') ); // dd/mm/yyyy
+    $this->assert_false( is_dateable('2020/01/01') ); // yyyy/mm/dd
+
+    
     // Non dates
     $this->assert_false( is_dateable('some-string') );
     $this->assert_false( is_dateable('xxxx-xx-xx') );

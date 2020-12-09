@@ -53,7 +53,7 @@ class ClearTestDataCliCommand extends CliCommand {
     'posts' => [
       'name' => '%PREFIX%posts',
       'debug_columns' => 'post_author, post_title',
-      'where_clause' => '',
+      'where_clause' => 'ID in (SELECT post_id FROM %PREFIX%postmeta WHERE meta_key = "%POSTS_TEST_META_KEY%" AND meta_value = "%POSTS_TEST_META_VALUE%" )',
     ],
     'mos_commissions' => [
       'name' => '%PREFIX%mos_commissions',
@@ -70,6 +70,7 @@ class ClearTestDataCliCommand extends CliCommand {
     $this->maybe_delete( 'uap_affiliates' );
     $this->maybe_delete( 'uap_referrals' );
     $this->maybe_delete( 'uap_visits' );
+    $this->maybe_delete( 'posts' );
   }
 
 
@@ -80,6 +81,8 @@ class ClearTestDataCliCommand extends CliCommand {
       '%PREFIX%' => $wpdb->prefix,
       '%USERS_TEST_META_KEY%' => Test::TEST_META_KEY,
       '%USERS_TEST_META_VALUE%' => Test::TEST_META_VALUE,
+      '%POSTS_TEST_META_KEY%' => Test::TEST_META_KEY,
+      '%POSTS_TEST_META_VALUE%' => Test::TEST_META_VALUE,
     ];
 
     $this->tables = expand_merge_tags( $this->tables, $merge_tags );

@@ -11,6 +11,7 @@ use function \MOS\Affiliate\first_non_empty_element;
 use function \MOS\Affiliate\is_dateable;
 use function \MOS\Affiliate\proper_to_kebab_case;
 use function \MOS\Affiliate\snake_to_proper_case;
+use function \MOS\Affiliate\ranstr;
 
 class UtilsTest extends Test {
 
@@ -91,6 +92,45 @@ class UtilsTest extends Test {
     $this->assert_equal( snake_to_proper_case( 'hello' ), 'Hello' );
     $this->assert_equal( snake_to_proper_case( 'hello_world' ), 'Hello World' );
     $this->assert_equal( snake_to_proper_case( 'hello_world_this' ), 'Hello World This' );
+  }
+
+
+  public function test_ranstr(): void {
+    $this->assert_false_strict( strpos( ranstr(), '/' ) );
+    $this->assert_false_strict( strpos( ranstr(), '\\' ) );
+    $this->assert_false_strict( strpos( ranstr(), '.' ) );
+    $this->assert_false_strict( strpos( ranstr(), ',' ) );
+    $this->assert_false_strict( strpos( ranstr(), '(' ) );
+    $this->assert_false_strict( strpos( ranstr(), ')' ) );
+    $this->assert_false_strict( strpos( ranstr(), '-' ) );
+    $this->assert_false_strict( strpos( ranstr(), '_' ) );
+    $this->assert_false_strict( strpos( ranstr(), '=' ) );
+    $this->assert_false_strict( strpos( ranstr(), '+' ) );
+    $this->assert_false_strict( strpos( ranstr(), '{' ) );
+    $this->assert_false_strict( strpos( ranstr(), '}' ) );
+    $this->assert_false_strict( strpos( ranstr(), '[' ) );
+    $this->assert_false_strict( strpos( ranstr(), ']' ) );
+    $this->assert_false_strict( strpos( ranstr(), '"' ) );
+    $this->assert_false_strict( strpos( ranstr(), '\'' ) );
+    $this->assert_false_strict( strpos( ranstr(), ';' ) );
+    $this->assert_false_strict( strpos( ranstr(), ':' ) );
+    $this->assert_false_strict( strpos( ranstr(), '>' ) );
+    $this->assert_false_strict( strpos( ranstr(), '<' ) );
+    $this->assert_false_strict( strpos( ranstr(), '&' ) );
+    $this->assert_false_strict( strpos( ranstr(), '*' ) );
+    $this->assert_false_strict( strpos( ranstr(), '^' ) );
+    $this->assert_false_strict( strpos( ranstr(), '%' ) );
+    $this->assert_false_strict( strpos( ranstr(), '$' ) );
+    $this->assert_false_strict( strpos( ranstr(), '#' ) );
+    $this->assert_false_strict( strpos( ranstr(), '@' ) );
+    $this->assert_false_strict( strpos( ranstr(), '!' ) );
+    $this->assert_false_strict( strpos( ranstr(), '`' ) );
+    $this->assert_false_strict( strpos( ranstr(), '!' ) );
+
+    $this->assert_equal( strlen( ranstr( 5 ) ), 5 );
+    $this->assert_equal( strlen( ranstr( 19 ) ), 19 );
+    $this->assert_equal( strlen( ranstr( 20 ) ), 20 );
+    $this->assert_equal( strlen( ranstr( 10 ) ), 10 );
   }
 
 }

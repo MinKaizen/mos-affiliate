@@ -39,7 +39,7 @@ abstract class CliCommand {
   protected final function get_confirmation( string $prompt, array $passed_opts=[] ): void {
     $defaults = [
       'confirm_word' => 'y',
-      'color' => 'danger',
+      'color' => '',
     ];
     $opts = array_replace( $defaults, $passed_opts );
     $answer = '';

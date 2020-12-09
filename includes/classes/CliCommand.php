@@ -77,8 +77,8 @@ abstract class CliCommand {
 
   
   protected final function exit_error( string $message='' ): void {
-    $message_colorized = $this->colorize( $message, 'error' );
-    $this->exit( $message_colorized );
+    $error_message = $this->colorize( "ERROR: ", 'error' ) . $message;
+    $this->exit( $error_message );
   }
 
   

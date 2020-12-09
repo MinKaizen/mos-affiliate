@@ -12,18 +12,6 @@ class ClearTestDataCliCommand extends CliCommand {
 
   protected $command = 'clear_test_data';
 
-  /**
-   * To delete:
-   *  users where usermeta test exists
-   *  usermeta where user_id doesn't exist
-   *  uap_affiliate where uid doesn't exist
-   *  uap_referral where uid doesn't exist
-   *  uap_referral where affid doesn't exist
-   *  uap_visits where uid doesn't exist
-   *  uap_visits where affid doesn't exist
-   *  posts where postmeta test exists
-   *  commissions where description is mos_test
-   */
   private $tables = [
     [
       'name' => '%PREFIX%users',

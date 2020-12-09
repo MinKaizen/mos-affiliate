@@ -48,7 +48,7 @@ class Plugin {
     }
 
     if ( defined( 'WP_CLI' ) && WP_CLI ) {
-      $this->register_classes_from_folder( 'CliCommand' );
+      \WP_CLI::add_command( 'mosa', '\MOS\Affiliate\CLI' );
     }
 
     $this->load_admin();

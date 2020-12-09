@@ -4,28 +4,16 @@ namespace MOS\Affiliate;
 
 use \WP_CLI;
 
-abstract class CliCommand {
-  
-  const GLOBAL_COMMAND = 'mosa';
-
-  protected $command = '';
+class CliCommand {
 
 
-  abstract function run( array $pos_args, array $assoc_args ): void;
-
-
-  public function register(): void {
-    if ( empty( $this->command ) ) {
-      $error_msg = "Command name for " . __CLASS__ . " is empty!";
-      WP_CLI::error( $error_msg );
-    }
-    $command = implode( ' ', [self::GLOBAL_COMMAND, $this->command] );
-    WP_CLI::add_command( $command, [$this, 'run' ] );
+  public function run( array $pos_args, array $assoc_args ): void {
+    // To be overridden
   }
 
   
   protected function _on_exit(): void {
-    // To be overridden by child class
+    // To be overridden
   }
 
   

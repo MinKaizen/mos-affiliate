@@ -6,6 +6,7 @@ use MOS\Affiliate\CliCommand;
 use MOS\Affiliate\Test;
 
 use function \WP_CLI\Utils\format_items;
+use function \MOS\Affiliate\expand_merge_tags;
 
 class ClearTestDataCliCommand extends CliCommand {
 
@@ -23,10 +24,67 @@ class ClearTestDataCliCommand extends CliCommand {
    *  posts where postmeta test exists
    *  commissions where description is mos_test
    */
+  private $tables = [
+    'users' => [
+      'name' => '%PREFIX%users',
+      'debug_columns' => 'user_login, user_email',
+      'where_clause' => 'ID in (
+                           SELECT user_id
+                           FROM $usermeta_table
+                           WHERE meta_key = "%USERS_TEST_META_KEY%"
+                           AND meta_value = "%USERS_TEST_META_VALUE%"
+                         )',
+    ],
+    'usermeta' => [
+      'name' => '%PREFIX%usermeta',
+      'debug_columns' => 'user_id, meta_key, meta_value',
+      'where_clause' => 'user_id NOT IN (SELECT ID FROM $users_table)',
+    ],
+    'uap_affiliate' => [
+      'name' => '%PREFIX%uap_affiliate',
+      'debug_columns' => 'id, start_data',
+      'where_clause' => '',
+    ],
+    'uap_referrals' => [
+      'name' => '%PREFIX%uap_referrals',
+      'debug_columns' => 'campaign, source, date',
+      'where_clause' => '',
+    ],
+    'uap_visits' => [
+      'name' => '%PREFIX%uap_visits',
+      'debug_columns' => 'ref_hash, campaign_name, ip, url',
+      'where_clause' => '',
+    ],
+    'posts' => [
+      'name' => '%PREFIX%posts',
+      'debug_columns' => 'post_author, post_title',
+      'where_clause' => '',
+    ],
+    'mos_commissions' => [
+      'name' => '%PREFIX%mos_commissions',
+      'debug_columns' => 'amount, description, campaign',
+      'where_clause' => '',
+    ],
+  ];
+
+
   public function run( array $pos_args, array $assoc_args ): void {
     // Note: order matters!
     $this->maybe_delete_users();
     $this->maybe_delete_usermetas();
+  }
+
+
+  private function init(): void {
+    global $wpdb;
+
+    $merge_tags = [
+      '%PREFIX%' => $wpdb->prefix,
+      '%USERS_TEST_META_KEY%' => Test::TEST_META_KEY,
+      '%USERS_TEST_META_VALUE%' => Test::TEST_META_VALUE,
+    ];
+
+    $this->tables = expand_merge_tags( $this->tables, $merge_tags );
   }
 
 

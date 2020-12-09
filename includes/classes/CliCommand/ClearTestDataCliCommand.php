@@ -55,6 +55,11 @@ class ClearTestDataCliCommand extends CliCommand {
       'debug_columns' => 'post_author, post_title',
       'where_clause' => 'ID in (SELECT post_id FROM %PREFIX%postmeta WHERE meta_key = "%POSTS_TEST_META_KEY%" AND meta_value = "%POSTS_TEST_META_VALUE%" )',
     ],
+    'postmeta' => [
+      'name' => '%PREFIX%postmeta',
+      'debug_columns' => 'post_id, meta_key, meta_value',
+      'where_clause' => 'meta_id NOT IN (SELECT ID FROM %PREFIX%posts)',
+    ],
     'mos_commissions' => [
       'name' => '%PREFIX%mos_commissions',
       'debug_columns' => 'amount, description, campaign',
@@ -71,6 +76,7 @@ class ClearTestDataCliCommand extends CliCommand {
     $this->maybe_delete( 'uap_referrals' );
     $this->maybe_delete( 'uap_visits' );
     $this->maybe_delete( 'posts' );
+    $this->maybe_delete( 'postmeta' );
   }
 
 

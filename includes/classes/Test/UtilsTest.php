@@ -9,6 +9,7 @@ use function \MOS\Affiliate\snake_to_pascal_case;
 use function \MOS\Affiliate\pascal_to_snake_case;
 use function \MOS\Affiliate\first_non_empty_element;
 use function \MOS\Affiliate\is_dateable;
+use function \MOS\Affiliate\proper_to_kebab_case;
 
 class UtilsTest extends Test {
 
@@ -74,6 +75,13 @@ class UtilsTest extends Test {
     // Non dates
     $this->assert_false( is_dateable('some-string') );
     $this->assert_false( is_dateable('xxxx-xx-xx') );
+  }
+
+
+  public function test_proper_to_kebab_case(): void {
+    $this->assert_equal( proper_to_kebab_case( '' ), '' );
+    $this->assert_equal( proper_to_kebab_case( 'Martin Cao' ), 'martin-cao' );
+    $this->assert_equal( proper_to_kebab_case( 'Martin Cao WAS HERE' ), 'martin-cao-was-here' );
   }
 
 }

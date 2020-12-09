@@ -57,7 +57,7 @@ abstract class CliCommand {
   }
 
   
-  protected final function get_any_key( $prompt='' ): void {
+  protected final function get_any_key( string $prompt='' ): void {
     $prompt .= $prompt ? ' ' : '';
     $prompt .= '[any key] to continue';
     fwrite( STDOUT, $prompt . PHP_EOL );

@@ -76,6 +76,12 @@ abstract class CliCommand {
   }
 
   
+  protected final function exit_error( string $message='' ): void {
+    $message_colorized = $this->colorize( $message, 'error' );
+    $this->exit( $message_colorized );
+  }
+
+  
   protected final function colorize( string $message, string $color ): string {
     $color_map = [
       'danger' => '%1',

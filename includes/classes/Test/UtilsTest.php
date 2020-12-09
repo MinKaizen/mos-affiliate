@@ -13,6 +13,7 @@ use function \MOS\Affiliate\proper_to_kebab_case;
 use function \MOS\Affiliate\snake_to_proper_case;
 use function \MOS\Affiliate\ranstr;
 use function \MOS\Affiliate\format_currency;
+use function \MOS\Affiliate\expand_merge_tags;
 
 class UtilsTest extends Test {
 
@@ -142,6 +143,31 @@ class UtilsTest extends Test {
     $this->assert_equal_strict( format_currency( 12.345, 1 ), "$12.3" );
     $this->assert_equal_strict( format_currency( 12.345, 2 ), "$12.35" ); // rounds up
     $this->assert_equal_strict( format_currency( 12.345, 3 ), "$12.345" );
+  }
+
+
+  public function test_expand_merge_tags(): void {
+    $merge_tags = [
+      '%NAME%' => 'Martin Cao',
+      '%AGE%' => 42,
+    ];
+    $array = [
+      'My name is %NAME%',
+      'My age is %AGE%',
+      'inner_array' => [
+        '%NAME%',
+        '%AGE%',
+      ],
+    ];
+    $expected_result = [
+      'My name is Martin Cao',
+      'My age is 42',
+      'inner_array' => [
+        'Martin Cao',
+        '42',
+      ],
+    ];
+    $this->assert_equal( expand_merge_tags( $array, $merge_tags ), $expected_result );
   }
 
 }

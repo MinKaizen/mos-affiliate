@@ -169,3 +169,18 @@ function format_currency( float $number, int $decimals=2 ): string {
   $currency = '$' . number_format( $number, $decimals );
   return $currency;
 }
+
+
+function expand_merge_tags( array $array, array $merge_tags ): array {
+  $callback = function( &$value ) use ($merge_tags) {
+    foreach ( $merge_tags as $search => $replace ) {
+      if ( is_string( $value ) ) {
+        $value = str_replace( $search, $replace, $value );
+      }
+    }
+  };
+
+  $new_array = $array;
+  array_walk_recursive( $new_array, $callback );
+  return $new_array;
+}

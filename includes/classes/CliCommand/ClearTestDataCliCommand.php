@@ -64,9 +64,9 @@ class ClearTestDataCliCommand extends CliCommand {
 
 
   public function run( array $pos_args, array $assoc_args ): void {
-    // Note: order matters!
-    $this->maybe_delete_users();
-    $this->maybe_delete_usermetas();
+    $this->init();
+    $this->maybe_delete( 'users' );
+    $this->maybe_delete( 'usermeta' );
   }
 
 
@@ -83,6 +83,15 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
+  private function maybe_delete( string $table_stub ): void {
+    $this->table_stub_is_valid_or_exit( $table_stub );
+    $table = $this->tables[$table_stub]['name'];
+    $where_clause = $this->tables[$table_stub]['where_clause'];
+    $debug_columns = $this->tables[$table_stub]['debug_columns'];
+    $results = $this->get_results( $table, $where_clause );
+    $this->prompt_delete( $table_stub, $results, $debug_columns );
+    $this->delete( $table, $where_clause );
+  }
 
 
   private function table_stub_is_valid_or_exit( string $table_stub ): void {
@@ -107,7 +116,6 @@ class ClearTestDataCliCommand extends CliCommand {
   private function get_results( string $table, string $where_clause ) {
     global $wpdb;
     $query = "SELECT * FROM $table WHERE $where_clause";
-    \WP_CLI::line( $query );
     $results = (array) $wpdb->get_results( $query );
     return $results;
   }

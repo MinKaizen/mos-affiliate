@@ -25,42 +25,42 @@ class ClearTestDataCliCommand extends CliCommand {
    *  commissions where description is mos_test
    */
   private $tables = [
-    'users' => [
+    [
       'name' => '%PREFIX%users',
       'debug_columns' => 'user_login, user_email',
       'where_clause' => 'ID in (SELECT user_id FROM %PREFIX%usermeta WHERE meta_key = "%USERS_TEST_META_KEY%" AND meta_value = "%USERS_TEST_META_VALUE%" )',
     ],
-    'usermeta' => [
+    [
       'name' => '%PREFIX%usermeta',
       'debug_columns' => 'user_id, meta_key, meta_value',
       'where_clause' => 'user_id NOT IN (SELECT ID FROM %PREFIX%users)',
     ],
-    'uap_affiliates' => [
+    [
       'name' => '%PREFIX%uap_affiliates',
       'debug_columns' => 'id, start_data',
       'where_clause' => 'uid NOT IN (SELECT ID FROM %PREFIX%users)',
     ],
-    'uap_referrals' => [
+    [
       'name' => '%PREFIX%uap_referrals',
       'debug_columns' => 'campaign, source, date',
       'where_clause' => 'refferal_wp_uid NOT IN (SELECT ID FROM %PREFIX%users) OR affiliate_id NOT IN (SELECT id FROM %PREFIX%uap_affiliates)',
     ],
-    'uap_visits' => [
+    [
       'name' => '%PREFIX%uap_visits',
       'debug_columns' => 'ref_hash, campaign_name, ip, url',
       'where_clause' => 'referral_id NOT IN (SELECT ID FROM %PREFIX%users) OR affiliate_id NOT IN (SELECT id FROM %PREFIX%uap_affiliates)',
     ],
-    'posts' => [
+    [
       'name' => '%PREFIX%posts',
       'debug_columns' => 'post_author, post_title',
       'where_clause' => 'ID in (SELECT post_id FROM %PREFIX%postmeta WHERE meta_key = "%POSTS_TEST_META_KEY%" AND meta_value = "%POSTS_TEST_META_VALUE%" )',
     ],
-    'postmeta' => [
+    [
       'name' => '%PREFIX%postmeta',
       'debug_columns' => 'post_id, meta_key, meta_value',
       'where_clause' => 'meta_id NOT IN (SELECT ID FROM %PREFIX%posts)',
     ],
-    'mos_commissions' => [
+    [
       'name' => '%PREFIX%mos_commissions',
       'debug_columns' => 'amount, description, campaign',
       'where_clause' => 'description = "%COMMISSIONS_TEST_DESCRIPTION%"',
@@ -70,14 +70,9 @@ class ClearTestDataCliCommand extends CliCommand {
 
   public function run( array $pos_args, array $assoc_args ): void {
     $this->init();
-    $this->maybe_delete( 'users' );
-    $this->maybe_delete( 'usermeta' );
-    $this->maybe_delete( 'uap_affiliates' );
-    $this->maybe_delete( 'uap_referrals' );
-    $this->maybe_delete( 'uap_visits' );
-    $this->maybe_delete( 'posts' );
-    $this->maybe_delete( 'postmeta' );
-    $this->maybe_delete( 'mos_commissions' );
+    foreach ( $this->tables as $table_array ) {
+      $this->maybe_delete_from( $table_array );
+    }
   }
 
 
@@ -97,21 +92,18 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
-  private function maybe_delete( string $table_stub ): void {
-    $this->table_stub_is_valid_or_exit( $table_stub );
-    $table_name = $this->tables[$table_stub]['name'];
-    $where_clause = $this->tables[$table_stub]['where_clause'];
-    $debug_columns = $this->tables[$table_stub]['debug_columns'];
-    $results = $this->get_results( $table_name, $where_clause );
+  private function maybe_delete_from( array $table_array ): void {
+    $this->table_array_is_valid_or_exit( $table_array );
+    $results = $this->get_results( $table_array['name'], $table_array['where_clause'] );
 
     if ( count( $results ) == 0 ) {
-      $message = $this->colorize( "$table_name: nothing to delete.", 'success' );
+      $message = $this->colorize( "{$table_array['name']}: nothing to delete.", 'success' );
       $this->get_any_key( $message );
       return;
     }
 
-    if ( $this->prompt_delete( $table_name, $results, $debug_columns ) ) {
-      $this->delete( $table_name, $where_clause );
+    if ( $this->prompt_delete( $table_array['name'], $results, $table_array['debug_columns'] ) ) {
+      $this->delete( $table_array['table_name'], $table_array['where_clause'] );
     } else {
       \WP_CLI::line( "Skipped..." );
     }
@@ -129,25 +121,6 @@ class ClearTestDataCliCommand extends CliCommand {
       if ( !array_key_exists( $key, $table_array ) ) {
         $this->exit( "table array invalid: [$key] not set", 'error' );
       }
-    }
-  }
-
-
-  private function table_stub_is_valid_or_exit( string $table_stub ): void {
-    if ( !isset( $this->tables[$table_stub] ) ) {
-      $this->exit( "table stub invalid: tables[$table_stub] not set", 'error' );
-    }
-
-    if ( !isset( $this->tables[$table_stub]['name'] ) ) {
-      $this->exit( "table stub invalid: tables[$table_stub][name] not set", 'error' );
-    }
-
-    if ( !isset( $this->tables[$table_stub]['where_clause'] ) ) {
-      $this->exit( "table stub invalid: tables[$table_stub][where_clause] not set", 'error' );
-    }
-
-    if ( !isset( $this->tables[$table_stub]['debug_columns'] ) ) {
-      $this->exit( "table stub invalid: tables[$table_stub][debug_columns] not set", 'error' );
     }
   }
 

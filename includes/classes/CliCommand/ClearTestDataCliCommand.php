@@ -116,6 +116,7 @@ class ClearTestDataCliCommand extends CliCommand {
   private function get_results( string $table, string $where_clause ) {
     global $wpdb;
     $query = "SELECT * FROM $table WHERE $where_clause";
+    \WP_CLI::line( "SQL: $query" );
     $results = (array) $wpdb->get_results( $query );
     return $results;
   }

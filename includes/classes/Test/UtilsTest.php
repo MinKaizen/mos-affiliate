@@ -8,6 +8,7 @@ use function \MOS\Affiliate\class_name;
 use function \MOS\Affiliate\snake_to_pascal_case;
 use function \MOS\Affiliate\pascal_to_snake_case;
 use function \MOS\Affiliate\first_non_empty_element;
+use function \MOS\Affiliate\is_dateable;
 
 class UtilsTest extends Test {
 
@@ -43,6 +44,30 @@ class UtilsTest extends Test {
     ];
 
     $this->assert_equal( first_non_empty_element( $array ), 'definitely_valid' );
+  }
+
+
+  public function test_is_dateable(): void {
+    // Valid dates
+    $this->assert_true( is_dateable('2020-01-01') ); // 2020 New Years
+    $this->assert_true( is_dateable('2020-1-1') ); // without leading 0's
+    $this->assert_true( is_dateable('2020-01-31') ); // Last day of Jan
+    $this->assert_true( is_dateable('2020-12-31') ); // Last day of Dec
+    $this->assert_true( is_dateable('2020-02-29') ); // Leap year
+    $this->assert_true( is_dateable('9999-01-01') ); // really far away year
+    
+    // Invalid dates
+    $this->assert_false( is_dateable('002020-01-01') ); // year has leading zero
+    $this->assert_false( is_dateable('2020-01-001') ); // 3-digit day
+    $this->assert_false( is_dateable('2020-001-01') ); // 3-digit month
+    $this->assert_false( is_dateable('2020-00-01') ); // month 0
+    $this->assert_false( is_dateable('2020-13-01') ); // month 13
+    $this->assert_false( is_dateable('2020-01-34') ); // day 34
+    $this->assert_false( is_dateable('2020-01-00') ); // day 0
+    
+    // Non dates
+    $this->assert_false( is_dateable('some-string') );
+    $this->assert_false( is_dateable('xxxx-xx-xx') );
   }
 
 }

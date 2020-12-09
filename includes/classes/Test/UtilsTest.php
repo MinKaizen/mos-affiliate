@@ -6,6 +6,7 @@ use \MOS\Affiliate\Test;
 
 use function \MOS\Affiliate\class_name;
 use function \MOS\Affiliate\snake_to_pascal_case;
+use function \MOS\Affiliate\pascal_to_snake_case;
 
 class UtilsTest extends Test {
 
@@ -21,6 +22,14 @@ class UtilsTest extends Test {
     $this->assert_equal( snake_to_pascal_case( 'hello' ), 'Hello' );
     $this->assert_equal( snake_to_pascal_case( 'hello_world' ), 'HelloWorld' );
     $this->assert_equal( snake_to_pascal_case( '_hello_world_' ), 'HelloWorld' );
+  }
+
+
+  public function test_pascal_to_snake_case(): void {
+    $this->assert_equal( pascal_to_snake_case( '' ), '' );
+    $this->assert_equal( pascal_to_snake_case( 'Hello' ), 'hello' );
+    $this->assert_equal( pascal_to_snake_case( 'HelloWorld' ), 'hello_world' );
+    $this->assert_equal( pascal_to_snake_case( 'HelloWorldWar' ), 'hello_world_war' );
   }
 
 }

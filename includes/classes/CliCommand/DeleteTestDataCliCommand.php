@@ -36,7 +36,7 @@ class DeleteTestDataCliCommand extends CliCommand {
     [
       'name' => '%PREFIX%uap_visits',
       'debug_columns' => 'ref_hash, campaign_name, ip, url',
-      'where_clause' => 'referral_id NOT IN (SELECT ID FROM %PREFIX%users) OR affiliate_id NOT IN (SELECT id FROM %PREFIX%uap_affiliates)',
+      'where_clause' => 'affiliate_id NOT IN (SELECT id FROM %PREFIX%uap_affiliates)',
     ],
     [
       'name' => '%PREFIX%posts',

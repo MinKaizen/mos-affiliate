@@ -99,19 +99,19 @@ class ClearTestDataCliCommand extends CliCommand {
 
   private function maybe_delete( string $table_stub ): void {
     $this->table_stub_is_valid_or_exit( $table_stub );
-    $table = $this->tables[$table_stub]['name'];
+    $table_name = $this->tables[$table_stub]['name'];
     $where_clause = $this->tables[$table_stub]['where_clause'];
     $debug_columns = $this->tables[$table_stub]['debug_columns'];
-    $results = $this->get_results( $table, $where_clause );
+    $results = $this->get_results( $table_name, $where_clause );
 
     if ( count( $results ) == 0 ) {
-      $message = $this->colorize( "$table: nothing to delete.", 'success' );
+      $message = $this->colorize( "$table_name: nothing to delete.", 'success' );
       $this->get_any_key( $message );
       return;
     }
 
-    if ( $this->prompt_delete( $table, $results, $debug_columns ) ) {
-      $this->delete( $table, $where_clause );
+    if ( $this->prompt_delete( $table_name, $results, $debug_columns ) ) {
+      $this->delete( $table_name, $where_clause );
     } else {
       \WP_CLI::line( "Skipped..." );
     }

@@ -36,7 +36,7 @@ abstract class CliCommand {
   }
 
   
-  protected final function get_confirmation( string $prompt, array $passed_opts=[] ): void {
+  protected final function get_confirmation( string $prompt, array $passed_opts=[] ): bool {
     $defaults = [
       'confirm_word' => 'y',
       'color' => '',
@@ -49,10 +49,7 @@ abstract class CliCommand {
       $answer = $this->get_input( $prompt );
     }
 
-    if ( $answer !== $opts['confirm_word'] ) {
-      WP_CLI::line( 'aborted' );
-      exit;
-    }
+    return $answer === $opts['confirm_word'];
   }
 
   

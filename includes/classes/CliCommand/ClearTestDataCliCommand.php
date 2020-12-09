@@ -93,8 +93,10 @@ class ClearTestDataCliCommand extends CliCommand {
     if ( count( $results ) == 0 ) {
       $message = $this->colorize( "$table_stub: nothing to delete.", 'success' );
       $this->get_any_key( $message );
-    } else {
-      $this->prompt_delete( $table_stub, $results, $debug_columns );
+      return;
+    }
+
+    if ( $this->prompt_delete( $table_stub, $results, $debug_columns ) ) {
       $this->delete( $table, $where_clause );
     }
   }
@@ -137,11 +139,12 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
-  private function prompt_delete( string $table_stub, array $data, string $columns ): void {
+  private function prompt_delete( string $table_stub, array $data, string $columns ): bool {
     $count = count( $data );
     $prompt = "$table_stub: $count rows will be deleted. Continue?";
     format_items( 'table', $data, $columns );
-    $this->get_confirmation( $prompt, ['confirm_word' => "delete $count"] );
+    $confirm = $this->get_confirmation( $prompt, ['confirm_word' => "delete $count", 'color' => 'danger'] );
+    return $confirm;
   }
 
 

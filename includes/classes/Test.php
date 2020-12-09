@@ -557,7 +557,7 @@ class Test {
     $formatted = 'Stack trace:' . PHP_EOL;
 
     foreach ( $exploded as $line ) {
-      if ( strpos( $line, "[internal function]" ) === false ) {
+      if ( strpos( $line, "Test.php" ) !== false ) {
         $formatted .= $line . PHP_EOL;
       } else {
         break;

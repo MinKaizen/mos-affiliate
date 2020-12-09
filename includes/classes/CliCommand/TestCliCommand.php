@@ -40,7 +40,6 @@ class TestCliCommand extends CliCommand {
       $this->test_multiple( $this->pre_tests );
       $this->test_multiple( $this->tests );
     } elseif ( in_array( $test_name, $this->tests ) ) {
-      $this->test_multiple( $this->pre_tests );
       $this->test_single( $test_name );
     } else {
       WP_CLI::error( "$test_name is not a registered test" );

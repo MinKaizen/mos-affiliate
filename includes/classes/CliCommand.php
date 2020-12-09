@@ -36,7 +36,7 @@ abstract class CliCommand {
   }
 
   
-  protected final function get_confirmation( string $prompt, array $passed_opts=[] ): bool {
+  protected final function get_confirmation( string $prompt, array $passed_opts=[], bool $abort=false ): bool {
     $defaults = [
       'confirm_word' => 'y',
       'color' => '',
@@ -47,6 +47,10 @@ abstract class CliCommand {
     
     while ( $answer == '' ) {
       $answer = $this->get_input( $prompt );
+    }
+
+    if ( $abort && $answer !== $opts['confirm_word'] ) {
+      $this->exit( 'aborted' );
     }
 
     return $answer === $opts['confirm_word'];

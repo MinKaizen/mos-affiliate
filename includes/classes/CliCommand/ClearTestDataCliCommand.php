@@ -113,54 +113,10 @@ class ClearTestDataCliCommand extends CliCommand {
   }
 
 
-  private function maybe_delete_users(): void {
-    $query_stub = $this->users_query_stub();
-    $users = $this->select( $query_stub );
-    $this->prompt_delete( 'users', $users, 'user_login, user_email' );
-    $this->delete( $query_stub );
-  }
-
-
-  private function users_query_stub(): string {
-    global $wpdb;
-    $meta_key = Test::TEST_META_KEY;
-    $meta_value = Test::TEST_META_VALUE;
-    $usermeta_table = $wpdb->prefix . 'usermeta';
-    $test_ids = "SELECT user_id FROM $usermeta_table WHERE meta_key = '$meta_key' AND meta_value = '$meta_value'";
-    $users_table = $wpdb->prefix . 'users';
-    $query_stub = "FROM $users_table WHERE ID in ($test_ids)";
-    return $query_stub;
-  }
-
-
-  private function maybe_delete_usermetas(): void {
-    $query_stub = $this->usermetas_query_stub();
-    $usermetas = $this->select( $query_stub );
-    $this->prompt_delete( 'usermetas', $usermetas, 'user_id, meta_key, meta_value' );
-    $this->delete( $query_stub );
-  }
-
-
-  private function usermetas_query_stub(): string {
-    global $wpdb;
-    $users_table = $wpdb->prefix . 'users';
-    $user_ids_table = "(SELECT ID FROM $users_table)";
-    $table = $wpdb->prefix . 'usermeta';
-    $query_stub = "FROM $table WHERE user_id NOT IN $user_ids_table";
-    return $query_stub;
-  }
-
-
-  private function select( string $query_stub ): array {
-    global $wpdb;
-    $query = "SELECT * $query_stub";
-    $rows = (array) $wpdb->get_results( $query );
-    return $rows;
-  }
-
-
-  private function delete( string $query_stub ): void {
-
+  private function delete( string $table, string $where_clause ): void {
+    // global $wpdb;
+    // $query = "DELETE FROM $table WHERE $where_clause";
+    // $wpdb->query( $query );
   }
 
 

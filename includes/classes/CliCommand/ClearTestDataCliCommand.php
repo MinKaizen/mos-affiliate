@@ -48,7 +48,7 @@ class ClearTestDataCliCommand extends CliCommand {
     'uap_visits' => [
       'name' => '%PREFIX%uap_visits',
       'debug_columns' => 'ref_hash, campaign_name, ip, url',
-      'where_clause' => '',
+      'where_clause' => 'referral_id NOT IN (SELECT ID FROM %PREFIX%users) OR affiliate_id NOT IN (SELECT id FROM %PREFIX%uap_affiliates)',
     ],
     'posts' => [
       'name' => '%PREFIX%posts',
@@ -69,6 +69,7 @@ class ClearTestDataCliCommand extends CliCommand {
     $this->maybe_delete( 'usermeta' );
     $this->maybe_delete( 'uap_affiliates' );
     $this->maybe_delete( 'uap_referrals' );
+    $this->maybe_delete( 'uap_visits' );
   }
 
 

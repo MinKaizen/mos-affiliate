@@ -4,7 +4,7 @@ namespace MOS\Affiliate;
 
 use MOS\Affiliate\CliCommand\DeleteTestDataCliCommand;
 use MOS\Affiliate\CliCommand\TestCliCommand;
-use MOS\Affiliate\CliCommand\ReactivateCliCommand;
+use MOS\Affiliate\Activator;
 
 class CLI {
   
@@ -21,8 +21,7 @@ class CLI {
 
 
   public function reactivate( array $pos_args, array $assoc_args ): void {
-    $command = new ReactivateCliCommand();
-    $command->run( $pos_args, $assoc_args );
+    Activator::activate();
   }
 
 }

@@ -257,6 +257,35 @@ class User extends \WP_User {
   }
 
 
+  public function get_course_progress( int $course_id ): array {
+    // Default values
+    $course_progress = [
+      'completed' => 0,
+      'total' => 0,
+      'percentage' => 0.0,
+      'formatted' => '',
+    ];
+  
+    // Extract course progress from usermeta
+    $course_progress_meta = \get_user_meta( (int) $this->ID, '_sfwd-course_progress', true );
+
+    if ( !empty( $course_progress_meta[$course_id]['completed'] ) ) {
+      $course_progress['completed'] = (int) $course_progress_meta[$course_id]['completed'];
+    }
+
+    if ( !empty( $course_progress_meta[$course_id]['total'] ) ) {
+      $course_progress['total'] = (int) $course_progress_meta[$course_id]['total'];
+    }
+
+    if ( $course_progress['total'] != 0 ) {
+      $course_progress['formatted'] = "$course_progress[completed]/$course_progress[total]";
+      $course_progress['percentage'] = $course_progress['completed']/$course_progress['total'];
+    }
+  
+    return $course_progress;
+  }
+
+
   public function db_insert(): void {
     if ( $this->exists() ) {
       return;

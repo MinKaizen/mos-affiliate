@@ -76,6 +76,12 @@ class ReferralsTableTest extends Test {
       $this->users[$index]['email'] = ranstr(20) . '@' . ranstr(5) . '.' . ranstr(5);
     }
 
+    // Also store values in the formatted version
+    foreach ( $this->users as $index => $user ) {
+      $this->users_formatted[$index]['username'] = $this->users[$index]['username'];
+      $this->users_formatted[$index]['email'] = $this->users[$index]['email'];
+    }
+
     $this->_injected_user = $this->create_test_user();
     $this->set_user();
 

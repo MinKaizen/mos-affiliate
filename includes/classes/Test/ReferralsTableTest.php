@@ -79,10 +79,20 @@ class ReferralsTableTest extends Test {
   public function test_controller(): void {
     $controller = new ReferralsTable();
     $vars = $controller->get_vars();
-    $this->_injected_user = $this->create_test_user();
-    $this->set_user();
+    $referrals_actual = $vars['referrals'];
+    $headers_actual = $vars['headers'];
 
-    var_dump( $vars );
+    var_dump( $referrals_actual );
+
+    // $this->_injected_user = $this->create_test_user();
+    // $this->set_user();
+
+    // $sort_by_date_function = function ( array $commission1, array $commission2 ): int {
+    //   return $commission1['date'] <=> $commission2['date'];
+    // };
+
+    // usort( $referrals_actual, $sort_by_date_function );
+    // $this->assert_equal_strict( $this->users_formatted, $referrals_actual );
   }
 
 }

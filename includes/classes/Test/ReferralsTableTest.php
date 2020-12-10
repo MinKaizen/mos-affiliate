@@ -41,9 +41,10 @@ class ReferralsTableTest extends Test {
 
 
   protected function _before(): void {
-    foreach ( $this->users as &$user ) {
-      $user['username'] = ranstr(32);
-      $user['email'] = ranstr(20) . '@' . ranstr(5) . '.' . ranstr(5);
+    foreach ( $this->users as $index => $user ) {
+      $this->users[$index]['username'] = ranstr(32);
+      $this->users[$index]['email'] = ranstr(20) . '@' . ranstr(5) . '.' . ranstr(5);
+    }
     }
   }
 

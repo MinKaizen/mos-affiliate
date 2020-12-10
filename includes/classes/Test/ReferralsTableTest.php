@@ -39,6 +39,36 @@ class ReferralsTableTest extends Test {
     ],
   ];
 
+  private $users_formatted = [
+    [
+      'date' => '2020-01-01',
+      'username' => '', // set in _before()
+      'name' => 'mos_test John',
+      'email' => '', // set in _before()
+      'level' => 'Free Member',
+      'course_progress' => '',
+      'campaign' => 'mos_test_ref_table_1',
+    ],
+    [
+      'date' => '2020-01-02',
+      'username' => '', // set in _before()
+      'name' => 'mos_test Sally',
+      'email' => '', // set in _before()
+      'level' => 'Monthly Partner',
+      'course_progress' => '',
+      'campaign' => 'mos_test_ref_table_2',
+    ],
+    [
+      'date' => '2020-01-03',
+      'username' => '', // set in _before()
+      'name' => 'mos_test Bob',
+      'email' => '', // set in _before()
+      'level' => 'Yearly Partner',
+      'course_progress' => '',
+      'campaign' => 'mos_test_ref_table_3',
+    ],
+  ];
+
 
   protected function _before(): void {
     foreach ( $this->users as $index => $user ) {

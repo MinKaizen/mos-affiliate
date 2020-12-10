@@ -26,4 +26,11 @@ class ReferralsTable extends Controller {
   }
 
 
+
+  private function format_date( string $date ): string {
+    $date_formatted = \DateTime::createFromFormat( 'Y-m-d H:i:s', $date )->format( 'Y-m-d' );
+    return $date_formatted;
+  }
+
+
 }

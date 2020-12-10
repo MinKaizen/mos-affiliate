@@ -16,7 +16,7 @@ class ReferralsTableTest extends Test {
       'name' => 'mos_test John',
       'email' => '', // set in _before()
       'level' => 'free',
-      'course_progress' => '',
+      'progress' => '',
       'campaign' => 'mos_test_ref_table_1',
     ],
     [
@@ -25,7 +25,7 @@ class ReferralsTableTest extends Test {
       'name' => 'mos_test Sally',
       'email' => '', // set in _before()
       'level' => 'monthly_partner',
-      'course_progress' => '',
+      'progress' => '',
       'campaign' => 'mos_test_ref_table_2',
     ],
     [
@@ -34,7 +34,7 @@ class ReferralsTableTest extends Test {
       'name' => 'mos_test Bob',
       'email' => '', // set in _before()
       'level' => 'yearly_partner',
-      'course_progress' => '',
+      'progress' => '',
       'campaign' => 'mos_test_ref_table_3',
     ],
   ];
@@ -46,7 +46,7 @@ class ReferralsTableTest extends Test {
       'name' => 'mos_test John',
       'email' => '', // set in _before()
       'level' => 'Free Member',
-      'course_progress' => '',
+      'progress' => '',
       'campaign' => 'mos_test_ref_table_1',
     ],
     [
@@ -55,7 +55,7 @@ class ReferralsTableTest extends Test {
       'name' => 'mos_test Sally',
       'email' => '', // set in _before()
       'level' => 'Monthly Partner',
-      'course_progress' => '',
+      'progress' => '',
       'campaign' => 'mos_test_ref_table_2',
     ],
     [
@@ -64,7 +64,7 @@ class ReferralsTableTest extends Test {
       'name' => 'mos_test Bob',
       'email' => '', // set in _before()
       'level' => 'Yearly Partner',
-      'course_progress' => '',
+      'progress' => '',
       'campaign' => 'mos_test_ref_table_3',
     ],
   ];
@@ -98,7 +98,7 @@ class ReferralsTableTest extends Test {
       //   'name' => $db_user->display_name,
       //   'email' => $db_user->user_email,
       //   'level' => $db_user->get_level(),
-      //   'progress' => $db_user->get_course_progress( 0 ),
+      //   'progress' => $db_user->get_progress( 0 ),
       //   'campaign' => $db_user->get_campaign(),
       // ];
       // print_r( $debug );

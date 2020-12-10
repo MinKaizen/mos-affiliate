@@ -181,8 +181,8 @@ class CommissionTableTest extends Test {
       $this->assert_has_key( $commission, 'Date' );
     }
 
-    $expected_tooltips = usort( $expected_tooltips, $sort_by_date_function );
-    $vars['tooltips'] = usort( $vars['tooltips'], $sort_by_date_function );
+    usort( $expected_tooltips, $sort_by_date_function );
+    usort( $vars['tooltips'], $sort_by_date_function );
 
     $this->assert_equal( $expected_tooltips, $vars['tooltips'] );
   }

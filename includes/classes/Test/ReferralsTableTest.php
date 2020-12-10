@@ -60,6 +60,18 @@ class ReferralsTableTest extends Test {
       $db_user = $this->create_test_user( $user_data );
       $db_user->set_role( $user['level'] );
       $this->create_test_referral( $db_user->ID, $this->_injected_user->ID, $user['campaign'] );
+
+      // // Debug
+      // $debug = [
+      //   'date' => $db_user->user_registered,
+      //   'username' => $db_user->user_login,
+      //   'name' => $db_user->display_name,
+      //   'email' => $db_user->user_email,
+      //   'level' => $db_user->get_level(),
+      //   'progress' => $db_user->get_course_progress( 0 ),
+      //   'campaign' => $db_user->get_campaign(),
+      // ];
+      // print_r( $debug );
     }
     
   }

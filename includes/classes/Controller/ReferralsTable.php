@@ -6,7 +6,7 @@ use MOS\Affiliate\Controller;
 use MOS\Affiliate\User;
 
 use function MOS\Affiliate\first_non_empty_element;
-use function MOS\Affiliate\is_dateable;
+use function MOS\Affiliate\snake_to_proper_case;
 
 class ReferralsTable extends Controller {
 
@@ -27,6 +27,11 @@ class ReferralsTable extends Controller {
     }
     $first_element = first_non_empty_element( $this->referrals );
     $headers = array_keys( $first_element );
+
+    foreach ( $headers as &$header ) {
+      $header = snake_to_proper_case( $header );
+    }
+
     return $headers;
   }
 

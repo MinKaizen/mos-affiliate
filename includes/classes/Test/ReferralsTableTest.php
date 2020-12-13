@@ -70,13 +70,13 @@ class ReferralsTableTest extends Test {
   ];
 
   private $expected_headers = [
-    'date',
-    'username',
-    'name',
-    'email',
-    'level',
-    'progress',
-    'campaign',
+    'Date',
+    'Username',
+    'Name',
+    'Email',
+    'Level',
+    'Progress',
+    'Campaign',
   ];
 
 

@@ -145,7 +145,7 @@ class CampaignReport extends Controller {
       $campaign_name = $commission->campaign;
       $campaign_name = $campaign_name ? $campaign_name : self::EMPTY_CAMPAIGN_NAME;
       if ( isset( $campaigns[$campaign_name]['commissions'] ) ) {
-        $campaigns[$campaign_name]['commissions'] += $commission->amount;
+        $campaigns[$campaign_name]['commissions'] += (float) $commission->amount;
       }
     }
 
@@ -156,7 +156,7 @@ class CampaignReport extends Controller {
   private function append_epc( array $campaigns ): array {
     foreach ( $campaigns as &$campaign ) {
       $clicks = $campaign['clicks'];
-      $commissions = (float) $campaign['commissions'];
+      $commissions = $campaign['commissions'];
       $campaign['epc'] = $clicks == 0 ? 0.0 : $commissions / $clicks;
     }
 

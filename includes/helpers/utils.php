@@ -163,7 +163,9 @@ function ranstr( int $length=32 ): string {
 
 
 function format_currency( float $number, int $decimals=2 ): string {
-  $currency = '$' . number_format( $number, $decimals );
+  $sign = $number >= 0 ? '' : '-';
+  $symbol = '$';
+  $currency = $sign . $symbol . number_format( abs( $number ), $decimals );
   return $currency;
 }
 

@@ -143,6 +143,11 @@ class UtilsTest extends Test {
     $this->assert_equal_strict( format_currency( 12.345, 1 ), "$12.3" );
     $this->assert_equal_strict( format_currency( 12.345, 2 ), "$12.35" ); // rounds up
     $this->assert_equal_strict( format_currency( 12.345, 3 ), "$12.345" );
+
+    // Negative values
+    $this->assert_equal_strict( format_currency( -11.15 ), "-$11.15" ); 
+    $this->assert_equal_strict( format_currency( -12.345, 0 ), "-$12" );
+    $this->assert_equal_strict( format_currency( -12.345, 1 ), "-$12.3" );
   }
 
 

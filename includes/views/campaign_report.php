@@ -10,13 +10,13 @@
   </thead>
   <tbody>
     <?php foreach($campaigns as $campaign): ?>
-      <tr>
-        <td><?php echo $campaign['name']; ?></td>
-        <td><?php echo $campaign['clicks']; ?></td>
-        <td><?php echo $campaign['partners']; ?></td>
-        <td><?php echo $campaign['commissions']; ?></td>
-        <td><?php echo $campaign['EPC']; ?></td>
-      </tr>
+    <tr>
+      <td><?php echo $campaign['name']; ?></td>
+      <td><?php echo $campaign['clicks']; ?></td>
+      <td><?php echo $campaign['partners']; ?></td>
+      <td><?php echo $campaign['commissions']; ?></td>
+      <td><?php echo $campaign['EPC']; ?></td>
+    </tr>
     <?php endforeach; ?>
   </tbody>
   <tfoot>

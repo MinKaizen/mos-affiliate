@@ -18,7 +18,6 @@ class Commission {
   private $payout_method = '';
   private $payout_address = '';
   private $payout_transaction_id = '';
-  private $refund_date = '';
   private $table;
 
 
@@ -62,7 +61,6 @@ class Commission {
     $new_commission->payout_method = (string) (!empty($data['payout_method']) ? $data['payout_method'] : '');
     $new_commission->payout_address = (string) (!empty($data['payout_address']) ? $data['payout_address'] : '');
     $new_commission->payout_transaction_id = (string) (!empty($data['payout_transaction_id']) ? $data['payout_transaction_id'] : '');
-    $new_commission->refund_date = (!empty($data['refund_date']) ? $data['refund_date'] : null);
     return $new_commission;
   }
 
@@ -132,11 +130,6 @@ class Commission {
   }
 
 
-  public function get_refund_date(): ?string {
-    return $this->refund_date;
-  }
-
-
   public function exists(): bool {
     return !empty( $this->id );
   }
@@ -146,7 +139,6 @@ class Commission {
     $conditions = [
       is_dateable( $this->date ),
       is_numeric( $this->amount ),
-      $this->amount > 0,
       ! empty( $this->description ),
       is_string( $this->campaign ),
       is_int( $this->earner_id ),
@@ -155,7 +147,6 @@ class Commission {
       $this->payout_method == null || is_string( $this->payout_method ),
       $this->payout_address == null || is_string( $this->payout_address ),
       $this->payout_transaction_id == null || is_string( $this->payout_transaction_id ),
-      $this->refund_date == null || is_dateable( $this->refund_date ),
     ];
 
     $valid = true;
@@ -185,7 +176,6 @@ class Commission {
       'payout_method' => $this->payout_method,
       'payout_address' => $this->payout_address,
       'payout_transaction_id' => $this->payout_transaction_id,
-      'refund_date' => $this->refund_date,
     ];
     $formats = [
       'date' => '%s',
@@ -199,7 +189,6 @@ class Commission {
       'payout_method' => '%s',
       'payout_address' => '%s',
       'payout_transaction_id' => '%s',
-      'refund_date' => '%s',
     ];
     $rows_inserted = $wpdb->insert( $table, $columns, $formats );
 

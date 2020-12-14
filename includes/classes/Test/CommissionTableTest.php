@@ -71,20 +71,6 @@ class CommissionTableTest extends Test {
         'actor_id' => $this->actor->ID,
         'earner_id' => $this->_injected_user->ID,
       ],
-      [
-        'date' => '2001-11-08',
-        'amount' => 12,
-        'description' => 'Description 5',
-        'transaction_id' => 'asdf5',
-        'campaign' => 'facebook5',
-        'actor_id' => $this->actor->ID,
-        'earner_id' => $this->_injected_user->ID,
-        'payout_date' => '2020-04-05',
-        'payout_method' => 'Bitcoin',
-        'payout_address' => 'sd54f55465f16sd54fs5d4f',
-        'payout_transaction_id' => '54-5464',
-        'refund_date' => '2020-12-24',
-      ],
     ];
 
     foreach ( $commission_data as $commission ) {

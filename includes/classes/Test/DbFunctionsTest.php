@@ -70,7 +70,6 @@ class DbFunctionsTest extends Test {
       'payout_method' => 'Bitcoin',
       'payout_address' => 'sd54f5s4df6sd5f16sd54fs5d4f',
       'payout_transaction_id' => '54654-5464',
-      'refund_date' => '2020-12-24',
     ];
     $commission = $this->create_test_commission( $commission_data );
     $commission_data_from_db = $this->get_commission_array( $commission->get_id() );
@@ -87,7 +86,6 @@ class DbFunctionsTest extends Test {
     $this->assert_equal( $commission_data['payout_method'], $commission_data_from_db['payout_method'] );
     $this->assert_equal( $commission_data['payout_address'], $commission_data_from_db['payout_address'] );
     $this->assert_equal( $commission_data['payout_transaction_id'], $commission_data_from_db['payout_transaction_id'] );
-    $this->assert_equal( $commission_data['refund_date'], $commission_data_from_db['refund_date'] );
 
     // Delete commission
     $this->delete_test_commissions();

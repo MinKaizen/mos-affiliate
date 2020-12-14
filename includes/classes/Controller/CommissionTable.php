@@ -16,7 +16,7 @@ class CommissionTable extends Controller {
     $id = User::current()->get_wpid();
     $table = $wpdb->prefix . 'mos_commissions';
     $return_type = 'ARRAY_A';
-    $query = "SELECT * FROM $table WHERE earner_id = $id AND refund_date IS NULL AND payout_date IS NOT NULL";
+    $query = "SELECT * FROM $table WHERE earner_id = $id AND payout_date IS NOT NULL";
     $rows = $wpdb->get_results( $query, $return_type );
     $this->rows = $this->format_rows( $rows );
     $this->tooltips = $this->generate_tooltips( $rows );

@@ -22,7 +22,6 @@ class CommissionsMigration extends Migration {
     'payout_method varchar(100) DEFAULT "" NOT NULL',
     'payout_address varchar(100) DEFAULT "" NOT NULL',
     'payout_transaction_id varchar(100) DEFAULT "" NOT NULL',
-    'refund_date date NULL',
     'PRIMARY KEY  (id)',
     'KEY for_campaign_report (earner_id, campaign, date)',
   ];

@@ -19,7 +19,7 @@
       <td class="table-cell table-body-cell col-name"><?php echo ucwords( strtolower( $row['display_name'] ) ); ?></td>
       <td class="table-cell table-body-cell col-email"><?php echo strtolower( $row['user_email'] ); ?></td>
       <td class="table-cell table-body-cell col-product"><?php echo $row['description']; ?></td>
-      <td class="table-cell table-body-cell col-campaign"><?php echo $row['campaign']; ?></td>
+      <td class="table-cell table-body-cell col-campaign"><?php echo strtolower( $row['campaign'] ); ?></td>
       <td class="table-cell table-body-cell col-payment">
         <?php echo $row['payout_method']; ?>
         <span class="tooltip" style="display: none;" >

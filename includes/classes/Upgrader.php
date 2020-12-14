@@ -6,6 +6,7 @@ class Upgrader {
 
   const MIGRATIONS = [
     'commissions_migration',
+    'products_migration',
   ];
 
   

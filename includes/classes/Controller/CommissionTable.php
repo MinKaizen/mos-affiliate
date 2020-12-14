@@ -41,6 +41,22 @@ class CommissionTable extends Controller {
   }
 
 
+  public function export_f_format_cell(): callable {
+    return function( string $key, $value ): string {
+      switch ( $key ) {
+        case 'amount':
+          $value = (int) $value;
+          $sign = ( $value >= 0 ) ? '': '-';
+          $symbol = '$';
+          $number = abs( $value );
+          $formatted_value = $sign . $symbol . $number;
+          return $formatted_value;
+      }
+      return (string) $value;
+    };
+  }
+
+
   private function format_rows( array $rows_raw ): array {
     $rows = [];
     foreach ( $rows_raw as $row ) {

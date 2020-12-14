@@ -16,7 +16,7 @@
     <tr class="table-body__row <?php if($row['amount']) ?>">
       <td class="table-cell table-body-cell col-date"><?php echo $row['date']; ?></td>
       <td class="table-cell table-body-cell col-amount <?php if( (int) $row['amount'] < 0 ) echo "col-amount--negative"; ?>"><?php echo format_currency( (float) $row['amount'], 0 ); ?></td>
-      <td class="table-cell table-body-cell col-name"><?php echo ucwords( $row['display_name'] ); ?></td>
+      <td class="table-cell table-body-cell col-name"><?php echo ucwords( strtolower( $row['display_name'] ) ); ?></td>
       <td class="table-cell table-body-cell col-email"><?php echo strtolower( $row['user_email'] ); ?></td>
       <td class="table-cell table-body-cell col-product"><?php echo $row['description']; ?></td>
       <td class="table-cell table-body-cell col-campaign"><?php echo $row['campaign']; ?></td>

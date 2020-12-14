@@ -69,16 +69,6 @@ class ReferralsTableTest extends Test {
     ],
   ];
 
-  private $expected_headers = [
-    'Date',
-    'Username',
-    'Name',
-    'Email',
-    'Level',
-    'Progress',
-    'Campaign',
-  ];
-
 
   protected function _before(): void {
     foreach ( $this->users as $index => $user ) {
@@ -126,7 +116,6 @@ class ReferralsTableTest extends Test {
     $controller = new ReferralsTable();
     $vars = $controller->get_vars();
     $referrals_actual = $vars['referrals'];
-    $headers_actual = $vars['headers'];
 
     $this->_injected_user = $this->create_test_user();
     $this->set_user();
@@ -137,7 +126,6 @@ class ReferralsTableTest extends Test {
 
     usort( $referrals_actual, $sort_by_date_function );
     $this->assert_equal_strict( $this->users_formatted, $referrals_actual );
-    $this->assert_equal_strict( $this->expected_headers, $headers_actual );
   }
 
 }

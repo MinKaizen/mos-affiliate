@@ -5,9 +5,6 @@ namespace MOS\Affiliate\Controller;
 use MOS\Affiliate\Controller;
 use MOS\Affiliate\User;
 
-use function MOS\Affiliate\first_non_empty_element;
-use function MOS\Affiliate\snake_to_proper_case;
-
 class ReferralsTable extends Controller {
 
 
@@ -21,21 +18,6 @@ class ReferralsTable extends Controller {
   }
 
   
-  protected function export_headers(): array {
-    if ( empty( $this->referrals ) ) {
-      return [];
-    }
-    $first_element = first_non_empty_element( $this->referrals );
-    $headers = array_keys( $first_element );
-
-    foreach ( $headers as &$header ) {
-      $header = snake_to_proper_case( $header );
-    }
-
-    return $headers;
-  }
-
-
   private function get_referrals(): array {
     $referral_objects = User::current()->get_referrals();
     $referrals = [];

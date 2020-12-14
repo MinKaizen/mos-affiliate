@@ -1,9 +1,11 @@
 <table class='js-campaign-report'>
   <thead>
     <tr>
-      <?php foreach( $headers as $header ):?>
-      <th><?php echo $header; ?></th>
-      <?php endforeach; ?>
+      <th>Name</th>
+      <th>Clicks</th>
+      <th>Partners</th>
+      <th>Commissions</th>
+      <th>EPC</th>
     </tr>
   </thead>
   <tbody>

@@ -11,9 +11,11 @@
   <tbody>
     <?php foreach($campaigns as $campaign): ?>
       <tr>
-        <?php foreach( $campaign as $value ): ?>
-        <td><?php echo $value; ?></td>
-        <?php endforeach; ?>
+        <td><?php echo $campaign['name']; ?></td>
+        <td><?php echo $campaign['clicks']; ?></td>
+        <td><?php echo $campaign['partners']; ?></td>
+        <td><?php echo $campaign['commissions']; ?></td>
+        <td><?php echo $campaign['EPC']; ?></td>
       </tr>
     <?php endforeach; ?>
   </tbody>

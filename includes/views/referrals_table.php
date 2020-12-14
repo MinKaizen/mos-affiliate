@@ -13,9 +13,13 @@
   <tbody>
     <?php foreach($referrals as $referral): ?>
       <tr>
-        <?php foreach( $referral as $value ): ?>
-        <td><?php echo $value; ?></td>
-        <?php endforeach; ?>
+        <td><?php echo $referral['date']; ?></td>
+        <td><?php echo $referral['username']; ?></td>
+        <td><?php echo $referral['name']; ?></td>
+        <td><?php echo $referral['email']; ?></td>
+        <td><?php echo $referral['level']; ?></td>
+        <td><?php echo $referral['progress']; ?></td>
+        <td><?php echo $referral['campaign']; ?></td>
       </tr>
     <?php endforeach; ?>
   </tbody>

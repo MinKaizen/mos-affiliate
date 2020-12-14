@@ -1,9 +1,13 @@
 <table class='js-referrals-table'>
   <thead>
     <tr>
-      <?php foreach( $headers as $header ):?>
-      <th><?php echo $header; ?></th>
-      <?php endforeach; ?>
+      <th>Date</th>
+      <th>Username</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Level</th>
+      <th>Progress</th>
+      <th>Campaign</th>
     </tr>
   </thead>
   <tbody>

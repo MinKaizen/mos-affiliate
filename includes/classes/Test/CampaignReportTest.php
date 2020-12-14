@@ -64,7 +64,6 @@ class CampaignReportTest extends Test {
     $controller = new CampaignReport();
     $vars = $controller->get_vars();
     $actual_campaigns = $vars['campaigns'];
-    $actual_headers = $vars['headers'];
 
     $expected_campaigns = [
       $empty_campaign => [
@@ -85,17 +84,7 @@ class CampaignReportTest extends Test {
       ],
     ];
     
-    $expected_headers = [
-      'name',
-      'clicks',
-      'referrals',
-      'partners',
-      'commissions',
-      'EPC',
-    ];
-
     $this->assert_equal( $expected_campaigns, $actual_campaigns );
-    $this->assert_equal( $expected_headers, $actual_headers );
   }
 
 }

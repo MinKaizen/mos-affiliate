@@ -27,16 +27,6 @@ class CampaignReport extends Controller {
   }
 
 
-  protected function export_headers(): array {
-    if ( empty( $this->campaigns ) ) {
-      return [];
-    }
-    $first_element = reset( $this->campaigns );
-    $headers = empty( $first_element ) ? [] : array_keys( $first_element );
-    return $headers;
-  }
-
-
   public function export_campaigns(): array {
     return $this->campaigns;
   }

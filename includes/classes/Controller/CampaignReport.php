@@ -67,6 +67,11 @@ class CampaignReport extends Controller {
       return [];
     }
 
+    // Coerce clicks to int
+    foreach ( array_keys( $campaign_data ) as $index ) {
+      $campaign_data[$index]['clicks'] = (int) $campaign_data[$index]['clicks'];
+    }
+
     // Rename empty campaign name
     foreach ( $campaign_data as &$campaign ) {
       if ( $campaign['name'] === '') {

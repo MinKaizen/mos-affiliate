@@ -166,7 +166,7 @@ class CampaignReport extends Controller {
     foreach ( $campaigns as &$campaign ) {
       $clicks = (int) $campaign['clicks'];
       $commissions = (float) $campaign['commissions'];
-      $campaign['EPC'] = $clicks == 0 ? 0.0 : $commissions / $clicks;
+      $campaign['epc'] = $clicks == 0 ? 0.0 : $commissions / $clicks;
     }
 
     return $campaigns;
@@ -175,9 +175,9 @@ class CampaignReport extends Controller {
 
   private function format_campaigns( array $campaigns ): array {
     foreach ( $campaigns as &$campaign ) {
-      // Format EPC
-      if ( isset( $campaign['EPC'] ) ) {
-        $campaign['EPC'] = format_currency( (float) $campaign['EPC'] );
+      // Format epc
+      if ( isset( $campaign['epc'] ) ) {
+        $campaign['epc'] = format_currency( (float) $campaign['epc'] );
       }
 
       // Format Commission

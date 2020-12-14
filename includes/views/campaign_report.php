@@ -15,7 +15,7 @@
       <td><?php echo $campaign['clicks']; ?></td>
       <td><?php echo $campaign['partners']; ?></td>
       <td><?php echo $campaign['commissions']; ?></td>
-      <td><?php echo $campaign['EPC']; ?></td>
+      <td><?php echo $campaign['epc']; ?></td>
     </tr>
     <?php endforeach; ?>
   </tbody>

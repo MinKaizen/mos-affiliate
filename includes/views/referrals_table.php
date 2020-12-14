@@ -19,4 +19,15 @@
       </tr>
     <?php endforeach; ?>
   </tbody>
+  <tfoot>
+  <tr>
+      <td>Date</td>
+      <td>Username</td>
+      <td>Name</td>
+      <td>Email</td>
+      <td>Level</td>
+      <td>Progress</td>
+      <td>Campaign</td>
+    </tr>
+  </tfoot>
 </table>

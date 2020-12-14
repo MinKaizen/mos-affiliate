@@ -128,7 +128,7 @@ class CommissionClassTest extends Test {
     }
 
     $commission = Commission::create_from_array( $commission_data );
-    $this->assert_false( $commission->is_valid(), $edit );
+    $this->assert_false( $commission->is_valid(), $edit, $data );
   }
 
 

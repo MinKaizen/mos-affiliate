@@ -63,6 +63,10 @@ class CampaignReport extends Controller {
     $query = "SELECT campaign_name as name, count(DISTINCT ip) as clicks FROM $table WHERE affiliate_id = $this->affid GROUP BY campaign_name";
     $campaign_data = (array) $wpdb->get_results( $query, \ARRAY_A );
 
+    if ( empty( $campaign_data ) ) {
+      return [];
+    }
+
     // Rename empty campaign name
     foreach ( $campaign_data as &$campaign ) {
       if ( $campaign['name'] === '') {

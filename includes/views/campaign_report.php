@@ -17,4 +17,13 @@
       </tr>
     <?php endforeach; ?>
   </tbody>
+  <tfoot>
+    <tr>
+      <td>Name</td>
+      <td>Clicks</td>
+      <td>Partners</td>
+      <td>Commissions</td>
+      <td>EPC</td>
+    </tr>
+  </tfoot>
 </table>

@@ -68,19 +68,23 @@ class CampaignReportTest extends Test {
     $expected_campaigns = [
       $empty_campaign => [
         'name' => $empty_campaign,
-        'clicks' => '5', // note: string
+        'clicks' => 5,
         'referrals' => 3,
         'partners' => 1,
-        'commissions' => '$50',
-        'EPC' => '$10.00',
+        'commissions' => 50,
+        'epc' => 10.0,
+        'commissions_formatted' => '$50',
+        'epc_formatted' => '$10.00',
       ],
       'bloody_campaign' => [
         'name' => 'bloody_campaign',
-        'clicks' => '4', // note: string
+        'clicks' => 4,
         'referrals' => 4,
         'partners' => 2,
-        'commissions' => '$32',
-        'EPC' => '$8.00',
+        'commissions' => 32,
+        'epc' => 8.0,
+        'commissions_formatted' => '$32',
+        'epc_formatted' => '$8.00',
       ],
     ];
     

@@ -48,7 +48,7 @@ class CampaignReport extends Controller {
     $campaigns = $this->append_partners( $campaigns );
     $campaigns = $this->append_commissions( $campaigns );
     $campaigns = $this->append_epc( $campaigns );
-    $campaigns = $this->format_campaigns( $campaigns );
+    $campaigns = $this->append_formatted( $campaigns );
     return $campaigns;
   }
 
@@ -164,16 +164,16 @@ class CampaignReport extends Controller {
   }
 
 
-  private function format_campaigns( array $campaigns ): array {
+  private function append_formatted( array $campaigns ): array {
     foreach ( $campaigns as &$campaign ) {
       // Format epc
       if ( isset( $campaign['epc'] ) ) {
-        $campaign['epc'] = format_currency( (float) $campaign['epc'] );
+        $campaign['epc_formatted'] = format_currency( (float) $campaign['epc'] );
       }
 
       // Format Commission
       if ( isset( $campaign['commissions'] ) ) {
-        $campaign['commissions'] = format_currency( (float) $campaign['commissions'], 0 );
+        $campaign['commissions_formatted'] = format_currency( (float) $campaign['commissions'], 0 );
       }
 
     }

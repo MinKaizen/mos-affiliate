@@ -14,8 +14,8 @@
       <td><?php echo $campaign['name']; ?></td>
       <td><?php echo $campaign['clicks']; ?></td>
       <td><?php echo $campaign['partners']; ?></td>
-      <td><?php echo $campaign['commissions']; ?></td>
-      <td><?php echo $campaign['epc']; ?></td>
+      <td><?php echo $campaign['commissions_formatted']; ?></td>
+      <td><?php echo $campaign['epc_formatted']; ?></td>
     </tr>
     <?php endforeach; ?>
   </tbody>

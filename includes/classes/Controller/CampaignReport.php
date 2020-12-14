@@ -22,7 +22,7 @@ class CampaignReport extends Controller {
     $this->user = User::current();
     $this->affid = $this->user->get_affid();
     $this->referrals = $this->user->get_referrals();
-    $this->commissions = $this->user->get_commissions();
+    $this->commissions = $this->get_commissions();
     $this->campaigns = $this->get_campaigns();
   }
 
@@ -39,6 +39,16 @@ class CampaignReport extends Controller {
 
   public function export_campaigns(): array {
     return $this->campaigns;
+  }
+
+
+  private function get_commissions(): array {
+    global $wpdb;
+    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+    $return_type = 'OBJECT';
+    $query = "SELECT campaign, sum(amount) as amount FROM $table WHERE earner_id = {$this->user->get_wpid()} GROUP BY campaign";
+    $commissions = (array) $wpdb->get_results( $query, $return_type );
+    return $commissions;
   }
 
 
@@ -142,10 +152,10 @@ class CampaignReport extends Controller {
     }
 
     foreach ( $this->commissions as $commission ) {
-      $campaign_name = $commission->get_campaign();
+      $campaign_name = $commission->campaign;
       $campaign_name = $campaign_name ? $campaign_name : self::EMPTY_CAMPAIGN_NAME;
       if ( isset( $campaigns[$campaign_name]['commissions'] ) ) {
-        $campaigns[$campaign_name]['commissions'] += $commission->get_amount();
+        $campaigns[$campaign_name]['commissions'] += $commission->amount;
       }
     }
 

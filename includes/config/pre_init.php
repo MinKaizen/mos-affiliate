@@ -10,4 +10,6 @@ define( 'FUNCTION_DEPENDENCIES', [
 
 define( 'CLASS_DEPENDENCIES', [
   'UAP_Main',
+  'MGC\REST_Router\Router',
+  'MGC\REST_Router\AbstractRoute',
 ] );

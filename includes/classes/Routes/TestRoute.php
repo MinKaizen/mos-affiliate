@@ -13,7 +13,7 @@ class TestRoute extends Route {
   protected $method = 'GET';
 
   public function handler( WP_REST_Request $request ): WP_REST_Response {
-    return $this->response("It works after renaming");
+    return $this->response("It works after renaming plugin file as well");
   }
 
   public function permission(): bool {

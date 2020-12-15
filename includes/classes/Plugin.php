@@ -55,7 +55,6 @@ class Plugin {
     $this->load_scripts();
     $this->register_classes_from_folder( 'Shortcode' );
     $this->register_classes_from_folder( 'AccessRedirect' );
-    $this->register_classes_from_folder( 'Routes' );
   }
 
 

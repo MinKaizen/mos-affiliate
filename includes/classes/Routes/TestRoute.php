@@ -17,7 +17,7 @@ class TestRoute extends REST_Route {
   }
 
   public function permission(): bool {
-    return (bool) random_int(0, 1);
+    return true;
   }
 
 }

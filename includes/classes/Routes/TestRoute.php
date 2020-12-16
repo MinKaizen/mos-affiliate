@@ -2,11 +2,11 @@
 
 namespace MOS\Affiliate\Routes;
 
-use \MGC\REST\Route;
+use \MGC\REST_Route\REST_Route;
 use \WP_REST_Request;
 use \WP_REST_Response;
 
-class TestRoute extends Route {
+class TestRoute extends REST_Route {
 
   protected $root = 'mos-affiliate/v1';
   protected $route = 'test';

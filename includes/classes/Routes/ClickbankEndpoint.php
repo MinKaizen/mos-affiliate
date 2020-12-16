@@ -23,6 +23,7 @@ class ClickbankEndpoint extends REST_Route {
     return true;
   }
 
+  // Missing type hint. Could return array or object depending on json_decode()
   private function adapter( WP_REST_Request $request ) {
     $request_body = json_decode( $request->get_body() );
     $data_encrypted = $request_body->notification;

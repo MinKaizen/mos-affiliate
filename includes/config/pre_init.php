@@ -11,4 +11,5 @@ define( 'FUNCTION_DEPENDENCIES', [
 define( 'CLASS_DEPENDENCIES', [
   'UAP_Main',
   'MGC\REST_Route\REST_Route',
+  'MGC\Logger\Logger',
 ] );

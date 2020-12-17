@@ -83,7 +83,7 @@ class Plugin {
     $autoload_root_path = PLUGIN_DIR . 'includes/classes/';
     $dir = new \DirectoryIterator( $autoload_root_path . $relative_namespace );
     foreach ( $dir as $fileinfo ) {
-      if ( !$fileinfo->isDot() ) {
+      if ( !$fileinfo->isDot() && !$fileinfo->isDir() ) {
         $class_name = NS . $relative_namespace . '\\' . str_replace( '.php', '', $fileinfo->getFilename() );
         $instance = new $class_name();
         $instance->$function_name();

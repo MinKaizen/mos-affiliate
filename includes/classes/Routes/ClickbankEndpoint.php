@@ -25,8 +25,4 @@ class ClickbankEndpoint extends REST_Route {
     return $this->response( $clickbank_event );
   }
 
-  public function permission(): bool {
-    return true;
-  }
-
 }

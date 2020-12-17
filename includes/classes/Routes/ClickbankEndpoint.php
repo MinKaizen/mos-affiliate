@@ -17,12 +17,12 @@ class ClickbankEndpoint extends REST_Route {
   protected $method = 'POST';
 
   public function handler( WP_REST_Request $request ): WP_REST_Response {
-    $data = new ClickbankEventAdapter( $request->get_body() );
+    $clickbank_event = new ClickbankEventAdapter( $request->get_body() );
     $logger = new Logger( 'mos-affiliate', 'clickbank_ins.log' );
-    $logger->log( json_encode( $data->get_original() ), [$data->transaction_type, 'RECEIVE'] );
-    $logger->log( json_encode( $data ), [$data->transaction_type, 'SEND'] );
-    \do_action( 'clickbank_event', $data );
-    return $this->response( $data );
+    $logger->log( json_encode( $clickbank_event->get_original() ), [$clickbank_event->transaction_type, 'RECEIVE'] );
+    $logger->log( json_encode( $clickbank_event ), [$clickbank_event->transaction_type, 'SEND'] );
+    \do_action( 'clickbank_event', $clickbank_event );
+    return $this->response( $clickbank_event );
   }
 
   public function permission(): bool {

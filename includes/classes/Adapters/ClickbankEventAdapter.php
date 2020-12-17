@@ -8,17 +8,14 @@ class ClickbankEventAdapter extends ClickbankEvent {
   
   private $secret_key = 'ANTOLAMAS61412';
   private $original;
-  private $original_decrypted;
 
   public function __construct( string $body_json ) {
     $body = json_decode( $body_json );
     $msg_encrypted = $body->notification;
     $iv = $body->iv;
-    $decrypted_json = $this->decrypt_cb_notification( $msg_encrypted, $iv, $this->secret_key );
-    $data = json_decode( $decrypted_json );
+    $data = json_decode( $this->decrypt_cb_notification( $msg_encrypted, $iv, $this->secret_key ) );
     
-    $this->original = $body_json;
-    $this->original_decrypted = $decrypted_json;
+    $this->original = $data;
 
     // Test data
     // $data = json_decode( \file_get_contents( __DIR__ . '/clickbank_refund.json' ) );
@@ -41,12 +38,9 @@ class ClickbankEventAdapter extends ClickbankEvent {
     $this->campaign = isset( $data->vendorVariables->campaign ) ? (string) $data->vendorVariables->campaign : $this->campaign;
   }
 
-  public function get_original(): string {
+  // No type hint. Could be array 
+  public function get_original() {
     return $this->original;
-  }
-
-  public function get_original_decrypted(): string {
-    return $this->original_decrypted;
   }
 
   private function decrypt_cb_notification( string $notification, string $iv, string $secret_key ): string {

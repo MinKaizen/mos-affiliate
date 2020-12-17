@@ -1,0 +1,69 @@
+{
+  "transactionTime": "20201119T144606-0800",
+  "receipt": "KBNIHN52",
+  "transactionType": "RFND",
+  "vendor": "superaa",
+  "affiliate": "htlcb",
+  "role": "VENDOR",
+  "totalAccountAmount": -81.5499999999999971578290569595992565155029296875,
+  "paymentMethod": "PYPL",
+  "totalOrderAmount": -197,
+  "totalTaxAmount": 0,
+  "totalShippingAmount": 0,
+  "currency": "USD",
+  "orderLanguage": "EN",
+  "lineItems": [
+    {
+      "itemNo": "100",
+      "productTitle": "My Online Startup Partner",
+      "shippable": false,
+      "recurring": false,
+      "accountAmount": -81.5499999999999971578290569595992565155029296875,
+      "quantity": 1,
+      "downloadUrl": "https:\/\/myonlinestartup.com\/partnerthanks?item=100&cbreceipt=KBNIHN52&time=1604338421&cbpop=9F0B2BD8&cbaffi=HTLCB&cname=roberto+bran&cemail=robert.bran%40hotmail.com&ccountry=GT&czip=01063&cbitems=100&email=oshoo888@gmail.com&mos_email=oshoo888@gmail.com&wpid=445211&mos_wpid=445211&mos_username=Roberbran&mos_sponsor=admin&mos_name=Roberto%20Bran",
+      "lineItemType": "ORIGINAL",
+      "productPrice": -197,
+      "productDiscount": 0,
+      "affiliatePayout": -99.6700000000000017053025658242404460906982421875,
+      "taxAmount": 0,
+      "shippingAmount": 0,
+      "shippingLiable": false
+    }
+  ],
+  "customer": {
+    "shipping": {
+      "firstName": "Roberto",
+      "lastName": "Bran",
+      "fullName": "roberto bran",
+      "email": "robert.bran@hotmail.com",
+      "address": {
+        "postalCode": "01063",
+        "country": "GT"
+      }
+    },
+    "billing": {
+      "firstName": "Roberto",
+      "lastName": "Bran",
+      "fullName": "roberto bran",
+      "email": "robert.bran@hotmail.com",
+      "address": {
+        "postalCode": "01063",
+        "country": "GT"
+      }
+    }
+  },
+  "version": 7,
+  "attemptCount": 1,
+  "vendorVariables": {
+    "cbitems": "100",
+    "customer_wpid": "443292",
+    "customer_username": "Phillip1967",
+    "customer_name": "Phillip Webb",
+    "customer_email": "webbphillip844@gmail.com",
+    "sponsor_wpid": "367952",
+    "sponsor_username": "admin",
+    "sponsor_name": "MOS Admin",
+    "sponsor_email": "admin@myonlinestartup.com",
+    "campaign": "facebook_banners_campaign"
+  }
+}

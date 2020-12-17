@@ -21,7 +21,7 @@ class ClickbankEndpoint extends REST_Route {
     $logger = new Logger( 'mos-affiliate', 'clickbank_ins.log' );
     $logger->log( json_encode( $data->get_original() ), [$data->transaction_type, 'RECEIVE'] );
     $logger->log( json_encode( $data ), [$data->transaction_type, 'SEND'] );
-    $logger->log( json_encode( $data ), ['SEND'] );
+    \do_action( 'clickbank_event', $data );
     return $this->response( $data );
   }
 

@@ -19,7 +19,8 @@ class ClickbankEndpoint extends REST_Route {
   public function handler( WP_REST_Request $request ): WP_REST_Response {
     $data = new ClickbankEventAdapter( $request->get_body() );
     $logger = new Logger( 'mos-affiliate', 'clickbank_ins.log' );
-    $logger->log( json_encode( $data->get_original() ), ['RECEIVE'] );
+    $logger->log( json_encode( $data->get_original() ), [$data->transaction_type, 'RECEIVE'] );
+    $logger->log( json_encode( $data ), [$data->transaction_type, 'SEND'] );
     $logger->log( json_encode( $data ), ['SEND'] );
     return $this->response( $data );
   }

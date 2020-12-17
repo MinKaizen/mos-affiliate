@@ -2,6 +2,7 @@
 
 namespace MOS\Affiliate\Routes;
 
+use \MOS\Affiliate\Adapters\ClickbankEventAdapter;
 use \MGC\REST_Route\REST_Route;
 use \WP_REST_Request;
 use \WP_REST_Response;
@@ -15,7 +16,7 @@ class ClickbankEndpoint extends REST_Route {
   protected $method = 'POST';
 
   public function handler( WP_REST_Request $request ): WP_REST_Response {
-    $data = $this->adapter( $request );
+    $data = new ClickbankEventAdapter( $request->get_body() );
     return $this->response( $data );
   }
 

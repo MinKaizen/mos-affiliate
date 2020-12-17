@@ -4,7 +4,7 @@ namespace MOS\Affiliate\Adapters;
 
 use \MOS\Affiliate\DataStructs\ClickbankEvent;
 
-class ClickbankAdapter extends ClickbankEvent {
+class ClickbankEventAdapter extends ClickbankEvent {
   
   private $secret_key = 'ANTOLAMAS61412';
 

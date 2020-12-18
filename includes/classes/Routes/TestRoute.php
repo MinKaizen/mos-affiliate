@@ -16,8 +16,4 @@ class TestRoute extends REST_Route {
     return $this->response("It works after renaming plugin file as well");
   }
 
-  public function permission(): bool {
-    return true;
-  }
-
 }

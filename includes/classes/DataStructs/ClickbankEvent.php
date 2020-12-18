@@ -21,4 +21,16 @@ class ClickbankEvent {
   public $sponsor_username = '';
   public $sponsor_name = '';
   public $sponsor_email = '';
+
+  public function object(): object {
+    return $this;
+  }
+
+  public function json(): string {
+    return json_encode( $this );
+  }
+
+  public function array(): array {
+    return (array) $this;
+  }
 }

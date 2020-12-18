@@ -17,6 +17,7 @@ class ClickbankEndpoint extends REST_Route {
 
   public function handler( WP_REST_Request $request ): WP_REST_Response {
     $clickbank_event = new ClickbankEventAdapter( $request->get_body() );
+    \do_action( 'clickbank_event_raw', $clickbank_event->get_original() );
     \do_action( 'clickbank_event', $clickbank_event );
     return $this->response( $clickbank_event );
   }

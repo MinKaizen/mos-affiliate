@@ -9,17 +9,38 @@ use \WP_REST_Response;
 
 class ClickbankEndpoint extends REST_Route {
 
-  const SECRET_KEY = 'ANTOLAMAS61412';
+  private $secret_key = 'ANTOLAMAS61412';
   
   protected $root = 'mos-affiliate/v1';
   protected $route = 'clickbank-ins';
   protected $method = 'POST';
 
   public function handler( WP_REST_Request $request ): WP_REST_Response {
-    $clickbank_event = new ClickbankEventAdapter( $request->get_body() );
-    \do_action( 'clickbank_event_raw', $clickbank_event->get_original() );
-    \do_action( 'clickbank_event', $clickbank_event );
-    return $this->response( $clickbank_event );
+    $original_json = $this->extract_decrypted_msg( $request->get_body() );
+    $original_object = json_decode( $original_json );
+    $adapted_object = new ClickbankEventAdapter( $original_json );
+    \do_action( 'clickbank_event_raw', $original_object );
+    \do_action( 'clickbank_event', $adapted_object );
+    return $this->response( $adapted_object );
+  }
+
+  private function extract_decrypted_msg( string $json ): string {
+    $data = json_decode( $json );
+    $msg_encrypted = $data->notification;
+    $iv = $data->iv;
+    $msg_decrypted = $this->decrypt( $msg_encrypted, $iv, $this->secret_key );
+    return $msg_decrypted;
+  }
+
+  private function decrypt( string $notification, string $iv, string $secret_key ): string {
+    $decrypted = trim(
+      openssl_decrypt(base64_decode($notification),
+      'AES-256-CBC',
+      substr(sha1($secret_key), 0, 32),
+      OPENSSL_RAW_DATA,
+      base64_decode($iv)), "\0..\32"
+    );
+    return $decrypted;
   }
 
 }

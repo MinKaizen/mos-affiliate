@@ -1,0 +1,55 @@
+[
+  {
+      "key": "group_5fe255ecdf0ef",
+      "title": "Access Level",
+      "fields": [
+          {
+              "key": "field_5fe255ff02d8d",
+              "label": "Product",
+              "name": "access_level",
+              "type": "select",
+              "instructions": "Only customers of this product can access this page",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+              },
+              "choices": {
+                  "monthly_partner": "Monthly Partner",
+                  "yearly_partner": "Yearly Partner",
+                  "lifetime_partner": "Lifetime Partner",
+                  "coaching": "Coaching",
+                  "fb_toolkit": "Ultimate Facebook Toolkit",
+                  "lead_system": "6 Figure Lead Gen System",
+                  "authority_bonuses": "Ultimate Authority Bonuses"
+              },
+              "default_value": false,
+              "allow_null": 1,
+              "multiple": 0,
+              "ui": 0,
+              "ajax": 0,
+              "return_format": "value",
+              "placeholder": ""
+          }
+      ],
+      "location": [
+          [
+              {
+                  "param": "current_user_role",
+                  "operator": "==",
+                  "value": "administrator"
+              }
+          ]
+      ],
+      "menu_order": 0,
+      "position": "normal",
+      "style": "default",
+      "label_placement": "left",
+      "instruction_placement": "label",
+      "hide_on_screen": "",
+      "active": true,
+      "description": ""
+  }
+]

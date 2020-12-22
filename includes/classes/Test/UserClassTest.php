@@ -163,6 +163,46 @@ class UserClassTest extends Test {
     $this->_test_single_mis( '\MOS\Affiliate\Mis\BannersMis' );
   }
   
+  public function test_has_access(): void {
+    $user = $this->create_test_user();
+    $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
+
+    // Monthly Partner
+    $this->assert_false( $user->has_access( 'monthly_partner' ) );
+    \update_user_meta( $user->ID, 'mos_access_monthly_partner', $tomorrow );
+    $this->assert_true( $user->has_access( 'monthly_partner' ) );
+    
+    // Yearly Partner
+    $this->assert_false( $user->has_access( 'yearly_partner' ) );
+    \update_user_meta( $user->ID, 'mos_access_yearly_partner', $tomorrow );
+    $this->assert_true( $user->has_access( 'yearly_partner' ) );
+    
+    // Ultimate Facebook Toolkit
+    $this->assert_false( $user->has_access( 'fb_toolkit' ) );
+    \update_user_meta( $user->ID, 'mos_access_fb_toolkit', $tomorrow );
+    $this->assert_true( $user->has_access( 'fb_toolkit' ) );
+    
+    // Six Figure Lead Gen System
+    $this->assert_false( $user->has_access( 'lead_system' ) );
+    \update_user_meta( $user->ID, 'mos_access_lead_system', $tomorrow );
+    $this->assert_true( $user->has_access( 'lead_system' ) );
+    
+    // Ultimate Authority Bonuses
+    $this->assert_false( $user->has_access( 'authority_bonuses' ) );
+    \update_user_meta( $user->ID, 'mos_access_authority_bonuses', $tomorrow );
+    $this->assert_true( $user->has_access( 'authority_bonuses' ) );
+    
+    // Lifetime Partner
+    $this->assert_false( $user->has_access( 'lifetime_partner' ) );
+    \update_user_meta( $user->ID, 'mos_access_lifetime_partner', $tomorrow );
+    $this->assert_true( $user->has_access( 'lifetime_partner' ) );
+    
+    // Personal Coaching with Chuck
+    $this->assert_false( $user->has_access( 'coaching' ) );
+    \update_user_meta( $user->ID, 'mos_access_coaching', $tomorrow );
+    $this->assert_true( $user->has_access( 'coaching' ) );
+  }
+  
   
   private function _test_single_mis( $class_name ): void {
     $this->assert_class_exists( $class_name );

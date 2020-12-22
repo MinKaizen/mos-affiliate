@@ -183,3 +183,32 @@ function expand_merge_tags( array $array, array $merge_tags ): array {
   array_walk_recursive( $new_array, $callback );
   return $new_array;
 }
+
+
+function nullsafe_get( $subject, string $search, $default_value=null ) {
+  if ( is_array( $subject ) ) {
+      return _nullsafe_get_array_element( $subject, $search, $default_value );
+  } elseif ( is_object( $subject ) ) {
+      return _nullsafe_get_object_prop( $subject, $search, $default_value );
+  } else {
+      return $default_value;
+  }
+}
+
+
+function _nullsafe_get_object_prop( object $object, string $prop_name, $default_value=null ) {
+  if ( property_exists( $object, $prop_name ) ) {
+      return $object->$prop_name;
+  } else {
+      return $default_value;
+  }
+}
+
+
+function _nullsafe_get_array_element( array $array, string $key, $default_value=null ) {
+  if ( array_key_exists( $key, $array ) ) {
+      return $array[$key];
+  } else {
+      return $default_value;
+  }
+}

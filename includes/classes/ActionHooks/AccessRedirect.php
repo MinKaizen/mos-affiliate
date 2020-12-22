@@ -11,8 +11,6 @@ use function \wp_redirect;
 
 class AccessRedirect extends ActionHook {
 
-  const ALREADY_REDIRECTED_HEADER = 'MOS-Affiliate-Access-Redirect: 1';
-
   protected $hook = 'template_redirect';
 
   public function handler(): void {

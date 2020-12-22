@@ -196,6 +196,26 @@ class User extends \WP_User {
   }
 
 
+  public function has_access( string $product_slug ): bool {
+    $product = Product::from_slug( $product_slug );
+    $meta_key = nullsafe_get( $product, 'access_meta_key' );
+    
+    if ( !$meta_key ) {
+      return false;
+    }
+
+    $access_expiry = $this->get( $meta_key );
+    
+    if ( !$access_expiry ) {
+      return false;
+    }
+
+    $today = date( 'Y-m-d' );
+    $has_access = $today < $access_expiry;
+    return $has_access;
+  }
+
+
   public function is_partner(): bool {
     $role = empty( $this->roles ) ? '' : $this->roles[0];
     $partner_slugs = [

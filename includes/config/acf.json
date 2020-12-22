@@ -5,7 +5,7 @@
       "fields": [
           {
               "key": "field_5fe255ff02d8d",
-              "label": "Product",
+              "label": "Access Level",
               "name": "access_level",
               "type": "select",
               "instructions": "Only customers of this product can access this page",

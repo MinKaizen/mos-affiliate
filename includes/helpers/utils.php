@@ -212,3 +212,13 @@ function _nullsafe_get_array_element( array $array, string $key, $default_value=
       return $default_value;
   }
 }
+
+function url_path_is( string $uri ): bool {
+  if ( !isset( $_SERVER['REQUEST_URI'] ) ) {
+    return false;
+  }  
+
+  $current_uri = trim( $_SERVER['REQUEST_URI'], '/' );
+  $comparison_uri = trim( $uri, '/' );
+  return $current_uri == $comparison_uri;
+}

@@ -3,6 +3,7 @@
 		"cb_id": 1,
 		"name": "Monthly Partner",
 		"access_meta_key": "mos_access_monthly_partner",
+		"access_redirect_url": "/no-access-monthly-partner",
 		"price": 7,
 		"trial_period": 7,
 		"rebill_price": 47,
@@ -12,34 +13,40 @@
 		"cb_id": 2,
 		"name": "Ultimate Facebook Toolkit",
 		"access_meta_key": "mos_access_fb_toolkit",
+		"access_redirect_url": "/no-access-fb-toolkit",
 		"price": 197
 	},
 	"lead_system": {
 		"cb_id": 3,
 		"name": "Six Figure Lead Gen System",
 		"access_meta_key": "mos_access_lead_system",
+		"access_redirect_url": "/no-access-lead-system",
 		"price": 197
 	},
 	"authority_bonuses": {
 		"cb_id": 4,
 		"name": "Ultimate Authority Bonuses",
 		"access_meta_key": "mos_access_authority_bonuses",
+		"access_redirect_url": "/no-access-authority-bonuses",
 		"price": 197
 	},
 	"yearly_partner": {
 		"cb_id": 5,
 		"name": "Yearly Partner",
 		"access_meta_key": "mos_access_yearly_partner",
+		"access_redirect_url": "/no-access-yearly-partner",
 		"price": 497
 	},
 	"lifetime_partner": {
 		"name": "Lifetime Partner",
 		"access_meta_key": "mos_access_lifetime_partner",
+		"access_redirect_url": "/no-access-lifetime-partner",
 		"price": 1997
 	},
 	"coaching": {
 		"name": "Personal Coaching with Chuck",
 		"access_meta_key": "mos_access_coaching",
+		"access_redirect_url": "/no-access-coaching",
 		"price": 8997
 	}
 }

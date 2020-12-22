@@ -15,6 +15,7 @@ class Product {
   public $cb_id;
   public $name;
   public $access_meta_key;
+  public $access_redirect_url;
   
   # price is also the initial price for recurring products
   public $price; 
@@ -74,6 +75,7 @@ class Product {
 		$product->cb_id = nullsafe_get( $data, 'cb_id' );
     $product->name = nullsafe_get( $data, 'name' );
     $product->access_meta_key = nullsafe_get( $data, 'access_meta_key' );
+    $product->access_redirect_url = nullsafe_get( $data, 'access_redirect_url', '/404' );
 
     $product->price = nullsafe_get( $data, 'price' );
 

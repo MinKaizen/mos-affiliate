@@ -19,6 +19,11 @@ class AccessRedirect extends ActionHook {
     }
 
     $access_level = (string) get_field( 'access_level' );
+
+    if ( !$access_level ) {
+      return;
+    }
+
     $product = Product::from_slug( $access_level );
     
     if ( !$product->exists ) {

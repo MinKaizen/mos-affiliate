@@ -22,7 +22,7 @@ class MIS {
     }
 
     $mis_data = $this->load_data_from_json( self::CONFIG );
-    
+
     if ( !isset( $mis_data[$slug] ) ) {
       return;
     }

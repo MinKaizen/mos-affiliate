@@ -4,7 +4,7 @@ namespace MOS\Affiliate\Shortcode;
 
 use MOS\Affiliate\AbstractShortcode;
 use MOS\Affiliate\User;
-use MOS\Affiliate\Mis;
+use MOS\Affiliate\MIS;
 
 class SponsorMisShortcode extends AbstractShortcode {
 
@@ -19,17 +19,17 @@ class SponsorMisShortcode extends AbstractShortcode {
     $sponsor = User::current()->sponsor();
 
     if ( ! $sponsor->exists() ) {
-      return Mis::default_value_for( $args['network'] );
+      return MIS::default_value_for( $args['network'] );
     }
     
     if ( ! $sponsor->qualifies_for_mis( $args['network'] ) ) {
-      return Mis::default_value_for( $args['network'] );
+      return MIS::default_value_for( $args['network'] );
     }
 
     $mis = $sponsor->get_mis( $args['network'] );
 
     if ( empty( $mis ) ) {
-      return Mis::default_value_for( $args['network'] );
+      return MIS::default_value_for( $args['network'] );
     }
 
     return $mis;

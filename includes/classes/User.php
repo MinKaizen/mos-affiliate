@@ -2,7 +2,7 @@
 
 namespace MOS\Affiliate;
 
-use MOS\Affiliate\Mis;
+use MOS\Affiliate\MIS;
 
 class User extends \WP_User {
 
@@ -165,8 +165,8 @@ class User extends \WP_User {
 
 
   public function get_mis( $slug ): string {
-    $mis = Mis::get( $slug );
-    $value = $mis->exists() ? $this->get( $mis->get_meta_key() ) : '';
+    $mis = new MIS( $slug );
+    $value = $mis->meta_key ? $this->get( $mis->meta_key ) : '';
     return $value;
   }
 
@@ -189,9 +189,9 @@ class User extends \WP_User {
   }
 
 
-  public function qualifies_for_mis( string $network ): bool {
-    $mis = Mis::get( $network );
-    $qualifies = $mis->exists() ? $this->has_cap( $mis->get_cap() ) : false;
+  public function qualifies_for_mis( string $slug ): bool {
+    $mis = new MIS( $slug );
+    $qualifies = $mis->access_level ? $this->has_access( $mis->access_level ) : false;
     return $qualifies;
   }
 

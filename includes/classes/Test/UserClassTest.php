@@ -4,7 +4,6 @@ namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
 use MOS\Affiliate\User;
-use MOS\Affiliate\Mis;
 
 use function \MOS\Affiliate\ranstr;
 
@@ -119,21 +118,33 @@ class UserClassTest extends Test {
 
   public function test_get_mis(): void {
     $user = $this->create_test_user();
-
-    $id = $user->get_wpid();
-
-    $mis_slug = 'key_not_in_config';
-    $mis_meta_key = Mis::MIS_META_KEY_PREFIX . $mis_slug;
+    
+    $mis_slug = 'non_existent';
+    $mis_meta_key = 'mos_mis_non_existent';
     $mis_value = 'some_value';
-    $success = \update_user_meta( $id, $mis_meta_key , $mis_value );
-    $this->assert_true( $success );
-    $this->assert_equal_strict( $user->get_mis( $mis_slug ), '' );
-
+    $this->assert_equal_strict( $user->get_mis( $mis_slug ), '', "get_mis() should return empty string if mis not set" );
+    \update_user_meta( $user->ID, $mis_meta_key, $mis_value );
+    $this->assert_equal_strict( $user->get_mis( $mis_slug ), '', "get_mis() should return empty string if mis doesn't exist in config" );
+    
     $mis_slug = 'gr';
-    $mis_meta_key = Mis::MIS_META_KEY_PREFIX . $mis_slug;
+    $mis_meta_key = 'mos_mis_gr';
     $mis_value = 'some_value';
-    $success = \update_user_meta( $id, $mis_meta_key, $mis_value );
-    $this->assert_true( $success );
+    $this->assert_equal_strict( $user->get_mis( $mis_slug ), '', "get_mis() should return empty string if mis not set" );
+    \update_user_meta( $user->ID, $mis_meta_key, $mis_value );
+    $this->assert_equal_strict( $user->get_mis( $mis_slug ), $mis_value );
+    
+    $mis_slug = 'cb';
+    $mis_meta_key = 'mos_mis_cb';
+    $mis_value = 'some_value';
+    $this->assert_equal_strict( $user->get_mis( $mis_slug ), '', "get_mis() should return empty string if mis not set" );
+    \update_user_meta( $user->ID, $mis_meta_key, $mis_value );
+    $this->assert_equal_strict( $user->get_mis( $mis_slug ), $mis_value );
+    
+    $mis_slug = 'cm';
+    $mis_meta_key = 'mos_mis_cm';
+    $mis_value = 'some_value';
+    $this->assert_equal_strict( $user->get_mis( $mis_slug ), '', "get_mis() should return empty string if mis not set" );
+    \update_user_meta( $user->ID, $mis_meta_key, $mis_value );
     $this->assert_equal_strict( $user->get_mis( $mis_slug ), $mis_value );
   }
 
@@ -157,10 +168,20 @@ class UserClassTest extends Test {
 
 
   public function test_qualifies_for_mis(): void {
-    $this->_test_single_mis( '\MOS\Affiliate\Mis\GrMis' );
-    $this->_test_single_mis( '\MOS\Affiliate\Mis\CbMis' );
-    $this->_test_single_mis( '\MOS\Affiliate\Mis\CmMis' );
-    $this->_test_single_mis( '\MOS\Affiliate\Mis\BannersMis' );
+    $user = $this->create_test_user();
+    $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
+
+    $this->assert_false( $user->qualifies_for_mis( 'gr' ), 'User should not qualifiy for mis before setting usermeta' );
+    $this->assert_false( $user->qualifies_for_mis( 'cb' ), 'User should not qualifiy for mis before setting usermeta' );
+    $this->assert_false( $user->qualifies_for_mis( 'cm' ), 'User should not qualifiy for mis before setting usermeta' );
+
+    \update_user_meta( $user->ID, 'mos_access_monthly_partner', $tomorrow );
+    $this->assert_true( $user->qualifies_for_mis( 'gr' ), 'User should qualifiy for mis after receiving mos_access_monthly_partner usermeta' );
+    $this->assert_true( $user->qualifies_for_mis( 'cb' ), 'User should qualifiy for mis after receiving mos_access_monthly_partner usermeta' );
+    $this->assert_true( $user->qualifies_for_mis( 'cm' ), 'User should qualifiy for mis after receiving mos_access_monthly_partner usermeta' );
+
+    $this->assert_false( $user->qualifies_for_mis( 'non_existent' ), 'User should not qualifiy for mis if slug is non-existent, even after receiving mos_access_monthly_partner usermeta' );
+
   }
   
   public function test_has_access(): void {
@@ -204,16 +225,6 @@ class UserClassTest extends Test {
   }
   
   
-  private function _test_single_mis( $class_name ): void {
-    $this->assert_class_exists( $class_name );
-    $user = new User();
-    $mis = new $class_name();
-    $this->assert_false_strict( $user->qualifies_for_mis( $mis->get_slug() ) );
-    $user->add_cap( $mis->get_cap() );
-    $this->assert_true_strict( $user->qualifies_for_mis( $mis->get_slug() ) );
-  }
-
-
   public function test_is_partner(): void {
     $user = new User();
     

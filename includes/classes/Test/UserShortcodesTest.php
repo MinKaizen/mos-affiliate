@@ -3,7 +3,6 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
-use MOS\Affiliate\Mis;
 
 use function \do_shortcode;
 use function \update_user_meta;
@@ -67,7 +66,7 @@ class UserShortcodesTest extends Test {
     ];
 
     foreach( $mis as $slug => $value ) {
-      $meta_key = Mis::MIS_META_KEY_PREFIX . $slug;
+      $meta_key = 'mos_mis_' . $slug;
       update_user_meta( $this->_injected_user->ID, $meta_key, $value );
     }
 

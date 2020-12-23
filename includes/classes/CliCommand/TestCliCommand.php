@@ -18,7 +18,6 @@ class TestCliCommand extends CliCommand {
   ];
 
   private $tests = [
-    'access_redirects',
     'campaign_report',
     'commission_class',
     'commission_table',

@@ -1,0 +1,26 @@
+{
+  "gr": {
+    "name": "Get Response",
+    "slug": "gr",
+    "meta_key": "mos_mis_gr",
+    "default": "htlcb",
+    "link_template": "https://www.google.com/search?q=%affid%",
+    "access_level": "monthly_partner"
+  },
+  "cb": {
+    "name": "Click Bank",
+    "slug": "cb",
+    "meta_key": "mos_mis_cb",
+    "default": "htlcb",
+    "link_template": "https://www.google.com/search?q=%affid%",
+    "access_level": "monthly_partner"
+  },
+  "cm": {
+    "name": "Click Magick",
+    "slug": "cm",
+    "meta_key": "mos_mis_cm",
+    "default": "htlcb",
+    "link_template": "https://www.google.com/search?q=%affid%",
+    "access_level": "monthly_partner"
+  }
+}

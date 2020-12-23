@@ -35,9 +35,9 @@ class MIS {
     $this->access_level = $mis_data[$slug]['access_level'] ?? $this->access_level;
   }
 
-  public function generate_link( string $affid ): string {
+  public function generate_link( string $mis_value ): string {
     $search = self::LINK_PLACEHOLDER;
-    $replace = $affid;
+    $replace = $mis_value;
     $subject = $this->link_template;
     $link = str_replace( $search, $replace, $subject );
     return $link;

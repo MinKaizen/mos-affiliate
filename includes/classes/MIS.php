@@ -5,7 +5,6 @@ namespace MOS\Affiliate;
 class MIS {
 
   const CONFIG = PLUGIN_DIR . 'includes/config/mis.json';
-  const META_PREFIX = 'mos_mis_';
   const LINK_PLACEHOLDER = '%affid%';
 
   public $exists = false;

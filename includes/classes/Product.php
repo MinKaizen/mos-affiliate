@@ -43,7 +43,7 @@ class Product {
 
 	public static function from_slug( string $slug ): self {
     $all_products = json_decode( file_get_contents( self::CONFIG ) );
-    $product_data = nullsafe_get( $all_products, $slug );
+    $product_data = $all_products->$slug ?? new \stdClass();
     $new_product = new self();
 
     if ( $product_data ) {
@@ -59,7 +59,8 @@ class Product {
     $new_product = new self();
 
     foreach ( $products as $product_data ) {
-      if ( nullsafe_get( $product_data, 'cb_id' ) === $cb_id ) {
+      $product_cb_id = $product_data->cb_id ?? null;
+      if ( $product_cb_id === $cb_id ) {
         $new_product = self::load_data( $new_product, $product_data );
         break;
       }
@@ -72,22 +73,26 @@ class Product {
   private static function load_data( self $product, object $data ): self {
     $product->exists = true;
 
-		$product->cb_id = nullsafe_get( $data, 'cb_id' );
-    $product->name = nullsafe_get( $data, 'name' );
-    $product->access_meta_key = nullsafe_get( $data, 'access_meta_key' );
-    $product->no_access_url_path = nullsafe_get( $data, 'no_access_url_path', '/404' );
+		$product->cb_id = $data->cb_id ?? null;
+    $product->name = $data->name ?? null;
+    $product->access_meta_key = $data->access_meta_key ?? null;
+    $product->no_access_url_path = $data->no_access_url_path ?? '/404';
 
-    $product->price = nullsafe_get( $data, 'price' );
+    $product->price = $data->price ?? null;
 
-    $product->has_trial_period = nullsafe_get( $data, 'trial_period' ) ? true : false;
-    $product->trial_price = $product->has_trial_period ? nullsafe_get( $data, 'price' ) : null;
-    $product->trial_period = $product->has_trial_period ? nullsafe_get( $data, 'trial_period' ): null;
-    $product->trial_access_duration = $product->has_trial_period ? nullsafe_get( $data, 'trial_period' ) + self::FAILED_PAYMENT_RETRY_PERIOD: null;
+    $product->has_trial_period = isset( $data->trial_period );
+    if ( $product->has_trial_period ) {
+      $product->trial_price = $data->price ?? null;
+      $product->trial_period = $data->trial_period ?? null;
+      $product->trial_access_duration = $data->trial_period + self::FAILED_PAYMENT_RETRY_PERIOD ?? null ;
+    }
     
-    $product->is_recurring = nullsafe_get( $data, 'rebill_price' ) && nullsafe_get( $data, 'rebill_period' ) ? true : false;
-    $product->rebill_price = $product->is_recurring ? nullsafe_get( $data, 'rebill_price' ) : null;
-    $product->rebill_period = $product->is_recurring ? nullsafe_get( $data, 'rebill_period' ) : null;
-    $product->rebill_access_duration = $product->is_recurring ? nullsafe_get( $data, 'rebill_period' ) + self::FAILED_PAYMENT_RETRY_PERIOD : null;
+    $product->is_recurring = $data->rebill_price ?? null && $data->rebill_period ?? null ? true : false;
+    if ( $product->is_recurring ) {
+      $product->rebill_price = $data->rebill_price ?? null;
+      $product->rebill_period = $data->rebill_period ?? null;
+      $product->rebill_access_duration = $data->rebill_period + self::FAILED_PAYMENT_RETRY_PERIOD ?? null;
+    }
 
     return $product;
   }

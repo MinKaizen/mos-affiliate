@@ -198,7 +198,7 @@ class User extends \WP_User {
 
   public function has_access( string $product_slug ): bool {
     $product = Product::from_slug( $product_slug );
-    $meta_key = nullsafe_get( $product, 'access_meta_key' );
+    $meta_key = $product->access_meta_key ?? '';
     
     if ( !$meta_key ) {
       return false;

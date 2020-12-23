@@ -35,6 +35,11 @@ class MIS {
     $this->access_level = $mis_data[$slug]['access_level'] ?? $this->access_level;
   }
 
+  public static function default_value_for( string $slug ): string {
+    $new_mis = new self( $slug );
+    return $new_mis->default;
+  }
+
   public function generate_link( string $mis_value ): string {
     $search = self::LINK_PLACEHOLDER;
     $replace = $mis_value;

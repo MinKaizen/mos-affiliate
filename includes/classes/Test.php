@@ -485,6 +485,21 @@ class Test {
   }
 
 
+  protected function assert_redirect( string $entry_path, string $redirected_path, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $res = wp_remote_get( home_url( $entry_path ) )['http_response']->get_response_object() ?? null;
+    $this->assert_not_empty( $res, ['msg' => 'error during wp_remote_get() in Test class', 'url' => $entry_path] );
+    $actual_url = \trim( $res->url, '/' );
+    $expected_url = \trim( \home_url( $redirected_path ), '/' );
+    $condition = $actual_url == $expected_url;
+    $data['entry_path'] = $entry_path;
+    $data['expected_path'] = $redirected_path;
+    $data['expected_url'] = $expected_url;
+    $data['actual_url'] = $actual_url;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert( $condition, $data=[], string $assertion ): void {
     if ( $condition ) {
       return;

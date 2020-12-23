@@ -3,7 +3,6 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
-use MOS\Affiliate\Product;
 use MOS\Affiliate\MIS;
 
 use function \do_shortcode;

@@ -35,6 +35,14 @@ class MIS {
     $this->access_level = $mis_data[$slug]['access_level'] ?? $this->access_level;
   }
 
+  public function generate_link( string $affid ): string {
+    $search = self::LINK_PLACEHOLDER;
+    $replace = $affid;
+    $subject = $this->link_template;
+    $link = str_replace( $search, $replace, $subject );
+    return $link;
+  }
+
   private function load_data_from_json( string $config_file_path ): array {
     $json = (string) \file_get_contents( $config_file_path );
     $data = (array) json_decode( $json, true );

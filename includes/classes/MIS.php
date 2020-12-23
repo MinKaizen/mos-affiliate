@@ -9,12 +9,12 @@ class MIS {
   const LINK_PLACEHOLDER = '%affid%';
 
   public $exists = false;
-  public $name = '';
-  public $slug = '';
-  public $meta_key = '';
-  public $default = '';
-  public $link_template = '';
-  public $access_level = '';
+  public $name;
+  public $slug;
+  public $meta_key;
+  public $default;
+  public $link_template;
+  public $access_level;
 
   public function __construct( string $slug ) {
     if ( !file_exists( self::CONFIG ) ) {
@@ -27,12 +27,12 @@ class MIS {
     }
 
     $this->exists = true;
-    $this->name = $mis_data[$slug]['name'];
-    $this->slug = $mis_data[$slug]['slug'];
-    $this->meta_key = $mis_data[$slug]['meta_key'];
-    $this->default = $mis_data[$slug]['default'];
-    $this->link_template = $mis_data[$slug]['link_template'];
-    $this->access_level = $mis_data[$slug]['access_level'];
+    $this->name = $mis_data[$slug]['name'] ?? '';
+    $this->slug = $mis_data[$slug]['slug'] ?? '';
+    $this->meta_key = $mis_data[$slug]['meta_key'] ?? '';
+    $this->default = $mis_data[$slug]['default'] ?? '';
+    $this->link_template = $mis_data[$slug]['link_template'] ?? '';
+    $this->access_level = $mis_data[$slug]['access_level'] ?? '';
   }
 
   private function load_data_from_json( string $config_file_path ): array {

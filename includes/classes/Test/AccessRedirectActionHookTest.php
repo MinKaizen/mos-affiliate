@@ -3,6 +3,7 @@
 namespace MOS\Affiliate\Test;
 
 use \MOS\Affiliate\Test;
+use function \MOS\Affiliate\ranstr;
 
 class AccessRedirectActionHookTest extends Test {
 
@@ -36,31 +37,62 @@ class AccessRedirectActionHookTest extends Test {
   ];
 
   private $post;
+  private $permalink;
+  private $username;
+  private $user_pass;
+  private $cookie_file;
+  private $http_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6';
 
   public function _before(): void {
-    $this->_injected_user = $this->create_test_user();
+    // Check for curl
+    $this->assert_true( function_exists( 'curl_exec' ), 'CURL is required but not found!' );
+    $this->assert_true( function_exists( 'curl_init' ), 'CURL is required but not found!' );
+  
+    // Set cookie file for curl
+    $upload_dir = (array) wp_get_upload_dir();
+    $upload_basedir = $upload_dir['basedir'];
+    $this->cookie_file = $upload_basedir . '/mos-affiliate/tests/access_redirect/cookies.txt';
+
+    // Set user
+    $this->username = ranstr();
+    $this->user_pass = ranstr();
+    $this->_injected_user = $this->create_test_user( [
+      'user_login' => $this->username,
+      'user_pass' => $this->user_pass,
+    ] );
     $this->set_user();
+
+    // Set post
     $this->post = $this->create_test_post();
+    $this->permalink = \get_permalink( $this->post );
+
+    $this->curl_init();
   }
 
-  public function test_all(): void {
-    // $post_path = '/' . str_replace( ' ', '-', strtolower( $this->post->post_name ) );
-    // $res = wp_remote_get( home_url( '/wp-login.php?' ) )['http_response']->get_response_object() ?? null;
-    // print_r( get_object_vars( $res ) );
 
-    // $this->assert_redirect( $post_path, $post_path, ['msg' => 'URL should not redirect by default'] );
-    // foreach ( array_keys( self::USERMETA_KEYS ) as $access_level ) {
-    //   $this->post_set_access_level( $this->post->ID, $access_level );
-    //   $this->assert_redirect( $post_path, self::REDIRECTS[$access_level], [
-    //     'msg' => 'User should be redirected after page access level is set',
-    //     'access_level' => $access_level
-    //   ] );
-    //   $this->user_give_access( $this->_injected_user->ID, $access_level );
-    //   $this->assert_redirect( $post_path, $post_path, [
-    //     'msg' => 'User should be able to access page after access is given',
-    //     'access_level' => $access_level
-    //   ] );
-    // }
+  protected function _after(): void {
+    $this->curl_close();
+  }
+
+
+  public function test_all(): void {
+    $this->assert_login_and_redirect( $this->permalink, $this->permalink, ['msg' => 'URL should not redirect by default'] );
+
+    foreach ( array_keys( self::USERMETA_KEYS ) as $access_level ) {
+      $this->post_set_access_level( $this->post->ID, $access_level );
+
+      $this->assert_login_and_redirect( $this->permalink, \home_url( self::REDIRECTS[$access_level] ), [
+        'msg' => 'User should be redirected after page access level is set',
+        'access_level' => $access_level
+      ] );
+
+      $this->user_give_access( $this->_injected_user->ID, $access_level );
+
+      $this->assert_login_and_redirect( $this->permalink, $this->permalink, [
+        'msg' => 'User should be able to access page after access is given',
+        'access_level' => $access_level
+      ] );
+    }
   }
 
   private function post_set_access_level( int $post_id, string $access_level ): void {

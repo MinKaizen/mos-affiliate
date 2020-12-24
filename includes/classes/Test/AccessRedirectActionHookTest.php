@@ -74,5 +74,55 @@ class AccessRedirectActionHookTest extends Test {
   }
 
 
+  private function assert_login_and_redirect( string $start, string $expected_redirect, ...$data ) {
+    $actual_redirect = $this->curl_get_redirect( $start );
+    $data[] = [
+      'expected' => $expected_redirect,
+      'actual' => $actual_redirect,
+    ];
+
+    $actual_redirect = trim( $actual_redirect, '/' );
+    $expected_redirect = trim( $expected_redirect, '/' );
+    $condition = $expected_redirect == $actual_redirect;
+    $assertion = __FUNCTION__;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  private function curl_get_redirect( string $url ): string {
+    $this->db_notice( 'CURL: ' . $url );
+    curl_setopt( $this->curl, CURLOPT_URL, $url );
+    curl_setopt( $this->curl, CURLOPT_POST, 0);
+    curl_exec( $this->curl );
+    $redirected_url = curl_getinfo( $this->curl, CURLINFO_EFFECTIVE_URL );
+    return $redirected_url;
+  }
+
+
+  private function curl_init() {
+    $this->curl = curl_init();
+    $login_url = wp_login_url();
+    $redirect = home_url( '/' );
+    $data = "log={$this->username}&pwd={$this->user_pass}&wp-submit=Log%20In&redirect_to={$redirect}";
+    curl_setopt( $this->curl, CURLOPT_POSTFIELDS, $data );
+    curl_setopt( $this->curl, CURLOPT_URL, $login_url );
+    curl_setopt( $this->curl, CURLOPT_COOKIEJAR, $this->cookie_file );
+    curl_setopt( $this->curl, CURLOPT_SSL_VERIFYPEER, false );
+    curl_setopt( $this->curl, CURLOPT_USERAGENT, $this->http_agent );
+    curl_setopt( $this->curl, CURLOPT_TIMEOUT, 10 );
+    curl_setopt( $this->curl, CURLOPT_FOLLOWLOCATION, 1 );
+    curl_setopt( $this->curl, CURLOPT_RETURNTRANSFER, 1 );
+    curl_setopt( $this->curl, CURLOPT_REFERER, $login_url );
+    curl_setopt( $this->curl, CURLOPT_POST, 1);
+    curl_exec( $this->curl );
+    $this->db_notice( "curl opened" );
+  }
+
+
+  private function curl_close() {
+    curl_close( $this->curl );
+    $this->db_notice( "curl closed" );
+  }
+
 
 }

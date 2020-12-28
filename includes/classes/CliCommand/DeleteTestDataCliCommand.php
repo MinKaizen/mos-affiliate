@@ -136,7 +136,7 @@ class DeleteTestDataCliCommand extends CliCommand {
     $query = "DELETE FROM $table WHERE $where_clause";
     \WP_CLI::line( "SQL: $query" );
     $rows_deleted = (int) $wpdb->query( $query );
-    $this->get_any_key( "$rows_deleted rows deleted." );
+    \WP_CLI::line( "$rows_deleted rows deleted." );
   }
 
 

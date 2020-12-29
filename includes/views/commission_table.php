@@ -1,5 +1,5 @@
 <?php namespace MOS\Affiliate; ?>
-<table>
+<table class="js-commissions-table">
   <thead class="table-header">
     <tr class="table-header__row">
       <th class="table-cell table-header-cell col-date">Date</th>

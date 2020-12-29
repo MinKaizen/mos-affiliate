@@ -1,13 +1,16 @@
-import CampaignReport from './components/CampaignReport';
-import ReferralsTable from './components/ReferralsTable';
+import MosaTable from './components/MosaTable';
 
 const components = [
   {
-    class: CampaignReport,
+    class: MosaTable,
+    selector: '.js-commissions-table'
+  },
+  {
+    class: MosaTable,
     selector: '.js-campaign-report'
   },
   {
-    class: ReferralsTable,
+    class: MosaTable,
     selector: '.js-referrals-table'
   }
 ]

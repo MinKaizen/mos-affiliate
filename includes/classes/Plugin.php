@@ -75,6 +75,7 @@ class Plugin {
   private function load_scripts(): void {
     \add_action( 'wp_enqueue_scripts', function() {
       \wp_enqueue_script( 'mosAffiliate', PLUGIN_URL . 'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
+      \wp_enqueue_style( 'mos-affiliate-style', PLUGIN_URL . 'dist/css/mos-affiliate.css');
     });
   }
 

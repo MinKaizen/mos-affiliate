@@ -11,7 +11,10 @@ const options = {
       text: 'Export',
       className: 'datatables-export-button'
     },
-  ]
+  ],
+  language: {
+    emptyTable: "(No data)"
+  }
 }
 
 export default class MosaTable {

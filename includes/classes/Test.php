@@ -166,6 +166,14 @@ class Test {
   }
 
 
+  protected function assert_is_url( $var, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = filter_var( $var, FILTER_VALIDATE_URL );
+    $data['var'] = $var;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_equal( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 == $value2;

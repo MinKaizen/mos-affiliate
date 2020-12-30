@@ -6,6 +6,7 @@ use \Exception;
 use \WP_CLI;
 use \WP_Post;
 use \MOS\Affiliate\User;
+use \MOS\Affiliate\Product;
 
 use function \get_post;
 use function \wp_insert_post;
@@ -805,6 +806,16 @@ class Test {
       'ip' => '%s',
     ];
     $wpdb->insert( $table, $columns, $formats );
+  }
+
+
+  protected final function user_give_access( int $user_id, string $access_level ): void {
+    $product = Product::from_slug( $access_level );
+    if ( $product->exists ) {
+      $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
+      $meta_key = $product->access_meta_key;
+      update_user_meta( $user_id, $meta_key, $tomorrow );
+    }
   }
 
 

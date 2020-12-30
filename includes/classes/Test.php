@@ -265,6 +265,15 @@ class Test {
   }
 
 
+  protected function assert_string_not_contains( string $haystack, string $needle, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = ( strpos( $haystack, $needle ) === false );
+    $data['haystack'] = $haystack;
+    $data['needle'] = $needle;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_has_key( array $array, $key, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = array_key_exists( $key, $array );

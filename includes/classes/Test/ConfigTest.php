@@ -30,6 +30,8 @@ class ConfigTest extends Test {
       $this->assert_string_not_contains( $mis->meta_key, 'MIS meta_key should not contain spaces' );
       $this->assert_string_not_contains( $mis->default, 'MIS default should not contain spaces' );
       $this->assert_string_not_contains( $mis->access_level, 'MIS access_level should not contain spaces' );
+
+      $this->assert_less_than_or_equal( strlen( $mis->meta_key ), 32, 'MIS meta_key should not be more than 32 characters long' );
     }
 
   }

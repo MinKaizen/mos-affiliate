@@ -78,9 +78,7 @@ class SponsorShortcodesTest extends Test {
     $this->assert_mis( 'cb', MIS::default_value_for( 'cb' ) );
 
     // Give access
-    $meta_key = 'mos_access_monthly_partner';
-    $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
-    \update_user_meta( $this->_injected_sponsor->ID, $meta_key, $tomorrow );
+    $this->user_give_access( $this->_injected_sponsor->ID, 'monthly_partner' );
 
     // Give MIS to Sponsor
     foreach( $this->mis as $slug => $value ) {

@@ -33,7 +33,6 @@ class ConfigTest extends Test {
 
       $this->assert_less_than_or_equal( strlen( $mis->meta_key ), 32, 'MIS meta_key should not be more than 32 characters long' );
     }
-
   }
 
   private function load_json( string $name ) {

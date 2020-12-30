@@ -120,7 +120,7 @@ class Test {
 
   protected function assert_is_number( $var, ...$data ): void {
     $assertion = __FUNCTION__;
-    $condition = is_int( $var ) && is_float( $var );
+    $condition = is_int( $var ) || is_float( $var );
     $data['var'] = $var;
     $this->assert( $condition, $data, $assertion );
   }

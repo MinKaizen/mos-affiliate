@@ -118,6 +118,14 @@ class Test {
   }
 
 
+  protected function assert_is_number( $var, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = is_int( $var ) && is_float( $var );
+    $data['var'] = $var;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_greater_than( $var1, $var2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $var1 > $var2;

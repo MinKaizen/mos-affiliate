@@ -12,12 +12,24 @@ class ConfigTest extends Test {
     $mis_config = $this->load_json( 'mis' );
     
     foreach ( $mis_config as $mis ) {
+      $this->assert_not_empty( $mis->name, 'MIS name should be set' );
+      $this->assert_not_empty( $mis->slug, 'MIS slug should be set' );
+      $this->assert_not_empty( $mis->meta_key, 'MIS meta_key should be set' );
+      $this->assert_not_empty( $mis->default, 'MIS default should be set' );
+      $this->assert_not_empty( $mis->link_template, 'MIS link_template should be set' );
+      $this->assert_not_empty( $mis->access_level, 'MIS access_level should be set' );
+
       $this->assert_is_string( $mis->name, 'MIS name should be a string' );
       $this->assert_is_string( $mis->slug, 'MIS slug should be a string' );
       $this->assert_is_string( $mis->meta_key, 'MIS meta_key should be a string' );
       $this->assert_is_string( $mis->default, 'MIS default should be a string' );
       $this->assert_is_url( $mis->link_template, 'MIS link_template should be a valid URL' );
       $this->assert_is_string( $mis->access_level, 'MIS access_level should be a string' );
+
+      $this->assert_string_not_contains( $mis->slug, 'MIS slug should not contain spaces' );
+      $this->assert_string_not_contains( $mis->meta_key, 'MIS meta_key should not contain spaces' );
+      $this->assert_string_not_contains( $mis->default, 'MIS default should not contain spaces' );
+      $this->assert_string_not_contains( $mis->access_level, 'MIS access_level should not contain spaces' );
     }
 
   }

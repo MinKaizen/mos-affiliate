@@ -28,4 +28,10 @@ class MisClassTest extends Test {
     $this->assert_false( $blah_mis->exists, 'MIS for blah should not exist' );
   }
 
+  public function test_default_value(): void {
+    $this->assert_equal( MIS::default_value_for( 'gr' ), 'htlcb' );
+    $this->assert_equal( MIS::default_value_for( 'cb' ), 'htlcb' );
+    $this->assert_equal( MIS::default_value_for( 'cm' ), 'htlcb' );
+  }
+
 }

@@ -227,33 +227,24 @@ class UserClassTest extends Test {
   
   
   public function test_is_partner(): void {
-    $user = new User();
-    
-    // Valid partner roles
-    $user->roles = ['partner'];
-    $this->assert_true( $user->is_partner() );
-    $user->roles = ['monthly_partner'];
-    $this->assert_true( $user->is_partner() );
-    $user->roles = ['yearly_partner'];
-    $this->assert_true( $user->is_partner() );
-    $user->roles = ['lifetime_partner'];
-    $this->assert_true( $user->is_partner() );
-    $user->roles = ['legacy_partner'];
-    $this->assert_true( $user->is_partner() );
-    $user->roles = ['legendary_partner'];
-    $this->assert_true( $user->is_partner() );
-    $user->roles = ['legacy_legendary_partner'];
-    $this->assert_true( $user->is_partner() );
+    $user = $this->create_test_user();
 
-    // Invalid partner roles
-    $user->roles = [];
-    $this->assert_false( $user->is_partner() );
-    $user->roles = ['administrator'];
-    $this->assert_false( $user->is_partner() );
-    $user->roles = ['free'];
-    $this->assert_false( $user->is_partner() );
-    $user->roles = ['subscriber'];
-    $this->assert_false( $user->is_partner() );
+    $this->assert_false( $user->is_partner(), ['user' => $user, 'msg' => 'User should not be a partner by default'] );
+    
+    $this->user_give_access( $user->ID, 'monthly_partner' );
+    $this->assert_true( $user->is_partner(), ['meta' => $user->get( 'mos_access_monthly_partner' ), 'msg' => 'User should be a partner if they have access to monthly_partner'] );
+    $this->user_remove_access( $user->ID, 'monthly_partner' );
+    $this->assert_false( $user->is_partner(), ['meta' => $user->get( 'mos_access_monthly_partner' ), 'msg' => 'User should not if monthly_partner access is removed'] );
+    
+    $this->user_give_access( $user->ID, 'yearly_partner' );
+    $this->assert_true( $user->is_partner(), ['meta' => $user->get( 'mos_access_yearly_partner' ), 'msg' => 'User should be a partner if they have access to yearly_partner'] );
+    $this->user_remove_access( $user->ID, 'yearly_partner' );
+    $this->assert_false( $user->is_partner(), ['meta' => $user->get( 'mos_access_yearly_partner' ), 'msg' => 'User should not if yearly_partner access is removed'] );
+    
+    $this->user_give_access( $user->ID, 'lifetime_partner' );
+    $this->assert_true( $user->is_partner(), ['meta' => $user->get( 'mos_access_lifetime_partner' ), 'msg' => 'User should be a partner if they have access to lifetime_partner'] );
+    $this->user_remove_access( $user->ID, 'lifetime_partner' );
+    $this->assert_false( $user->is_partner(), ['meta' => $user->get( 'mos_access_lifetime_partner' ), 'msg' => 'User should not if lifetime_partner access is removed'] );
   }
 
 

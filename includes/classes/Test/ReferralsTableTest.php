@@ -94,7 +94,7 @@ class ReferralsTableTest extends Test {
       ];
 
       $db_user = $this->create_test_user( $user_data );
-      $db_user->set_role( $user['level'] );
+      $this->user_give_access( $db_user->ID, $user['level'] );
       $this->create_test_referral( $db_user->ID, $this->_injected_user->ID, $user['campaign'] );
 
       // // Debug

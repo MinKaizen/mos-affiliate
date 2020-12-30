@@ -230,18 +230,19 @@ class User extends \WP_User {
 
 
   public function is_partner(): bool {
-    $role = empty( $this->roles ) ? '' : $this->roles[0];
-    $partner_slugs = [
-      'partner',
+    $partner_access_levels = [
       'monthly_partner',
       'yearly_partner',
       'lifetime_partner',
-      'legacy_partner',
-      'legendary_partner',
-      'legacy_legendary_partner',
     ];
-    $is_partner = in_array( $role, $partner_slugs );
-    return $is_partner;
+
+    foreach ( $partner_access_levels as $access_level ) {
+      if ( $this->has_access( $access_level ) ) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 

@@ -4,7 +4,7 @@
     "slug": "gr",
     "meta_key": "mos_mis_gr",
     "default": "htlcb",
-    "link_template": "https://www.google.com/search?q=%affid%",
+    "link_template": "https://secure.getresponse.com/pricing/en?a=%affid%&c=myonlinestartup",
     "access_level": "monthly_partner"
   },
   "cb": {
@@ -20,7 +20,7 @@
     "slug": "cm",
     "meta_key": "mos_mis_cm",
     "default": "htlcb",
-    "link_template": "https://www.google.com/search?q=%affid%",
+    "link_template": "https://clickmagick.com/go/%affid%/myonlinestartup",
     "access_level": "monthly_partner"
   }
 }

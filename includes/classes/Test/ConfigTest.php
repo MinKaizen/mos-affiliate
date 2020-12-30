@@ -10,6 +10,7 @@ class ConfigTest extends Test {
 
   public function test_mis_config(): void {
     $mis_config = $this->load_json( 'mis' );
+    $this->assert_not_empty( $mis_config, 'mis config should be json_decodeable' );
     
     foreach ( $mis_config as $mis ) {
       $this->assert_not_empty( $mis->name, 'MIS name should be set' );

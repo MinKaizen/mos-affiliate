@@ -29,7 +29,7 @@ class CampaignReportTest extends Test {
     $this->create_test_referral( $empty_campaign_referral3->ID, $this->_injected_user->ID );
     
     // Empty Campaign: 1 partner
-    $empty_campaign_referral1->set_role( 'monthly_partner' );
+    $this->user_give_access( $empty_campaign_referral1->ID, 'monthly_partner' );
 
     // Empty campaign: $50 commissions
     $this->create_test_commission( ['amount' => 20, 'earner_id' => $this->_injected_user->ID] );
@@ -52,8 +52,8 @@ class CampaignReportTest extends Test {
     $this->create_test_referral( $bloody_campaign_referral4->ID, $this->_injected_user->ID, 'bloody_campaign' );
     
     // Bloody campaign: 2 partners
-    $bloody_campaign_referral1->set_role( 'yearly_partner' );
-    $bloody_campaign_referral2->set_role( 'monthly_partner' );
+    $this->user_give_access( $bloody_campaign_referral1->ID, 'yearly_partner' );
+    $this->user_give_access( $bloody_campaign_referral2->ID, 'monthly_partner' );
 
     // Bloody campaign: $32 commissions
     $this->create_test_commission( ['amount' => 10, 'campaign' => 'bloody_campaign', 'earner_id' => $this->_injected_user->ID] );

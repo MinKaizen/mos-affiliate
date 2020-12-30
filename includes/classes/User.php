@@ -171,6 +171,14 @@ class User extends \WP_User {
   }
 
 
+  public function get_mis_link( string $slug ): string {
+    $mis = new MIS( $slug );
+    $value = $mis->meta_key ? $this->get( $mis->meta_key ) : '';
+    $link = $mis->generate_link( $value );
+    return $link;
+  }
+
+
   public function get_level(): string {
     $access_levels = [
       'lifetime_partner',

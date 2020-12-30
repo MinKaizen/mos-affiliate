@@ -11,6 +11,7 @@ use \MOS\Affiliate\Product;
 use function \get_post;
 use function \wp_insert_post;
 use function \update_user_meta;
+use function \delete_user_meta;
 use function \MOS\Affiliate\ranstr;
 use function \add_filter;
 use function \remove_filter;
@@ -815,6 +816,15 @@ class Test {
       $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
       $meta_key = $product->access_meta_key;
       update_user_meta( $user_id, $meta_key, $tomorrow );
+    }
+  }
+
+
+  protected final function user_remove_access( int $user_id, string $access_level ): void {
+    $product = Product::from_slug( $access_level );
+    if ( $product->exists ) {
+      $meta_key = $product->access_meta_key;
+      delete_user_meta( $user_id, $meta_key );
     }
   }
 

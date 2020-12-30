@@ -13,7 +13,6 @@ class TestCliCommand extends CliCommand {
 
   private $pre_tests = [
     'db_tables',
-    'levels_exist',
     'db_functions',
   ];
 

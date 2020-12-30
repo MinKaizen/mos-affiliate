@@ -6,7 +6,6 @@ class Activator {
 
   public static function activate(): void {
     Upgrader::upgrade();
-    Level::register_all_levels();
     $activator = new self();
     $activator->add_index_to_uap_referrals();
   }

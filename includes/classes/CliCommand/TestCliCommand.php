@@ -12,6 +12,7 @@ class TestCliCommand extends CliCommand {
   protected $command = 'test';
 
   private $pre_tests = [
+    'config',
     'db_tables',
     'db_functions',
   ];
@@ -42,6 +43,8 @@ class TestCliCommand extends CliCommand {
       $this->test_multiple( $this->pre_tests );
       $this->test_multiple( $this->tests );
     } elseif ( in_array( $test_name, $this->tests ) ) {
+      $this->test_single( $test_name );
+    } elseif ( in_array( $test_name, $this->pre_tests ) ) {
       $this->test_single( $test_name );
     } else {
       WP_CLI::error( "$test_name is not a registered test" );

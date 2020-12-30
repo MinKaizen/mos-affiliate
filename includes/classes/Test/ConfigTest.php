@@ -10,7 +10,16 @@ class ConfigTest extends Test {
 
   public function test_mis_config(): void {
     $mis_config = $this->load_json( 'mis' );
-    var_dump( $mis_config );
+    
+    foreach ( $mis_config as $mis ) {
+      $this->assert_is_string( $mis->name, 'MIS name should be a string' );
+      $this->assert_is_string( $mis->slug, 'MIS slug should be a string' );
+      $this->assert_is_string( $mis->meta_key, 'MIS meta_key should be a string' );
+      $this->assert_is_string( $mis->default, 'MIS default should be a string' );
+      $this->assert_is_string( $mis->link_template, 'MIS link_template should be a string' );
+      $this->assert_is_string( $mis->access_level, 'MIS access_level should be a string' );
+    }
+
   }
 
   private function load_json( string $name ) {

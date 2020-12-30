@@ -158,6 +158,14 @@ class Test {
   }
 
 
+  protected function assert_is_string( $var, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = is_string( $var );
+    $data['var'] = $var;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_equal( $value1, $value2, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = $value1 == $value2;

@@ -151,17 +151,16 @@ class UserClassTest extends Test {
 
   public function test_get_level(): void {
     $user = $this->create_test_user();
-    $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
 
     $this->assert_equal( $user->get_level(), 'Free Member', 'User level should be Free Member by default' );
     
-    \update_user_meta( $user->ID, 'mos_access_monthly_partner', $tomorrow );
+    $this->user_give_access( $user->ID, 'monthly_partner' );
     $this->assert_equal( $user->get_level(), 'Monthly Partner', 'User level should be Monthly Partner after getting access to monthly_partner' );
     
-    \update_user_meta( $user->ID, 'mos_access_yearly_partner', $tomorrow );
+    $this->user_give_access( $user->ID, 'yearly_partner' );
     $this->assert_equal( $user->get_level(), 'Yearly Partner', 'User level should be Yearly Partner after getting access to yearly_partner' );
     
-    \update_user_meta( $user->ID, 'mos_access_lifetime_partner', $tomorrow );
+    $this->user_give_access( $user->ID, 'lifetime_partner' );
     $this->assert_equal( $user->get_level(), 'Lifetime Partner', 'User level should be Lifetime Partner after getting access to lifetime_partner' );
   }
 
@@ -173,13 +172,12 @@ class UserClassTest extends Test {
 
   public function test_qualifies_for_mis(): void {
     $user = $this->create_test_user();
-    $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
 
     $this->assert_false( $user->qualifies_for_mis( 'gr' ), 'User should not qualifiy for mis before setting usermeta' );
     $this->assert_false( $user->qualifies_for_mis( 'cb' ), 'User should not qualifiy for mis before setting usermeta' );
     $this->assert_false( $user->qualifies_for_mis( 'cm' ), 'User should not qualifiy for mis before setting usermeta' );
 
-    \update_user_meta( $user->ID, 'mos_access_monthly_partner', $tomorrow );
+    $this->user_give_access( $user->ID, 'monthly_partner' );
     $this->assert_true( $user->qualifies_for_mis( 'gr' ), 'User should qualifiy for mis after receiving mos_access_monthly_partner usermeta' );
     $this->assert_true( $user->qualifies_for_mis( 'cb' ), 'User should qualifiy for mis after receiving mos_access_monthly_partner usermeta' );
     $this->assert_true( $user->qualifies_for_mis( 'cm' ), 'User should qualifiy for mis after receiving mos_access_monthly_partner usermeta' );
@@ -190,41 +188,40 @@ class UserClassTest extends Test {
   
   public function test_has_access(): void {
     $user = $this->create_test_user();
-    $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
 
     // Monthly Partner
     $this->assert_false( $user->has_access( 'monthly_partner' ) );
-    \update_user_meta( $user->ID, 'mos_access_monthly_partner', $tomorrow );
+    $this->user_give_access( $user->ID, 'monthly_partner');
     $this->assert_true( $user->has_access( 'monthly_partner' ) );
     
     // Yearly Partner
     $this->assert_false( $user->has_access( 'yearly_partner' ) );
-    \update_user_meta( $user->ID, 'mos_access_yearly_partner', $tomorrow );
+    $this->user_give_access( $user->ID, 'yearly_partner');
     $this->assert_true( $user->has_access( 'yearly_partner' ) );
     
     // Ultimate Facebook Toolkit
     $this->assert_false( $user->has_access( 'fb_toolkit' ) );
-    \update_user_meta( $user->ID, 'mos_access_fb_toolkit', $tomorrow );
+    $this->user_give_access( $user->ID, 'fb_toolkit');
     $this->assert_true( $user->has_access( 'fb_toolkit' ) );
     
     // Six Figure Lead Gen System
     $this->assert_false( $user->has_access( 'lead_system' ) );
-    \update_user_meta( $user->ID, 'mos_access_lead_system', $tomorrow );
+    $this->user_give_access( $user->ID, 'lead_system');
     $this->assert_true( $user->has_access( 'lead_system' ) );
     
     // Ultimate Authority Bonuses
     $this->assert_false( $user->has_access( 'authority_bonuses' ) );
-    \update_user_meta( $user->ID, 'mos_access_authority_bonuses', $tomorrow );
+    $this->user_give_access( $user->ID, 'authority_bonuses');
     $this->assert_true( $user->has_access( 'authority_bonuses' ) );
     
     // Lifetime Partner
     $this->assert_false( $user->has_access( 'lifetime_partner' ) );
-    \update_user_meta( $user->ID, 'mos_access_lifetime_partner', $tomorrow );
+    $this->user_give_access( $user->ID, 'lifetime_partner');
     $this->assert_true( $user->has_access( 'lifetime_partner' ) );
     
     // Personal Coaching with Chuck
     $this->assert_false( $user->has_access( 'coaching' ) );
-    \update_user_meta( $user->ID, 'mos_access_coaching', $tomorrow );
+    $this->user_give_access( $user->ID, 'coaching');
     $this->assert_true( $user->has_access( 'coaching' ) );
   }
   

@@ -52,7 +52,7 @@ class UserShortcodesTest extends Test {
   public function test_level_shortcode(): void {
     $level_slug = 'monthly_partner';
     $level_name = 'Monthly Partner';
-    $this->_injected_user->roles = [$level_slug];
+    $this->user_give_access( $this->_injected_user->ID, $level_slug );
     $shortcode = '[mos_level]';
     $this->assert_shortcode_equal( $shortcode, $level_name );
   }

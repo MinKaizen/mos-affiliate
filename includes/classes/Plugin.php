@@ -9,7 +9,6 @@ class Plugin {
 
 
   public function __construct() {
-    require( PLUGIN_DIR . "/includes/config/caps.php" );
     require( PLUGIN_DIR . "/includes/helpers/utils.php" );
     require( PLUGIN_DIR . '/includes/config/pre_init.php' );
     $this->pre_init_check();

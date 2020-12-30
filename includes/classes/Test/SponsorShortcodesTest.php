@@ -22,12 +22,6 @@ class SponsorShortcodesTest extends Test {
   protected function _before(): void {
     $this->_injected_sponsor = $this->create_test_user();
     $this->set_sponsor();
-
-    // Give MIS to Sponsor
-    foreach( $this->mis as $slug => $value ) {
-      $meta_key = 'mos_mis_' . $slug;
-      update_user_meta( $this->_injected_sponsor->ID, $meta_key, $value );
-    }
   }
 
   public function test_sponsor_affid_shortcode(): void {
@@ -64,7 +58,7 @@ class SponsorShortcodesTest extends Test {
   public function test_sponsor_level_shortcode(): void {
     $level_slug = 'monthly_partner';
     $level_name = 'Monthly Partner';
-    $this->_injected_sponsor->roles = [$level_slug];
+    $this->user_give_access( $this->_injected_sponsor->ID, $level_slug );
     $shortcode = '[mos_sponsor_level]';
     $this->assert_shortcode_equal( $shortcode, $level_name );
   }
@@ -72,11 +66,11 @@ class SponsorShortcodesTest extends Test {
 
   public function test_sponsor_mis_shortcode(): void {
     // User not logged in --> show default
-    $this->unset_user();
+    $this->unset_sponsor();
     $this->assert_mis( 'gr', MIS::default_value_for( 'gr' ) );
     $this->assert_mis( 'cm', MIS::default_value_for( 'cm' ) );
     $this->assert_mis( 'cb', MIS::default_value_for( 'cb' ) );
-    $this->set_user();
+    $this->set_sponsor();
     
     // User has no caps --> show default
     $this->assert_mis( 'gr', MIS::default_value_for( 'gr' ) );
@@ -87,6 +81,12 @@ class SponsorShortcodesTest extends Test {
     $meta_key = 'mos_access_monthly_partner';
     $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
     \update_user_meta( $this->_injected_sponsor->ID, $meta_key, $tomorrow );
+
+    // Give MIS to Sponsor
+    foreach( $this->mis as $slug => $value ) {
+      $meta_key = 'mos_mis_' . $slug;
+      update_user_meta( $this->_injected_sponsor->ID, $meta_key, $value );
+    }
 
     // Has cap --> show value
     $this->assert_mis( 'gr', $this->mis['gr'], 'Sponsor MIS should be displayed if it is set and sponsor is qualified' );

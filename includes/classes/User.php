@@ -172,9 +172,22 @@ class User extends \WP_User {
 
 
   public function get_level(): string {
-    $roles = (array) $this->roles;
-    $primary_role = empty( $roles ) ? '' : first_non_empty_element( $roles );
-    $level = Level::slug_to_name( $primary_role );
+    $access_levels = [
+      'lifetime_partner',
+      'yearly_partner',
+      'monthly_partner',
+    ];
+
+    $level = 'Free Member';
+
+    foreach ( $access_levels as $access_level ) {
+      if ( $this->has_access( $access_level ) ) {
+        $product = Product::from_slug( $access_level );
+        $level = $product->name;
+        break;
+      }
+    }
+
     return $level;
   }
 

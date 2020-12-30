@@ -150,15 +150,19 @@ class UserClassTest extends Test {
 
 
   public function test_get_level(): void {
-    $user = new User();
-    $user->roles = ['hello_world'];
-    $this->assert_equal_strict( $user->get_level(), 'Hello World' );
-    $user->roles = ['free'];
-    $this->assert_equal_strict( $user->get_level(), 'Free Member' );
-    $user->roles = ['monthly_partner'];
-    $this->assert_equal_strict( $user->get_level(), 'Monthly Partner' );
-    $user->roles = ['yearly_partner'];
-    $this->assert_equal_strict( $user->get_level(), 'Yearly Partner' );
+    $user = $this->create_test_user();
+    $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
+
+    $this->assert_equal( $user->get_level(), 'Free Member', 'User level should be Free Member by default' );
+    
+    \update_user_meta( $user->ID, 'mos_access_monthly_partner', $tomorrow );
+    $this->assert_equal( $user->get_level(), 'Monthly Partner', 'User level should be Monthly Partner after getting access to monthly_partner' );
+    
+    \update_user_meta( $user->ID, 'mos_access_yearly_partner', $tomorrow );
+    $this->assert_equal( $user->get_level(), 'Yearly Partner', 'User level should be Yearly Partner after getting access to yearly_partner' );
+    
+    \update_user_meta( $user->ID, 'mos_access_lifetime_partner', $tomorrow );
+    $this->assert_equal( $user->get_level(), 'Lifetime Partner', 'User level should be Lifetime Partner after getting access to lifetime_partner' );
   }
 
 

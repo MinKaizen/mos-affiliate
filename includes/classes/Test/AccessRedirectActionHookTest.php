@@ -100,11 +100,6 @@ class AccessRedirectActionHookTest extends Test {
     \update_post_meta( $post_id, self::POSTMETA['acf_key'], self::POSTMETA['acf_value'] );
   }
 
-  private function user_give_access( int $user_id, string $access_level ): void {
-    $tomorrow = \date( 'Y-m-d', \time() + \DAY_IN_SECONDS );
-    \update_user_meta( $user_id, self::USERMETA_KEYS[$access_level], $tomorrow );
-  }
-
 
   private function assert_login_and_redirect( string $start, string $expected_redirect, ...$data ) {
     $actual_redirect = $this->curl_get_redirect( $start );

@@ -16,7 +16,7 @@ class ConfigTest extends Test {
       $this->assert_is_string( $mis->slug, 'MIS slug should be a string' );
       $this->assert_is_string( $mis->meta_key, 'MIS meta_key should be a string' );
       $this->assert_is_string( $mis->default, 'MIS default should be a string' );
-      $this->assert_is_string( $mis->link_template, 'MIS link_template should be a string' );
+      $this->assert_is_url( $mis->link_template, 'MIS link_template should be a valid URL' );
       $this->assert_is_string( $mis->access_level, 'MIS access_level should be a string' );
     }
 

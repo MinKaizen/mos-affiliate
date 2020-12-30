@@ -149,6 +149,17 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_get_mis_link(): void {
+    $user = $this->create_test_user();
+    $slug = 'gr';
+    $meta_key = 'mos_mis_gr';
+    $meta_value = 'gr_affid';
+    $expected_link = 'https://secure.getresponse.com/pricing/en?a=gr_affid&c=myonlinestartup';
+    \update_user_meta( $user->ID, $meta_key, $meta_value );
+    $this->assert_equal( $user->get_mis_link( $slug ), $expected_link );
+  }
+
+
   public function test_get_level(): void {
     $user = $this->create_test_user();
 

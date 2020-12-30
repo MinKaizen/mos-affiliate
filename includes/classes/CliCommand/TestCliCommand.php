@@ -21,6 +21,7 @@ class TestCliCommand extends CliCommand {
     'campaign_report',
     'commission_class',
     'commission_table',
+    'mis_class',
     'product_class',
     'referrals_table',
     'sponsor_shortcodes',

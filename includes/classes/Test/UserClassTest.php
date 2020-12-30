@@ -166,7 +166,11 @@ class UserClassTest extends Test {
 
 
   public function test_get_campaign(): void {
-    #todo
+    $campaign = 'mos_affiliate_test_campaign';
+    $sponsor = $this->create_test_user();
+    $downline = $this->create_test_user();
+    $this->create_test_referral( $downline->ID, $sponsor->ID, $campaign );
+    $this->assert_equal( $downline->get_campaign(), $campaign );
   }
 
 

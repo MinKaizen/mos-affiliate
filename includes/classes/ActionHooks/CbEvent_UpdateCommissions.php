@@ -8,6 +8,9 @@ use \MOS\Affiliate\Migration\CommissionsMigration;
 
 class CbEvent_UpdateCommissions extends ActionHook {
 
+  const ADD_COMMISSION_TRANSACTION_TYPES = ['SALE', 'BILL', 'TEST_SALE', 'TEST_BILL'];
+  const ADD_REFUND_TRANSACTION_TYPES = ['RFND', 'CGBK', 'TEST_RFND', 'TEST_CGBK'];
+
   protected $hook = 'clickbank_event';
   protected $async = true;
 
@@ -16,6 +19,14 @@ class CbEvent_UpdateCommissions extends ActionHook {
       return;
     }
 
+    if ( in_array( $data->transaction_type, self::ADD_COMMISSION_TRANSACTION_TYPES ) ) {
+      $this->add_commission( $data );
+    } elseif ( in_array( $data->transaction_type, self::ADD_REFUND_TRANSACTION_TYPES ) ) {
+      $this->add_refund( $data );
+    }
+  }
+
+  private function add_commission( ClickbankEvent $data ): void {
     global $wpdb;
 
     $commission_data = [
@@ -49,6 +60,10 @@ class CbEvent_UpdateCommissions extends ActionHook {
     
     $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;
     $wpdb->insert( $table, $commission_data, $formats );
+  }
+
+  private function add_refund( ClickbankEvent $data ): void {
+
   }
 
 }

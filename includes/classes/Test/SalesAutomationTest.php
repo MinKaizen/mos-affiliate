@@ -99,17 +99,17 @@ class SalesAutomationTest extends Test {
     $this->assert_equal( $db_sale->payout_transaction_id, $sale->transaction_id);
 
     $this->assert_not_empty( $db_refund, $query );
-    $this->assert_equal( $db_refund->date, $sale->date);
-    $this->assert_equal( $db_refund->amount, $sale->amount);
-    $this->assert_equal( $db_refund->description, $sale->product_name);
-    $this->assert_equal( $db_refund->transaction_id, $sale->transaction_id);
-    $this->assert_equal( $db_refund->campaign, $sale->campaign);
-    $this->assert_equal( $db_refund->actor_id, $sale->customer_wpid);
-    $this->assert_equal( $db_refund->earner_id, $sale->sponsor_wpid);
-    $this->assert_equal( $db_refund->payout_date, $sale->date);
+    $this->assert_equal( $db_refund->date, $refund->date);
+    $this->assert_equal( $db_refund->amount, -$sale->amount);
+    $this->assert_equal( $db_refund->description, $refund->product_name);
+    $this->assert_equal( $db_refund->transaction_id, $refund->transaction_id);
+    $this->assert_equal( $db_refund->campaign, $refund->campaign);
+    $this->assert_equal( $db_refund->actor_id, $refund->customer_wpid);
+    $this->assert_equal( $db_refund->earner_id, $refund->sponsor_wpid);
+    $this->assert_equal( $db_refund->payout_date, $refund->date);
     $this->assert_equal( $db_refund->payout_method, 'Clickbank');
-    $this->assert_equal( $db_refund->payout_address, $sale->cb_affiliate);
-    $this->assert_equal( $db_refund->payout_transaction_id, $sale->transaction_id);
+    $this->assert_equal( $db_refund->payout_address, $refund->cb_affiliate);
+    $this->assert_equal( $db_refund->payout_transaction_id, $refund->transaction_id);
   }
 
 }

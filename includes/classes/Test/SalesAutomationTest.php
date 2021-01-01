@@ -40,10 +40,10 @@ class SalesAutomationTest extends Test {
     global $wpdb;
     $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;
     $conditions = [
-      "actor_id = $data[customer_wpid]",
-      "earner_id = $data[sponsor_wpid]",
-      "transaction_id = '$data[transaction_id]'",
-      "campaign = '$data[campaign]'",
+      "actor_id = $data->customer_wpid",
+      "earner_id = $data->sponsor_wpid",
+      "transaction_id = '$data->transaction_id'",
+      "campaign = '$data->campaign'",
     ];
     $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $conditions );
     $commission = $wpdb->get_row( $query, 'OBJECT' );

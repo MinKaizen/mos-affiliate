@@ -29,7 +29,7 @@ abstract class ActionHook {
     }
 
     if ( $this->async ) {
-      add_action_async( $this->hook, [$this, 'handler'], $this->priority, $this->args );
+      add_action_async( $this->hook, [$this, self::HANDLER_FUNCTION_NAME], $this->priority, $this->args );
     } else {
       add_action( $this->hook, [$this, self::HANDLER_FUNCTION_NAME], $this->priority, $this->args );
     }

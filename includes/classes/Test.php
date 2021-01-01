@@ -774,25 +774,14 @@ class Test {
     $commission = Commission::create_from_array( $data );
     $this->assert_true( $commission->is_valid(), "Commission should be valid before we try to insert it..." );
     $commission->db_insert();
-    $id = $commission->get_id();
-    $this->_commission_ids_to_delete[] = $id;
-    $this->db_notice( "commission created: $id" );
     return $commission;
   }
 
 
   protected final function delete_test_commissions(): void {
-    if ( empty( $this->_commission_ids_to_delete ) ) {
-      return;
-    }
-
-    foreach ( $this->_commission_ids_to_delete as $id ) {
-      $commission = Commission::lookup( $id );
-      $commission->db_delete();
-      $this->db_notice( "commission deleted: $id" );
-    }
-
-    $this->_commission_ids_to_delete = [];
+    global $wpdb;
+    $table = $wpdb->prefix . \MOS\Affiliate\Migration\CommissionsMigration::TABLE_NAME;
+    $wpdb->delete( $table, ['description' => self::TEST_COMMISSION_DESCRIPTION], ['description' => '%s'] );
   }
 
 

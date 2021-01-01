@@ -17,24 +17,23 @@ class SalesAutomationTest extends Test {
   }
 
   public function test_update_commissions_on_sale(): void {
-    $data = [
-      "date" => "2021-01-01",
-      "amount" => 197,
-      "product_id" => 100,
-      "product_name" => "mos_affiliate_test",
-      "transaction_id" => ranstr(32),
-      "transaction_type" => "SALE",
-      "cb_affiliate" => "mos_affiliate_test",
-      "campaign" => ranstr(6),
-      "customer_wpid" => $this->user->get_wpid(),
-      "customer_username" => $this->user->get_username(),
-      "customer_name" => $this->user->get_name(),
-      "customer_email" => $this->user->get_email(),
-      "sponsor_wpid" => $this->sponsor->get_wpid(),
-      "sponsor_username" => $this->sponsor->get_username(),
-      "sponsor_name" => $this->sponsor->get_name(),
-      "sponsor_email" => $this->sponsor->get_email(),
-    ];
+    $data = new ClickbankEvent();
+    $data->date = "2021-01-01";
+    $data->amount = 197;
+    $data->product_id = 100;
+    $data->product_name = "mos_affiliate_test";
+    $data->transaction_id = ranstr(32);
+    $data->transaction_type = "SALE";
+    $data->cb_affiliate = "mos_affiliate_test";
+    $data->campaign = ranstr(6);
+    $data->customer_wpid = $this->user->get_wpid();
+    $data->customer_username = $this->user->get_username();
+    $data->customer_name = $this->user->get_name();
+    $data->customer_email = $this->user->get_email();
+    $data->sponsor_wpid = $this->sponsor->get_wpid();
+    $data->sponsor_username = $this->sponsor->get_username();
+    $data->sponsor_name = $this->sponsor->get_name();
+    $data->sponsor_email = $this->sponsor->get_email();
 
     \do_action( 'clickbank_event', $data );
 

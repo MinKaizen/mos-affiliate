@@ -36,6 +36,8 @@ class SalesAutomationTest extends Test {
     $data->sponsor_email = $this->sponsor->get_email();
 
     \do_action( 'clickbank_event', $data );
+     // Call cron so that our async hook gets called
+     \wp_remote_get( \home_url( '/' ) );
 
     global $wpdb;
     $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;
@@ -47,9 +49,6 @@ class SalesAutomationTest extends Test {
     ];
     $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $conditions );
     $commission = $wpdb->get_row( $query, 'OBJECT' );
-
-    // Call cron so that our async hook gets called
-    \wp_remote_get( \home_url( '/' ) );
 
     $this->assert_not_empty( $commission );
 

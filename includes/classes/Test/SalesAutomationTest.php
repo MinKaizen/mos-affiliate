@@ -48,6 +48,10 @@ class SalesAutomationTest extends Test {
     ];
     $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $conditions );
     $commission = $wpdb->get_row( $query, 'OBJECT' );
+
+    // Call cron so that our async hook gets called
+    \wp_remote_get( \home_url( 'wp-cron.php' ) );
+
     $this->assert_not_empty( $commission );
 
     // If the commission exists, delete it!

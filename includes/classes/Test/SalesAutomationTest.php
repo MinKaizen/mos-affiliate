@@ -49,7 +49,7 @@ class SalesAutomationTest extends Test {
     $commission = $wpdb->get_row( $query, 'OBJECT' );
 
     // Call cron so that our async hook gets called
-    \wp_remote_get( \home_url( 'wp-cron.php' ) );
+    \wp_remote_get( \home_url( '/' ) );
 
     $this->assert_not_empty( $commission );
 

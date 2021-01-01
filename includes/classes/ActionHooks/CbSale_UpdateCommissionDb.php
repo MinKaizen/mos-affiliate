@@ -7,7 +7,7 @@ use \MGC\Logger\Logger;
 use \MOS\Affiliate\DataStructs\ClickbankEvent;
 use \MOS\Affiliate\Migration\CommissionsMigration;
 
-class CbSaleUpdateCommissionDb extends ActionHook {
+class CbSale_UpdateCommissionDb extends ActionHook {
 
   protected $hook = 'clickbank_event';
   protected $async = true;

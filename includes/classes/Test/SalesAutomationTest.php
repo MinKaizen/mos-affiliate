@@ -19,7 +19,7 @@ class SalesAutomationTest extends Test {
     $this->sponsor = $this->create_test_user();
   }
 
-  public function test_update_commissions_on_sale(): void {
+  public function test_update_commissions(): void {
     $sale = new ClickbankEvent();
     $sale->date = "2021-01-01";
     $sale->amount = 197;

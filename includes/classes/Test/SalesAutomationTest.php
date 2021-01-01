@@ -9,6 +9,8 @@ use function MOS\Affiliate\ranstr;
 
 class SalesAutomationTest extends Test {
 
+  const ASYNC_BUFFER = 1;
+
   private $user;
   private $sponsor;
 
@@ -42,7 +44,7 @@ class SalesAutomationTest extends Test {
     \wp_remote_get( \home_url( '/wp-cron.php' ) );
 
     // Give it some time to resolve
-    sleep(1);
+    sleep( self::ASYNC_BUFFER );
 
     global $wpdb;
     $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;

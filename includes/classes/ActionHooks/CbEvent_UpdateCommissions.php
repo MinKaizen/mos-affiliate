@@ -6,15 +6,16 @@ use \MOS\Affiliate\ActionHook;
 use \MOS\Affiliate\DataStructs\ClickbankEvent;
 use \MOS\Affiliate\Migration\CommissionsMigration;
 
-class CbSale_UpdateCommissionDb extends ActionHook {
+class CbEvent_UpdateCommissions extends ActionHook {
 
   protected $hook = 'clickbank_event';
   protected $async = true;
 
   public function handler( $data ): void {
     if ( !( $data instanceof ClickbankEvent ) ) {
-
+      return;
     }
+
     global $wpdb;
 
     $commission_data = [

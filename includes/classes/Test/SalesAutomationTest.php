@@ -56,6 +56,17 @@ class SalesAutomationTest extends Test {
     $commission = $wpdb->get_row( $query, 'OBJECT' );
 
     $this->assert_not_empty( $commission, $query );
+    $this->assert_equal( $commission->date, $data->date);
+    $this->assert_equal( $commission->amount, $data->amount);
+    $this->assert_equal( $commission->description, $data->product_name);
+    $this->assert_equal( $commission->transaction_id, $data->transaction_id);
+    $this->assert_equal( $commission->campaign, $data->campaign);
+    $this->assert_equal( $commission->actor_id, $data->customer_wpid);
+    $this->assert_equal( $commission->earner_id, $data->sponsor_wpid);
+    $this->assert_equal( $commission->payout_date, $data->date);
+    $this->assert_equal( $commission->payout_method, 'Clickbank');
+    $this->assert_equal( $commission->payout_address, $data->cb_affiliate);
+    $this->assert_equal( $commission->payout_transaction_id, $data->transaction_id);
   }
 
 }

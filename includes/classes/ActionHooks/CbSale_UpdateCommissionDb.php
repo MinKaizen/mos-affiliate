@@ -3,7 +3,6 @@
 namespace MOS\Affiliate\ActionHooks;
 
 use \MOS\Affiliate\ActionHook;
-use \MGC\Logger\Logger;
 use \MOS\Affiliate\DataStructs\ClickbankEvent;
 use \MOS\Affiliate\Migration\CommissionsMigration;
 
@@ -48,9 +47,7 @@ class CbSale_UpdateCommissionDb extends ActionHook {
 
     
     $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;
-    $result = $wpdb->insert( $table, $commission_data, $formats );
-    $this->logger = new Logger( 'mos-affiliate', 'clickbank_event.log' );
-    $this->logger->log( print_r( $result, true ) );
+    $wpdb->insert( $table, $commission_data, $formats );
   }
 
 }

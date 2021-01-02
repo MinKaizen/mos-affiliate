@@ -56,8 +56,27 @@ class SalesAutomationTest extends Test {
     $refund->sponsor_name = $this->sponsor->get_name();
     $refund->sponsor_email = $this->sponsor->get_email();
 
+    $error_refund = new ClickbankEvent();
+    $error_refund->date = "2021-01-01";
+    $error_refund->amount = -200;
+    $error_refund->product_id = 100;
+    $error_refund->product_name = self::TEST_COMMISSION_DESCRIPTION;
+    $error_refund->transaction_id = ranstr(10);
+    $error_refund->transaction_type = "RFND";
+    $error_refund->cb_affiliate = ranstr(6);
+    $error_refund->campaign = ranstr(6);
+    $error_refund->customer_wpid = $this->user->get_wpid();
+    $error_refund->customer_username = $this->user->get_username();
+    $error_refund->customer_name = $this->user->get_name();
+    $error_refund->customer_email = $this->user->get_email();
+    $error_refund->sponsor_wpid = $this->sponsor->get_wpid();
+    $error_refund->sponsor_username = $this->sponsor->get_username();
+    $error_refund->sponsor_name = $this->sponsor->get_name();
+    $error_refund->sponsor_email = $this->sponsor->get_email();
+
     \do_action( 'clickbank_event', $sale );
     \do_action( 'clickbank_event', $refund );
+    \do_action( 'clickbank_event', $error_refund );
 
      // Call cron so that our async hook gets called
     \wp_remote_get( \home_url( '/wp-cron.php' ) );
@@ -85,6 +104,15 @@ class SalesAutomationTest extends Test {
     $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $refund_conditions );
     $db_refund = $wpdb->get_row( $query, 'OBJECT' );
 
+    $error_refund_conditions = [
+      "actor_id = $error_refund->customer_wpid",
+      "earner_id = $error_refund->sponsor_wpid",
+      "transaction_id = '$error_refund->transaction_id'",
+      "campaign = '$error_refund->campaign'",
+    ];
+    $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $error_refund_conditions );
+    $db_error_refund = $wpdb->get_row( $query, 'OBJECT' );
+
     $this->assert_not_empty( $db_sale );
     $this->assert_equal( $db_sale->date, $sale->date);
     $this->assert_equal( $db_sale->amount, $sale->amount);
@@ -110,6 +138,8 @@ class SalesAutomationTest extends Test {
     $this->assert_equal( $db_refund->payout_method, 'Clickbank');
     $this->assert_equal( $db_refund->payout_address, $refund->cb_affiliate);
     $this->assert_equal( $db_refund->payout_transaction_id, $refund->transaction_id);
+
+    $this->assert_empty( $db_error_refund );
   }
 
 }

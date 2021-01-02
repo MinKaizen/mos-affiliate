@@ -50,6 +50,9 @@ class Plugin {
       \WP_CLI::add_command( 'mosa', '\MOS\Affiliate\CLI' );
     }
 
+    // Set timezone
+    date_default_timezone_set( \get_option('timezone_string') );
+
     $this->load_admin();
     $this->load_scripts();
     $this->register_classes_from_folder( 'Shortcode' );

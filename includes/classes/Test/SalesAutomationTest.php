@@ -85,7 +85,7 @@ class SalesAutomationTest extends Test {
     $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $refund_conditions );
     $db_refund = $wpdb->get_row( $query, 'OBJECT' );
 
-    $this->assert_not_empty( $db_sale, $query );
+    $this->assert_not_empty( $db_sale );
     $this->assert_equal( $db_sale->date, $sale->date);
     $this->assert_equal( $db_sale->amount, $sale->amount);
     $this->assert_equal( $db_sale->description, $sale->product_name);
@@ -98,7 +98,7 @@ class SalesAutomationTest extends Test {
     $this->assert_equal( $db_sale->payout_address, $sale->cb_affiliate);
     $this->assert_equal( $db_sale->payout_transaction_id, $sale->transaction_id);
 
-    $this->assert_not_empty( $db_refund, $query );
+    $this->assert_not_empty( $db_refund );
     $this->assert_equal( $db_refund->date, $refund->date);
     $this->assert_equal( $db_refund->amount, -$sale->amount);
     $this->assert_equal( $db_refund->description, $refund->product_name);

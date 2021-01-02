@@ -142,4 +142,37 @@ class SalesAutomationTest extends Test {
     $this->assert_empty( $db_error_refund );
   }
 
+  private function create_test_cb_event( array $args = [] ): ClickbankEvent {
+    $default_args = [
+      'amount' => rand(10, 997),
+      'product_id' => rand(1, 100),
+      'transaction_id' => ranstr(32),
+      'cb_affiliate' => ranstr(6),
+      'campaign' => ranstr(6),
+      'customer_wpid' => $this->user->get_wpid(),
+      'customer_username' => $this->user->get_username(),
+      'customer_name' => $this->user->get_name(),
+      'customer_email' => $this->user->get_email(),
+      'sponsor_wpid' => $this->sponsor->get_wpid(),
+      'sponsor_username' => $this->sponsor->get_username(),
+      'sponsor_name' => $this->sponsor->get_name(),
+      'sponsor_email' => $this->sponsor->get_email(),
+    ];
+
+    $mandatory_args = [
+      'product_name' => self::TEST_COMMISSION_DESCRIPTION,
+    ];
+
+    $merged = array_replace( $default_args, $args, $mandatory_args );
+    $cb_event = new ClickbankEvent();
+
+    foreach ( $merged as $key => $value ) {
+      if ( property_exists( $cb_event, $key ) ) {
+        $cb_event->$key = $value;
+      }
+    }
+
+    return $cb_event;
+  }
+
 }

@@ -3,7 +3,7 @@
 namespace MOS\Affiliate\DataStructs;
 
 class ClickbankEvent {
-  public $date = '0000-00-00';
+  public $date = '0000-01-01';
   public $amount = 0.0;
   public $product_id = 0;
   public $product_name = '';

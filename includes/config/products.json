@@ -1,6 +1,6 @@
 {
 	"monthly_partner": {
-		"cb_id": 1,
+		"cb_id": 1000,
 		"name": "Monthly Partner",
 		"access_meta_key": "mos_access_monthly_partner",
 		"no_access_url_path": "/no-access-monthly-partner",
@@ -10,28 +10,28 @@
 		"rebill_period": 31
   },
   "fb_toolkit": {
-		"cb_id": 2,
+		"cb_id": 51,
 		"name": "Ultimate Facebook Toolkit",
 		"access_meta_key": "mos_access_fb_toolkit",
 		"no_access_url_path": "/no-access-fb-toolkit",
 		"price": 197
 	},
 	"lead_system": {
-		"cb_id": 3,
+		"cb_id": 52,
 		"name": "Six Figure Lead Gen System",
 		"access_meta_key": "mos_access_lead_system",
 		"no_access_url_path": "/no-access-lead-system",
 		"price": 197
 	},
 	"authority_bonuses": {
-		"cb_id": 4,
+		"cb_id": 53,
 		"name": "Ultimate Authority Bonuses",
 		"access_meta_key": "mos_access_authority_bonuses",
 		"no_access_url_path": "/no-access-authority-bonuses",
 		"price": 197
 	},
 	"yearly_partner": {
-		"cb_id": 5,
+		"cb_id": 54,
 		"name": "Yearly Partner",
 		"access_meta_key": "mos_access_yearly_partner",
 		"no_access_url_path": "/no-access-yearly-partner",

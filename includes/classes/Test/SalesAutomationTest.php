@@ -20,59 +20,19 @@ class SalesAutomationTest extends Test {
   }
 
   public function test_update_commissions(): void {
-    $sale = new ClickbankEvent();
-    $sale->date = "2021-01-01";
-    $sale->amount = 197;
-    $sale->product_id = 100;
-    $sale->product_name = self::TEST_COMMISSION_DESCRIPTION;
-    $sale->transaction_id = ranstr(32);
-    $sale->transaction_type = "SALE";
-    $sale->cb_affiliate = ranstr(6);
-    $sale->campaign = ranstr(6);
-    $sale->customer_wpid = $this->user->get_wpid();
-    $sale->customer_username = $this->user->get_username();
-    $sale->customer_name = $this->user->get_name();
-    $sale->customer_email = $this->user->get_email();
-    $sale->sponsor_wpid = $this->sponsor->get_wpid();
-    $sale->sponsor_username = $this->sponsor->get_username();
-    $sale->sponsor_name = $this->sponsor->get_name();
-    $sale->sponsor_email = $this->sponsor->get_email();
+    $sale = $this->create_test_cb_event([
+      'transaction_type' => 'SALE',
+    ]);
 
-    $refund = new ClickbankEvent();
-    $refund->date = "2021-01-01";
-    $refund->amount = -200; // Note it's slightly higher than the sale
-    $refund->product_id = 100;
-    $refund->product_name = self::TEST_COMMISSION_DESCRIPTION;
-    $refund->transaction_id = $sale->transaction_id; // Note same as sale
-    $refund->transaction_type = "RFND";
-    $refund->cb_affiliate = ranstr(6);
-    $refund->campaign = ranstr(6);
-    $refund->customer_wpid = $this->user->get_wpid();
-    $refund->customer_username = $this->user->get_username();
-    $refund->customer_name = $this->user->get_name();
-    $refund->customer_email = $this->user->get_email();
-    $refund->sponsor_wpid = $this->sponsor->get_wpid();
-    $refund->sponsor_username = $this->sponsor->get_username();
-    $refund->sponsor_name = $this->sponsor->get_name();
-    $refund->sponsor_email = $this->sponsor->get_email();
+    $refund = $this->create_test_cb_event([
+      'transaction_type' => 'RFND',
+      'amount' => -($sale->amount + 10),
+      'transaction_id' => $sale->transaction_id,
+    ]);
 
-    $error_refund = new ClickbankEvent();
-    $error_refund->date = "2021-01-01";
-    $error_refund->amount = -200;
-    $error_refund->product_id = 100;
-    $error_refund->product_name = self::TEST_COMMISSION_DESCRIPTION;
-    $error_refund->transaction_id = ranstr(10);
-    $error_refund->transaction_type = "RFND";
-    $error_refund->cb_affiliate = ranstr(6);
-    $error_refund->campaign = ranstr(6);
-    $error_refund->customer_wpid = $this->user->get_wpid();
-    $error_refund->customer_username = $this->user->get_username();
-    $error_refund->customer_name = $this->user->get_name();
-    $error_refund->customer_email = $this->user->get_email();
-    $error_refund->sponsor_wpid = $this->sponsor->get_wpid();
-    $error_refund->sponsor_username = $this->sponsor->get_username();
-    $error_refund->sponsor_name = $this->sponsor->get_name();
-    $error_refund->sponsor_email = $this->sponsor->get_email();
+    $error_refund = $this->create_test_cb_event([
+      'transaction_type' => 'RFND',
+    ]);
 
     \do_action( 'clickbank_event', $sale );
     \do_action( 'clickbank_event', $refund );

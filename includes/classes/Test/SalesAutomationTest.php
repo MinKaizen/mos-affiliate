@@ -44,34 +44,9 @@ class SalesAutomationTest extends Test {
     // Give it some time to resolve
     sleep( self::ASYNC_BUFFER );
 
-    global $wpdb;
-    $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;
-    $sale_conditions = [
-      "actor_id = $sale->customer_wpid",
-      "earner_id = $sale->sponsor_wpid",
-      "transaction_id = '$sale->transaction_id'",
-      "campaign = '$sale->campaign'",
-    ];
-    $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $sale_conditions );
-    $db_sale = $wpdb->get_row( $query, 'OBJECT' );
-
-    $refund_conditions = [
-      "actor_id = $refund->customer_wpid",
-      "earner_id = $refund->sponsor_wpid",
-      "transaction_id = '$refund->transaction_id'",
-      "campaign = '$refund->campaign'",
-    ];
-    $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $refund_conditions );
-    $db_refund = $wpdb->get_row( $query, 'OBJECT' );
-
-    $error_refund_conditions = [
-      "actor_id = $error_refund->customer_wpid",
-      "earner_id = $error_refund->sponsor_wpid",
-      "transaction_id = '$error_refund->transaction_id'",
-      "campaign = '$error_refund->campaign'",
-    ];
-    $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $error_refund_conditions );
-    $db_error_refund = $wpdb->get_row( $query, 'OBJECT' );
+    $db_sale = $this->find_commission( $sale );
+    $db_refund = $this->find_commission( $refund );
+    $db_error_refund = $this->find_commission( $error_refund );
 
     $this->assert_not_empty( $db_sale );
     $this->assert_equal( $db_sale->date, $sale->date);
@@ -100,6 +75,21 @@ class SalesAutomationTest extends Test {
     $this->assert_equal( $db_refund->payout_transaction_id, $refund->transaction_id);
 
     $this->assert_empty( $db_error_refund );
+  }
+
+  private function find_commission( ClickbankEvent $event_data ): ?object {
+    global $wpdb;
+    $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;
+    $conditions = [
+      "actor_id = $event_data->customer_wpid",
+      "earner_id = $event_data->sponsor_wpid",
+      "transaction_id = '$event_data->transaction_id'",
+      "campaign = '$event_data->campaign'",
+    ];
+    $query = "SELECT * FROM $table WHERE " . implode( ' AND ', $conditions );
+    $commission = $wpdb->get_row( $query, 'OBJECT' );
+    $commission = $commission ? $commission : null;
+    return $commission;
   }
 
   private function create_test_cb_event( array $args = [] ): ClickbankEvent {

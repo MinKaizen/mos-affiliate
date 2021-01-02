@@ -70,6 +70,19 @@ class Product {
   }
   
 
+  public static function get_all(): array {
+    $products_raw = json_decode( file_get_contents( self::CONFIG ) );
+    $products = [];
+
+    foreach ( $products_raw as $product_slug => $product_data ) {
+      $products[$product_slug] = new self();
+      $products[$product_slug] = self::load_data( $products[$product_slug], $product_data );
+    }
+    
+    return $products;
+  }
+  
+
   private static function load_data( self $product, object $data ): self {
     $product->exists = true;
 

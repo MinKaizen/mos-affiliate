@@ -11,6 +11,19 @@ class CbEvent_UpdateCommissions extends ActionHook {
 
   const ADD_COMMISSION_TRANSACTION_TYPES = ['SALE', 'BILL', 'TEST_SALE', 'TEST_BILL'];
   const ADD_REFUND_TRANSACTION_TYPES = ['RFND', 'CGBK', 'TEST_RFND', 'TEST_CGBK'];
+  const FORMATS = [
+    'date' =>'%s',
+    'amount' =>'%f',
+    'description' =>'%s',
+    'transaction_id' =>'%s',
+    'campaign' =>'%s',
+    'actor_id' =>'%d',
+    'earner_id' =>'%d',
+    'payout_date' =>'%s',
+    'payout_method' =>'%s',
+    'payout_address' =>'%s',
+    'payout_transaction_id' =>'%s',
+  ];
 
   protected $hook = 'clickbank_event';
   protected $async = true;
@@ -48,23 +61,8 @@ class CbEvent_UpdateCommissions extends ActionHook {
       'payout_transaction_id' => $data->transaction_id,
     ];
 
-    $formats = [
-      'date' =>'%s',
-      'amount' =>'%f',
-      'description' =>'%s',
-      'transaction_id' =>'%s',
-      'campaign' =>'%s',
-      'actor_id' =>'%d',
-      'earner_id' =>'%d',
-      'payout_date' =>'%s',
-      'payout_method' =>'%s',
-      'payout_address' =>'%s',
-      'payout_transaction_id' =>'%s',
-    ];
-
-    
     $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;
-    $wpdb->insert( $table, $commission_data, $formats );
+    $wpdb->insert( $table, $commission_data, self::FORMATS );
   }
 
   private function add_refund( ClickbankEvent $data ): void {
@@ -98,21 +96,7 @@ class CbEvent_UpdateCommissions extends ActionHook {
       'payout_transaction_id' => $data->transaction_id,
     ];
 
-    $formats = [
-      'date' =>'%s',
-      'amount' =>'%f',
-      'description' =>'%s',
-      'transaction_id' =>'%s',
-      'campaign' =>'%s',
-      'actor_id' =>'%d',
-      'earner_id' =>'%d',
-      'payout_date' =>'%s',
-      'payout_method' =>'%s',
-      'payout_address' =>'%s',
-      'payout_transaction_id' =>'%s',
-    ];
-
-    $wpdb->insert( $table, $refund_data, $formats );    
+    $wpdb->insert( $table, $refund_data, self::FORMATS );    
   }
 
 }

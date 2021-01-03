@@ -100,6 +100,15 @@ class SalesAutomationTest extends Test {
       ]);
 
       $this->assert_true( $this->user->has_access( $product_slug ), "User {$this->user->get_wpid()} should have access to $product_slug after sale" );
+
+      // Remit refund
+      $this->emit_test_cb_event([
+        'transaction_type' => 'RFND',
+        'transaction_id' => $transaction_id,
+        'product_id' => $product->cb_id,
+      ]);
+
+      $this->assert_false( $this->user->has_access( $product_slug ), "User {$this->user->ID} should not have access to $product_slug after refund" );
     }
   }
 

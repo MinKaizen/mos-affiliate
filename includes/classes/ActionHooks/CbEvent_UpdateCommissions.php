@@ -26,7 +26,6 @@ class CbEvent_UpdateCommissions extends ActionHook {
   ];
 
   protected $hook = 'clickbank_event';
-  protected $async = true;
 
   public function __construct() {
     $this->logger = new Logger( 'mos-affiliate', 'clickbank_error.log' );

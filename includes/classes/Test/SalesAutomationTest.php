@@ -4,6 +4,8 @@ namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\DataStructs\ClickbankEvent;
 use MOS\Affiliate\Test;
+use MOS\Affiliate\User;
+use MOS\Affiliate\Product;
 use MOS\Affiliate\Migration\CommissionsMigration;
 use function MOS\Affiliate\ranstr;
 

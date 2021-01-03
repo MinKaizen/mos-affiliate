@@ -14,6 +14,7 @@ class Product {
 
   public $cb_id;
   public $name;
+  public $slug;
   public $access_meta_key;
   public $no_access_url_path;
   
@@ -88,6 +89,7 @@ class Product {
 
 		$product->cb_id = $data->cb_id ?? null;
     $product->name = $data->name ?? null;
+    $product->slug = $data->slug ?? null;
     $product->access_meta_key = $data->access_meta_key ?? null;
     $product->no_access_url_path = $data->no_access_url_path ?? '/404';
 

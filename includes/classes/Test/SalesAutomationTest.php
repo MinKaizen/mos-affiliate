@@ -12,6 +12,7 @@ use function MOS\Affiliate\ranstr;
 class SalesAutomationTest extends Test {
 
   const ASYNC_BUFFER = 1;
+  const HOOK = 'clickbank_event';
 
   private $user;
   private $sponsor;

@@ -94,6 +94,11 @@ class SalesAutomationTest extends Test {
     return $commission;
   }
 
+  private function emit_test_cb_event( array $args = [] ): void {
+    $event = $this->create_test_cb_event( $args );
+    \do_action( self::HOOK, $event );
+  }
+
   private function create_test_cb_event( array $args = [] ): ClickbankEvent {
     $default_args = [
       'amount' => rand(10, 997),

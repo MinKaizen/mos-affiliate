@@ -113,6 +113,39 @@ class SalesAutomationTest extends Test {
     }
   }
 
+  public function test_give_remove_access_on_bill(): void {
+    $products = Product::get_all();
+
+    foreach ( $products as $product_slug => $product ) {
+      // Only for recurring clickbank products
+      if ( empty( $product->cb_id ) || !$product->is_recurring ) {
+        continue;
+      }
+
+      $this->assert_false( $this->user->has_access( $product->slug ), "User {$this->user->ID} should not have access to $product->slug by default" );
+      
+      // Emit sale
+      $transaction_id = ranstr(10);
+      $this->emit_test_cb_event([
+        'transaction_type' => 'BILL',
+        'transaction_id' => $transaction_id,
+        'product_id' => $product->cb_id,
+      ]);
+
+      $this->assert_true( $this->user->has_access( $product->slug ), "User {$this->user->get_wpid()} should have access to $product->slug after rebill" );
+      $this->assert_equal( $this->user->get_access_date( $product->slug ), $this->expected_access_date( $product, 'BILL' ) );
+
+      // Remit refund
+      $this->emit_test_cb_event([
+        'transaction_type' => 'RFND',
+        'transaction_id' => $transaction_id,
+        'product_id' => $product->cb_id,
+      ]);
+
+      $this->assert_false( $this->user->has_access( $product->slug ), "User {$this->user->ID} should not have access to $product->slug after refund" );
+    }
+  }
+
   private function find_commission( ClickbankEvent $event_data ): ?object {
     global $wpdb;
     $table = $wpdb->prefix . CommissionsMigration::TABLE_NAME;

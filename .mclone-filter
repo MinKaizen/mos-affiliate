@@ -9,6 +9,7 @@
 - package-lock.json
 - webpack.config.js
 - **.txt
+- /test/
 
 # Include everything else
 + /**

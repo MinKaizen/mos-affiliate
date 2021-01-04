@@ -61,7 +61,7 @@ class DbFunctionsTest extends Test {
     $commission_data = [
       'date' => '2020-12-06',
       'amount' => '50',
-      'description' => 'Full info',
+      'description' => self::TEST_COMMISSION_DESCRIPTION,
       'transaction_id' => '1vG92ClVTga2GIROZ5fEK8JQ1GL7gkCk',
       'campaign' => 'facebook',
       'actor_id' => '64',

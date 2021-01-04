@@ -100,6 +100,7 @@ class SalesAutomationTest extends Test {
       ]);
 
       $this->assert_true( $this->user->has_access( $product_slug ), "User {$this->user->get_wpid()} should have access to $product_slug after sale" );
+      $this->assert_equal( $this->user->get_access_date( $product_slug ), $this->expected_access_date( $product, 'SALE' ) );
 
       // Remit refund
       $this->emit_test_cb_event([

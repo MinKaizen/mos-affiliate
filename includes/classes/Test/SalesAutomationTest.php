@@ -137,7 +137,7 @@ class SalesAutomationTest extends Test {
 
       // Remit refund
       $this->emit_test_cb_event([
-        'transaction_type' => 'RFND',
+        'transaction_type' => 'CGBK',
         'transaction_id' => $transaction_id,
         'product_id' => $product->cb_id,
       ]);

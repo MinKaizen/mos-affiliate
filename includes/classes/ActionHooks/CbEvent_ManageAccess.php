@@ -51,13 +51,13 @@ class CbEvent_ManageAccess extends ActionHook {
   }
 
   private function access_date( Product $product, string $transaction_type ): string {
-    if ( $transaction_type == 'SALE' && !$product->is_recurring ) {
+    if ( in_array( $transaction_type, ['SALE', 'TEST_SALE'] ) && !$product->is_recurring ) {
       $access_date = self::EVERGREEN_DATE;
-    } elseif ( $transaction_type == 'SALE' ) {
-      $access_period = $product->has_trial_period ? $product->trial_period : $product->rebill_period;
+    } elseif ( in_array( $transaction_type, ['SALE', 'TEST_SALE'] ) ) {
+      $access_period = $product->has_trial_period ? $product->trial_access_duration : $product->rebill_access_duration;
       $access_date = date( self::DATE_FORMAT, time() + \DAY_IN_SECONDS * $access_period );
-    } elseif ( $transaction_type == 'BILL' ) {
-      $access_period = $product->rebill_period;
+    } elseif ( in_array( $transaction_type, ['BILL', 'TEST_BILL'] ) ) {
+      $access_period = $product->rebill_access_duration;
       $access_date = date( self::DATE_FORMAT, time() + \DAY_IN_SECONDS * $access_period );
     } else {
       $access_date = self::NO_DATE;

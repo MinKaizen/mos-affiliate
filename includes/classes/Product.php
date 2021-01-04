@@ -7,6 +7,7 @@ use \Error;
 class Product {
 
   const CONFIG = PLUGIN_DIR . '/includes/config/products.json';
+  const ACCESS_LEWAY_PERIOD = 2;
   const FAILED_PAYMENT_RETRY_PERIOD = 14;
   # See this https://support.clickbank.com/hc/en-us/articles/220364187-Selling-Recurring-Products#h_e150423c-bf1b-456b-931d-cd7dd852633f
   
@@ -99,14 +100,14 @@ class Product {
     if ( $product->has_trial_period ) {
       $product->trial_price = $data->price ?? null;
       $product->trial_period = $data->trial_period ?? null;
-      $product->trial_access_duration = $data->trial_period + self::FAILED_PAYMENT_RETRY_PERIOD ?? null ;
+      $product->trial_access_duration = $data->trial_period + self::ACCESS_LEWAY_PERIOD ?? null ;
     }
     
     $product->is_recurring = $data->rebill_price ?? null && $data->rebill_period ?? null ? true : false;
     if ( $product->is_recurring ) {
       $product->rebill_price = $data->rebill_price ?? null;
       $product->rebill_period = $data->rebill_period ?? null;
-      $product->rebill_access_duration = $data->rebill_period + self::FAILED_PAYMENT_RETRY_PERIOD ?? null;
+      $product->rebill_access_duration = $data->rebill_period + self::ACCESS_LEWAY_PERIOD ?? null;
     }
 
     return $product;

@@ -295,6 +295,7 @@ class User extends \WP_User {
       'completed' => 0,
       'total' => 0,
       'percentage' => 0.0,
+      'percentage_str' => '0%',
       'formatted' => '',
     ];
   
@@ -312,6 +313,7 @@ class User extends \WP_User {
     if ( $course_progress['total'] != 0 ) {
       $course_progress['formatted'] = "$course_progress[completed]/$course_progress[total]";
       $course_progress['percentage'] = $course_progress['completed']/$course_progress['total'];
+      $course_progress['percentage_str'] = (string) ceil( $course_progress['percentage'] ) . '%';
     }
   
     return $course_progress;

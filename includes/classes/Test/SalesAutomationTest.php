@@ -199,4 +199,20 @@ class SalesAutomationTest extends Test {
     return $cb_event;
   }
 
+  private function expected_access_date( Product $product, string $transaction_type ): string {
+    if ( in_array( $transaction_type, ['SALE', 'TEST_SALE'] ) && !$product->is_recurring ) {
+      $access_date = '9999-01-01';
+    } elseif ( in_array( $transaction_type, ['SALE', 'TEST_SALE'] ) ) {
+      $access_period = $product->has_trial_period ? $product->trial_access_duration : $product->rebill_access_duration;
+      $access_date = date( 'Y-m-d', time() + \DAY_IN_SECONDS * $access_period );
+    } elseif ( in_array( $transaction_type, ['BILL', 'TEST_BILL'] ) ) {
+      $access_period = $product->rebill_access_duration;
+      $access_date = date( 'Y-m-d', time() + \DAY_IN_SECONDS * $access_period );
+    } else {
+      $access_date = '0000-01-01';
+    }
+
+    return $access_date;
+  }
+
 }

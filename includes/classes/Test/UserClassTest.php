@@ -173,6 +173,9 @@ class UserClassTest extends Test {
     
     $this->user_give_access( $user->ID, 'lifetime_partner' );
     $this->assert_equal( $user->get_level(), 'Lifetime Partner', 'User level should be Lifetime Partner after getting access to lifetime_partner' );
+   
+    $this->user_give_access( $user->ID, 'coaching' );
+    $this->assert_equal( $user->get_level(), 'Coaching', 'User level should be Coaching after getting access to coaching' );
   }
 
 

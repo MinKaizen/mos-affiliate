@@ -6,6 +6,24 @@ use MOS\Affiliate\MIS;
 
 class User extends \WP_User {
 
+  const LEVELS = [
+    [
+      'product_slug' => 'coaching',
+      'level_name' => 'Coaching',
+    ],
+    [
+      'product_slug' => 'lifetime_partner',
+      'level_name' => 'Lifetime Partner',
+    ],
+    [
+      'product_slug' => 'yearly_partner',
+      'level_name' => 'Yearly Partner',
+    ],
+    [
+      'product_slug' => 'monthly_partner',
+      'level_name' => 'Monthly Partner',
+    ],
+  ];
   
   public static function current(): self {
     $wpid = \get_current_user_id();
@@ -180,23 +198,16 @@ class User extends \WP_User {
 
 
   public function get_level(): string {
-    $access_levels = [
-      'lifetime_partner',
-      'yearly_partner',
-      'monthly_partner',
-    ];
+    $level_name = 'Free Member';
 
-    $level = 'Free Member';
-
-    foreach ( $access_levels as $access_level ) {
-      if ( $this->has_access( $access_level ) ) {
-        $product = Product::from_slug( $access_level );
-        $level = $product->name;
+    foreach ( self::LEVELS as $level ) {
+      if ( $this->has_access( $level['product_slug'] ) ) {
+        $level_name = $level['level_name'];
         break;
       }
     }
 
-    return $level;
+    return $level_name;
   }
 
 

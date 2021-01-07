@@ -215,6 +215,24 @@ class User extends \WP_User {
   }
 
 
+  public function get_level_slug(): string {
+    if ( !$this->exists() ) {
+      return '';
+    }
+
+    $level_slug = 'free';
+
+    foreach ( self::LEVELS as $level ) {
+      if ( $this->has_access( $level['product_slug'] ) ) {
+        $level_slug = $level['product_slug'];
+        break;
+      }
+    }
+
+    return $level_slug;
+  }
+
+
   public function get_next_level(): string {
     if ( !$this->exists() ) {
       return 'Free Member';
@@ -231,6 +249,25 @@ class User extends \WP_User {
     }
 
     return $level_name;
+  }
+
+
+  public function get_next_level_slug(): string {
+    if ( !$this->exists() ) {
+      return 'free';
+    }
+
+    $level_slug = '';
+
+    foreach ( self::LEVELS as $level ) {
+      if ( $this->has_access( $level['product_slug'] ) ) {
+        break;
+      } else {
+        $level_slug = $level['product_slug'];
+      }
+    }
+
+    return $level_slug;
   }
 
 

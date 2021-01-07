@@ -204,6 +204,50 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_get_level_slug(): void {
+    $non_user = new User();
+    $this->assert_equal( $non_user->get_level_slug(), '', 'User level slug should be [empty] for a non-user' );
+
+    $user = $this->create_test_user();
+
+    $this->assert_equal( $user->get_level_slug(), 'free', 'User level slug should be free by default' );
+    
+    $this->user_give_access( $user->ID, 'monthly_partner' );
+    $this->assert_equal( $user->get_level_slug(), 'monthly_partner', 'User level slug should be monthly_partner after getting access to monthly_partner' );
+    
+    $this->user_give_access( $user->ID, 'yearly_partner' );
+    $this->assert_equal( $user->get_level_slug(), 'yearly_partner', 'User level slug should be yearly_partner after getting access to yearly_partner' );
+    
+    $this->user_give_access( $user->ID, 'lifetime_partner' );
+    $this->assert_equal( $user->get_level_slug(), 'lifetime_partner', 'User level slug should be lifetime_partner after getting access to lifetime_partner' );
+   
+    $this->user_give_access( $user->ID, 'coaching' );
+    $this->assert_equal( $user->get_level_slug(), 'coaching', 'User level slug should be coaching after getting access to coaching' );
+  }
+
+
+  public function test_get_next_level_slug(): void {
+    $non_user = new User();
+    $this->assert_equal( $non_user->get_next_level_slug(), 'free', 'User NEXT level should be free for a non-user' );
+
+    $user = $this->create_test_user();
+
+    $this->assert_equal( $user->get_next_level_slug(), 'monthly_partner', 'User NEXT level should be monthly_partner by default' );
+    
+    $this->user_give_access( $user->ID, 'monthly_partner' );
+    $this->assert_equal( $user->get_next_level_slug(), 'yearly_partner', 'User NEXT level should be yearly_partner after getting access to monthly_partner' );
+    
+    $this->user_give_access( $user->ID, 'yearly_partner' );
+    $this->assert_equal( $user->get_next_level_slug(), 'lifetime_partner', 'User NEXT level should be lifetime_partner after getting access to yearly_partner' );
+    
+    $this->user_give_access( $user->ID, 'lifetime_partner' );
+    $this->assert_equal( $user->get_next_level_slug(), 'coaching', 'User NEXT level should be coaching after getting access to lifetime_partner' );
+   
+    $this->user_give_access( $user->ID, 'coaching' );
+    $this->assert_equal( $user->get_next_level_slug(), '', 'User NEXT level should be [empty] after getting access to coaching' );
+  }
+
+
   public function test_get_campaign(): void {
     $campaign = 'mos_affiliate_test_campaign';
     $sponsor = $this->create_test_user();

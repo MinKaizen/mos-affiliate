@@ -179,6 +179,25 @@ class UserClassTest extends Test {
   }
 
 
+  public function test_get_next_level(): void {
+    $user = $this->create_test_user();
+
+    $this->assert_equal( $user->get_next_level(), 'Monthly Partner', 'User NEXT level should be Monthly Partner by default' );
+    
+    $this->user_give_access( $user->ID, 'monthly_partner' );
+    $this->assert_equal( $user->get_next_level(), 'Yearly Partner', 'User NEXT level should be Yearly Partner after getting access to monthly_partner' );
+    
+    $this->user_give_access( $user->ID, 'yearly_partner' );
+    $this->assert_equal( $user->get_next_level(), 'Lifetime Partner', 'User NEXT level should be Lifetime Partner after getting access to yearly_partner' );
+    
+    $this->user_give_access( $user->ID, 'lifetime_partner' );
+    $this->assert_equal( $user->get_next_level(), 'Coaching', 'User NEXT level should be Coaching after getting access to lifetime_partner' );
+   
+    $this->user_give_access( $user->ID, 'coaching' );
+    $this->assert_equal( $user->get_next_level(), '', 'User NEXT level should be [empty] after getting access to coaching' );
+  }
+
+
   public function test_get_campaign(): void {
     $campaign = 'mos_affiliate_test_campaign';
     $sponsor = $this->create_test_user();

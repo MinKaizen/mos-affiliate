@@ -211,6 +211,21 @@ class User extends \WP_User {
   }
 
 
+  public function get_next_level(): string {
+    $level_name = '';
+
+    foreach ( self::LEVELS as $level ) {
+      if ( $this->has_access( $level['product_slug'] ) ) {
+        break;
+      } else {
+        $level_name = $level['level_name'];
+      }
+    }
+
+    return $level_name;
+  }
+
+
   public function get_campaign(): string {
     global $wpdb;
     $table = $wpdb->prefix . 'uap_referrals';

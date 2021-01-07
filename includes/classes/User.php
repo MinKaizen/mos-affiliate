@@ -198,6 +198,10 @@ class User extends \WP_User {
 
 
   public function get_level(): string {
+    if ( !$this->exists() ) {
+      return 'None';
+    }
+
     $level_name = 'Free Member';
 
     foreach ( self::LEVELS as $level ) {
@@ -212,6 +216,10 @@ class User extends \WP_User {
 
 
   public function get_next_level(): string {
+    if ( !$this->exists() ) {
+      return 'Free Member';
+    }
+
     $level_name = '';
 
     foreach ( self::LEVELS as $level ) {

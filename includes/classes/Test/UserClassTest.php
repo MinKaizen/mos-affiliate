@@ -161,6 +161,9 @@ class UserClassTest extends Test {
 
 
   public function test_get_level(): void {
+    $non_user = new User();
+    $this->assert_equal( $non_user->get_level(), 'None', 'User level should be None for a non-user' );
+
     $user = $this->create_test_user();
 
     $this->assert_equal( $user->get_level(), 'Free Member', 'User level should be Free Member by default' );
@@ -180,6 +183,9 @@ class UserClassTest extends Test {
 
 
   public function test_get_next_level(): void {
+    $non_user = new User();
+    $this->assert_equal( $non_user->get_next_level(), 'Free Member', 'User NEXT level should be Free Member for a non-user' );
+
     $user = $this->create_test_user();
 
     $this->assert_equal( $user->get_next_level(), 'Monthly Partner', 'User NEXT level should be Monthly Partner by default' );

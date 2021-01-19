@@ -118,6 +118,34 @@ class Test {
   }
 
 
+  protected function assert_arrays_equal( $array1, $array2, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = (
+      is_array( $array1 )
+      && is_array( $array2 )
+      && count( $array1 ) == count( $array2 )
+      && array_diff( $array1, $array2 ) === array_diff( $array2, $array1 )
+    );
+    $data['array1'] = $array1;
+    $data['array2'] = $array2;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
+  protected function assert_arrays_not_equal( $array1, $array2, ...$data ): void {
+    $assertion = __FUNCTION__;
+    $condition = !(
+      is_array( $array1 )
+      && is_array( $array2 )
+      && count( $array1 ) == count( $array2 )
+      && array_diff( $array1, $array2 ) === array_diff( $array2, $array1 )
+    );
+    $data['array1'] = $array1;
+    $data['array2'] = $array2;
+    $this->assert( $condition, $data, $assertion );
+  }
+
+
   protected function assert_is_number( $var, ...$data ): void {
     $assertion = __FUNCTION__;
     $condition = is_int( $var ) || is_float( $var );

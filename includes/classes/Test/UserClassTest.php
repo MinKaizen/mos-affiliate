@@ -311,6 +311,68 @@ class UserClassTest extends Test {
     $this->user_give_access( $user->ID, 'coaching');
     $this->assert_true( $user->has_access( 'coaching' ) );
   }
+
+
+  public function test_get_access_list(): void {
+    $user = $this->create_test_user();
+    $this->assert_arrays_equal( $user->get_access_list(), [], 'User access list should be empty by default' );
+    
+    $this->user_give_access( $user->ID, 'monthly_partner' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+    ], 'User access list should include monthly_partner after access is granted' );
+    
+    $this->user_give_access( $user->ID, 'yearly_partner' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+      'yearly_partner',
+    ], 'User access list should include yearly_partner after access is granted' );
+    
+    $this->user_give_access( $user->ID, 'lifetime_partner' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+    ], 'User access list should include lifetime_partner after access is granted' );
+    
+    $this->user_give_access( $user->ID, 'coaching' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+      'coaching',
+    ], 'User access list should include coaching after access is granted' );
+    
+    $this->user_give_access( $user->ID, 'fb_toolkit' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+      'coaching',
+      'fb_toolkit',
+    ], 'User access list should include fb_toolkit after access is granted' );
+    
+    $this->user_give_access( $user->ID, 'lead_system' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+      'coaching',
+      'fb_toolkit',
+      'lead_system',
+    ], 'User access list should include lead_system after access is granted' );
+    
+    $this->user_give_access( $user->ID, 'authority_bonuses' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+      'coaching',
+      'fb_toolkit',
+      'lead_system',
+      'authority_bonuses',
+    ], 'User access list should include authority_bonuses after access is granted' );
+  }
   
   
   public function test_is_partner(): void {

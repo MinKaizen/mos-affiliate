@@ -301,6 +301,18 @@ class User extends \WP_User {
   }
 
 
+  public function get_access_list(): array {
+    $products = Product::get_all();
+    $access_list = [];
+    foreach ( $products as $product ) {
+      if ( $this->has_access( $product->slug ) ) {
+        $access_list[] = $product->slug;
+      }
+    }
+    return $access_list;
+  }
+
+
   public function get_access_date( string $product_slug ): string {
     $product = Product::from_slug( $product_slug );
     $meta_key = $product->access_meta_key ?? '';

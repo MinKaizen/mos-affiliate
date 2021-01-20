@@ -289,6 +289,21 @@ class User extends \WP_User {
 
 
   public function has_access( string $product_slug ): bool {
+    $level = new Level( $product_slug );
+    if ( $level->exists ) {
+      foreach ( $level->granted_by as $granting_level ) {
+        if ( $this->has_access_single( $granting_level ) ) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      return $this->has_access_single( $product_slug );
+    }
+  }
+
+
+  private function has_access_single( string $product_slug ): bool {
     $access_expiry = $this->get_access_date( $product_slug );
     
     if ( !$access_expiry ) {

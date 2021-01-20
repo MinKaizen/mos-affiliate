@@ -312,6 +312,18 @@ class UserClassTest extends Test {
     $this->assert_true( $user->has_access( 'coaching' ) );
   }
 
+  public function test_has_access_levels(): void {
+    $user = $this->create_test_user();
+
+    // Personal Coaching with Chuck
+    $this->assert_false( $user->has_access( 'coaching' ) );
+    $this->user_give_access( $user->ID, 'coaching');
+    $this->assert_true( $user->has_access( 'monthly_partner' ), new \MOS\Affiliate\Level('coaching') );
+    $this->assert_true( $user->has_access( 'yearly_partner' ), new \MOS\Affiliate\Level('coaching') );
+    $this->assert_true( $user->has_access( 'lifetime_partner' ), new \MOS\Affiliate\Level('coaching') );
+    $this->assert_true( $user->has_access( 'coaching' ), new \MOS\Affiliate\Level('coaching') );
+  }
+
 
   public function test_get_access_list(): void {
     $user = $this->create_test_user();

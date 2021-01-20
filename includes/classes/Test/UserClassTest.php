@@ -385,6 +385,24 @@ class UserClassTest extends Test {
       'authority_bonuses',
     ], 'User access list should include authority_bonuses after access is granted' );
   }
+
+  public function test_get_access_list_levels(): void {
+    $user = $this->create_test_user();
+
+    $this->user_give_access( $user->ID, 'yearly_partner' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+      'yearly_partner',
+    ], 'User should also get access to monthly_partner when given access to yearly_partner' );
+
+    $this->user_give_access( $user->ID, 'coaching' );
+    $this->assert_arrays_equal( $user->get_access_list(), [
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+      'coaching',
+    ], 'User should get access to all levels when given access to coaching' );
+  }
   
   
   public function test_is_partner(): void {

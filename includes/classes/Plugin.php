@@ -54,7 +54,6 @@ class Plugin {
     date_default_timezone_set( \get_option('timezone_string') );
 
     $this->load_admin();
-    $this->load_scripts();
     $this->register_classes_from_folder( 'Shortcode' );
     $this->register_classes_from_folder( 'Routes' );
     $this->register_classes_from_folder( 'ActionHooks' );
@@ -72,13 +71,6 @@ class Plugin {
   private function load_admin(): void {
     $admin = new Admin();
     $admin->init();
-  }
-
-
-  private function load_scripts(): void {
-    \add_action( 'wp_enqueue_scripts', function() {
-      \wp_enqueue_script( 'mosAffiliate', PLUGIN_URL . 'dist/js/mosAffiliate.js', ['jquery'], '1.0.0', true );
-    });
   }
 
 

@@ -1,23 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace MOS\Affiliate\Controller;
+namespace MOS\Affiliate\FilterHooks;
 
-use MOS\Affiliate\Controller;
-use MOS\Affiliate\User;
+use \MOS\Affiliate\FilterHook;
+use \MOS\Affiliate\User;
 
-class ReferralsTable extends Controller {
+class MosReferrals extends FilterHook {
 
+  protected $hook = 'mos_referrals';
 
-  public function __construct() {
-    $this->referrals = $this->get_referrals();
+  public function handler(): array {
+    return $this->get_referrals();
   }
 
-
-  protected function export_referrals(): array {
-    return $this->referrals;
-  }
-
-  
   private function get_referrals(): array {
     $referral_objects = User::current()->get_referrals();
     $referrals = [];
@@ -42,6 +37,5 @@ class ReferralsTable extends Controller {
     $date_formatted = \DateTime::createFromFormat( 'Y-m-d H:i:s', $date )->format( 'Y-m-d' );
     return $date_formatted;
   }
-
 
 }

@@ -3,7 +3,6 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
-use MOS\Affiliate\Controller\ReferralsTable;
 
 use function MOS\Affiliate\ranstr;
 
@@ -113,9 +112,7 @@ class ReferralsTableTest extends Test {
   }
 
   public function test_controller(): void {
-    $controller = new ReferralsTable();
-    $vars = $controller->get_vars();
-    $referrals_actual = $vars['referrals'];
+    $referrals_actual = apply_filters( 'mos_referrals', [] );
 
     $this->_injected_user = $this->create_test_user();
     $this->set_user();

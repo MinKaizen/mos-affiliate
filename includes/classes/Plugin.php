@@ -53,7 +53,6 @@ class Plugin {
     // Set timezone
     date_default_timezone_set( \get_option('timezone_string') );
 
-    $this->load_admin();
     $this->register_classes_from_folder( 'Shortcode' );
     $this->register_classes_from_folder( 'Routes' );
     $this->register_classes_from_folder( 'ActionHooks' );
@@ -65,12 +64,6 @@ class Plugin {
     foreach ( $this->pre_init_errors as $error ) {
       $this->admin_notice( $error, 'error' );
     }
-  }
-
-
-  private function load_admin(): void {
-    $admin = new Admin();
-    $admin->init();
   }
 
 

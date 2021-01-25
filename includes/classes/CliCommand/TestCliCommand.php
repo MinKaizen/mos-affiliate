@@ -22,7 +22,7 @@ class TestCliCommand extends CliCommand {
     'campaigns',
     'cb_vendor_variables_shortcode',
     'commission_class',
-    'commission_table',
+    'commissions',
     'mis_class',
     'product_class',
     'referrals',

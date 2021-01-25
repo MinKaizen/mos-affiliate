@@ -4,7 +4,7 @@ namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
 
-class CommissionTableTest extends Test {
+class CommissionsTest extends Test {
 
   private $commission_data = [
     [

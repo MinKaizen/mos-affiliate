@@ -4,7 +4,7 @@ namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
 
-class CampaignReportTest extends Test {
+class CampaignsTest extends Test {
 
 
   public function test_controller(): void {

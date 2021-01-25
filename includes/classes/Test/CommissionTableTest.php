@@ -3,7 +3,6 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
-use MOS\Affiliate\Controller;
 
 class CommissionTableTest extends Test {
 
@@ -70,8 +69,7 @@ class CommissionTableTest extends Test {
 
 
   public function test_rows(): void {
-    $controller = Controller::get_controller( 'commission_table' );;
-    $controller_rows = $controller->get_vars()['rows'];
+    $controller_rows = apply_filters( 'mos_commissions', [] );
     $commission0 = $this->find_commission_by_transaction_id( $this->commission_data[0]['transaction_id'], $controller_rows );
     $commission1 = $this->find_commission_by_transaction_id( $this->commission_data[1]['transaction_id'], $controller_rows );
     $commission2 = $this->find_commission_by_transaction_id( $this->commission_data[2]['transaction_id'], $controller_rows );

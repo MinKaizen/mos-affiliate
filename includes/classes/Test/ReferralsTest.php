@@ -6,7 +6,7 @@ use MOS\Affiliate\Test;
 
 use function MOS\Affiliate\ranstr;
 
-class ReferralsTableTest extends Test {
+class ReferralsTest extends Test {
 
   private $users = [
     [

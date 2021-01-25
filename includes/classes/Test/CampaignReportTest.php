@@ -3,13 +3,12 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
-use MOS\Affiliate\Controller\CampaignReport;
 
 class CampaignReportTest extends Test {
 
 
   public function test_controller(): void {
-    $empty_campaign = CampaignReport::EMPTY_CAMPAIGN_NAME;
+    $empty_campaign = '(none)';
     $this->_injected_user = $this->create_test_user();
     $this->set_user();
 
@@ -61,9 +60,7 @@ class CampaignReportTest extends Test {
     $this->create_test_commission( ['amount' => 6, 'campaign' => 'bloody_campaign', 'earner_id' => $this->_injected_user->ID] );
     $this->create_test_commission( ['amount' => 8, 'campaign' => 'bloody_campaign', 'earner_id' => $this->_injected_user->ID] );
 
-    $controller = new CampaignReport();
-    $vars = $controller->get_vars();
-    $actual_campaigns = $vars['campaigns'];
+    $actual_campaigns = apply_filters( 'mos_campaigns', [] );
 
     $expected_campaigns = [
       $empty_campaign => [

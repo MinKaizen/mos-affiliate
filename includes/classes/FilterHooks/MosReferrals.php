@@ -18,6 +18,9 @@ class MosReferrals extends FilterHook {
     $referrals = [];
 
     foreach ( $referral_objects as $user ) {
+      if ( !($user instanceof User) || !$user->exists() ) {
+        continue;
+      }
       $referrals[] = [
         'date' => $this->format_date( $user->user_registered ),
         'username' => $user->get_username(),

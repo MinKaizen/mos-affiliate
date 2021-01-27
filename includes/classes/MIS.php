@@ -40,6 +40,26 @@ class MIS {
     return $new_mis->default;
   }
 
+  public static function get_all() {
+    if ( !file_exists( self::CONFIG ) ) {
+      throw new \Error('MIS config file could not be found at ' . self::CONFIG );
+    }
+
+    $json = (string) file_get_contents( self::CONFIG );
+    
+    if ( !$json ) {
+      return [];
+    }
+
+    $data = (array) json_decode( $json, true );
+
+    if ( !$data ) {
+      return [];
+    }
+
+    return $data;
+  }
+
   public function generate_link( string $mis_value ): string {
     $search = self::LINK_PLACEHOLDER;
     $replace = $mis_value;

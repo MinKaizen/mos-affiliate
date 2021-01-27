@@ -34,9 +34,11 @@ class MIS {
     $this->course_link = get_field( 'course_link' );
     $this->default = get_field( 'default' );
     $this->link_template = get_field( 'link_template' );
-    $this->meta_key = get_field( 'meta_key' );
     $this->name = get_field( 'name' );
     $this->slug = get_field( 'slug' );
+
+    $meta_key_field = get_field_object( 'meta_key' );
+    $this->meta_key = $meta_key_field['prepend'] . $meta_key_field['value'];
   }
 
   private static function mis_query( string $slug ) {

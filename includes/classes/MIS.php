@@ -4,35 +4,55 @@ namespace MOS\Affiliate;
 
 class MIS {
 
-  const CONFIG = PLUGIN_DIR . 'includes/config/mis.json';
   const LINK_PLACEHOLDER = '%affid%';
+  const POST_TYPE = 'mis';
 
   public $exists = false;
-  public $name = '';
-  public $slug = '';
-  public $meta_key = '';
+  public $access_level = '';
+  public $course_link = '';
   public $default = '';
   public $link_template = '';
-  public $access_level = '';
+  public $meta_key = '';
+  public $name = '';
+  public $slug = '';
 
   public function __construct( string $slug ) {
-    if ( !file_exists( self::CONFIG ) ) {
-      throw new \Error('MIS config file could not be found at ' . self::CONFIG );
-    }
-
-    $mis_data = $this->load_data_from_json( self::CONFIG );
-
-    if ( !isset( $mis_data[$slug] ) ) {
+    if ( !function_exists( 'get_field' ) ) {
       return;
     }
 
+    $mis_query = self::mis_query( $slug );
+
+    if ( !$mis_query->have_posts() ) {
+      return;
+    } else {
+      $mis_query->the_post();
+    }
+
     $this->exists = true;
-    $this->name = $mis_data[$slug]['name'] ?? $this->name;
-    $this->slug = $mis_data[$slug]['slug'] ?? $this->slug;
-    $this->meta_key = $mis_data[$slug]['meta_key'] ?? $this->meta_key;
-    $this->default = $mis_data[$slug]['default'] ?? $this->default;
-    $this->link_template = $mis_data[$slug]['link_template'] ?? $this->link_template;
-    $this->access_level = $mis_data[$slug]['access_level'] ?? $this->access_level;
+    $this->access_level = get_field( 'access_level' );
+    $this->course_link = get_field( 'course_link' );
+    $this->default = get_field( 'default' );
+    $this->link_template = get_field( 'link_template' );
+    $this->meta_key = get_field( 'meta_key' );
+    $this->name = get_field( 'name' );
+    $this->slug = get_field( 'slug' );
+  }
+
+  private static function mis_query( string $slug ) {
+    $mis_query = new \WP_Query( [
+      'post_type' => 'mis',
+      'posts_per_page' => 1,
+      'page' => 1,
+      'meta_query' => [
+        [
+          'key' => 'slug',
+          'value' => $slug,
+        ]
+      ],
+    ] );
+
+    return $mis_query;
   }
 
   public static function default_value_for( string $slug ): string {
@@ -41,23 +61,19 @@ class MIS {
   }
 
   public static function get_all() {
-    if ( !file_exists( self::CONFIG ) ) {
-      throw new \Error('MIS config file could not be found at ' . self::CONFIG );
+    $mis_query = new \WP_Query( [
+      'post_type' => 'mis',
+      'posts_per_page' => -1,
+    ] );
+
+    $all_mis = [];
+
+    foreach ( $mis_query->get_posts() as $post ) {
+      $slug = get_field( 'slug', $post->ID );
+      $all_mis[] = new self( $slug );
     }
 
-    $json = (string) file_get_contents( self::CONFIG );
-    
-    if ( !$json ) {
-      return [];
-    }
-
-    $data = (array) json_decode( $json, true );
-
-    if ( !$data ) {
-      return [];
-    }
-
-    return $data;
+    return $all_mis;
   }
 
   public function generate_link( string $mis_value ): string {
@@ -66,12 +82,6 @@ class MIS {
     $subject = $this->link_template;
     $link = str_replace( $search, $replace, $subject );
     return $link;
-  }
-
-  private function load_data_from_json( string $config_file_path ): array {
-    $json = (string) \file_get_contents( $config_file_path );
-    $data = (array) json_decode( $json, true );
-    return $data;
   }
 
 }

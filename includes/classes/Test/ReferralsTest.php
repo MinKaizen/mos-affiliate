@@ -42,7 +42,7 @@ class ReferralsTest extends Test {
     [
       'date' => '2020-01-01',
       'username' => '', // set in _before()
-      'name' => 'mos_test John',
+      'name' => 'Mos_test John',
       'email' => '', // set in _before()
       'level' => 'Free Member',
       'progress' => '',
@@ -51,7 +51,7 @@ class ReferralsTest extends Test {
     [
       'date' => '2020-01-02',
       'username' => '', // set in _before()
-      'name' => 'mos_test Sally',
+      'name' => 'Mos_test Sally',
       'email' => '', // set in _before()
       'level' => 'Monthly Partner',
       'progress' => '',
@@ -60,7 +60,7 @@ class ReferralsTest extends Test {
     [
       'date' => '2020-01-03',
       'username' => '', // set in _before()
-      'name' => 'mos_test Bob',
+      'name' => 'Mos_test Bob',
       'email' => '', // set in _before()
       'level' => 'Yearly Partner',
       'progress' => '',

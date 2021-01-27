@@ -94,17 +94,17 @@ class UserClassTest extends Test {
 
 
   public function test_get_name(): void {
-    $first_name = 'Hayasaka';
-    $last_name = 'Ai';
-    $full_name = 'Hayasaka Ai';
+    $first_name = 'hayasaka';
+    $last_name = 'ai';
+    $full_name = 'hayasaka ai';
 
     $user = new User();
     $user->first_name = $first_name;
     $user->last_name = $last_name;
 
-    $this->assert_equal_strict( $user->get_first_name(), $first_name );
-    $this->assert_equal_strict( $user->get_last_name(), $last_name );
-    $this->assert_equal_strict( $user->get_name(), $full_name );
+    $this->assert_equal_strict( $user->get_first_name(), ucwords( $first_name ) );
+    $this->assert_equal_strict( $user->get_last_name(), ucwords( $last_name ) );
+    $this->assert_equal_strict( $user->get_name(), ucwords( $full_name ) );
   }
 
 

@@ -160,18 +160,22 @@ class User extends \WP_User {
       $name = '';
     }
     
+    $name = ucwords( $name );
+    
     return $name;
   }
 
 
   public function get_last_name(): string {
     $last_name = $this->last_name ? $this->last_name : '';
+    $last_name = ucwords( $last_name );
     return $last_name;
   }
 
 
   public function get_first_name(): string {
     $first_name = $this->first_name ? $this->first_name : '';
+    $first_name = ucwords( $first_name );
     return $first_name;
   }
 

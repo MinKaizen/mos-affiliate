@@ -27,7 +27,7 @@ class MosReferrals extends FilterHook {
         'name' => $user->get_name(),
         'email' => $user->get_email(),
         'level' => $user->get_level(),
-        'progress' => $user->get_course_progress( 0 )['formatted'],
+        'progress' => $user->get_free_course_progress()['formatted'],
         'campaign' => $user->get_campaign(),
       ];
     }

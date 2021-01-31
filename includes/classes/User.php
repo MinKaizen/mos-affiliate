@@ -393,7 +393,7 @@ class User extends \WP_User {
       'total' => 0,
       'percentage' => 0.0,
       'percentage_str' => '0%',
-      'formatted' => '',
+      'formatted' => '-',
     ];
   
     // Extract course progress from usermeta

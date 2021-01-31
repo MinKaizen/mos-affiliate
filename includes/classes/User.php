@@ -417,6 +417,13 @@ class User extends \WP_User {
   }
 
 
+  public function get_free_course_progress(): array {
+    $free_course_id = (int) get_field( 'free_course_id', 'options' );
+    $free_course_progress = $this->get_course_progress( $free_course_id );
+    return $free_course_progress;
+  }
+
+
   public function db_insert(): void {
     if ( $this->exists() ) {
       return;

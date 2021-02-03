@@ -6,6 +6,7 @@ class MIS {
 
   const LINK_PLACEHOLDER = '%affid%';
   const POST_TYPE = 'mis';
+  const META_KEY_PREFIX = 'mos_mis_';
 
   public $exists = false;
   public $access_level = '';
@@ -36,9 +37,8 @@ class MIS {
     $this->link_template = get_field( 'link_template' );
     $this->name = get_field( 'name' );
     $this->slug = get_field( 'slug' );
-
-    $meta_key_field = get_field_object( 'meta_key' );
-    $this->meta_key = $meta_key_field['prepend'] . $meta_key_field['value'];
+    $this->meta_key = self::META_KEY_PREFIX . get_field( 'slug' );
+    wp_reset_postdata();
   }
 
   private static function mis_query( string $slug ) {

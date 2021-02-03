@@ -130,25 +130,6 @@
                 "maxlength": ""
             },
             {
-                "key": "field_6011274f8f563",
-                "label": "Meta Key",
-                "name": "meta_key",
-                "type": "text",
-                "instructions": "",
-                "required": 1,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "default_value": "",
-                "placeholder": "",
-                "prepend": "mos_mis_",
-                "append": "",
-                "maxlength": ""
-            },
-            {
                 "key": "field_601127918f564",
                 "label": "Default",
                 "name": "default",

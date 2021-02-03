@@ -188,7 +188,7 @@ class User extends \WP_User {
 
   public function get_mis( $slug ): string {
     $mis = new MIS( $slug );
-    $value = $mis->meta_key ? $this->get( $mis->meta_key ) : '';
+    $value = $mis->meta_key ? (string) $this->get( $mis->meta_key ) : '';
     return $value;
   }
 

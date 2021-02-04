@@ -45,7 +45,7 @@ class ReferralsTest extends Test {
       'name' => 'Mos_test John',
       'email' => '', // set in _before()
       'level' => 'Free Member',
-      'progress' => '',
+      'progress' => '-',
       'campaign' => 'mos_test_ref_table_1',
     ],
     [
@@ -54,7 +54,7 @@ class ReferralsTest extends Test {
       'name' => 'Mos_test Sally',
       'email' => '', // set in _before()
       'level' => 'Monthly Partner',
-      'progress' => '',
+      'progress' => '-',
       'campaign' => 'mos_test_ref_table_2',
     ],
     [
@@ -63,7 +63,7 @@ class ReferralsTest extends Test {
       'name' => 'Mos_test Bob',
       'email' => '', // set in _before()
       'level' => 'Yearly Partner',
-      'progress' => '',
+      'progress' => '-',
       'campaign' => 'mos_test_ref_table_3',
     ],
   ];

@@ -24,6 +24,26 @@ class AccessRedirect extends ActionHook {
       return;
     }
 
+    if ( $access_level === '_free' ) {
+      $this->handle_free_redirect();
+    } else {
+      $this->handle_product_redirect( $access_level );
+    }
+  }
+
+  private function handle_free_redirect(): void {
+    if ( get_current_user_id() ) {
+      return;
+    }
+
+    $fallback = home_url( '/' );
+    $redirect = get_field( 'free_no_access_url', 'option' );
+    $redirect = $redirect ? $redirect : $fallback;
+    wp_redirect( $redirect );
+    exit;
+  }
+
+  private function handle_product_redirect( string $access_level ): void {
     $product = Product::from_slug( $access_level );
     
     if ( !$product->exists ) {
@@ -37,5 +57,4 @@ class AccessRedirect extends ActionHook {
       die;
     }
   }
-
 }

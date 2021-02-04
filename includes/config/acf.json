@@ -17,6 +17,7 @@
                     "id": ""
                 },
                 "choices": {
+                    "_free": "Free",
                     "monthly_partner": "Monthly Partner",
                     "yearly_partner": "Yearly Partner",
                     "lifetime_partner": "Lifetime Partner",

@@ -11,7 +11,7 @@ class MosMisObject extends FilterHook {
   protected $args = 2;
 
   public function handler( $fallback, $slug ): object {
-      return mis_object( $slug );
+    return mis_object( $slug );
   }
 
 }

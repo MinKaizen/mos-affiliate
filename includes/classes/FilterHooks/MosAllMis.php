@@ -3,15 +3,14 @@
 namespace MOS\Affiliate\FilterHooks;
 
 use \MOS\Affiliate\FilterHook;
-use \MOS\Affiliate\User;
-use \MOS\Affiliate\MIS;
 
+use function \MOS\Affiliate\mis_get_all;
 class MosAllMis extends FilterHook {
 
   protected $hook = 'mos_all_mis';
 
   public function handler() {
-    $all_mis = MIS::get_all();
+    $all_mis = mis_get_all();
     return $all_mis;
   }
 

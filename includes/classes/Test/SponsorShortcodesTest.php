@@ -3,8 +3,8 @@
 namespace MOS\Affiliate\Test;
 
 use MOS\Affiliate\Test;
-use MOS\Affiliate\MIS;
 
+use function \MOS\Affiliate\mis_default_value;
 use function \do_shortcode;
 use function \update_user_meta;
 
@@ -67,15 +67,15 @@ class SponsorShortcodesTest extends Test {
   public function test_sponsor_mis_shortcode(): void {
     // User not logged in --> show default
     $this->unset_sponsor();
-    $this->assert_mis( 'gr', MIS::default_value_for( 'gr' ) );
-    $this->assert_mis( 'cm', MIS::default_value_for( 'cm' ) );
-    $this->assert_mis( 'cb', MIS::default_value_for( 'cb' ) );
+    $this->assert_mis( 'gr', mis_default_value( 'gr' ) );
+    $this->assert_mis( 'cm', mis_default_value( 'cm' ) );
+    $this->assert_mis( 'cb', mis_default_value( 'cb' ) );
     $this->set_sponsor();
     
     // User has no caps --> show default
-    $this->assert_mis( 'gr', MIS::default_value_for( 'gr' ) );
-    $this->assert_mis( 'cm', MIS::default_value_for( 'cm' ) );
-    $this->assert_mis( 'cb', MIS::default_value_for( 'cb' ) );
+    $this->assert_mis( 'gr', mis_default_value( 'gr' ) );
+    $this->assert_mis( 'cm', mis_default_value( 'cm' ) );
+    $this->assert_mis( 'cb', mis_default_value( 'cb' ) );
 
     // Give access
     $this->user_give_access( $this->_injected_sponsor->ID, 'monthly_partner' );
@@ -90,13 +90,13 @@ class SponsorShortcodesTest extends Test {
     $this->assert_mis( 'gr', $this->mis['gr'], 'Sponsor MIS should be displayed if it is set and sponsor is qualified' );
 
     // Has cap but value is empty --> show default value
-    $this->assert_mis( 'cm', MIS::default_value_for( 'cm' ), 'Sponsor MIS should show default value if mis is set to empty string, even if sponsor is qualified' );
+    $this->assert_mis( 'cm', mis_default_value( 'cm' ), 'Sponsor MIS should show default value if mis is set to empty string, even if sponsor is qualified' );
 
     // mis slug not in config --> show nothing
     $this->assert_mis( 'non_existent', '', 'Sponsor MIS should return blank if network slug is non existent' );
 
     // did not fill in mis --> show default
-    $this->assert_mis( 'cb', MIS::default_value_for( 'cb' ), 'Sponsor MIS should show default value if mis is not set at all, even if sponsor is qualified' );
+    $this->assert_mis( 'cb', mis_default_value( 'cb' ), 'Sponsor MIS should show default value if mis is not set at all, even if sponsor is qualified' );
   }
 
 

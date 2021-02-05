@@ -2,6 +2,8 @@
 
 namespace MOS\Affiliate;
 
+use stdClass;
+
 function get_view( string $view_name, array $args=[] ): string {
   ob_start();
   render_view( $view_name, $args );
@@ -193,4 +195,150 @@ function url_path_is( string $uri ): bool {
   $current_uri = trim( $_SERVER['REQUEST_URI'], '/' );
   $comparison_uri = trim( $uri, '/' );
   return $current_uri == $comparison_uri;
+}
+
+
+function acf_get_option( string $option_name, $fallback=null ) {
+  // #NOTE: fallback is only for when ACF is not activated
+  // Does not apply fallback if value is missing
+  // or if option name is not found
+  if ( function_exists( 'get_field' ) ) {
+    $value = \get_field( $option_name, 'option' );
+  } else {
+    $value = $fallback;
+  }
+  return $value;
+}
+
+
+function mis_metakey_prefix(): string {
+  $prefix = (string) acf_get_option( 'mis_metakey_prefix', 'mos_mis_' );
+  return $prefix;
+}
+
+
+function mis_link_template_tag(): string {
+  $prefix = (string) acf_get_option( 'mis_link_template_tag', '%affid%' );
+  return $prefix;
+}
+
+
+function mis_value( string $slug, int $user_id=0 ): string {
+  if ( !$user_id ) {
+    $user_id = \get_current_user_id();
+  }
+
+  if ( !$user_id ) {
+    return '';
+  }
+
+  $prefix = mis_metakey_prefix();
+
+  $meta_key = $prefix . $slug;
+  $mis = \get_user_meta( $user_id, $meta_key, true );
+  return $mis;
+}
+
+
+function mis_object( string $slug ): object {
+  $mis_query = new \WP_Query( [
+    'post_type' => 'mis',
+    'posts_per_page' => 1,
+    'page' => 1,
+    'meta_query' => [
+      [
+        'key' => 'slug',
+        'value' => $slug,
+      ]
+    ],
+  ] );
+
+  if ( !isset( $mis_query->posts[0]->ID ) || !$mis_query->posts[0]->ID ) {
+    return empty_mis_object();
+  }
+
+  $mis_object = mis_object_from_id( $mis_query->posts[0]->ID );
+
+  return $mis_object;
+}
+
+
+function empty_mis_object(): object {
+  $empty_mis_object = (object) [
+    'exists' => false,
+    'access_level' => '',
+    'course_link' => '',
+    'default' => '',
+    'link_template' => '',
+    'name' => '',
+    'slug' => '',
+    'meta_key' => '',
+  ];
+
+  return $empty_mis_object;
+}
+
+
+function mis_get_all(): array {
+  $mis_query = new \WP_Query( [
+    'post_type' => 'mis',
+    'posts_per_page' => -1,
+  ] );
+  
+  if ( !isset( $mis_query->posts ) || !is_array( $mis_query->posts ) ) {
+    return [];
+  }
+
+  $all_mis = [];
+
+  foreach ( $mis_query->posts as $post ) {
+    $all_mis[] = mis_object_from_id( $post->ID );
+  }
+
+  return $all_mis;
+}
+
+
+function mis_object_from_id( int $id ): object {
+  if ( !function_exists( 'get_field' ) ) {
+    return empty_mis_object();
+  }
+  
+  $mis_object = new stdClass();
+
+  $mis_object->exists = post_is_mis( $id );
+  $mis_object->access_level = get_field( 'access_level', $id );
+  $mis_object->course_link = get_field( 'course_link', $id );
+  $mis_object->default = get_field( 'default', $id );
+  $mis_object->link_template = get_field( 'link_template', $id );
+  $mis_object->name = get_field( 'name', $id );
+  $mis_object->slug = get_field( 'slug', $id );
+  $mis_object->meta_key = mis_metakey_prefix() . get_field( 'slug', $id );
+
+  return $mis_object;
+}
+
+
+function post_is_mis( int $post_id ): bool {
+  $post = \get_post( $post_id );
+  $is_mis = ($post instanceof \WP_Post) && ($post->post_type == 'mis');
+  return $is_mis;
+}
+
+
+function mis_generate_link( string $slug, string $value ): string {
+  $mis_object = mis_object( $slug );
+
+  if ( empty($mis_object->link_template) || !$mis_object->link_template ) {
+    return '';
+  }
+
+  $link = str_replace( mis_link_template_tag(), $value, $mis_object->link_template );
+  return $link;
+}
+
+
+function mis_default_value( string $slug ): string {
+  $mis_object = mis_object( $slug );
+  return $mis_object->default;
 }

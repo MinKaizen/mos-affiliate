@@ -2,8 +2,6 @@
 
 namespace MOS\Affiliate;
 
-use MOS\Affiliate\MIS;
-
 class User extends \WP_User {
 
   const LEVELS = [
@@ -187,16 +185,15 @@ class User extends \WP_User {
 
 
   public function get_mis( $slug ): string {
-    $mis = new MIS( $slug );
+    $mis = mis_object( $slug );
     $value = $mis->meta_key ? (string) $this->get( $mis->meta_key ) : '';
     return $value;
   }
 
 
   public function get_mis_link( string $slug ): string {
-    $mis = new MIS( $slug );
-    $value = $mis->meta_key ? $this->get( $mis->meta_key ) : '';
-    $link = $mis->generate_link( $value );
+    $value = mis_value( $slug, $this->ID );
+    $link = mis_generate_link( $slug, $value );
     return $link;
   }
 
@@ -286,7 +283,7 @@ class User extends \WP_User {
 
 
   public function qualifies_for_mis( string $slug ): bool {
-    $mis = new MIS( $slug );
+    $mis = mis_object( $slug );
     $qualifies = $mis->access_level ? $this->has_access( $mis->access_level ) : false;
     return $qualifies;
   }

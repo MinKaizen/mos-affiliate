@@ -24,7 +24,7 @@ class TestCliCommand extends CliCommand {
     'cb_vendor_variables_shortcode',
     'commission_class',
     'commissions',
-    'mis_class',
+    'mis_functions',
     'product_class',
     'referrals',
     'sales_automation',

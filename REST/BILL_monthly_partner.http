@@ -1,0 +1,58 @@
+POST http://mos-sage.local/wp-json/mos-affiliate/v1/clickbank-ins
+Content-Type: application/json
+Accept: application/json
+
+{
+  "transactionTime": "2021-02-07T22:02:28+00:00",
+  "receipt": "********",
+  "transactionType": "BILL",
+  "vendor": "superaa",
+  "role": "VENDOR",
+  "totalAccountAmount": 47,
+  "paymentMethod": "VISA",
+  "totalOrderAmount": 47,
+  "totalTaxAmount": 0,
+  "totalShippingAmount": 0,
+  "currency": "USD",
+  "lineItems": [
+    {
+      "itemNo": "1000",
+      "productTitle": "Monthly Partner",
+      "shippable": false,
+      "recurring": true,
+      "accountAmount": 47,
+      "quantity": 1,
+      "lineItemType": "ORIGINAL"
+    }
+  ],
+  "customer": {
+    "shipping": {
+      "firstName": "John",
+      "lastName": "Smith",
+      "fullName": "John Smith",
+      "email": "martin.g.cao@gmail.com",
+      "address": {}
+    },
+    "billing": {
+      "firstName": "John",
+      "lastName": "Smith",
+      "fullName": "John Smith",
+      "email": "martin.g.cao@gmail.com",
+      "address": {}
+    }
+  },
+  "version": 6,
+  "attemptCount": 1,
+  "vendorVariables": {
+    "cbitems": "1000",
+    "customer_wpid": "1",
+    "customer_username": "martingcao",
+    "customer_name": "John Smith",
+    "customer_email": "martin.g.cao@gmail.com",
+    "sponsor_wpid": "1",
+    "sponsor_username": "martingcao",
+    "sponsor_name": "John Smith",
+    "sponsor_email": "martin.g.cao@gmail.com",
+    "campaign": "bill_monthly_partner_test"
+  }
+}

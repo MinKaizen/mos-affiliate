@@ -26,7 +26,8 @@ class ClickbankEndpoint extends REST_Route {
     $adapted_object = new ClickbankEventAdapter( $original_json );
     \do_action( 'clickbank_event_raw', $original_object );
     \do_action( 'clickbank_event', $adapted_object );
-    return $this->response( $adapted_object );
+    return $this->response( $original_object );
+    // return $this->response( $adapted_object );
   }
 
   private function is_encrypted( string $json ): bool {

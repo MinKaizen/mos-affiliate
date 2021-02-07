@@ -33,16 +33,6 @@ class Product {
   public $rebill_access_duration;
   
   
-
-  public function __construct() {
-    if ( !file_exists( self::CONFIG ) ) {
-      $error_msg = "Could not find products config at: " . self::CONFIG;
-      echo $error_msg;
-      throw new Error( $error_msg );
-    }
-  }
-
-
 	public static function from_slug( string $slug ): self {
     $all_products = json_decode( file_get_contents( self::CONFIG ) );
     $product_data = $all_products->$slug ?? new \stdClass();

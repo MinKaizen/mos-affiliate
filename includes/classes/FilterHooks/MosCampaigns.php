@@ -42,7 +42,7 @@ class MosCampaigns extends FilterHook {
   private function get_campaigns(): array {
     $campaigns = $this->get_campaign_clicks();
     $campaigns = $this->append_referrals( $campaigns );
-    $campaigns = $this->append_partners( $campaigns );
+    $campaigns = $this->append_purchases( $campaigns );
     $campaigns = $this->append_commissions( $campaigns );
     $campaigns = $this->append_epc( $campaigns );
     $campaigns = $this->append_formatted( $campaigns );
@@ -119,17 +119,31 @@ class MosCampaigns extends FilterHook {
   }
 
 
-  private function append_partners( array $campaigns ): array {
+  private function append_purchases( array $campaigns ): array {
+    $product_slugs = [
+      'monthly_partner',
+      'yearly_partner',
+      'lifetime_partner',
+      'coaching',
+      'fb_toolkit',
+      'lead_system',
+      'authority_bonuses',
+    ];
+
     foreach ( $campaigns as &$campaign ) {
-      $campaign['partners'] = 0;
+      foreach ( $product_slugs as $slug ) {
+        $campaign[$slug] = 0;
+      }
     }
 
     foreach ( $this->referrals as $user ) {
-      if ( $user->is_partner() ) {
-        $campaign_name = $user->get_campaign();
-        $campaign_name = $campaign_name ? $campaign_name : self::EMPTY_CAMPAIGN_NAME;
-        if ( isset( $campaigns[$campaign_name]['partners'] ) ) {
-          $campaigns[$campaign_name]['partners']++;
+      $campaign_name = $user->get_campaign();
+      $campaign_name = $campaign_name ? $campaign_name : self::EMPTY_CAMPAIGN_NAME;
+      $access_list = $user->get_access_list();
+
+      foreach ( $access_list as $product ) {
+        if ( isset( $campaigns[$campaign_name][$product] ) && is_int( $campaigns[$campaign_name][$product] ) ) {
+          $campaigns[$campaign_name][$product]++;
         }
       }
     }

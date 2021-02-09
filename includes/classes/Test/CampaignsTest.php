@@ -27,8 +27,15 @@ class CampaignsTest extends Test {
     $this->create_test_referral( $empty_campaign_referral2->ID, $this->_injected_user->ID );
     $this->create_test_referral( $empty_campaign_referral3->ID, $this->_injected_user->ID );
     
-    // Empty Campaign: 1 partner
-    $this->user_give_access( $empty_campaign_referral1->ID, 'monthly_partner' );
+    // Empty Campaign: 2 yearly_partner, 2 monthly
+    $this->user_give_access( $empty_campaign_referral1->ID, 'yearly_partner' );
+    $this->user_give_access( $empty_campaign_referral2->ID, 'yearly_partner' );
+
+    // Empty Campaign: 1 fb_toolkit
+    $this->user_give_access( $empty_campaign_referral1->ID, 'fb_toolkit' );
+
+    // Empty Campaign: 1 lead_system
+    $this->user_give_access( $empty_campaign_referral1->ID, 'lead_system' );
 
     // Empty campaign: $50 commissions
     $this->create_test_commission( ['amount' => 20, 'earner_id' => $this->_injected_user->ID] );
@@ -50,9 +57,12 @@ class CampaignsTest extends Test {
     $this->create_test_referral( $bloody_campaign_referral3->ID, $this->_injected_user->ID, 'bloody_campaign' );
     $this->create_test_referral( $bloody_campaign_referral4->ID, $this->_injected_user->ID, 'bloody_campaign' );
     
-    // Bloody campaign: 2 partners
-    $this->user_give_access( $bloody_campaign_referral1->ID, 'yearly_partner' );
-    $this->user_give_access( $bloody_campaign_referral2->ID, 'monthly_partner' );
+    // Bloody campaign: 2 coaching, 2, lifetime, 2 yearly, 2 monthly
+    $this->user_give_access( $bloody_campaign_referral1->ID, 'coaching' );
+    $this->user_give_access( $bloody_campaign_referral2->ID, 'coaching' );
+
+    // Bloody campaign: 1 authority_bonuses
+    $this->user_give_access( $bloody_campaign_referral1->ID, 'authority_bonuses' );
 
     // Bloody campaign: $32 commissions
     $this->create_test_commission( ['amount' => 10, 'campaign' => 'bloody_campaign', 'earner_id' => $this->_injected_user->ID] );
@@ -67,23 +77,40 @@ class CampaignsTest extends Test {
         'name' => $empty_campaign,
         'clicks' => 5,
         'referrals' => 3,
-        'partners' => 1,
+        'monthly_partner' => 2,
+        'yearly_partner' => 2,
+        'lifetime_partner' => 0,
+        'coaching' => 0,
+        'fb_toolkit' => 1,
+        'lead_system' => 1,
+        'authority_bonuses' => 0,
         'commissions' => 50,
         'epc' => 10.0,
-        'commissions_formatted' => '$50',
         'epc_formatted' => '$10.00',
+        'commissions_formatted' => '$50',
       ],
       'bloody_campaign' => [
         'name' => 'bloody_campaign',
         'clicks' => 4,
         'referrals' => 4,
-        'partners' => 2,
+        'monthly_partner' => 2,
+        'yearly_partner' => 2,
+        'lifetime_partner' => 2,
+        'coaching' => 2,
+        'fb_toolkit' => 0,
+        'lead_system' => 0,
+        'authority_bonuses' => 1,
         'commissions' => 32,
         'epc' => 8.0,
-        'commissions_formatted' => '$32',
         'epc_formatted' => '$8.00',
+        'commissions_formatted' => '$32',
       ],
     ];
+
+    // var_dump( $bloody_campaign_referral1->get_access_list() );
+    // var_dump( $bloody_campaign_referral2->get_access_list() );
+    // var_dump( $bloody_campaign_referral3->get_access_list() );
+    // var_dump( $bloody_campaign_referral4->get_access_list() );
     
     $this->assert_equal( $expected_campaigns, $actual_campaigns );
   }

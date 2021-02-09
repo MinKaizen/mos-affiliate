@@ -111,12 +111,19 @@ class User extends \WP_User {
   public function sponsor(): self {
     global $wpdb;
 
-    $table = $wpdb->prefix . 'uap_referrals';
-    $query = "SELECT affiliate_id FROM $table WHERE refferal_wp_uid = $this->ID";
-    $sponsor_affid = $wpdb->get_var( $query );
-    $sponsor_affid = $sponsor_affid ? (int) $sponsor_affid : 0;
-
-    $sponsor = self::from_affid( $sponsor_affid );
+    if ( $this->ID ) {
+      $table = $wpdb->prefix . 'uap_referrals';
+      $query = "SELECT affiliate_id FROM $table WHERE refferal_wp_uid = $this->ID";
+      $sponsor_affid = $wpdb->get_var( $query );
+      $sponsor_affid = $sponsor_affid ? (int) $sponsor_affid : 0;
+      $sponsor = self::from_affid( $sponsor_affid );
+    } else {
+      // prevent logged out users from having a random sponsor
+      // because uap_referrals table
+      // uses 0 as the "no user" wpid
+      $sponsor = new self();
+    }
+    
     $sponsor = \apply_filters( 'mos_sponsor', $sponsor, $this->ID );
     return $sponsor;
   }

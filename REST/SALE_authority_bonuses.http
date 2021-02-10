@@ -19,7 +19,7 @@ Accept: application/json
   "lineItems": [
     {
       "itemNo": "53",
-      "productTitle": "Ultimate Authority Bonuses",
+      "productTitle": "Authority Bonus Bundle",
       "shippable": false,
       "recurring": false,
       "accountAmount": 80.6700000000000017053025658242404460906982421875,

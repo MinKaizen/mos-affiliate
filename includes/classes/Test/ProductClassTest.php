@@ -37,7 +37,7 @@ class ProductClassTest extends Test {
     
     $product = Product::from_slug( 'authority_bonuses' );
     $this->assert_equal( $product->cb_id, 53 );
-    $this->assert_equal( $product->name, "Ultimate Authority Bonuses" );
+    $this->assert_equal( $product->name, "Authority Bonus Bundle" );
     $this->assert_equal( $product->slug, "authority_bonuses" );
     $this->assert_equal( $product->access_meta_key, "mos_access_authority_bonuses" );
     $this->assert_equal( $product->no_access_url_path, "/no-access-authority-bonuses" );
@@ -96,7 +96,7 @@ class ProductClassTest extends Test {
     
     $product = Product::from_cb_id( 53 );
     $this->assert_equal( $product->cb_id, 53 );
-    $this->assert_equal( $product->name, "Ultimate Authority Bonuses" );
+    $this->assert_equal( $product->name, "Authority Bonus Bundle" );
     $this->assert_equal( $product->slug, "authority_bonuses" );
     $this->assert_equal( $product->access_meta_key, "mos_access_authority_bonuses" );
     $this->assert_equal( $product->no_access_url_path, "/no-access-authority-bonuses" );

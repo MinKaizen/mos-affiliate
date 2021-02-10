@@ -29,7 +29,7 @@
 	"authority_bonuses": {
 		"slug": "authority_bonuses",
 		"cb_id": 53,
-		"name": "Ultimate Authority Bonuses",
+		"name": "Authority Bonus Bundle",
 		"access_meta_key": "mos_access_authority_bonuses",
 		"no_access_url_path": "/no-access-authority-bonuses",
 		"price": 197

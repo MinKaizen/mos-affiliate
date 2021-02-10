@@ -296,7 +296,7 @@ class UserClassTest extends Test {
     $this->user_give_access( $user->ID, 'lead_system');
     $this->assert_true( $user->has_access( 'lead_system' ) );
     
-    // Ultimate Authority Bonuses
+    // Authority Bonus Bundle
     $this->assert_false( $user->has_access( 'authority_bonuses' ) );
     $this->user_give_access( $user->ID, 'authority_bonuses');
     $this->assert_true( $user->has_access( 'authority_bonuses' ) );

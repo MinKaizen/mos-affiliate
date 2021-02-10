@@ -36,9 +36,10 @@ class Product {
 	public static function from_slug( string $slug ): self {
     $all_products = json_decode( file_get_contents( self::CONFIG ) );
     $product_data = $all_products->$slug ?? new \stdClass();
+    $new_product = new self();
 
     if ( $product_data ) {
-      $new_product = self::from_data( $product_data );
+      $new_product = self::load_data( $new_product, $product_data );
     }
 
     return $new_product;
@@ -47,11 +48,12 @@ class Product {
 
 	public static function from_cb_id( int $cb_id ): self {
 		$products = json_decode( file_get_contents( self::CONFIG ) );
+    $new_product = new self();
 
     foreach ( $products as $product_data ) {
       $product_cb_id = $product_data->cb_id ?? null;
       if ( $product_cb_id === $cb_id ) {
-        $new_product = self::from_data( $product_data );
+        $new_product = self::load_data( $new_product, $product_data );
         break;
       }
     }
@@ -65,15 +67,15 @@ class Product {
     $products = [];
 
     foreach ( $products_raw as $product_slug => $product_data ) {
-      $products[$product_slug] = self::from_data( $product_data );
+      $products[$product_slug] = new self();
+      $products[$product_slug] = self::load_data( $products[$product_slug], $product_data );
     }
     
     return $products;
   }
   
 
-  private static function from_data( object $data ): self {
-    $product = new self();
+  private static function load_data( self $product, object $data ): self {
     $product->exists = true;
 
 		$product->cb_id = $data->cb_id ?? null;

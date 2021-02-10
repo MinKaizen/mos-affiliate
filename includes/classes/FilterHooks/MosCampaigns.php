@@ -70,9 +70,9 @@ class MosCampaigns extends FilterHook {
     }
 
     // Rename empty campaign name
-    foreach ( $campaign_data as &$campaign ) {
-      if ( $campaign['name'] === '') {
-        $campaign['name'] = self::EMPTY_CAMPAIGN_NAME;
+    foreach ( $campaign_data as $index => $campaign ) {
+      if ( $campaign_data[$index]['name'] === '') {
+        $campaign_data[$index]['name'] = self::EMPTY_CAMPAIGN_NAME;
         break;
       }
     }

@@ -39,7 +39,7 @@ class Product {
     $new_product = new self();
 
     if ( $product_data ) {
-      $new_product = self::load_data( $new_product, $product_data );
+      $new_product = self::from_data( $product_data );
     }
 
     return $new_product;
@@ -53,7 +53,7 @@ class Product {
     foreach ( $products as $product_data ) {
       $product_cb_id = $product_data->cb_id ?? null;
       if ( $product_cb_id === $cb_id ) {
-        $new_product = self::load_data( $new_product, $product_data );
+        $new_product = self::from_data( $product_data );
         break;
       }
     }
@@ -67,17 +67,16 @@ class Product {
     $products = [];
 
     foreach ( $products_raw as $product_slug => $product_data ) {
-      $products[$product_slug] = new self();
-      $products[$product_slug] = self::load_data( $products[$product_slug], $product_data );
+      $products[$product_slug] = self::from_data( $product_data );
     }
     
     return $products;
   }
   
 
-  private static function load_data( self $product, object $data ): self {
+  private static function from_data( object $data ): self {
+    $product = new self();    
     $product->exists = true;
-
 		$product->cb_id = $data->cb_id ?? null;
     $product->name = $data->name ?? null;
     $product->slug = $data->slug ?? null;

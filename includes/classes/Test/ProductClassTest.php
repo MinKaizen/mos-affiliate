@@ -21,7 +21,7 @@ class ProductClassTest extends Test {
     
     $product = Product::from_slug( 'fb_toolkit' );
     $this->assert_equal( $product->cb_id, 51 );
-    $this->assert_equal( $product->name, "Ultimate Facebook Toolkit" );
+    $this->assert_equal( $product->name, "Facebook Toolkit" );
     $this->assert_equal( $product->slug, "fb_toolkit" );
     $this->assert_equal( $product->access_meta_key, "mos_access_fb_toolkit" );
     $this->assert_equal( $product->no_access_url_path, "/no-access-fb-toolkit" );
@@ -80,7 +80,7 @@ class ProductClassTest extends Test {
     
     $product = Product::from_cb_id( 51 );
     $this->assert_equal( $product->cb_id, 51 );
-    $this->assert_equal( $product->name, "Ultimate Facebook Toolkit" );
+    $this->assert_equal( $product->name, "Facebook Toolkit" );
     $this->assert_equal( $product->slug, "fb_toolkit" );
     $this->assert_equal( $product->access_meta_key, "mos_access_fb_toolkit" );
     $this->assert_equal( $product->no_access_url_path, "/no-access-fb-toolkit" );

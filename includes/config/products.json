@@ -13,7 +13,7 @@
   "fb_toolkit": {
 		"slug": "fb_toolkit",
 		"cb_id": 51,
-		"name": "Ultimate Facebook Toolkit",
+		"name": "Facebook Toolkit",
 		"access_meta_key": "mos_access_fb_toolkit",
 		"no_access_url_path": "/no-access-fb-toolkit",
 		"price": 197

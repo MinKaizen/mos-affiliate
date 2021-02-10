@@ -286,7 +286,7 @@ class UserClassTest extends Test {
     $this->user_give_access( $user->ID, 'yearly_partner');
     $this->assert_true( $user->has_access( 'yearly_partner' ) );
     
-    // Ultimate Facebook Toolkit
+    // Facebook Toolkit
     $this->assert_false( $user->has_access( 'fb_toolkit' ) );
     $this->user_give_access( $user->ID, 'fb_toolkit');
     $this->assert_true( $user->has_access( 'fb_toolkit' ) );

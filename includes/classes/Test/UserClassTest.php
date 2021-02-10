@@ -291,7 +291,7 @@ class UserClassTest extends Test {
     $this->user_give_access( $user->ID, 'fb_toolkit');
     $this->assert_true( $user->has_access( 'fb_toolkit' ) );
     
-    // Six Figure Lead Gen System
+    // Lead Gen System
     $this->assert_false( $user->has_access( 'lead_system' ) );
     $this->user_give_access( $user->ID, 'lead_system');
     $this->assert_true( $user->has_access( 'lead_system' ) );

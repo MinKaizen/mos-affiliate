@@ -58,6 +58,7 @@ class Plugin {
     $this->register_classes_from_folder( 'Routes' );
     $this->register_classes_from_folder( 'ActionHooks' );
     $this->register_classes_from_folder( 'FilterHooks' );
+    $this->register_classes_from_folder( 'ACF' );
   }
 
 

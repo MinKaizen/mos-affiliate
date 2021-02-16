@@ -332,6 +332,9 @@ class User extends \WP_User {
         $access_list[] = $product->slug;
       }
     }
+    if ( $this->exists() ) {
+      $access_list[] = '_free';
+    }
     return $access_list;
   }
 

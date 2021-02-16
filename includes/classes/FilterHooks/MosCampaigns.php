@@ -57,7 +57,8 @@ class MosCampaigns extends FilterHook {
 
     global $wpdb;
     $table = $wpdb->prefix.'uap_visits';
-    $query = "SELECT campaign_name as name, count(DISTINCT ip) as clicks FROM $table WHERE affiliate_id = $this->affid GROUP BY campaign_name";
+    // $query = "SELECT campaign_name as name, count(DISTINCT ip) as clicks FROM $table WHERE affiliate_id = $this->affid GROUP BY campaign_name";
+    $query = "SELECT campaign_name as name, count(id) as clicks FROM $table WHERE affiliate_id = $this->affid GROUP BY campaign_name";
     $campaign_data = (array) $wpdb->get_results( $query, \ARRAY_A );
 
     if ( empty( $campaign_data ) ) {

@@ -20,11 +20,6 @@ class MosAccessList extends FilterHook {
     }
 
     $access_list = $user->get_access_list();
-
-    if ( $user->exists() ) {
-      $access_list[] = '_free';
-    }
-    
     return $access_list;
   }
 

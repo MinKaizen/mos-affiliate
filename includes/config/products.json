@@ -10,30 +10,6 @@
 		"rebill_price": 47,
 		"rebill_period": 31
   },
-  "fb_toolkit": {
-		"slug": "fb_toolkit",
-		"cb_id": 51,
-		"name": "Facebook Toolkit",
-		"access_meta_key": "mos_access_fb_toolkit",
-		"no_access_url_path": "/no-access-fb-toolkit",
-		"price": 197
-	},
-	"lead_system": {
-		"slug": "lead_system",
-		"cb_id": 52,
-		"name": "Lead Gen System",
-		"access_meta_key": "mos_access_lead_system",
-		"no_access_url_path": "/no-access-lead-system",
-		"price": 197
-	},
-	"authority_bonuses": {
-		"slug": "authority_bonuses",
-		"cb_id": 53,
-		"name": "Authority Bonus Bundle",
-		"access_meta_key": "mos_access_authority_bonuses",
-		"no_access_url_path": "/no-access-authority-bonuses",
-		"price": 197
-	},
 	"yearly_partner": {
 		"slug": "yearly_partner",
 		"cb_id": 54,

@@ -31,12 +31,6 @@ class CampaignsTest extends Test {
     $this->user_give_access( $empty_campaign_referral1->ID, 'yearly_partner' );
     $this->user_give_access( $empty_campaign_referral2->ID, 'yearly_partner' );
 
-    // Empty Campaign: 1 fb_toolkit
-    $this->user_give_access( $empty_campaign_referral1->ID, 'fb_toolkit' );
-
-    // Empty Campaign: 1 lead_system
-    $this->user_give_access( $empty_campaign_referral1->ID, 'lead_system' );
-
     // Empty campaign: $50 commissions
     $this->create_test_commission( ['amount' => 20, 'earner_id' => $this->_injected_user->ID] );
     $this->create_test_commission( ['amount' => 30, 'earner_id' => $this->_injected_user->ID] );
@@ -61,9 +55,6 @@ class CampaignsTest extends Test {
     $this->user_give_access( $bloody_campaign_referral1->ID, 'coaching' );
     $this->user_give_access( $bloody_campaign_referral2->ID, 'coaching' );
 
-    // Bloody campaign: 1 authority_bonuses
-    $this->user_give_access( $bloody_campaign_referral1->ID, 'authority_bonuses' );
-
     // Bloody campaign: $32 commissions
     $this->create_test_commission( ['amount' => 10, 'campaign' => 'bloody_campaign', 'earner_id' => $this->_injected_user->ID] );
     $this->create_test_commission( ['amount' => 8, 'campaign' => 'bloody_campaign', 'earner_id' => $this->_injected_user->ID] );
@@ -81,9 +72,6 @@ class CampaignsTest extends Test {
         'yearly_partner' => 2,
         'lifetime_partner' => 0,
         'coaching' => 0,
-        'fb_toolkit' => 1,
-        'lead_system' => 1,
-        'authority_bonuses' => 0,
         'commissions' => 50,
         'epc' => 10.0,
         'epc_formatted' => '$10.00',
@@ -97,9 +85,6 @@ class CampaignsTest extends Test {
         'yearly_partner' => 2,
         'lifetime_partner' => 2,
         'coaching' => 2,
-        'fb_toolkit' => 0,
-        'lead_system' => 0,
-        'authority_bonuses' => 1,
         'commissions' => 32,
         'epc' => 8.0,
         'epc_formatted' => '$8.00',

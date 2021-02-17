@@ -327,21 +327,24 @@ class UserClassTest extends Test {
 
   public function test_get_access_list(): void {
     $user = $this->create_test_user();
-    $this->assert_arrays_equal( $user->get_access_list(), [], 'User access list should be empty by default' );
+    $this->assert_arrays_equal( $user->get_access_list(), ['_free'], 'User access list should include _free in it by default' );
     
     $this->user_give_access( $user->ID, 'monthly_partner' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
     ], 'User access list should include monthly_partner after access is granted' );
     
     $this->user_give_access( $user->ID, 'yearly_partner' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
       'yearly_partner',
     ], 'User access list should include yearly_partner after access is granted' );
     
     $this->user_give_access( $user->ID, 'lifetime_partner' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
       'yearly_partner',
       'lifetime_partner',
@@ -349,6 +352,7 @@ class UserClassTest extends Test {
     
     $this->user_give_access( $user->ID, 'coaching' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
       'yearly_partner',
       'lifetime_partner',
@@ -357,6 +361,7 @@ class UserClassTest extends Test {
     
     $this->user_give_access( $user->ID, 'fb_toolkit' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
       'yearly_partner',
       'lifetime_partner',
@@ -366,6 +371,7 @@ class UserClassTest extends Test {
     
     $this->user_give_access( $user->ID, 'lead_system' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
       'yearly_partner',
       'lifetime_partner',
@@ -376,6 +382,7 @@ class UserClassTest extends Test {
     
     $this->user_give_access( $user->ID, 'authority_bonuses' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
       'yearly_partner',
       'lifetime_partner',
@@ -391,12 +398,14 @@ class UserClassTest extends Test {
 
     $this->user_give_access( $user->ID, 'yearly_partner' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
       'yearly_partner',
     ], 'User should also get access to monthly_partner when given access to yearly_partner' );
 
     $this->user_give_access( $user->ID, 'coaching' );
     $this->assert_arrays_equal( $user->get_access_list(), [
+      '_free',
       'monthly_partner',
       'yearly_partner',
       'lifetime_partner',

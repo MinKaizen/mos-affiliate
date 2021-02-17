@@ -19,30 +19,6 @@ class ProductClassTest extends Test {
     $this->assert_equal( $product->rebill_price, 47 );
     $this->assert_equal( $product->rebill_period, 31 );
     
-    $product = Product::from_slug( 'fb_toolkit' );
-    $this->assert_equal( $product->cb_id, 51 );
-    $this->assert_equal( $product->name, "Facebook Toolkit" );
-    $this->assert_equal( $product->slug, "fb_toolkit" );
-    $this->assert_equal( $product->access_meta_key, "mos_access_fb_toolkit" );
-    $this->assert_equal( $product->no_access_url_path, "/no-access-fb-toolkit" );
-    $this->assert_equal( $product->price, 197 );
-    
-    $product = Product::from_slug( 'lead_system' );
-    $this->assert_equal( $product->cb_id, 52 );
-    $this->assert_equal( $product->name, "Lead Gen System" );
-    $this->assert_equal( $product->slug, "lead_system" );
-    $this->assert_equal( $product->access_meta_key, "mos_access_lead_system" );
-    $this->assert_equal( $product->no_access_url_path, "/no-access-lead-system" );
-    $this->assert_equal( $product->price, 197 );
-    
-    $product = Product::from_slug( 'authority_bonuses' );
-    $this->assert_equal( $product->cb_id, 53 );
-    $this->assert_equal( $product->name, "Authority Bonus Bundle" );
-    $this->assert_equal( $product->slug, "authority_bonuses" );
-    $this->assert_equal( $product->access_meta_key, "mos_access_authority_bonuses" );
-    $this->assert_equal( $product->no_access_url_path, "/no-access-authority-bonuses" );
-    $this->assert_equal( $product->price, 197 );
-    
     $product = Product::from_slug( 'yearly_partner' );
     $this->assert_equal( $product->cb_id, 54 );
     $this->assert_equal( $product->name, "Yearly Partner" );
@@ -77,30 +53,6 @@ class ProductClassTest extends Test {
     $this->assert_equal( $product->trial_period, 7 );
     $this->assert_equal( $product->rebill_price, 47 );
     $this->assert_equal( $product->rebill_period, 31 );
-    
-    $product = Product::from_cb_id( 51 );
-    $this->assert_equal( $product->cb_id, 51 );
-    $this->assert_equal( $product->name, "Facebook Toolkit" );
-    $this->assert_equal( $product->slug, "fb_toolkit" );
-    $this->assert_equal( $product->access_meta_key, "mos_access_fb_toolkit" );
-    $this->assert_equal( $product->no_access_url_path, "/no-access-fb-toolkit" );
-    $this->assert_equal( $product->price, 197 );
-    
-    $product = Product::from_cb_id( 52 );
-    $this->assert_equal( $product->cb_id, 52 );
-    $this->assert_equal( $product->name, "Lead Gen System" );
-    $this->assert_equal( $product->slug, "lead_system" );
-    $this->assert_equal( $product->access_meta_key, "mos_access_lead_system" );
-    $this->assert_equal( $product->no_access_url_path, "/no-access-lead-system" );
-    $this->assert_equal( $product->price, 197 );
-    
-    $product = Product::from_cb_id( 53 );
-    $this->assert_equal( $product->cb_id, 53 );
-    $this->assert_equal( $product->name, "Authority Bonus Bundle" );
-    $this->assert_equal( $product->slug, "authority_bonuses" );
-    $this->assert_equal( $product->access_meta_key, "mos_access_authority_bonuses" );
-    $this->assert_equal( $product->no_access_url_path, "/no-access-authority-bonuses" );
-    $this->assert_equal( $product->price, 197 );
     
     $product = Product::from_cb_id( 54 );
     $this->assert_equal( $product->cb_id, 54 );

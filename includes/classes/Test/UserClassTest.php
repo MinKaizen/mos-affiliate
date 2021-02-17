@@ -286,21 +286,6 @@ class UserClassTest extends Test {
     $this->user_give_access( $user->ID, 'yearly_partner');
     $this->assert_true( $user->has_access( 'yearly_partner' ) );
     
-    // Facebook Toolkit
-    $this->assert_false( $user->has_access( 'fb_toolkit' ) );
-    $this->user_give_access( $user->ID, 'fb_toolkit');
-    $this->assert_true( $user->has_access( 'fb_toolkit' ) );
-    
-    // Lead Gen System
-    $this->assert_false( $user->has_access( 'lead_system' ) );
-    $this->user_give_access( $user->ID, 'lead_system');
-    $this->assert_true( $user->has_access( 'lead_system' ) );
-    
-    // Authority Bonus Bundle
-    $this->assert_false( $user->has_access( 'authority_bonuses' ) );
-    $this->user_give_access( $user->ID, 'authority_bonuses');
-    $this->assert_true( $user->has_access( 'authority_bonuses' ) );
-    
     // Lifetime Partner
     $this->assert_false( $user->has_access( 'lifetime_partner' ) );
     $this->user_give_access( $user->ID, 'lifetime_partner');
@@ -359,38 +344,6 @@ class UserClassTest extends Test {
       'coaching',
     ], 'User access list should include coaching after access is granted' );
     
-    $this->user_give_access( $user->ID, 'fb_toolkit' );
-    $this->assert_arrays_equal( $user->get_access_list(), [
-      '_free',
-      'monthly_partner',
-      'yearly_partner',
-      'lifetime_partner',
-      'coaching',
-      'fb_toolkit',
-    ], 'User access list should include fb_toolkit after access is granted' );
-    
-    $this->user_give_access( $user->ID, 'lead_system' );
-    $this->assert_arrays_equal( $user->get_access_list(), [
-      '_free',
-      'monthly_partner',
-      'yearly_partner',
-      'lifetime_partner',
-      'coaching',
-      'fb_toolkit',
-      'lead_system',
-    ], 'User access list should include lead_system after access is granted' );
-    
-    $this->user_give_access( $user->ID, 'authority_bonuses' );
-    $this->assert_arrays_equal( $user->get_access_list(), [
-      '_free',
-      'monthly_partner',
-      'yearly_partner',
-      'lifetime_partner',
-      'coaching',
-      'fb_toolkit',
-      'lead_system',
-      'authority_bonuses',
-    ], 'User access list should include authority_bonuses after access is granted' );
   }
 
   public function test_get_access_list_levels(): void {

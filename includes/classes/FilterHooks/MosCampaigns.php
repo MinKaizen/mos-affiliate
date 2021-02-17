@@ -119,6 +119,9 @@ class MosCampaigns extends FilterHook {
       'yearly_partner',
       'lifetime_partner',
       'coaching',
+      'fb_toolkit',
+      'lead_system',
+      'authority_bonuses',
     ];
 
     foreach ( $campaigns as &$campaign ) {

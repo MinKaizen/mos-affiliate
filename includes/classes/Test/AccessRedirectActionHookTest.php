@@ -10,6 +10,9 @@ class AccessRedirectActionHookTest extends Test {
   // see Products config
   const USERMETA_KEYS = [
     'monthly_partner' => 'mos_access_monthly_partner',
+    'fb_toolkit' => 'mos_access_fb_toolkit',
+    'authority_bonuses' => 'mos_access_authority_bonuses',
+    'lead_system' => 'mos_access_lead_system',
     'yearly_partner' => 'mos_access_yearly_partner',
     'lifetime_partner' => 'mos_access_lifetime_partner',
     'coaching' => 'mos_access_coaching',
@@ -25,6 +28,9 @@ class AccessRedirectActionHookTest extends Test {
   // see Products config
   const REDIRECTS = [
     'monthly_partner' => '/no-access-monthly-partner',
+    'fb_toolkit' => '/no-access-fb-toolkit',
+    'authority_bonuses' => '/no-access-authority-bonuses',
+    'lead_system' => '/no-access-lead-system',
     'yearly_partner' => '/no-access-yearly-partner',
     'lifetime_partner' => '/no-access-lifetime-partner',
     'coaching' => '/no-access-coaching',

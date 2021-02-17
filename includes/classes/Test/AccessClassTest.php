@@ -16,7 +16,19 @@ class AccessClassTest extends Test {
         Access::TXN_SALE => date( 'Y-m-d', time() + \DAY_IN_SECONDS * 9 ),
         Access::TXN_TEST_SALE => date( 'Y-m-d', time() + \DAY_IN_SECONDS * 9 ),
       ],
+      'fb_toolkit' => [
+        Access::TXN_SALE => Access::EVERGREEN_DATE,
+        Access::TXN_TEST_SALE => Access::EVERGREEN_DATE,
+      ],
+      'lead_system' => [
+        Access::TXN_SALE => Access::EVERGREEN_DATE,
+        Access::TXN_TEST_SALE => Access::EVERGREEN_DATE,
+      ],
       'yearly_partner' => [
+        Access::TXN_SALE => Access::EVERGREEN_DATE,
+        Access::TXN_TEST_SALE => Access::EVERGREEN_DATE,
+      ],
+      'authority_bonuses' => [
         Access::TXN_SALE => Access::EVERGREEN_DATE,
         Access::TXN_TEST_SALE => Access::EVERGREEN_DATE,
       ],

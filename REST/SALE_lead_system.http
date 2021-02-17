@@ -1,0 +1,68 @@
+POST http://mos-sage.local/wp-json/mos-affiliate/v1/clickbank-ins
+Content-Type: application/json
+Accept: application/json
+
+{
+  "transactionTime": "20210207T045812-0800",
+  "receipt": "lead_system_test",
+  "transactionType": "SALE",
+  "vendor": "superaa",
+  "affiliate": "lead-system-sponsor-test",
+  "role": "VENDOR",
+  "totalAccountAmount": 80.6700000000000017053025658242404460906982421875,
+  "paymentMethod": "PYPL",
+  "totalOrderAmount": 243.8899999999999863575794734060764312744140625,
+  "totalTaxAmount": 33.6400000000000005684341886080801486968994140625,
+  "totalShippingAmount": 0,
+  "currency": "EUR",
+  "orderLanguage": "EN",
+  "lineItems": [
+    {
+      "itemNo": "52",
+      "productTitle": "Lead Gen System",
+      "shippable": false,
+      "recurring": false,
+      "accountAmount": 80.6700000000000017053025658242404460906982421875,
+      "quantity": 1,
+      "downloadUrl": "https:\/\/myonlinestartup.com\/partnerthanks?item=100&cbreceipt=4L6YU92G&time=1612702692&cbpop=7F31DD21&cbaffi=ELIKASH848&cname=Aydin+Riza&cemail=aydin%40riza.eu&ccountry=DE&czip=91555&cbitems=100&email=aydin@riza.eu&mos_email=aydin@riza.eu&wpid=457430&mos_wpid=457430&mos_username=AydinKasimir&mos_sponsor=raraavis&mos_name=Aydin%20Kasimir%20Riza",
+      "lineItemType": "ORIGINAL",
+      "productPrice": 197,
+      "productDiscount": 0,
+      "affiliatePayout": 98.590000000000003410605131648480892181396484375,
+      "taxAmount": 33.6400000000000005684341886080801486968994140625,
+      "shippingAmount": 0,
+      "shippingLiable": false
+    }
+  ],
+  "customer": {
+    "shipping": {
+      "firstName": "John",
+      "lastName": "Smith",
+      "fullName": "John Smith",
+      "email": "martin.g.cao@gmail.com",
+      "address": {}
+    },
+    "billing": {
+      "firstName": "John",
+      "lastName": "Smith",
+      "fullName": "John Smith",
+      "email": "martin.g.cao@gmail.com",
+      "address": {}
+    }
+  },
+  "version": 7,
+  "attemptCount": 1,
+  "vendorVariables": {
+    "cbitems": "1000",
+    "customer_wpid": "1",
+    "customer_username": "martingcao",
+    "customer_name": "John Smith",
+    "customer_email": "martin.g.cao@gmail.com",
+    "sponsor_wpid": "1",
+    "sponsor_username": "martingcao",
+    "sponsor_name": "John Smith",
+    "sponsor_email": "martin.g.cao@gmail.com",
+    "campaign": "sale_lead_system_test"
+  },
+  "declinedConsent": true
+}

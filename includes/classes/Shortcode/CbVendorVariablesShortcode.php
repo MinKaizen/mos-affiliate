@@ -24,6 +24,15 @@ class CbVendorVariablesShortcode extends AbstractShortcode {
     $params[] = 'sponsor_name=' . $sponsor->get_name();
     $params[] = 'sponsor_email=' . $sponsor->get_email();
 
+    // For backwards compatibility
+    $params[] = 'email=' . $user->get_email();
+    $params[] = 'mos_email=' . $user->get_email();
+    $params[] = 'wpid=' . $user->get_wpid();
+    $params[] = 'mos_wpid=' . $user->get_wpid();
+    $params[] = 'mos_username=' . $user->get_username();
+    $params[] = 'mos_sponsor=' . $sponsor->get_username();
+    $params[] = 'mos_name=' . $user->get_name();
+
     $params_joined = implode( '&', $params );
     
     return $params_joined;

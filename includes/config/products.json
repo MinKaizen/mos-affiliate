@@ -31,5 +31,20 @@
 		"access_meta_key": "mos_access_coaching",
 		"no_access_url_path": "/no-access-coaching",
 		"price": 8997
+	},
+	"partner": {
+		"slug": "partner",
+		"cb_id": 100,
+		"name": "Partner",
+		"access_meta_key": "mos_access_lifetime_partner",
+		"no_access_url_path": "/no-access-lifetime-partner",
+		"price": 197
+	},
+	"legendary": {
+		"slug": "legendary",
+		"name": "Legendary Partner",
+		"access_meta_key": "mos_access_coaching",
+		"no_access_url_path": "/no-access-coaching",
+		"price": 997
 	}
 }

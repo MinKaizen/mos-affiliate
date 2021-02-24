@@ -67,6 +67,14 @@ class Product {
     $products = [];
 
     foreach ( $products_raw as $product_slug => $product_data ) {
+      // #TEMP
+      // #IN_BETWEEN
+      // For the inbetween stage, prevent Partner and Legendary
+      // from overriding Lifetime and Coaching
+      if ( $product_slug == 'partner' || $product_slug == 'legendary' ) {
+        continue;
+      }
+
       $products[$product_slug] = self::from_data( $product_data );
     }
     

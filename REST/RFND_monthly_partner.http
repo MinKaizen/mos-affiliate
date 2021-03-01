@@ -39,14 +39,14 @@ Accept: application/json
       "firstName": "John",
       "lastName": "Smith",
       "fullName": "John Smith",
-      "email": "martin.g.cao@gmail.com",
+      "email": "johnsmith@gmail.com",
       "address": {}
     },
     "billing": {
       "firstName": "John",
       "lastName": "Smith",
       "fullName": "John Smith",
-      "email": "martin.g.cao@gmail.com",
+      "email": "johnsmith@gmail.com",
       "address": {}
     }
   },
@@ -55,13 +55,13 @@ Accept: application/json
   "vendorVariables": {
     "cbitems": "1000",
     "customer_wpid": "1",
-    "customer_username": "martingcao",
+    "customer_username": "chucknguyen",
     "customer_name": "John Smith",
-    "customer_email": "martin.g.cao@gmail.com",
+    "customer_email": "johnsmith@gmail.com",
     "sponsor_wpid": "1",
-    "sponsor_username": "martingcao",
+    "sponsor_username": "chucknguyen",
     "sponsor_name": "John Smith",
-    "sponsor_email": "martin.g.cao@gmail.com",
+    "sponsor_email": "johnsmith@gmail.com",
     "campaign": "rfnd_monthly_partner_test"
   }
 }

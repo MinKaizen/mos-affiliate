@@ -23,8 +23,10 @@ class InjectUser extends ActionHook {
     $user = User::from_username( $_GET['set_user'] );
 
     if ( $user->exists() ) {
+      // Used in User::current()
       add_filter( 'mos_current_user', function() use ($user) {
         return $user;
+      }, 0 );
       // Used in mos-sage theme
       add_filter( 'mos_current_user_id', function() use ($user) {
         return $user->get_wpid();

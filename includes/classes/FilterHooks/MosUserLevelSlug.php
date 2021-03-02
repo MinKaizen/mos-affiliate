@@ -13,7 +13,7 @@ class MosUserLevelSlug extends FilterHook {
 
   public function handler( $fallback, $id=0 ): string {
     if ( !$id ) {
-      $id = get_current_user_id();
+      $id = \apply_filters( 'mos_current_user_id', get_current_user_id() );
     }
 
     if ( !$id ) {

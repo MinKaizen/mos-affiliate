@@ -225,7 +225,7 @@ function mis_link_template_tag(): string {
 
 function mis_value( string $slug, int $user_id=0 ): string {
   if ( !$user_id ) {
-    $user_id = \get_current_user_id();
+    $user_id = \apply_filters( 'mos_current_user_id', get_current_user_id() );
   }
 
   if ( !$user_id ) {

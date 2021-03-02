@@ -32,7 +32,7 @@ class AccessRedirect extends ActionHook {
   }
 
   private function handle_free_redirect(): void {
-    if ( get_current_user_id() ) {
+    if ( \apply_filters( 'mos_current_user_id', get_current_user_id() ) ) {
       return;
     }
 

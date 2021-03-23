@@ -10,6 +10,7 @@ class ClickbankEventAdapter extends ClickbankEvent {
     $data = json_decode( $msg );
     $this->date = isset( $data->transactionTime ) ? $this->format_date( (string) $data->transactionTime ) : '0000-01-01';
     $this->amount = $this->calculate_amount( $data );
+    $this->commission = isset( $data->lineItems[0]->affiliatePayout ) ? (float) $data->lineItems[0]->affiliatePayout : 0.0;
     $this->product_id = isset( $data->lineItems[0]->itemNo ) ? (int) $data->lineItems[0]->itemNo : 0;
     $this->product_name = isset( $data->lineItems[0]->productTitle ) ? $this->format_product_name( (string) $data->lineItems[0]->productTitle ) : '';
     $this->transaction_id = isset( $data->receipt ) ? (string) $data->receipt : '';

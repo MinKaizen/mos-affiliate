@@ -51,7 +51,7 @@ class SalesAutomationTest extends Test {
 
     $this->assert_not_empty( $db_sale );
     $this->assert_equal( $db_sale->date, $sale->date);
-    $this->assert_equal( $db_sale->amount, $sale->amount);
+    $this->assert_equal( $db_sale->amount, $sale->commission);
     $this->assert_equal( $db_sale->description, $sale->product_name);
     $this->assert_equal( $db_sale->transaction_id, $sale->transaction_id);
     $this->assert_equal( $db_sale->campaign, $sale->campaign);
@@ -64,7 +64,7 @@ class SalesAutomationTest extends Test {
 
     $this->assert_not_empty( $db_refund );
     $this->assert_equal( $db_refund->date, $refund->date);
-    $this->assert_equal( $db_refund->amount, -$sale->amount);
+    $this->assert_equal( $db_refund->amount, -$sale->commission);
     $this->assert_equal( $db_refund->description, $refund->product_name);
     $this->assert_equal( $db_refund->transaction_id, $refund->transaction_id);
     $this->assert_equal( $db_refund->campaign, $refund->campaign);
@@ -166,7 +166,7 @@ class SalesAutomationTest extends Test {
 
   private function create_test_cb_event( array $args = [] ): ClickbankEvent {
     $default_args = [
-      'amount' => rand(10, 997),
+      'commission' => rand(10, 997),
       'product_id' => rand(1, 100),
       'transaction_id' => ranstr(32),
       'cb_affiliate' => ranstr(6),

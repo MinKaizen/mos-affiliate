@@ -48,7 +48,7 @@ class CbEvent_UpdateCommissions extends ActionHook {
 
     $commission_data = [
       'date' => $data->date,
-      'amount' => $data->amount,
+      'amount' => $data->commission,
       'description' => $data->product_name,
       'transaction_id' => $data->transaction_id,
       'campaign' => $data->campaign,

@@ -41,11 +41,9 @@ class SalesAutomationTest extends Test {
     \do_action( 'clickbank_event', $refund );
     \do_action( 'clickbank_event', $error_refund );
 
-     // Call cron so that our async hook gets called
-    \wp_remote_get( \home_url( '/wp-cron.php' ) );
-
-    // Give it some time to resolve
-    sleep( self::ASYNC_BUFFER );
+    // // Async hooks are deprecated so no need to call cron
+    // \wp_remote_get( \home_url( '/wp-cron.php' ) );
+    // sleep( self::ASYNC_BUFFER );
 
     $db_sale = $this->find_commission( $sale );
     $db_refund = $this->find_commission( $refund );

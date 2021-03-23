@@ -45,22 +45,22 @@ class SalesAutomationTest extends Test {
     // \wp_remote_get( \home_url( '/wp-cron.php' ) );
     // sleep( self::ASYNC_BUFFER );
 
-    $db_commission_sale = $this->find_commission( $sale );
+    $db_sale = $this->find_commission( $sale );
     $db_refund = $this->find_commission( $refund );
     $db_error_refund = $this->find_commission( $error_refund );
 
-    $this->assert_not_empty( $db_commission_sale );
-    $this->assert_equal( $db_commission_sale->date, $sale->date);
-    $this->assert_equal( $db_commission_sale->amount, $sale->commission);
-    $this->assert_equal( $db_commission_sale->description, $sale->product_name);
-    $this->assert_equal( $db_commission_sale->transaction_id, $sale->transaction_id);
-    $this->assert_equal( $db_commission_sale->campaign, $sale->campaign);
-    $this->assert_equal( $db_commission_sale->actor_id, $sale->customer_wpid);
-    $this->assert_equal( $db_commission_sale->earner_id, $sale->sponsor_wpid);
-    $this->assert_equal( $db_commission_sale->payout_date, $sale->date);
-    $this->assert_equal( $db_commission_sale->payout_method, 'Clickbank');
-    $this->assert_equal( $db_commission_sale->payout_address, $sale->cb_affiliate);
-    $this->assert_equal( $db_commission_sale->payout_transaction_id, $sale->transaction_id);
+    $this->assert_not_empty( $db_sale );
+    $this->assert_equal( $db_sale->date, $sale->date);
+    $this->assert_equal( $db_sale->amount, $sale->commission);
+    $this->assert_equal( $db_sale->description, $sale->product_name);
+    $this->assert_equal( $db_sale->transaction_id, $sale->transaction_id);
+    $this->assert_equal( $db_sale->campaign, $sale->campaign);
+    $this->assert_equal( $db_sale->actor_id, $sale->customer_wpid);
+    $this->assert_equal( $db_sale->earner_id, $sale->sponsor_wpid);
+    $this->assert_equal( $db_sale->payout_date, $sale->date);
+    $this->assert_equal( $db_sale->payout_method, 'Clickbank');
+    $this->assert_equal( $db_sale->payout_address, $sale->cb_affiliate);
+    $this->assert_equal( $db_sale->payout_transaction_id, $sale->transaction_id);
 
     $this->assert_not_empty( $db_refund );
     $this->assert_equal( $db_refund->date, $refund->date);

@@ -11,7 +11,6 @@ use function MOS\Affiliate\ranstr;
 
 class SalesAutomationTest extends Test {
 
-  const ASYNC_BUFFER = 1;
   const HOOK = 'clickbank_event';
 
   private $user;
@@ -40,10 +39,6 @@ class SalesAutomationTest extends Test {
     \do_action( 'clickbank_event', $sale );
     \do_action( 'clickbank_event', $refund );
     \do_action( 'clickbank_event', $error_refund );
-
-    // // Async hooks are deprecated so no need to call cron
-    // \wp_remote_get( \home_url( '/wp-cron.php' ) );
-    // sleep( self::ASYNC_BUFFER );
 
     $db_commission = $this->find_commission( $sale );
     $db_refund = $this->find_commission( $refund );

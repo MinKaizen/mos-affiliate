@@ -4,4 +4,8 @@ namespace MOS\Affiliate;
 
 abstract class AbstractCommand {
 
+  abstract function execute(): void {
+    
+  }
+
 }

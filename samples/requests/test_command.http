@@ -1,0 +1,9 @@
+POST https://mos.local/wp-json/mos-affiliate/v1/test-command
+Content-Type: application/json
+Accept: application/json
+
+{
+  "dir": "test-comand",
+  "file_name": "test-command.log",  
+  "message": "Hello world!"
+}

@@ -54,6 +54,7 @@ class Plugin {
     date_default_timezone_set( \get_option('timezone_string') );
 
     $this->register_cpts();
+    $this->register_acf();
     $this->register_classes_from_folder( 'Shortcode' );
     $this->register_classes_from_folder( 'Routes' );
     $this->register_classes_from_folder( 'Actions' );
@@ -71,6 +72,24 @@ class Plugin {
 
   private function register_cpts() {
     include( PLUGIN_DIR . 'includes/CPT.php' );
+  }
+
+
+  private function register_acf(): void {
+    if ( !function_exists( 'acf_add_local_field_group' ) ) {
+      return;
+    }
+
+    $acf_dir_path = PLUGIN_DIR . 'includes/json/acf/';
+    $dir = new \DirectoryIterator( $acf_dir_path );
+
+    foreach ( $dir as $file ) {
+      if ( $file->getExtension() == 'json' ) {
+        $json = file_get_contents( $file->getPathname() );
+        $field_group = json_decode( $json, true );
+        \acf_add_local_field_group( $field_group );
+      }
+    }
   }
 
 

@@ -4,12 +4,12 @@ namespace MOS\Affiliate;
 
 abstract class AbstractCommand {
 
-  private $action_hook = 'execute_command';
+  const ACTION_HOOK = 'execute_command';
 
   abstract function execute(): void;
 
   public function execute_async(): void {
-    wp_schedule_single_event( time(), $this->action_hook, [$this] );
+    wp_schedule_single_event( time(), self::ACTION_HOOK, [$this] );
   }
 
 }

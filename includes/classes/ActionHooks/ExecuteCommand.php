@@ -5,7 +5,7 @@ namespace MOS\Affiliate\ActionHooks;
 use \MOS\Affiliate\ActionHook;
 use \MOS\Affiliate\AbstractCommand;
 
-class ExecuteCommandAsync extends ActionHook {
+class ExecuteCommand extends ActionHook {
 
   protected $hook = 'execute_command';
 

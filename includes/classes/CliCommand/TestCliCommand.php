@@ -20,7 +20,7 @@ class TestCliCommand extends CliCommand {
 
   private $tests = [
     'access_class',
-    'access_redirect_action_hook',
+    'access_redirect_action',
     'campaigns',
     'cb_vendor_variables_shortcode',
     'commission_class',

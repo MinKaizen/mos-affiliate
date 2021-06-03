@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace MOS\Affiliate\ActionHooks;
+namespace MOS\Affiliate\Actions;
 
-use \MOS\Affiliate\ActionHook;
+use \MOS\Affiliate\AbstractAction;
 
-class LoadACF extends ActionHook {
+class LoadACF extends AbstractAction {
 
   const ACF_CONFIG = \MOS\Affiliate\PLUGIN_DIR . '/includes/config/acf.json';
 

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace MOS\Affiliate\ActionHooks;
+namespace MOS\Affiliate\Actions;
 
-use \MOS\Affiliate\ActionHook;
+use \MOS\Affiliate\AbstractAction;
 use \MOS\Affiliate\User;
 use function \current_user_can;
 use function \add_filter;
 
-class InjectUser extends ActionHook {
+class InjectUser extends AbstractAction {
 
   protected $hook = 'template_redirect';
 

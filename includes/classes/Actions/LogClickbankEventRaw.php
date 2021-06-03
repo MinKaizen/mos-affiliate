@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MOS\Affiliate\ActionHooks;
+namespace MOS\Affiliate\Actions;
 
-use \MOS\Affiliate\ActionHook;
+use \MOS\Affiliate\AbstractAction;
 use \MGC\Logger\Logger;
 
-class LogClickbankEventRaw extends ActionHook {
+class LogClickbankEventRaw extends AbstractAction {
 
   protected $hook = 'clickbank_event_raw';
   private $logger;

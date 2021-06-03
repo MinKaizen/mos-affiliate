@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace MOS\Affiliate\ActionHooks;
+namespace MOS\Affiliate\Actions;
 
-use \MOS\Affiliate\ActionHook;
+use \MOS\Affiliate\AbstractAction;
 use \MOS\Affiliate\User;
 use \MOS\Affiliate\Product;
 use function \get_field;
 use function \MOS\Affiliate\url_path_is;
 use function \wp_redirect;
 
-class AccessRedirect extends ActionHook {
+class AccessRedirect extends AbstractAction {
 
   protected $hook = 'template_redirect';
 

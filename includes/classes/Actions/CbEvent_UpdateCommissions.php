@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace MOS\Affiliate\ActionHooks;
+namespace MOS\Affiliate\Actions;
 
-use \MOS\Affiliate\ActionHook;
+use \MOS\Affiliate\AbstractAction;
 use \MGC\Logger\Logger;
 use \MOS\Affiliate\DataStructs\ClickbankEvent;
 use \MOS\Affiliate\Migration\CommissionsMigration;
 
-class CbEvent_UpdateCommissions extends ActionHook {
+class CbEvent_UpdateCommissions extends AbstractAction {
 
   const ADD_COMMISSION_TRANSACTION_TYPES = ['SALE', 'BILL', 'TEST_SALE', 'TEST_BILL'];
   const ADD_REFUND_TRANSACTION_TYPES = ['RFND', 'CGBK', 'TEST_RFND', 'TEST_CGBK'];

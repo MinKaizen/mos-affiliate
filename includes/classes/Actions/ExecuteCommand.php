@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MOS\Affiliate\ActionHooks;
+namespace MOS\Affiliate\Actions;
 
-use \MOS\Affiliate\ActionHook;
+use \MOS\Affiliate\AbstractAction;
 use \MOS\Affiliate\AbstractCommand;
 
-class ExecuteCommand extends ActionHook {
+class ExecuteCommand extends AbstractAction {
 
   protected $hook = 'execute_command';
 

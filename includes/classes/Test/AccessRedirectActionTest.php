@@ -5,7 +5,7 @@ namespace MOS\Affiliate\Test;
 use \MOS\Affiliate\Test;
 use function \MOS\Affiliate\ranstr;
 
-class AccessRedirectActionHookTest extends Test {
+class AccessRedirectActionTest extends Test {
 
   // see Products config
   const USERMETA_KEYS = [

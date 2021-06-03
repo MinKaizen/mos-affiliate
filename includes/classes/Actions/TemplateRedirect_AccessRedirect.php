@@ -9,7 +9,7 @@ use function \get_field;
 use function \MOS\Affiliate\url_path_is;
 use function \wp_redirect;
 
-class AccessRedirect extends AbstractAction {
+class TemplateRedirect_AccessRedirect extends AbstractAction {
 
   protected $hook = 'template_redirect';
 

@@ -7,7 +7,7 @@ use \MGC\Logger\Logger;
 use \MOS\Affiliate\DataStructs\ClickbankEvent;
 use \MOS\Affiliate\Migration\CommissionsMigration;
 
-class CbEvent_UpdateCommissions extends AbstractAction {
+class ClickbankEvent_UpdateCommission extends AbstractAction {
 
   const ADD_COMMISSION_TRANSACTION_TYPES = ['SALE', 'BILL', 'TEST_SALE', 'TEST_BILL'];
   const ADD_REFUND_TRANSACTION_TYPES = ['RFND', 'CGBK', 'TEST_RFND', 'TEST_CGBK'];

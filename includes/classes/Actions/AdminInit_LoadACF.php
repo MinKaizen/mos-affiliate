@@ -4,7 +4,7 @@ namespace MOS\Affiliate\Actions;
 
 use \MOS\Affiliate\AbstractAction;
 
-class LoadACF extends AbstractAction {
+class AdminInit_LoadACF extends AbstractAction {
 
   const ACF_CONFIG = \MOS\Affiliate\PLUGIN_DIR . '/includes/config/acf.json';
 

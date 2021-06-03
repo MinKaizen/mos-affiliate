@@ -7,7 +7,7 @@ use \MOS\Affiliate\User;
 use function \current_user_can;
 use function \add_filter;
 
-class InjectUser extends AbstractAction {
+class TemplateRedirect_InjectUser extends AbstractAction {
 
   protected $hook = 'template_redirect';
 

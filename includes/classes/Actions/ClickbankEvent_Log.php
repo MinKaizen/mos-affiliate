@@ -5,7 +5,7 @@ namespace MOS\Affiliate\Actions;
 use \MOS\Affiliate\AbstractAction;
 use \MGC\Logger\Logger;
 
-class LogClickbankEvent extends AbstractAction {
+class ClickbankEvent_Log extends AbstractAction {
 
   protected $hook = 'clickbank_event';
   private $logger;

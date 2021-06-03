@@ -8,7 +8,7 @@ use \MOS\Affiliate\User;
 use \MOS\Affiliate\Access;
 use \MOS\Affiliate\DataStructs\ClickbankEvent;
 
-class CbEvent_ManageAccess extends AbstractAction {
+class ClickbankEvent_ManageAccess extends AbstractAction {
 
   const GRANT_ACCESS_TRANSACTION_TYPES = ['SALE', 'BILL', 'TEST_SALE', 'TEST_BILL'];
   const REMOVE_ACCESS_TRANSACTION_TYPES = ['RFND', 'CGBK', 'TEST_RFND', 'TEST_CGBK'];

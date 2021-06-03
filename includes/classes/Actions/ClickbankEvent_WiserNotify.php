@@ -7,7 +7,7 @@ use \MGC\Logger\Logger;
 use \MOS\Affiliate\DataStructs\ClickbankEvent;
 use function wp_remote_post;
 
-class CbEvent_WiserNotify extends AbstractAction {
+class ClickbankEvent_WiserNotify extends AbstractAction {
 
   const TRANSACTION_TYPES = ['SALE', 'TEST_SALE'];
   const WEBHOOK_URL = 'https://is.wisernotify.com/api/custom/log?ti=2h0helkgpqcn8w&fuid=603d76c7d1d139001333366d';

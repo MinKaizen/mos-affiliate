@@ -7,7 +7,7 @@ use \MGC\Logger\Logger;
 use \MOS\Affiliate\Access;
 use \MOS\Affiliate\Product;
 
-class GformGrantAccess extends AbstractAction {
+class GformAfterSubmission_GrantAccess extends AbstractAction {
 
   protected $hook = 'gform_after_submission';
   protected $args = 2;

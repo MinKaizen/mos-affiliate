@@ -3,6 +3,7 @@
 namespace MOS\Affiliate\CliCommand;
 
 use MOS\Affiliate\CliCommand;
+use MOS\Affiliate\Plugin;
 use \WP_CLI;
 
 use function MOS\Affiliate\class_name;
@@ -11,68 +12,35 @@ class TestCliCommand extends CliCommand {
 
   protected $command = 'test';
 
-  private $pre_tests = [
-    'config',
-    'db_tables',
-    'db_functions',
-  ];
-
-  private $tests = [
-    'access_class',
-    'access_redirect_action',
-    'campaigns',
-    'cb_vendor_variables_shortcode',
-    'commission_class',
-    'commissions',
-    'mis_functions',
-    'product_class',
-    'referrals',
-    'sales_automation',
-    'sponsor_shortcodes',
-    'user_class',
-    'user_shortcodes',
-    'utils',
-  ];
-
-
   public function run( array $pos_args, array $assoc_args ): void {
-    list( $test_name ) = $pos_args;    
+    list( $test_name ) = $pos_args;
+    $test_class = class_name( $test_name, 'Test' ) . 'Test';
 
     if ( empty( $test_name ) ) {
       WP_CLI::error( "Please specify a test" );
-    } elseif ( $test_name == 'pre' ) {
-      $this->test_multiple( $this->pre_tests );
     } elseif ( $test_name == 'all' ) {
-      $this->test_multiple( $this->pre_tests );
-      $this->test_multiple( $this->tests );
-    } elseif ( in_array( $test_name, $this->tests ) ) {
-      $this->test_single( $test_name );
-    } elseif ( in_array( $test_name, $this->pre_tests ) ) {
-      $this->test_single( $test_name );
+      $this->run_all();
+    }elseif ( class_exists( $test_class ) ) {
+      $test = new $test_class();
+      $test->run();
     } else {
-      WP_CLI::error( "$test_name is not a registered test" );
+      WP_CLI::error( "$test_name ($test_class) is not a registered test" );
     }
 
     $success_message = WP_CLI::colorize( "%2%w✔✔✔ All tests passed. You are awesome!%n%N" );
     WP_CLI::success( $success_message );
   }
 
-
-  private function test_multiple( array $tests ): void {
-    $num_tests = count( $tests );
-    $progress = \WP_CLI\Utils\make_progress_bar( 'Progress', $num_tests );
-    foreach ( $tests as $test_stub ) {
-      $this->test_single( $test_stub );
-      $progress->tick();
+  private function run_all(): void {
+    $test_dir = Plugin::PLUGIN_DIR . 'includes/classes/Test';
+    $dir = new \DirectoryIterator( $test_dir );
+    foreach ( $dir as $fileinfo ) {
+      if ( !$fileinfo->isDot() && !$fileinfo->isDir() ) {
+        $class_name = PLUGIN::NS . 'Test' . '\\' . str_replace( '.php', '', $fileinfo->getFilename() );
+        $test = new $class_name();
+        $test->run();
+      }
     }
   }
-
-
-  private function test_single( string $test_stub ): void {
-    $test_class_name = class_name( $test_stub . '_test', 'Test' );
-    $test = new $test_class_name();
-    $test->run();
-  }
-
 
 }

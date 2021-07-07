@@ -15,7 +15,6 @@ class TestCliCommand extends CliCommand {
     'config',
     'db_tables',
     'db_functions',
-    'dependencies',
   ];
 
   private $tests = [

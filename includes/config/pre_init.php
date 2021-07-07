@@ -5,7 +5,7 @@ namespace MOS\Affiliate;
 define( 'PHP_VERSION_MIN', '7.1.0' );
 
 define( 'FUNCTION_DEPENDENCIES', [
-  // 
+  'get_field',
 ] );
 
 define( 'CLASS_DEPENDENCIES', [

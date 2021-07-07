@@ -4,6 +4,13 @@ namespace MOS\Affiliate;
 
 class Plugin {
 
+  const NS = NS;
+  const PLUGIN_DIR = PLUGIN_DIR;
+  const PLUGIN_NAME = PLUGIN_NAME;
+  const PLUGIN_BASENAME = PLUGIN_BASENAME;
+  const PLUGIN_URL = PLUGIN_URL;
+  const PLUGIN_VERSION = PLUGIN_VERSION;
+
   private $ok_to_init = false;
   private $pre_init_errors = ['Pre init check did not run!'];
 

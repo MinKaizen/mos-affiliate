@@ -20,7 +20,7 @@ class TestCliCommand extends CliCommand {
       WP_CLI::error( "Please specify a test" );
     } elseif ( $test_name == 'all' ) {
       $this->run_all();
-    }elseif ( class_exists( $test_class ) ) {
+    } elseif ( class_exists( $test_class ) ) {
       $this->run_single( $test_class );
     } else {
       WP_CLI::error( "$test_name ($test_class) is not a registered test" );

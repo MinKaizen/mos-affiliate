@@ -339,10 +339,32 @@ class Test {
     $data['query_result'] = $query_result;
     $this->assert( $condition, $assertion, $data );
   }
+  
+  
+  protected function assert_db_row_exists( string $table_name, Object $row_data ): void {
+    $assertion = __FUNCTION__;
+    global $wpdb;
+    $table_name_with_prefix = strpos( $table_name, $wpdb->prefix ) !== false ? $table_name : $wpdb->prefix . $table_name;
+    $conditions = [];
+    
+    foreach ( $row_data as $key => $value ) {
+      $stringified_value = is_string( $value ) ? "'$value'" : "$value";
+      $conditions[] = "$key = $stringified_value";
+    };
 
+    $select_clause = "SELECT " . implode( ", ", array_keys( get_object_vars( $row_data ) ) );
+    $where_clause = "WHERE " . implode(" AND ", $conditions);
+    $query = "$select_clause FROM $table_name_with_prefix $where_clause";
+    $query_result = $wpdb->get_row( $query );
+    $condition = $row_data == $query_result;
 
-  protected function assert_db_row_exists( string $table, Object $row_data, bool $only_one=true ): void {
-    #TODO
+    $data = [
+      'expected' => $row_data,
+      'query' => $query,
+      'query_result' => $query_result,
+    ];
+
+    $this->assert( $condition, $assertion, $data );
   }
 
 

@@ -16,8 +16,8 @@ class Plugin {
 
 
   public function __construct() {
-    require( PLUGIN_DIR . "/includes/helpers/utils.php" );
-    require( PLUGIN_DIR . '/includes/config/pre_init.php' );
+    require( self::PLUGIN_DIR . "/includes/helpers/utils.php" );
+    require( self::PLUGIN_DIR . '/includes/config/pre_init.php' );
     $this->pre_init_check();
   }
 
@@ -76,12 +76,12 @@ class Plugin {
 
 
   private function register_cpts() {
-    include( PLUGIN_DIR . 'includes/CPT.php' );
+    include( self::PLUGIN_DIR . 'includes/CPT.php' );
   }
 
 
   private function register_classes_from_folder( string $relative_namespace, string $function_name='register' ): void {
-    $autoload_root_path = PLUGIN_DIR . 'includes/classes/';
+    $autoload_root_path = self::PLUGIN_DIR . 'includes/classes/';
     $dir = new \DirectoryIterator( $autoload_root_path . $relative_namespace );
     foreach ( $dir as $fileinfo ) {
       if ( !$fileinfo->isDot() && !$fileinfo->isDir() ) {
@@ -94,7 +94,7 @@ class Plugin {
 
 
   private function admin_notice( string $message, string $type='info' ): void {
-    $full_message = "<strong>".PLUGIN_NAME.": </strong>" . $message;
+    $full_message = "<strong>".self::PLUGIN_NAME.": </strong>" . $message;
     $notice_class = "notice notice-$type";
     $html_message = "<div class='$notice_class'><p>$full_message</p></div>";
     \add_action( 'admin_notices', function() use ($html_message) {

@@ -3,11 +3,12 @@
 namespace MOS\Affiliate\Actions;
 
 use \MOS\Affiliate\AbstractAction;
+use \MOS\Affiliate\Plugin;
 use \MOS\Affiliate\Commands\LoadACFGroupCommand;
 
 class ACFInit_RegisterACFGroups extends AbstractAction {
 
-  const ACF_DIR_PATH = \MOS\Affiliate\PLUGIN_DIR . 'includes/json/acf/';
+  const ACF_DIR_PATH = Plugin::PLUGIN_DIR . 'includes/json/acf/';
 
   protected $hook = 'acf/init';
 

@@ -11,7 +11,7 @@ class Level {
   public $granted_by = [];
   public $grants = [];
 
-  const CONFIG = PLUGIN_DIR . '/includes/config/levels.json';
+  const CONFIG = Plugin::PLUGIN_DIR . '/includes/config/levels.json';
 
   public function __construct( string $slug ) {
     if ( !file_exists( self::CONFIG ) ) {

@@ -13,7 +13,7 @@ function get_view( string $view_name, array $args=[] ): string {
 
 
 function render_view( string $view_name, array $args=[] ): void {
-  $view_file_name = PLUGIN_DIR . "/includes/views/$view_name.php";
+  $view_file_name = Plugin::PLUGIN_DIR . "/includes/views/$view_name.php";
   if ( !file_exists( $view_file_name ) ) {
     return;
   }

@@ -6,7 +6,7 @@ use \Error;
 
 class Product {
 
-  const CONFIG = PLUGIN_DIR . '/includes/config/products.json';
+  const CONFIG = Plugin::PLUGIN_DIR . '/includes/config/products.json';
   const ACCESS_LEWAY_PERIOD = 2;
   const FAILED_PAYMENT_RETRY_PERIOD = 14;
   # See this https://support.clickbank.com/hc/en-us/articles/220364187-Selling-Recurring-Products#h_e150423c-bf1b-456b-931d-cd7dd852633f

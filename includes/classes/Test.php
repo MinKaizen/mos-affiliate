@@ -328,6 +328,19 @@ class Test {
   }
 
 
+  protected function assert_db_table_exists( string $table_name ): void {
+    $assertion = __FUNCTION__;
+    global $wpdb;
+    $table_name_with_prefix = strpos( $table_name, $wpdb->prefix ) !== false ? $table_name : $wpdb->prefix . $table_name;
+    $query_result = $wpdb->get_var("SHOW TABLES LIKE '$table_name_with_prefix'");
+    $condition = $query_result == $table_name_with_prefix;
+    $data['table_name'] = $table_name;
+    $data['table_name_with_prefix'] = $table_name_with_prefix;
+    $data['query_result'] = $query_result;
+    $this->assert( $condition, $assertion, $data );
+  }
+
+
   protected function assert_db_row_exists( string $table, Object $row_data, bool $only_one=true ): void {
     #TODO
   }

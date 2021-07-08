@@ -21,14 +21,17 @@ class TestCliCommand extends CliCommand {
     } elseif ( $test_name == 'all' ) {
       $this->run_all();
     }elseif ( class_exists( $test_class ) ) {
-      $test = new $test_class();
-      $test->run();
+      $this->run_single( $test_class );
     } else {
       WP_CLI::error( "$test_name ($test_class) is not a registered test" );
     }
 
-    $success_message = WP_CLI::colorize( "%2%w✔✔✔ All tests passed. You are awesome!%n%N" );
-    WP_CLI::success( $success_message );
+    $this->success_message();
+  }
+
+  private function run_single( string $test_class ): void {
+    $test = new $test_class();
+    $test->run();
   }
 
   private function run_all(): void {
@@ -41,6 +44,11 @@ class TestCliCommand extends CliCommand {
         $test->run();
       }
     }
+  }
+
+  private function success_message(): void {
+    $success_message = WP_CLI::colorize( "%2%w✔✔✔ All tests passed. You are awesome!%n%N" );
+    WP_CLI::success( $success_message );
   }
 
 }

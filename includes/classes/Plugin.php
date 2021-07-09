@@ -54,7 +54,14 @@ class Plugin {
     }
 
     if ( defined( 'WP_CLI' ) && WP_CLI ) {
-      \WP_CLI::add_command( 'mosa', '\MOS\Affiliate\CLI' );
+      $cli_dir = new \DirectoryIterator( self::PLUGIN_DIR . 'includes/classes/CliCommand' );
+      foreach ( $cli_dir as $fileinfo ) {
+        if ( !$fileinfo->isDot() && !$fileinfo->isDir() ) {
+          $class_name = self::NS . 'CliCommand\\' . str_replace( '.php', '', $fileinfo->getFilename() );
+          $command_name = pascal_to_snake_case( str_replace( 'CliCommand.php', '', $fileinfo->getFilename() ) );
+          \WP_CLI::add_command( "mosa $command_name", [$class_name, 'run'] );
+        }
+      }
     }
 
     // Set timezone
